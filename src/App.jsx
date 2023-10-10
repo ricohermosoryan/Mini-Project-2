@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return (
     <>
-      <p>Smaple</p>
+      <p>App</p>
     </>
   )
 }
