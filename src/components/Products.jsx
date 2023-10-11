@@ -25,8 +25,8 @@ export default function Products() {
             {loading 
             ? "Loading..."
             : data.map((item, i) => (
-              <div key={i} className='w-[300px] border m-3'>
-                <img src={item.image} alt="image" />
+              <div key={i} className='w-[300px] aspect-square border m-3'>
+                <img src={item.image[0]} alt="image" className="h-4/5 object-cover mx-auto"/>
                 <p>{item.title}</p>
               </div>
             ))}
