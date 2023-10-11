@@ -12,8 +12,8 @@ export default function Navbar() {
     <>
     <div className='bg-gray-800'>
     <div className="container  mx-auto text-white">
-      <div className="row-1 flex justify-evenly p-2 border-b lg:mx-52">
-          <div>QuantumGalaxy</div>
+      <div className="row-1 flex justify-between items-center p-2 border-b lg:mx-52">
+          <div><img src="./src/assets/logo.svg" className="h-16"></img></div>
           <div>Search</div>
           <div>Cart || Login/Register</div>
       </div>
