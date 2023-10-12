@@ -6,6 +6,7 @@ import Home from '../components/pages/Home'
 import Shop from '../components/pages/Shop'
 import Reviews from '../components/pages/Reviews'
 import Blogs from '../components/pages/Blogs'
+import Product from '../components/pages/Product'
 
 
 export default function AppRouter() {
@@ -17,6 +18,7 @@ export default function AppRouter() {
             <Route path='/' element={<Home/>} />
             <Route path='/shop' element={<Shop/>} />
             <Route path='/products' element={<Products/>} />
+            <Route path='/products/:id' element={<Product/>} />
             <Route path='/reviews' element={<Reviews/>} />
             <Route path='/blogs' element={<Blogs/>} />
           </Route>

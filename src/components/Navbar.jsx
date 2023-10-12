@@ -30,14 +30,14 @@ export default function Navbar() {
           <div><img src="./src/assets/logo.svg" className="h-16"></img></div>
           <div>Search</div>
           <div className='flex'>Cart ||
-          <button onClick={toggleModal} className="block text-white" type="button">
+          <button onClick={toggleModal} className="block text-gray-500 hover:text-white hover:underline" type="button">
             Login/Register
           </button>
           </div>
       </div>
       <div className="row-2 flex justify-center gap-10 p-2">
         {nav.map((item , i) => (
-          <div key={i}>
+          <div key={i} className=' text-gray-500 hover:text-white hover:underline'>
             <Link to={item.href}>{item.name}</Link>
           </div>
         ))}
