@@ -17,17 +17,24 @@ export default function Products() {
     .catch((err) => console.error(err))
     return controller.abort();
   }, []);
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
+
   return (
     <>
       <div className="container mx-auto">
         <div className="border rounded-md mt-5">
-          <div className='flex flex-wrap'>
+          <div className='flex flex-wrap justify-center'>
             {loading 
             ? "Loading..."
             : data.map((item, i) => (
               <div key={i} className='w-[300px] aspect-square border m-3'>
-                <img src={item.image[0]} alt="image" className="h-4/5 object-cover mx-auto"/>
-                <p>{item.title}</p>
+                <img src={item.image[0]} alt="image" className="h-4/5 object-cover mx-auto my-1"/>
+                <p className='truncate mx-3'>{item.title}</p>
+                <p className='mx-3'>{formatter.format(item.price)}</p>
               </div>
             ))}
           </div>
