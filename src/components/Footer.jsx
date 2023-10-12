@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -7,14 +8,13 @@ export default function Footer() {
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="https://flowbite.com/" className="flex items-center">
+              <Link to="*">
                 <img
                   src="./src/assets/logo.svg"
                   className=" h-40 mr-3 "
                   alt="image"
                 />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
-              </a>
+              </Link>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
@@ -74,10 +74,7 @@ export default function Footer() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center  dark:text-gray-400">
               © 2023{" "}
-              <a
-                href="https://flowbite.com/"
-                className="hover:underline hover:text-white"
-              >
+              <a href="/" className="hover:underline hover:text-white">
                 QuantumGALAXY™
               </a>
               . All Rights Reserved.

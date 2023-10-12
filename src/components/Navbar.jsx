@@ -28,7 +28,9 @@ export default function Navbar() {
         <div className="container  mx-auto text-white">
           <div className="row-1 flex justify-between items-center p-2 border-b lg:mx-52">
             <div>
-              <img src="./src/assets/logo.svg" className="h-16"></img>
+              <Link to="*">
+                <img src="./src/assets/logo.svg" className="h-16" />
+              </Link>
             </div>
             <div>Search</div>
             <div className="flex">

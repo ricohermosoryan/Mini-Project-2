@@ -14,7 +14,7 @@ export default function AppRouter() {
       <BrowserRouter>
         <Routes>
           <Route element={<NavbarTemplate />}>
-            <Route path="/" element={<Home />} />
+            <Route path="*" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<Product />} />
