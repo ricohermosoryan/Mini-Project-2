@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/LoginModal.css";
 
 export default function Navbar() {
   const nav = [
@@ -58,7 +57,7 @@ export default function Navbar() {
       </div>
       {/* Login Modal */}
       {modal && (
-        <div className="modal">
+        <div className="modal z-10">
           <div onClick={toggleModal} className="overlay">
             <button
               onClick={toggleModal}
