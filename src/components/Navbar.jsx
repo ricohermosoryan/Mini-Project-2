@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { AnimatePresence, motion } from "framer-motion";
+import DropdownMenu from "./DropdownMenu";
 
 export default function Navbar() {
   const navbarList = [
@@ -30,6 +32,7 @@ export default function Navbar() {
     { name: "Profile", icon: "./src/assets/profile.svg" },
   ];
 
+  //Login Modal
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -42,6 +45,32 @@ export default function Navbar() {
     document.body.classList.remove("active-modal");
   }
 
+  //Framer Motion Dropdown
+  const [isOpen, setIsOpen] = useState({
+    Discover: false,
+    Support: false,
+  });
+
+  const toggleDropdown = (itemName) => {
+    const updatedOpenState = { ...isOpen };
+
+    updatedOpenState[itemName] = !isOpen[itemName];
+
+    Object.keys(updatedOpenState).forEach((key) => {
+      if (key !== itemName) {
+        updatedOpenState[key] = false;
+      }
+    });
+
+    setIsOpen(updatedOpenState);
+  };
+
+  const closeDropdown = () => {
+    setIsOpen({
+      Discover: false,
+      Support: false,
+    });
+  };
   return (
     <>
       {/* TOP HEADER */}
@@ -92,7 +121,35 @@ export default function Navbar() {
           <div className="flex gap-12">
             {navbarList.map((item, i) => (
               <div key={i} className="heading text-xl font-medium">
-                <Link to={item.href}>{item.name}</Link>
+                {/* Code for the dropdown menu of Discover and support link */}
+                {item.name === "Discover" || item.name === "Support" ? (
+                  <div>
+                    <button
+                      className="hover:underline hover:text-sky-400"
+                      onClick={() => toggleDropdown(item.name)}
+                    >
+                      {item.name}
+                    </button>
+                    {item.name === "Support" && (
+                      <DropdownMenu
+                        isOpen={isOpen["Support"]}
+                        toggleDropdown={() => toggleDropdown("Support")}
+                        dropdownType="support"
+                      />
+                    )}
+                    {item.name === "Discover" && (
+                      <DropdownMenu
+                        isOpen={isOpen["Discover"]}
+                        toggleDropdown={() => toggleDropdown("Discover")}
+                        dropdownType="discover"
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <Link to={item.href} onClick={closeDropdown}>
+                    {item.name}
+                  </Link>
+                )}
               </div>
             ))}
           </div>
