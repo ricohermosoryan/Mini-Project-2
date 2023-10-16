@@ -84,18 +84,18 @@ export default function Navbar() {
   };
 
   //Navbar Animation
-  const [hidden, setHidden] = useState(false);
+  // const [hidden, setHidden] = useState(false);
 
-  const { scrollY } = useScroll();
+  // const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious();
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   const previous = scrollY.getPrevious();
+  //   if (latest > previous && latest > 150) {
+  //     setHidden(true);
+  //   } else {
+  //     setHidden(false);
+  //   }
+  // });
 
   return (
     <>
@@ -136,13 +136,13 @@ export default function Navbar() {
 
       {/* Navbar animation using framer motion useScroll */}
       <motion.div
-        variants={{
-          visible: { y: 0 },
-          hidden: { y: "-100%" },
-        }}
-        animate={hidden ? "hidden" : "visible"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="bg-slate-50/90 drop-shadow z-10 sticky top-0"
+        // variants={{
+        //   visible: { y: 0 },
+        //   hidden: { y: 0 },
+        // }}
+        // animate={hidden ? "hidden" : "visible"}
+        // transition={{ duration: 0.35, ease: "easeIn" }}
+        className="bg-white drop-shadow z-10 sticky top-0"
       >
         {/* NAVBAR */}
         <div>
