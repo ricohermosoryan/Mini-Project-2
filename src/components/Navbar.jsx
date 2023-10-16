@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const nav = [
+  const navbarList = [
     { name: "Home", href: "/home" },
     { name: "Products", href: "/products" },
     { name: "Discover", href: "/discover" },
@@ -17,8 +17,10 @@ export default function Navbar() {
     { name: "YouTube", icon: "./src/assets/youtube.svg", href: "" },
   ];
 
+  const socialLinksExceptNewsletter = socialLinks.slice(1);
+
   const companyLogo = [
-    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "" }
+    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "/home" }
   ];
 
   const navbarIcons = [
@@ -53,11 +55,14 @@ export default function Navbar() {
                 <div>Newsletter</div>
               </a>
             </div>
-            <div className="flex gap-2">
-              <img src={socialLinks[1].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[1].name}></img>
-              <img src={socialLinks[2].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[2].name}></img>
-              <img src={socialLinks[3].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[3].name}></img>
-              <img src={socialLinks[4].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[4].name}></img>
+            <div className="flex gap-2 items-center">
+              {socialLinksExceptNewsletter.map((item, i) => (
+                <div key={i}>
+                  <a href={item.href}>
+                    <img src={item.icon} className="w-4 aspect-square cursor-pointer" alt={item.name} />
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -70,8 +75,8 @@ export default function Navbar() {
             <img src={companyLogo[0].image} className="w-60 h-auto aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
           </a>
           <div className="flex gap-12">
-            {nav.map((item, i) => (
-                <div key={i} className="heading text-2xl font-medium">
+            {navbarList.map((item, i) => (
+                <div key={i} className="heading text-xl font-medium">
                   <Link to={item.href}>{item.name}</Link>
                 </div>
             ))}
