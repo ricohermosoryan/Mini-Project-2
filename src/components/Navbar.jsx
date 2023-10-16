@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const nav = [
-    { name: "Shop", href: "/shop" },
-    { name: "Product", href: "/products" },
-    { name: "Reviews", href: "/reviews" },
-    { name: "Blogs", href: "/blogs" },
+    { name: "Home", href: "/home" },
+    { name: "Products", href: "/products" },
+    { name: "Discover", href: "/discover" },
+    { name: "Support", href: "/support" },
   ];
 
   const socialLinks = [
@@ -17,7 +17,15 @@ export default function Navbar() {
     { name: "YouTube", icon: "./src/assets/youtube.svg", href: "" },
   ];
 
-  console.log(socialLinks[0].icon);
+  const companyLogo = [
+    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "" }
+  ];
+
+  const navbarIcons = [
+    { name: "Search", icon: "./src/assets/search.svg" },
+    { name: "Basket", icon: "./src/assets/basket.svg" },
+    { name: "Profile", icon: "./src/assets/profile.svg" },
+  ];
 
   const [modal, setModal] = useState(false);
 
@@ -36,54 +44,48 @@ export default function Navbar() {
       
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
-        <div className="container mx-auto py-1 flex justify-between items-center text-white text-sm font-bold">
-          <div>SHIPS ANYWHERE IN THE PHILIPPINES</div>
+        <div className="container mx-auto py-1 flex gap-4 justify-between items-center text-white text-sm font-bold">
+          <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
           <div className="flex gap-4">
             <div className="px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
-              <a href={socialLinks[0].href} className="flex gap-2">
-                <img src={socialLinks[0].icon} className="w-4 aspect-square"></img>
+              <a href={socialLinks[0].href} className="flex gap-2 cursor-pointer">
+                <img src={socialLinks[0].icon} className="w-4 aspect-square" alt={socialLinks[0].name}></img>
                 <div>Newsletter</div>
               </a>
             </div>
             <div className="flex gap-2">
-              <img src={socialLinks[1].icon} className="w-4 aspect-square"></img>
-              <img src={socialLinks[2].icon} className="w-4 aspect-square"></img>
-              <img src={socialLinks[3].icon} className="w-4 aspect-square"></img>
-              <img src={socialLinks[4].icon} className="w-4 aspect-square"></img>
+              <img src={socialLinks[1].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[1].name}></img>
+              <img src={socialLinks[2].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[2].name}></img>
+              <img src={socialLinks[3].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[3].name}></img>
+              <img src={socialLinks[4].icon} className="w-4 aspect-square cursor-pointer" alt={socialLinks[4].name}></img>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-gray-800">
-        <div className="container mx-auto text-white">
-          <div className="row-1 flex justify-between items-center p-2 border-b lg:mx-52">
-            <div>
-              <Link to="*">
-                <img src="./src/assets/logo.svg" className="h-16" />
-              </Link>
-            </div>
-            <div>Search</div>
-            <div className="flex">
-              Cart ||
-              <button
-                onClick={toggleModal}
-                className="block text-gray-500 hover:text-white hover:underline"
-                type="button"
-              >
-                Login/Register
-              </button>
-            </div>
-          </div>
-          <div className="row-2 flex justify-center gap-10 p-2">
+      {/* NAVBAR */}
+      <div className="bg-white drop-shadow">
+        <div className="container mx-auto py-5 flex justify-between items-center">
+          <a href={companyLogo[0].href}>
+            <img src={companyLogo[0].image} className="w-60 h-auto aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
+          </a>
+          <div className="flex gap-12">
             {nav.map((item, i) => (
-              <div
-                key={i}
-                className=" text-gray-500 hover:text-white hover:underline"
-              >
-                <Link to={item.href}>{item.name}</Link>
-              </div>
+                <div key={i} className="heading text-2xl font-medium">
+                  <Link to={item.href}>{item.name}</Link>
+                </div>
             ))}
+          </div>
+          <div className="flex gap-2">
+            <div>
+              <img src={navbarIcons[0].icon} className="w-10 aspect-square cursor-pointer" alt={navbarIcons[0].name}></img>
+            </div>
+            <div>
+              <img src={navbarIcons[1].icon} className="w-10 aspect-square cursor-pointer" alt={navbarIcons[1].name}></img>
+            </div>
+            <div>
+              <img src={navbarIcons[2].icon} className="w-10 aspect-square cursor-pointer" alt={navbarIcons[2].name} onClick={toggleModal}></img>
+            </div>
           </div>
         </div>
       </div>
@@ -91,7 +93,7 @@ export default function Navbar() {
 
       {/* Login Modal */}
       {modal && (
-        <div className="modal z-10">
+        <div className="modal z-50">
           <div onClick={toggleModal} className="overlay">
             <button
               onClick={toggleModal}
