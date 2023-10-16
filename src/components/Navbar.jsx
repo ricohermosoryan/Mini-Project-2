@@ -85,7 +85,7 @@ export default function Navbar() {
           </a>
           <div className="flex gap-12">
             {navbarList.map((item, i) => (
-                <div key={i} className="heading text-xl font-medium">
+                <div key={i} className="heading text-xl font-medium py-1 border-b border-transparent hover:text-quantum hover:border-b hover:border-quantum">
                   <Link to={item.href}>{item.name}</Link>
                 </div>
             ))}
