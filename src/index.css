@@ -6,6 +6,11 @@
 
 
 @layer base {
+    * {
+        box-sizing: border-box;
+        /* border: 1px solid red; */
+    }
+
     html {
         font-family: "Nunito Sans", sans-serif, system-ui;
     }
@@ -13,6 +18,10 @@
     h1, h2, h3, h4, h5, h6 {
         font-family: "Poppins", sans-serif, system-ui;
         font-weight: 700;
+    }
+
+    .bg-dark-blue {
+        background-color: #111827;
     }
 
     body.active-modal {

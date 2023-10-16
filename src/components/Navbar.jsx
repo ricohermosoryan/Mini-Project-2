@@ -9,6 +9,16 @@ export default function Navbar() {
     { name: "Blogs", href: "/blogs" },
   ];
 
+  const socialLinks = [
+    { name: "Newsletter", icon: "./src/assets/square-email.svg", href: "" },
+    { name: "Facebook", icon: "./src/assets/square-facebook.svg", href: "" },
+    { name: "Twitter", icon: "./src/assets/square-x-twitter.svg", href: "" },
+    { name: "Instagram", icon: "./src/assets/square-instagram.svg", href: "" },
+    { name: "YouTube", icon: "./src/assets/square-youtube.svg", href: "" },
+  ];
+
+  console.log(socialLinks[0].icon);
+
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -23,8 +33,30 @@ export default function Navbar() {
 
   return (
     <>
+      
+      {/* TOP HEADER */}
+      <div className="bg-dark-blue">
+        <div className="container mx-auto flex justify-between items-center text-white text-sm font-bold">
+          <div>SHIPS ANYWHERE IN THE PHILIPPINES</div>
+          <div className="flex gap-4">
+            <div className="px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
+              <a href={socialLinks[0].href} className="flex gap-2">
+                <img src={socialLinks[0].icon} className="w-3.5 aspect-square"></img>
+                <div>Newsletter</div>
+              </a>
+            </div>
+            <div className="flex gap-2">
+              <img src={socialLinks[1].icon} className="w-3.5 aspect-square"></img>
+              <img src={socialLinks[2].icon} className="w-3.5 aspect-square"></img>
+              <img src={socialLinks[3].icon} className="w-3.5 aspect-square"></img>
+              <img src={socialLinks[4].icon} className="w-3.5 aspect-square"></img>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="bg-gray-800">
-        <div className="container  mx-auto text-white">
+        <div className="container mx-auto text-white">
           <div className="row-1 flex justify-between items-center p-2 border-b lg:mx-52">
             <div>
               <Link to="*">
@@ -55,6 +87,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+
       {/* Login Modal */}
       {modal && (
         <div className="modal z-10">
