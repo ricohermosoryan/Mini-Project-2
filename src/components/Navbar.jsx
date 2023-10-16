@@ -64,7 +64,7 @@ export default function Navbar() {
       </div>
 
       {/* NAVBAR */}
-      <div className="bg-white drop-shadow">
+      <div className="bg-white drop-shadow z-10 sticky top-0">
         <div className="container mx-auto py-5 flex justify-between items-center">
           <a href={companyLogo[0].href}>
             <img src={companyLogo[0].image} className="w-60 h-auto aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
