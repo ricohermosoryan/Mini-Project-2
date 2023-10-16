@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
 
 export default function Footer() {
   return (
@@ -9,11 +10,7 @@ export default function Footer() {
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <Link to="*">
-                <img
-                  src="./src/assets/logo.svg"
-                  className=" h-40 mr-3 "
-                  alt="image"
-                />
+                <img src={logo} className=" h-40 mr-3 " alt="image" />
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
