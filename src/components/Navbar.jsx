@@ -10,11 +10,11 @@ export default function Navbar() {
   ];
 
   const socialLinks = [
-    { name: "Newsletter", icon: "./src/assets/square-email.svg", href: "" },
-    { name: "Facebook", icon: "./src/assets/square-facebook.svg", href: "" },
-    { name: "Twitter", icon: "./src/assets/square-x-twitter.svg", href: "" },
-    { name: "Instagram", icon: "./src/assets/square-instagram.svg", href: "" },
-    { name: "YouTube", icon: "./src/assets/square-youtube.svg", href: "" },
+    { name: "Newsletter", icon: "./src/assets/newsletter.svg", href: "" },
+    { name: "Facebook", icon: "./src/assets/facebook.svg", href: "" },
+    { name: "Twitter", icon: "./src/assets/twitter.svg", href: "" },
+    { name: "Instagram", icon: "./src/assets/instagram.svg", href: "" },
+    { name: "YouTube", icon: "./src/assets/youtube.svg", href: "" },
   ];
 
   console.log(socialLinks[0].icon);
@@ -36,20 +36,20 @@ export default function Navbar() {
       
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
-        <div className="container mx-auto flex justify-between items-center text-white text-sm font-bold">
+        <div className="container mx-auto py-1 flex justify-between items-center text-white text-sm font-bold">
           <div>SHIPS ANYWHERE IN THE PHILIPPINES</div>
           <div className="flex gap-4">
             <div className="px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
               <a href={socialLinks[0].href} className="flex gap-2">
-                <img src={socialLinks[0].icon} className="w-3.5 aspect-square"></img>
+                <img src={socialLinks[0].icon} className="w-4 aspect-square"></img>
                 <div>Newsletter</div>
               </a>
             </div>
             <div className="flex gap-2">
-              <img src={socialLinks[1].icon} className="w-3.5 aspect-square"></img>
-              <img src={socialLinks[2].icon} className="w-3.5 aspect-square"></img>
-              <img src={socialLinks[3].icon} className="w-3.5 aspect-square"></img>
-              <img src={socialLinks[4].icon} className="w-3.5 aspect-square"></img>
+              <img src={socialLinks[1].icon} className="w-4 aspect-square"></img>
+              <img src={socialLinks[2].icon} className="w-4 aspect-square"></img>
+              <img src={socialLinks[3].icon} className="w-4 aspect-square"></img>
+              <img src={socialLinks[4].icon} className="w-4 aspect-square"></img>
             </div>
           </div>
         </div>
