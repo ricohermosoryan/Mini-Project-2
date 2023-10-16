@@ -22,6 +22,18 @@
         color: #191919;
     }
 
+    .text-quantum {
+        color: #00b0ea;
+    }
+
+    .border-quantum {
+        border-color: #00b0ea;
+    }
+
+    .text-dark-quantum {
+        color: #005960;
+    }
+
     .bg-dark-blue {
         background-color: #111827;
     }

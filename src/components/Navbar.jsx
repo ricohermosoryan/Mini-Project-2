@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import quantumLogoImage from "../assets/logo.svg";
+import newletterImage from "../assets/newsletter.svg";
+import facebookImage from "../assets/facebook.svg";
+import twitterImage from "../assets/twitter.svg";
+import instagramImage from "../assets/instagram.svg";
+import youtubeImage from "../assets/youtube.svg";
+import searchImage from "../assets/search.svg";
+import basketImage from "../assets/basket.svg";
+import profileImage from "../assets/profile.svg";
 
 export default function Navbar() {
   const navbarList = [
@@ -11,23 +19,23 @@ export default function Navbar() {
   ];
 
   const socialLinks = [
-    { name: "Newsletter", icon: "./src/assets/newsletter.svg", href: "" },
-    { name: "Facebook", icon: "./src/assets/facebook.svg", href: "" },
-    { name: "Twitter", icon: "./src/assets/twitter.svg", href: "" },
-    { name: "Instagram", icon: "./src/assets/instagram.svg", href: "" },
-    { name: "YouTube", icon: "./src/assets/youtube.svg", href: "" },
+    { name: "Newsletter", icon: newletterImage, href: "" },
+    { name: "Facebook", icon: facebookImage, href: "" },
+    { name: "Twitter", icon: twitterImage, href: "" },
+    { name: "Instagram", icon: instagramImage, href: "" },
+    { name: "YouTube", icon: youtubeImage, href: "" },
   ];
 
   const socialLinksExceptNewsletter = socialLinks.slice(1);
 
   const companyLogo = [
-    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "/home" },
+    { name: "QuantumGalaxy", image: quantumLogoImage, href: "/home" }
   ];
 
   const navbarIcons = [
-    { name: "Search", icon: "./src/assets/search.svg" },
-    { name: "Basket", icon: "./src/assets/basket.svg" },
-    { name: "Profile", icon: "./src/assets/profile.svg" },
+    { name: "Search", icon: searchImage },
+    { name: "Basket", icon: basketImage },
+    { name: "Profile", icon: profileImage },
   ];
 
   const [modal, setModal] = useState(false);
@@ -46,13 +54,13 @@ export default function Navbar() {
     <>
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
-        <div className="container mx-auto py-1 flex gap-4 justify-between items-center text-white text-sm font-bold">
+        <div className="container mx-auto py-1 flex gap-x-4 justify-between items-center text-white text-sm font-bold">
           <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
-          <div className="flex gap-4">
-            <div className="px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
+          <div className="flex gap-x-4">
+            <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
               <a
                 href={socialLinks[0].href}
-                className="flex gap-2 cursor-pointer"
+                className="flex gap-x-2 cursor-pointer"
               >
                 <img
                   src={socialLinks[0].icon}
@@ -62,7 +70,7 @@ export default function Navbar() {
                 <div>Newsletter</div>
               </a>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-x-2 items-center">
               {socialLinksExceptNewsletter.map((item, i) => (
                 <div key={i}>
                   <a href={item.href}>
@@ -83,17 +91,13 @@ export default function Navbar() {
       <div className="bg-white drop-shadow z-10 sticky top-0">
         <div className="container mx-auto py-5 flex justify-between items-center">
           <a href={companyLogo[0].href}>
-            <img
-              src={logo}
-              className="w-60 h-auto aspect-auto cursor-pointer"
-              alt={companyLogo[0].name}
-            ></img>
+            <img src={companyLogo[0].image} className="w-60 h-20 aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
           </a>
           <div className="flex gap-12">
             {navbarList.map((item, i) => (
-              <div key={i} className="heading text-xl font-medium">
-                <Link to={item.href}>{item.name}</Link>
-              </div>
+                <div key={i} className="heading text-xl font-medium py-1 border-b border-transparent hover:text-quantum hover:border-b hover:border-quantum">
+                  <Link to={item.href}>{item.name}</Link>
+                </div>
             ))}
           </div>
           <div className="flex gap-2">

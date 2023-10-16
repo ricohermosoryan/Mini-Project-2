@@ -1,16 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import quantumLogoImage from "../assets/logo.svg";
+import earthImage from "../assets/earth.svg";
+import inputImage from "../assets/input.svg";
+import arrowRightImage from "../assets/arrow-right.svg";
 
 export default function Footer() {
   return (
     <>
-      <footer className="bg-gray-900 ">
+      {/* <footer className="bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <Link to="*">
-                <img src={logo} className=" h-40 mr-3 " alt="image" />
+                <img src={quantumLogoImage} className=" h-40 mr-3 " alt="image" />
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
@@ -171,7 +174,38 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
+
+      {/* MAIN FOOTER */}
+      <div className="bg-dark-blue">
+        <div className="container grid grid-cols-2 gap-x-60 mx-auto py-16 text-white">
+          <div>
+            <img src={quantumLogoImage} className="w-max h-max aspect-auto" />
+            <div className="heading text-lg font-medium text-white py-2">Your one-stop shop for the latest and greatest tech gadgets.</div>
+            <div className="heading text-base text-white py-2">Discover the latest tech trends and products where innovation meets possibility! Join our newsletter for updates, exclusive offers, and more!</div>
+            <div className="flex max-w-lg my-4 border rounded-lg px-3 py-1">
+              <img src={inputImage} className="w-8 aspect-square"/>
+              <input type="text" className="grow bg-transparent text-white text-base py-0 my-0 border-none focus:ring-0 focus:border-none" placeholder="Email address" />
+              <img src={arrowRightImage} className="w-4 aspect-square" />
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      {/* SUBFOOTER */}
+      <div className="bg-black">
+        <div className="container mx-auto py-3 flex justify-between items-center text-sm text-white">
+          <div>&copy; &nbsp;2023&nbsp; QuantumGalaxy&trade;.&nbsp; All Rights Reserved.</div>
+          <div className="flex items-center">
+            <div className="flex items-center gap-2">
+              <div>Philippines / English</div>
+              <img src={earthImage} className="w-4 aspect-square" />
+            </div>
+          </div>
+        </div>
+      </div>
+
     </>
   );
 }
