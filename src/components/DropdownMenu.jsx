@@ -7,7 +7,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="absolute mt-2 w-48 bg-white border rounded shadow-md"
+          className="absolute mt-2 w-48 bg-white border rounded shadow-md "
           initial={{ opacity: 0, y: "-50%" }}
           animate={{ opacity: 1, y: "0" }}
           exit={{ opacity: 0, y: "-50%" }}
@@ -22,7 +22,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               <li className="p-2">
                 <Link
                   to="/about"
-                  className="hover:text-quantum hover:underline"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   About
                 </Link>
@@ -30,7 +30,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               <li className="p-2 ">
                 <Link
                   to="/item2"
-                  className="hover:text-quantum hover:underline"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   Blogs
                 </Link>
@@ -38,7 +38,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               <li className="p-2 ">
                 <Link
                   to="/item4"
-                  className="hover:text-quantum hover:underline"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   News
                 </Link>
@@ -46,7 +46,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               <li className="p-2 ">
                 <Link
                   to="/item5"
-                  className="hover:text-quantum hover:underline"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   Reviews
                 </Link>
@@ -59,7 +59,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               <li className="p-2">
                 <Link
                   to="/item3"
-                  className="hover:text-quantum hover:underline"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   Contact Us
                 </Link>
@@ -67,7 +67,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               <li className="p-2">
                 <Link
                   to="/item6"
-                  className="hover:text-quantum hover:underline"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   FAQs
                 </Link>

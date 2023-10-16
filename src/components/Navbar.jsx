@@ -9,7 +9,6 @@ import youtubeImage from "../assets/youtube.svg";
 import searchImage from "../assets/search.svg";
 import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
-import { AnimatePresence, motion } from "framer-motion";
 import DropdownMenu from "./DropdownMenu";
 
 export const socialLinks = [
