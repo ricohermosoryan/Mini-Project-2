@@ -24,8 +24,10 @@ export default function Footer() {
   return (
     <>
 
-      {/* MAIN FOOTER */}
-      <div className="bg-dark-blue mt-12">
+      {/* FOOTER */}
+      <footer className="bg-dark-blue mt-12">
+
+        {/* MAIN FOOTER */}
         <div className="container grid grid-cols-2 gap-x-60 mx-auto text-white py-16">
           
           {/* MAIN FOOTER - LEFT */}
@@ -45,30 +47,30 @@ export default function Footer() {
             <div className="grid grid-cols-2">
               <div className="mb-8">
                 <div className="heading text-base text-white font-medium mb-4">ABOUT US</div>
-                <div>
+                <nav>
                   {footerAboutUsList.map((item, i) => (
                     <div key={i} className="text-base text-white font-medium py-1 border-b border-transparent hover:text-quantum">
                       <Link to={item.href}>{item.name}</Link>
                     </div>
                   ))}
-                </div>
+                </nav>
               </div>
               <div className="mb-8">
                 <div className="heading text-base text-white font-medium mb-4">RESOURCES</div>
-                <div>
+                <nav>
                   {footerResourcesList.map((item, i) => (
                     <div key={i} className="text-base text-white font-medium py-1 border-b border-transparent hover:text-quantum">
                       <Link to={item.href}>{item.name}</Link>
                     </div>
                   ))}
-                </div>
+                </nav>
               </div>
             </div>
             <div className="mb-8">
               <div className="heading text-base text-white font-medium mb-4">LET'S CONNECT</div>
               <div className="flex gap-x-6">
                 {socialLinksExceptNewsletter.map((item, i) => (
-                  <div key={i}>
+                  <nav key={i}>
                     <a href={item.href} target="_blank">
                       <img
                         src={item.icon}
@@ -76,27 +78,28 @@ export default function Footer() {
                         alt={item.name}
                       />
                     </a>
-                  </div>
+                  </nav>
                 ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* SUBFOOTER */}
-      <div className="bg-black">
-        <div className="container mx-auto py-3 flex justify-between items-center text-sm text-white">
-          <div>&copy; &nbsp;2023&nbsp; QuantumGalaxy&trade;.&nbsp; All Rights Reserved.</div>
-          <div className="flex items-center">
-            <div className="flex items-center gap-2">
-              <div>Philippines / English</div>
-              <img src={earthImage} className="w-4 aspect-square" />
+        
+        {/* SUBFOOTER */}
+        <div className="bg-black">
+          <div className="container mx-auto py-3 flex justify-between items-center text-sm text-white">
+            <div>&copy; &nbsp;2023&nbsp; QuantumGalaxy&trade;.&nbsp; All Rights Reserved.</div>
+            <div className="flex items-center">
+              <div className="flex items-center gap-2">
+                <div>Philippines / English</div>
+                <img src={earthImage} className="w-4 aspect-square" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
+      </footer>
+      
     </>
   );
 }
