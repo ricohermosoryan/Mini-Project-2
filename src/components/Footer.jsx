@@ -6,7 +6,7 @@ import earthImage from "../assets/earth.svg";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-gray-900">
+      {/* <footer className="bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
@@ -172,10 +172,19 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
 
+      {/* MAIN FOOTER */}
       <div className="bg-dark-blue">
-        <div className="container mx-auto text-white"></div>
+        <div className="container grid grid-cols-2 gap-x-60 mx-auto py-16 text-white">
+          <div>
+            <img src={quantumLogoImage} className="w-max h-max aspect-auto" />
+            <div className="heading text-lg font-medium text-white py-2">Your one-stop shop for the latest and greatest tech gadgets.</div>
+            <div className="heading text-base text-white py-2">Discover the latest tech trends and products where innovation meets possibility! Join our newsletter for updates, exclusive offers, and more!</div>
+
+          </div>
+          <div></div>
+        </div>
       </div>
 
       {/* SUBFOOTER */}

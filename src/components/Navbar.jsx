@@ -54,13 +54,13 @@ export default function Navbar() {
     <>
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
-        <div className="container mx-auto py-1 flex gap-4 justify-between items-center text-white text-sm font-bold">
+        <div className="container mx-auto py-1 flex gap-x-4 justify-between items-center text-white text-sm font-bold">
           <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
-          <div className="flex gap-4">
-            <div className="px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
+          <div className="flex gap-x-4">
+            <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
               <a
                 href={socialLinks[0].href}
-                className="flex gap-2 cursor-pointer"
+                className="flex gap-x-2 cursor-pointer"
               >
                 <img
                   src={socialLinks[0].icon}
@@ -70,7 +70,7 @@ export default function Navbar() {
                 <div>Newsletter</div>
               </a>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-x-2 items-center">
               {socialLinksExceptNewsletter.map((item, i) => (
                 <div key={i}>
                   <a href={item.href}>
