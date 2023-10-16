@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
 
 export default function Navbar() {
   const navbarList = [
@@ -20,7 +21,7 @@ export default function Navbar() {
   const socialLinksExceptNewsletter = socialLinks.slice(1);
 
   const companyLogo = [
-    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "/home" }
+    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "/home" },
   ];
 
   const navbarIcons = [
@@ -43,15 +44,21 @@ export default function Navbar() {
 
   return (
     <>
-      
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
         <div className="container mx-auto py-1 flex gap-4 justify-between items-center text-white text-sm font-bold">
           <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
           <div className="flex gap-4">
             <div className="px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
-              <a href={socialLinks[0].href} className="flex gap-2 cursor-pointer">
-                <img src={socialLinks[0].icon} className="w-4 aspect-square" alt={socialLinks[0].name}></img>
+              <a
+                href={socialLinks[0].href}
+                className="flex gap-2 cursor-pointer"
+              >
+                <img
+                  src={socialLinks[0].icon}
+                  className="w-4 aspect-square"
+                  alt={socialLinks[0].name}
+                ></img>
                 <div>Newsletter</div>
               </a>
             </div>
@@ -59,7 +66,11 @@ export default function Navbar() {
               {socialLinksExceptNewsletter.map((item, i) => (
                 <div key={i}>
                   <a href={item.href}>
-                    <img src={item.icon} className="w-4 aspect-square cursor-pointer" alt={item.name} />
+                    <img
+                      src={item.icon}
+                      className="w-4 aspect-square cursor-pointer"
+                      alt={item.name}
+                    />
                   </a>
                 </div>
               ))}
@@ -72,29 +83,45 @@ export default function Navbar() {
       <div className="bg-white drop-shadow z-10 sticky top-0">
         <div className="container mx-auto py-5 flex justify-between items-center">
           <a href={companyLogo[0].href}>
-            <img src={companyLogo[0].image} className="w-60 h-auto aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
+            <img
+              src={logo}
+              className="w-60 h-auto aspect-auto cursor-pointer"
+              alt={companyLogo[0].name}
+            ></img>
           </a>
           <div className="flex gap-12">
             {navbarList.map((item, i) => (
-                <div key={i} className="heading text-xl font-medium">
-                  <Link to={item.href}>{item.name}</Link>
-                </div>
+              <div key={i} className="heading text-xl font-medium">
+                <Link to={item.href}>{item.name}</Link>
+              </div>
             ))}
           </div>
           <div className="flex gap-2">
             <div>
-              <img src={navbarIcons[0].icon} className="w-10 aspect-square cursor-pointer" alt={navbarIcons[0].name}></img>
+              <img
+                src={navbarIcons[0].icon}
+                className="w-10 aspect-square cursor-pointer"
+                alt={navbarIcons[0].name}
+              ></img>
             </div>
             <div>
-              <img src={navbarIcons[1].icon} className="w-10 aspect-square cursor-pointer" alt={navbarIcons[1].name}></img>
+              <img
+                src={navbarIcons[1].icon}
+                className="w-10 aspect-square cursor-pointer"
+                alt={navbarIcons[1].name}
+              ></img>
             </div>
             <div>
-              <img src={navbarIcons[2].icon} className="w-10 aspect-square cursor-pointer" alt={navbarIcons[2].name} onClick={toggleModal}></img>
+              <img
+                src={navbarIcons[2].icon}
+                className="w-10 aspect-square cursor-pointer"
+                alt={navbarIcons[2].name}
+                onClick={toggleModal}
+              ></img>
             </div>
           </div>
         </div>
       </div>
-
 
       {/* Login Modal */}
       {modal && (
