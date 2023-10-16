@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import quantumLogoImage from "../assets/logo.svg";
 import earthImage from "../assets/earth.svg";
+import inputImage from "../assets/input.svg";
+import arrowRightImage from "../assets/arrow-right.svg";
 
 export default function Footer() {
   return (
@@ -181,7 +183,11 @@ export default function Footer() {
             <img src={quantumLogoImage} className="w-max h-max aspect-auto" />
             <div className="heading text-lg font-medium text-white py-2">Your one-stop shop for the latest and greatest tech gadgets.</div>
             <div className="heading text-base text-white py-2">Discover the latest tech trends and products where innovation meets possibility! Join our newsletter for updates, exclusive offers, and more!</div>
-
+            <div className="flex max-w-lg my-4 border rounded-lg px-3 py-1">
+              <img src={inputImage} className="w-8 aspect-square"/>
+              <input type="text" className="grow bg-transparent text-white text-base py-0 my-0 border-none focus:ring-0 focus:border-none" placeholder="Email address" />
+              <img src={arrowRightImage} className="w-4 aspect-square" />
+            </div>
           </div>
           <div></div>
         </div>
