@@ -26,8 +26,8 @@ export default function Navbar() {
   const navbarList = [
     { name: "Home", href: "/home" },
     { name: "Products", href: "/" },
-    { name: "Discover", href: "/discover" },
-    { name: "Support", href: "/support" },
+    { name: "Discover", href: "/" },
+    { name: "Support", href: "/" },
   ];
 
   const companyLogo = [
@@ -142,7 +142,7 @@ export default function Navbar() {
         // }}
         // animate={hidden ? "hidden" : "visible"}
         // transition={{ duration: 0.35, ease: "easeIn" }}
-        className="bg-white drop-shadow z-10 sticky top-0"
+        className="bg-white opacity-95 drop-shadow z-10 sticky top-0"
       >
         {/* NAVBAR */}
         <div>
