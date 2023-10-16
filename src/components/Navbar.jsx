@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import quantumLogoImage from "../assets/logo.svg";
+import newletterImage from "../assets/newsletter.svg";
+import facebookImage from "../assets/facebook.svg";
+import twitterImage from "../assets/twitter.svg";
+import instagramImage from "../assets/instagram.svg";
+import youtubeImage from "../assets/youtube.svg";
+import searchImage from "../assets/search.svg";
+import basketImage from "../assets/basket.svg";
+import profileImage from "../assets/profile.svg";
 
 export default function Navbar() {
   const navbarList = [
@@ -10,23 +19,23 @@ export default function Navbar() {
   ];
 
   const socialLinks = [
-    { name: "Newsletter", icon: "./src/assets/newsletter.svg", href: "" },
-    { name: "Facebook", icon: "./src/assets/facebook.svg", href: "" },
-    { name: "Twitter", icon: "./src/assets/twitter.svg", href: "" },
-    { name: "Instagram", icon: "./src/assets/instagram.svg", href: "" },
-    { name: "YouTube", icon: "./src/assets/youtube.svg", href: "" },
+    { name: "Newsletter", icon: newletterImage, href: "" },
+    { name: "Facebook", icon: facebookImage, href: "" },
+    { name: "Twitter", icon: twitterImage, href: "" },
+    { name: "Instagram", icon: instagramImage, href: "" },
+    { name: "YouTube", icon: youtubeImage, href: "" },
   ];
 
   const socialLinksExceptNewsletter = socialLinks.slice(1);
 
   const companyLogo = [
-    { name: "QuantumGalaxy", image: "./src/assets/logo.svg", href: "/home" }
+    { name: "QuantumGalaxy", image: quantumLogoImage, href: "/home" }
   ];
 
   const navbarIcons = [
-    { name: "Search", icon: "./src/assets/search.svg" },
-    { name: "Basket", icon: "./src/assets/basket.svg" },
-    { name: "Profile", icon: "./src/assets/profile.svg" },
+    { name: "Search", icon: searchImage },
+    { name: "Basket", icon: basketImage },
+    { name: "Profile", icon: profileImage },
   ];
 
   const [modal, setModal] = useState(false);
@@ -72,7 +81,7 @@ export default function Navbar() {
       <div className="bg-white drop-shadow z-10 sticky top-0">
         <div className="container mx-auto py-5 flex justify-between items-center">
           <a href={companyLogo[0].href}>
-            <img src={companyLogo[0].image} className="w-60 h-auto aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
+            <img src={companyLogo[0].image} className="w-60 h-20 aspect-auto cursor-pointer" alt={companyLogo[0].name}></img>
           </a>
           <div className="flex gap-12">
             {navbarList.map((item, i) => (
