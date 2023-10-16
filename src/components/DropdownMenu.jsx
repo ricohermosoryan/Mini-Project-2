@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
   return (
+    //Framer Motion to animate the dropdown
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -70,6 +71,19 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                   className="hover:text-quantum hover:border-b hover:border-quantum"
                 >
                   FAQs
+                </Link>
+              </li>
+            </ul>
+          )}
+
+          {dropdownType === "products" && (
+            <ul>
+              <li className="p-2">
+                <Link
+                  to="/products"
+                  className="hover:text-quantum hover:border-b hover:border-quantum"
+                >
+                  All Product
                 </Link>
               </li>
             </ul>

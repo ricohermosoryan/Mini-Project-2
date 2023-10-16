@@ -10,6 +10,7 @@ import searchImage from "../assets/search.svg";
 import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
 import DropdownMenu from "./DropdownMenu";
+import { useScroll, motion, useMotionValueEvent } from "framer-motion";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -24,7 +25,7 @@ export const socialLinksExceptNewsletter = socialLinks.slice(1);
 export default function Navbar() {
   const navbarList = [
     { name: "Home", href: "/home" },
-    { name: "Products", href: "/products" },
+    { name: "Products", href: "/" },
     { name: "Discover", href: "/discover" },
     { name: "Support", href: "/support" },
   ];
@@ -56,6 +57,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState({
     Discover: false,
     Support: false,
+    Product: false,
   });
 
   const toggleDropdown = (itemName) => {
@@ -63,6 +65,7 @@ export default function Navbar() {
 
     updatedOpenState[itemName] = !isOpen[itemName];
 
+    //This will close other dropdown when clicked
     Object.keys(updatedOpenState).forEach((key) => {
       if (key !== itemName) {
         updatedOpenState[key] = false;
@@ -76,8 +79,24 @@ export default function Navbar() {
     setIsOpen({
       Discover: false,
       Support: false,
+      Product: false,
     });
   };
+
+  //Navbar Animation
+  const [hidden, setHidden] = useState(false);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
     <>
       {/* TOP HEADER */}
@@ -115,85 +134,104 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* NAVBAR */}
-      <div className="bg-white drop-shadow z-10 sticky top-0">
-        <div className="container mx-auto py-5 flex justify-between items-center">
-          <a href={companyLogo[0].href}>
-            <img
-              src={companyLogo[0].image}
-              className="w-60 h-20 aspect-auto cursor-pointer"
-              alt={companyLogo[0].name}
-            ></img>
-          </a>
-          <div className="flex gap-12">
-            {navbarList.map((item, i) => (
-              <div
-                key={i}
-                className="heading text-xl font-medium py-1 border-b border-transparent  hover:border-b hover:border-quantum"
-              >
-                {/* Code for the dropdown menu of Discover and support link */}
-                {item.name === "Discover" || item.name === "Support" ? (
-                  <div>
-                    <button
+      {/* Navbar animation using framer motion useScroll */}
+      <motion.div
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: "-100%" },
+        }}
+        animate={hidden ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className="bg-slate-50/90 drop-shadow z-10 sticky top-0"
+      >
+        {/* NAVBAR */}
+        <div>
+          <div className="container mx-auto py-5 flex justify-between items-center">
+            <a href={companyLogo[0].href}>
+              <img
+                src={companyLogo[0].image}
+                className="w-60 h-20 aspect-auto cursor-pointer"
+                alt={companyLogo[0].name}
+              ></img>
+            </a>
+            <div className="flex gap-12">
+              {navbarList.map((item, i) => (
+                <div
+                  key={i}
+                  className="heading text-xl font-medium py-1 border-b border-transparent  hover:border-b hover:border-quantum"
+                >
+                  {/* Code for the dropdown menu of Discover and support link */}
+                  {item.name === "Discover" ||
+                  item.name === "Support" ||
+                  item.name === "Products" ? (
+                    <div>
+                      <button
+                        className="hover:text-quantum"
+                        onClick={() => toggleDropdown(item.name)}
+                      >
+                        {item.name}
+                      </button>
+                      {item.name === "Support" && (
+                        <DropdownMenu
+                          isOpen={isOpen["Support"]}
+                          toggleDropdown={() => toggleDropdown("Support")}
+                          dropdownType="support"
+                        />
+                      )}
+                      {item.name === "Discover" && (
+                        <DropdownMenu
+                          isOpen={isOpen["Discover"]}
+                          toggleDropdown={() => toggleDropdown("Discover")}
+                          dropdownType="discover"
+                        />
+                      )}
+                      {item.name === "Products" && (
+                        <DropdownMenu
+                          isOpen={isOpen["Products"]}
+                          toggleDropdown={() => toggleDropdown("Products")}
+                          dropdownType="products"
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      onClick={closeDropdown}
                       className="hover:text-quantum"
-                      onClick={() => toggleDropdown(item.name)}
                     >
                       {item.name}
-                    </button>
-                    {item.name === "Support" && (
-                      <DropdownMenu
-                        isOpen={isOpen["Support"]}
-                        toggleDropdown={() => toggleDropdown("Support")}
-                        dropdownType="support"
-                      />
-                    )}
-                    {item.name === "Discover" && (
-                      <DropdownMenu
-                        isOpen={isOpen["Discover"]}
-                        toggleDropdown={() => toggleDropdown("Discover")}
-                        dropdownType="discover"
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    to={item.href}
-                    onClick={closeDropdown}
-                    className="hover:text-quantum"
-                  >
-                    {item.name}
-                  </Link>
-                )}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <div>
+                <img
+                  src={navbarIcons[0].icon}
+                  className="w-10 aspect-square cursor-pointer"
+                  alt={navbarIcons[0].name}
+                ></img>
               </div>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <div>
-              <img
-                src={navbarIcons[0].icon}
-                className="w-10 aspect-square cursor-pointer"
-                alt={navbarIcons[0].name}
-              ></img>
-            </div>
-            <div>
-              <img
-                src={navbarIcons[1].icon}
-                className="w-10 aspect-square cursor-pointer"
-                alt={navbarIcons[1].name}
-              ></img>
-            </div>
-            <div>
-              <img
-                src={navbarIcons[2].icon}
-                className="w-10 aspect-square cursor-pointer"
-                alt={navbarIcons[2].name}
-                onClick={toggleModal}
-              ></img>
+              <div>
+                <img
+                  src={navbarIcons[1].icon}
+                  className="w-10 aspect-square cursor-pointer"
+                  alt={navbarIcons[1].name}
+                ></img>
+              </div>
+              <div>
+                <img
+                  src={navbarIcons[2].icon}
+                  className="w-10 aspect-square cursor-pointer"
+                  alt={navbarIcons[2].name}
+                  onClick={toggleModal}
+                ></img>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </motion.div>
       {/* Login Modal */}
       {modal && (
         <div className="modal z-50">
