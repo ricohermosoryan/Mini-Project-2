@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="40"
+   height="40"
+   viewBox="0 0 40 40"
+   fill="none"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="input.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="19.55"
+     inkscape:cx="17.468031"
+     inkscape:cy="20"
+     inkscape:window-width="1920"
+     inkscape:window-height="947"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <path
+     d="M20 20.75C16.83 20.75 14.25 18.17 14.25 15C14.25 11.83 16.83 9.25 20 9.25C23.17 9.25 25.75 11.83 25.75 15C25.75 18.17 23.17 20.75 20 20.75ZM20 10.75C17.66 10.75 15.75 12.66 15.75 15C15.75 17.34 17.66 19.25 20 19.25C22.34 19.25 24.25 17.34 24.25 15C24.25 12.66 22.34 10.75 20 10.75Z"
+     fill="#0C0C0C"
+     id="path2"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     d="M28.5901 30.75C28.1801 30.75 27.8401 30.41 27.8401 30C27.8401 26.55 24.3202 23.75 20.0002 23.75C15.6802 23.75 12.1602 26.55 12.1602 30C12.1602 30.41 11.8202 30.75 11.4102 30.75C11.0002 30.75 10.6602 30.41 10.6602 30C10.6602 25.73 14.8502 22.25 20.0002 22.25C25.1502 22.25 29.3401 25.73 29.3401 30C29.3401 30.41 29.0001 30.75 28.5901 30.75Z"
+     fill="#0C0C0C"
+     id="path4"
+     style="fill:#ffffff;fill-opacity:1" />
+</svg>
