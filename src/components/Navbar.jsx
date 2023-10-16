@@ -130,13 +130,13 @@ export default function Navbar() {
             {navbarList.map((item, i) => (
               <div
                 key={i}
-                className="heading text-xl font-medium py-1 border-b border-transparent hover:text-quantum hover:border-b hover:border-quantum"
+                className="heading text-xl font-medium py-1 border-b border-transparent  hover:border-b hover:border-quantum"
               >
                 {/* Code for the dropdown menu of Discover and support link */}
                 {item.name === "Discover" || item.name === "Support" ? (
                   <div>
                     <button
-                      className="hover:underline hover:text-sky-400"
+                      className="hover:text-quantum"
                       onClick={() => toggleDropdown(item.name)}
                     >
                       {item.name}
@@ -157,7 +157,11 @@ export default function Navbar() {
                     )}
                   </div>
                 ) : (
-                  <Link to={item.href} onClick={closeDropdown}>
+                  <Link
+                    to={item.href}
+                    onClick={closeDropdown}
+                    className="hover:text-quantum"
+                  >
                     {item.name}
                   </Link>
                 )}

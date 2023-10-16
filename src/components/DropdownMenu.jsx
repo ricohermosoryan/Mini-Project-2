@@ -19,25 +19,58 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
         >
           {dropdownType === "discover" && (
             <ul>
-              <li className="p-2 hover:underline hover:text-sky-400">
-                <Link to="/about">About</Link>
+              <li className="p-2">
+                <Link
+                  to="/about"
+                  className="hover:text-quantum hover:underline"
+                >
+                  About
+                </Link>
               </li>
-              <li className="p-2 hover:underline hover:text-sky-400">
-                <Link to="/item2">Blogs</Link>
+              <li className="p-2 ">
+                <Link
+                  to="/item2"
+                  className="hover:text-quantum hover:underline"
+                >
+                  Blogs
+                </Link>
               </li>
-              <li className="p-2 hover:underline hover:text-sky-400">
-                <Link to="/item4">News</Link>
+              <li className="p-2 ">
+                <Link
+                  to="/item4"
+                  className="hover:text-quantum hover:underline"
+                >
+                  News
+                </Link>
               </li>
-              <li className="p-2 hover:underline hover:text-sky-400">
-                <Link to="/item5">Reviews</Link>
+              <li className="p-2 ">
+                <Link
+                  to="/item5"
+                  className="hover:text-quantum hover:underline"
+                >
+                  Reviews
+                </Link>
               </li>
             </ul>
           )}
 
           {dropdownType === "support" && (
             <ul>
-              <li className="p-2 hover:bg-gray-100">
-                <Link to="/item3">Item3</Link>
+              <li className="p-2">
+                <Link
+                  to="/item3"
+                  className="hover:text-quantum hover:underline"
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li className="p-2">
+                <Link
+                  to="/item6"
+                  className="hover:text-quantum hover:underline"
+                >
+                  FAQs
+                </Link>
               </li>
             </ul>
           )}
