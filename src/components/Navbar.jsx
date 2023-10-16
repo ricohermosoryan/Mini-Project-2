@@ -10,6 +10,16 @@ import searchImage from "../assets/search.svg";
 import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
 
+export const socialLinks = [
+  { name: "Newsletter", icon: newletterImage, href: "" },
+  { name: "Facebook", icon: facebookImage, href: "" },
+  { name: "Twitter", icon: twitterImage, href: "" },
+  { name: "Instagram", icon: instagramImage, href: "" },
+  { name: "YouTube", icon: youtubeImage, href: "" },
+];
+
+export const socialLinksExceptNewsletter = socialLinks.slice(1);
+
 export default function Navbar() {
   const navbarList = [
     { name: "Home", href: "/home" },
@@ -17,16 +27,6 @@ export default function Navbar() {
     { name: "Discover", href: "/discover" },
     { name: "Support", href: "/support" },
   ];
-
-  const socialLinks = [
-    { name: "Newsletter", icon: newletterImage, href: "" },
-    { name: "Facebook", icon: facebookImage, href: "" },
-    { name: "Twitter", icon: twitterImage, href: "" },
-    { name: "Instagram", icon: instagramImage, href: "" },
-    { name: "YouTube", icon: youtubeImage, href: "" },
-  ];
-
-  const socialLinksExceptNewsletter = socialLinks.slice(1);
 
   const companyLogo = [
     { name: "QuantumGalaxy", image: quantumLogoImage, href: "/home" }
@@ -73,7 +73,7 @@ export default function Navbar() {
             <div className="flex gap-x-2 items-center">
               {socialLinksExceptNewsletter.map((item, i) => (
                 <div key={i}>
-                  <a href={item.href}>
+                  <a href={item.href} target="_blank">
                     <img
                       src={item.icon}
                       className="w-4 aspect-square cursor-pointer"

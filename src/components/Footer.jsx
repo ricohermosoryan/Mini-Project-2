@@ -4,6 +4,7 @@ import quantumLogoImage from "../assets/logo.svg";
 import earthImage from "../assets/earth.svg";
 import inputImage from "../assets/input.svg";
 import arrowRightImage from "../assets/arrow-right.svg";
+import { socialLinks, socialLinksExceptNewsletter } from "./Navbar";
 
 export default function Footer() {
   return (
