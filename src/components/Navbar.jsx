@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import quantumLogoImage from "../assets/logo.svg";
 import newletterImage from "../assets/newsletter.svg";
@@ -11,6 +11,7 @@ import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
 import DropdownMenu from "./DropdownMenu";
 import { useScroll, motion, useMotionValueEvent } from "framer-motion";
+import { Tabs } from 'flowbite';
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -45,13 +46,54 @@ export default function Navbar() {
 
   const toggleModal = () => {
     setModal(!modal);
-  };
+  }
 
   if (modal) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
   }
+
+  // TABBED PROFILE LOGIN
+  useEffect(() => {
+    let modalContainer;
+
+    if (modal) {
+      modalContainer = document.getElementById('modal-container');
+    }
+
+    if (modalContainer) {
+      const tabElements = [
+        {
+          id: 'login',
+          triggerEl: modalContainer.querySelector('#login-tab'),
+          targetEl: modalContainer.querySelector('#login-contents')
+        },
+        {
+          id: 'register',
+          triggerEl: modalContainer.querySelector('#register-tab'),
+          targetEl: modalContainer.querySelector('#register-contents')
+        },
+      ];
+
+      const options = {
+        defaultTabId: 'register',
+        activeClasses: 'text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500',
+        inactiveClasses: 'text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300',
+        onShow: () => {
+          console.log('tab is shown');
+        }
+      };
+
+      const tabs = new Tabs(tabElements, options);
+
+      tabs.show('login');
+
+      const contactsTab = tabs.getTab('register');
+
+      const activeTab = tabs.getActiveTab();
+    }
+  }, [modal]);
 
   //Framer Motion Dropdown
   const [isOpen, setIsOpen] = useState({
@@ -236,7 +278,7 @@ export default function Navbar() {
 
         {/* Login Modal */}
         {modal && (
-          <div className="modal z-50">
+          <div id="modal-container" className="modal z-50">
             <div onClick={toggleModal} className="overlay">
               <button
                 onClick={toggleModal}
@@ -261,6 +303,28 @@ export default function Navbar() {
               </button>
             </div>
             <div className="modal-content ">
+
+              {/* PROFILE TAB */}
+
+<div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400" id="profileTab">
+        <li className="mr-2">
+            <button className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="login-tab" type="button">Login</button>
+        </li>
+        <li className="mr-2">
+            <button className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="register-tab" type="button">Register</button>
+        </li>
+    </ul>
+</div>
+<div id="profileTabContent">
+    <div className="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="login-contents">
+        <p className="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the Login tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+    </div>
+    <div className="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="register-contents" >
+        <p className="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the Register tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+    </div>
+</div>
+
               <div className="chooseAccount flex gap-4 border-b-2 bg-slate-100 justify-center">
                 <button className=" bg-blue-500 p-2 rounded-3xl mt-5 mb-5 ms-3">
                   Login with Facebook
@@ -277,7 +341,7 @@ export default function Navbar() {
                   <form>
                     <div className="mb-6 mt-4">
                       <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Your email
@@ -292,7 +356,7 @@ export default function Navbar() {
                     </div>
                     <div className="mb-6">
                       <label
-                        for="password"
+                        htmlFor="password"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Your password
@@ -316,7 +380,7 @@ export default function Navbar() {
                         />
                       </div>
                       <label
-                        for="remember"
+                        htmlFor="remember"
                         className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                       >
                         Remember me
@@ -337,7 +401,7 @@ export default function Navbar() {
                   <form>
                     <div className="mb-6 mt-4">
                       <label
-                        for="email"
+                        htmlFor="email"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Your email
@@ -352,7 +416,7 @@ export default function Navbar() {
                     </div>
                     <div className="mb-6">
                       <label
-                        for="password"
+                        htmlFor="password"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Your password
@@ -376,7 +440,7 @@ export default function Navbar() {
                         />
                       </div>
                       <label
-                        for="remember"
+                        htmlFor="remember"
                         className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                       >
                         Subscribe to our TechNews
