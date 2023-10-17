@@ -34,6 +34,10 @@
         color: #005960;
     }
 
+    .bg-main-body {
+        background-color: #f7f7f7;
+    }
+
     .bg-dark-blue {
         background-color: #111827;
     }
@@ -70,9 +74,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
         line-height: 1.4;
-        background: #f1f1f1;
         border-radius: 3px;
-        width: 800px;
+        /* width: 800px; */
     }
 
     .close-modal {
