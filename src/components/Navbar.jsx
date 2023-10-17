@@ -10,12 +10,12 @@ import searchImage from "../assets/search.svg";
 import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
 import DropdownMenu from "./DropdownMenu";
-import { useScroll, motion, useMotionValueEvent } from "framer-motion";
 import { Tabs } from "flowbite";
 import userImage from "../assets/user.svg";
 import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
+import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -130,21 +130,6 @@ export default function Navbar() {
       Product: false,
     });
   };
-
-  // Navbar Animation
-  // const [hidden, setHidden] = useState(false);
-
-  // const { scrollY } = useScroll();
-
-  // useMotionValueEvent(scrollY, "change", (latest) => {
-  //   const previous = scrollY.getPrevious();
-  //   if (latest > previous && latest > 150) {
-  //     setHidden(true);
-  //   } else {
-  //     setHidden(false);
-  //   }
-  // });
-
   return (
     <>
       {/* TOP HEADER */}
@@ -181,104 +166,95 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      {/* Navbar animation using framer motion useScroll */}
-      <motion.div
-        // variants={{
-        //   visible: { y: 0 },
-        //   hidden: { y: 0 },
-        // }}
-        // animate={hidden ? "hidden" : "visible"}
-        // transition={{ duration: 0.35, ease: "easeIn" }}
-        className="bg-white opacity-95 drop-shadow z-10 sticky top-0"
-      >
-        {/* NAVBAR */}
-        <div>
-          <div className="container mx-auto py-5 flex justify-between items-center">
-            <a href={companyLogo[0].href}>
-              <img
-                src={companyLogo[0].image}
-                className="w-60 h-20 aspect-auto cursor-pointer"
-                alt={companyLogo[0].name}
-              ></img>
-            </a>
-            <div className="flex gap-12">
-              {navbarList.map((item, i) => (
-                <nav
-                  key={i}
-                  className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum"
-                >
-                  {/* Code for the dropdown menu of Discover and support link */}
-                  {item.name === "Discover" ||
-                  item.name === "Support" ||
-                  item.name === "Products" ? (
-                    <div>
-                      <button
-                        className="hover:text-quantum"
-                        onClick={() => toggleDropdown(item.name)}
-                      >
-                        {item.name}
-                      </button>
-                      {item.name === "Support" && (
-                        <DropdownMenu
-                          isOpen={isOpen["Support"]}
-                          toggleDropdown={() => toggleDropdown("Support")}
-                          dropdownType="support"
-                        />
-                      )}
-                      {item.name === "Discover" && (
-                        <DropdownMenu
-                          isOpen={isOpen["Discover"]}
-                          toggleDropdown={() => toggleDropdown("Discover")}
-                          dropdownType="discover"
-                        />
-                      )}
-                      {item.name === "Products" && (
-                        <DropdownMenu
-                          isOpen={isOpen["Products"]}
-                          toggleDropdown={() => toggleDropdown("Products")}
-                          dropdownType="products"
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      onClick={closeDropdown}
+
+      {/* NAVBAR */}
+      <div className="bg-white opacity-95 drop-shadow z-10 sticky top-0">
+        <div className="container mx-auto py-5 flex justify-between items-center">
+          <a href={companyLogo[0].href}>
+            <img
+              src={companyLogo[0].image}
+              className="w-60 h-20 aspect-auto cursor-pointer"
+              alt={companyLogo[0].name}
+            ></img>
+          </a>
+          <div className="flex gap-12">
+            {navbarList.map((item, i) => (
+              <nav
+                key={i}
+                className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum"
+              >
+                {/* Code for the dropdown menu of Discover and support link */}
+                {item.name === "Discover" ||
+                item.name === "Support" ||
+                item.name === "Products" ? (
+                  <div>
+                    <button
                       className="hover:text-quantum"
+                      onClick={() => toggleDropdown(item.name)}
                     >
                       {item.name}
-                    </Link>
-                  )}
-                </nav>
-              ))}
+                    </button>
+                    {item.name === "Support" && (
+                      <DropdownMenu
+                        isOpen={isOpen["Support"]}
+                        toggleDropdown={() => toggleDropdown("Support")}
+                        dropdownType="support"
+                      />
+                    )}
+                    {item.name === "Discover" && (
+                      <DropdownMenu
+                        isOpen={isOpen["Discover"]}
+                        toggleDropdown={() => toggleDropdown("Discover")}
+                        dropdownType="discover"
+                      />
+                    )}
+                    {item.name === "Products" && (
+                      <DropdownMenu
+                        isOpen={isOpen["Products"]}
+                        toggleDropdown={() => toggleDropdown("Products")}
+                        dropdownType="products"
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.href}
+                    onClick={closeDropdown}
+                    className="hover:text-quantum"
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </nav>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <div>
+              <img
+                src={navbarIcons[0].icon}
+                className="w-10 aspect-square cursor-pointer"
+                alt={navbarIcons[0].name}
+              ></img>
             </div>
-            <div className="flex gap-2">
-              <div>
-                <img
-                  src={navbarIcons[0].icon}
-                  className="w-10 aspect-square cursor-pointer"
-                  alt={navbarIcons[0].name}
-                ></img>
-              </div>
-              <div>
-                <img
-                  src={navbarIcons[1].icon}
-                  className="w-10 aspect-square cursor-pointer"
-                  alt={navbarIcons[1].name}
-                ></img>
-              </div>
-              <div>
-                <img
-                  src={navbarIcons[2].icon}
-                  className="w-10 aspect-square cursor-pointer"
-                  alt={navbarIcons[2].name}
-                  onClick={toggleModal}
-                ></img>
-              </div>
+            <div>
+              <img
+                src={navbarIcons[1].icon}
+                className="w-10 aspect-square cursor-pointer"
+                alt={navbarIcons[1].name}
+              ></img>
+            </div>
+            <div>
+              <img
+                src={navbarIcons[2].icon}
+                className="w-10 aspect-square cursor-pointer"
+                alt={navbarIcons[2].name}
+                onClick={toggleModal}
+              ></img>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
+
       {/* Login Modal */}
       {modal && (
         <div id="modal-container" className="modal z-50">
