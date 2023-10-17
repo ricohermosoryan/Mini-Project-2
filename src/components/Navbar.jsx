@@ -78,8 +78,8 @@ export default function Navbar() {
 
       const options = {
         defaultTabId: 'register',
-        activeClasses: 'text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500',
-        inactiveClasses: 'text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300',
+        activeClasses: 'heading text-quantum hover:text-quantum dark:text-quantum dark:hover:text-quantum border-quantum dark:border-quantum',
+        inactiveClasses: 'heading hover:text-quantum dark:text-gray-400 border-gray-100 hover:border-quantum dark:border-gray-700 dark:hover:text-gray-300',
         onShow: () => {
           console.log('tab is shown');
         }
@@ -201,7 +201,7 @@ export default function Navbar() {
                 {navbarList.map((item, i) => (
                   <nav
                     key={i}
-                    className="heading text-xl font-medium py-1 border-b border-transparent  hover:border-b hover:border-quantum"
+                    className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum"
                   >
                     {/* Code for the dropdown menu of Discover and support link */}
                     {item.name === "Discover" ||
@@ -302,157 +302,144 @@ export default function Navbar() {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-            <div className="modal-content ">
 
-              {/* PROFILE TAB */}
-
-<div className="mb-4 border-b border-gray-200 dark:border-gray-700">
-    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400" id="profileTab">
-        <li className="mr-2">
-            <button className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="login-tab" type="button">Login</button>
-        </li>
-        <li className="mr-2">
-            <button className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="register-tab" type="button">Register</button>
-        </li>
-    </ul>
-</div>
-<div id="profileTabContent">
-    <div className="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="login-contents">
-        <p className="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the Login tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-    </div>
-    <div className="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="register-contents" >
-        <p className="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the Register tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-    </div>
-</div>
-
-              <div className="chooseAccount flex gap-4 border-b-2 bg-slate-100 justify-center">
-                <button className=" bg-blue-500 p-2 rounded-3xl mt-5 mb-5 ms-3">
-                  Login with Facebook
-                </button>
-                <button className=" bg-red-700 p-2 rounded-3xl mt-5 mb-5 me-3">
-                  Login with Google
-                </button>
+            {/* PROFILE TAB */}
+            <div className="modal-content bg-white w-96">
+              {/* TABS */}
+              <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
+                  <ul className="flex justify-around -mb-px heading text-xl font-medium text-center text-quantum dark:text-quantum" id="profileTab">
+                      <li className="mr-2">
+                          <button className="inline-block py-1 m-3 border-b-2 border-transparent rounded-t-lg hover:text-quantum hover:border-quantum dark:hover:text-quantum" id="login-tab" type="button">Login</button>
+                      </li>
+                      <li className="mr-2">
+                          <button className="inline-block py-1 m-3 border-b-2 border-transparent rounded-t-lg hover:text-quantum hover:border-quantum dark:hover:text-quantum" id="register-tab" type="button">Register</button>
+                      </li>
+                  </ul>
               </div>
-              <div className="input flex mt-4 ms-5 me-2 mb-5">
-                <div className="login w-1/2 border-e pe-5">
-                  <span className=" text-gray-600 tracking-widest text-xl font-medium">
-                    LOGIN
-                  </span>
-                  <form>
-                    <div className="mb-6 mt-4">
-                      <label
-                        htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Your email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 "
-                        placeholder="name@example.com"
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label
-                        htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Your password
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
-                        placeholder="********"
-                        required
-                      />
-                    </div>
-                    <div className="flex items-start mb-6">
-                      <div className="flex items-center h-5">
+
+              {/* CONTENTS */}
+              <div id="profileTabContent">
+
+                {/* LOGIN */}
+                <div className="hidden p-4 rounded-lg bg-white dark:bg-main-body" id="login-contents">
+                  <div className="login border-e pe-5">
+                    <form>
+                      <div className="mb-6 mt-4">
+                        <label
+                          htmlFor="email"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Your email
+                        </label>
                         <input
-                          id="remember"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
+                          type="email"
+                          id="email"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 "
+                          placeholder="name@example.com"
                           required
                         />
                       </div>
-                      <label
-                        htmlFor="remember"
-                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      <div className="mb-6">
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Your password
+                        </label>
+                        <input
+                          type="password"
+                          id="password"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
+                          placeholder="********"
+                          required
+                        />
+                      </div>
+                      <div className="flex items-start mb-6">
+                        <div className="flex items-center h-5">
+                          <input
+                            id="remember"
+                            type="checkbox"
+                            value=""
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
+                            required
+                          />
+                        </div>
+                        <label
+                          htmlFor="remember"
+                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          Remember me
+                        </label>
+                      </div>
+                      <button
+                        type="submit"
+                        className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
-                        Remember me
-                      </label>
-                    </div>
-                    <button
-                      type="submit"
-                      className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      LOG IN
-                    </button>
-                  </form>
+                        LOG IN
+                      </button>
+                    </form>
+                  </div>
                 </div>
-                <div className="register w-1/2 border-s ps-2">
-                  <span className=" text-gray-600 tracking-widest text-xl font-medium">
-                    REGISTER
-                  </span>
-                  <form>
-                    <div className="mb-6 mt-4">
-                      <label
-                        htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Your email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
-                        placeholder="name@example.com"
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label
-                        htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Your password
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
-                        placeholder="********"
-                        required
-                      />
-                    </div>
-                    <div className="flex items-start mb-6">
-                      <div className="flex items-center h-5">
+                
+                {/* REGISTER */}
+                <div className="hidden p-4 rounded-lg bg-white dark:bg-main-body" id="register-contents" >
+                  <div className="register border-s ps-2">
+                    <form>
+                      <div className="mb-6 mt-4">
+                        <label
+                          htmlFor="email"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Your email
+                        </label>
                         <input
-                          id="remember"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
+                          type="email"
+                          id="email"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
+                          placeholder="name@example.com"
                           required
                         />
                       </div>
-                      <label
-                        htmlFor="remember"
-                        className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      <div className="mb-6">
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Your password
+                        </label>
+                        <input
+                          type="password"
+                          id="password"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
+                          placeholder="********"
+                          required
+                        />
+                      </div>
+                      <div className="flex items-start mb-6">
+                        <div className="flex items-center h-5">
+                          <input
+                            id="remember"
+                            type="checkbox"
+                            value=""
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
+                            required
+                          />
+                        </div>
+                        <label
+                          htmlFor="remember"
+                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        >
+                          Subscribe to our TechNews
+                        </label>
+                      </div>
+                      <button
+                        type="submit"
+                        className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
-                        Subscribe to our TechNews
-                      </label>
-                    </div>
-                    <button
-                      type="submit"
-                      className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      REGISTER
-                    </button>
-                  </form>
+                        REGISTER
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
