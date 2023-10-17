@@ -87,7 +87,7 @@ export default function Home() {
                 className=" absolute top-[-40px] left-[-30px] lg:left-[-90px]"
                 src={phone2}
                 initial={{ y: 0, opacity: 1 }}
-                animate={{ y: [0, 10, 0], opacity: [1, 1, 1] }}
+                animate={{ y: [0, 20, 0], opacity: [1, 1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
               <img className="" src={phone3} />

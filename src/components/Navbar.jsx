@@ -10,7 +10,7 @@ import searchImage from "../assets/search.svg";
 import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
 import DropdownMenu from "./DropdownMenu";
-import { useScroll, motion, useMotionValueEvent } from "framer-motion";
+
 import { Tabs } from "flowbite";
 
 export const socialLinks = [
@@ -128,18 +128,6 @@ export default function Navbar() {
   };
 
   // Navbar Animation
-  // const [hidden, setHidden] = useState(false);
-
-  // const { scrollY } = useScroll();
-
-  // useMotionValueEvent(scrollY, "change", (latest) => {
-  //   const previous = scrollY.getPrevious();
-  //   if (latest > previous && latest > 150) {
-  //     setHidden(true);
-  //   } else {
-  //     setHidden(false);
-  //   }
-  // });
 
   return (
     <>
@@ -180,17 +168,9 @@ export default function Navbar() {
         </div>
 
         {/* Navbar animation using framer motion useScroll */}
-        <motion.div
-          // variants={{
-          //   visible: { y: 0 },
-          //   hidden: { y: 0 },
-          // }}
-          // animate={hidden ? "hidden" : "visible"}
-          // transition={{ duration: 0.35, ease: "easeIn" }}
-          className="bg-white"
-        >
+        <div>
           {/* NAVBAR */}
-          <div>
+          <div className="bg-white">
             <div className="container mx-auto py-5 flex justify-between items-center">
               <a href={companyLogo[0].href}>
                 <img
@@ -276,7 +256,7 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Login Modal */}
         {modal && (
