@@ -26,12 +26,16 @@
         color: #00b0ea;
     }
 
+    .bg-quantum {
+        background-color: #00b0ea;
+    }
+
     .border-quantum {
         border-color: #00b0ea;
     }
 
     .text-dark-quantum {
-        color: #005960;
+        color: #0092c3;
     }
 
     .bg-main-body {
@@ -40,6 +44,10 @@
 
     .bg-dark-blue {
         background-color: #111827;
+    }
+
+    .bg-dark-quantum {
+        background-color: #0092c3;
     }
 
     body.active-modal {
@@ -74,7 +82,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         line-height: 1.4;
-        border-radius: 3px;
+        /* border-radius: 3px; */
         /* width: 800px; */
     }
 
