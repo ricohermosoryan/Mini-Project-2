@@ -46,7 +46,7 @@ export default function Navbar() {
 
   const toggleModal = () => {
     setModal(!modal);
-  }
+  };
 
   if (modal) {
     document.body.classList.add("active-modal");
@@ -125,7 +125,7 @@ export default function Navbar() {
     });
   };
 
-  //Navbar Animation
+  // Navbar Animation
   // const [hidden, setHidden] = useState(false);
 
   // const { scrollY } = useScroll();
@@ -141,7 +141,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header>
+      <header className="opacity-95 drop-shadow z-10 sticky top-0">
         {/* TOP HEADER */}
         <div className="bg-dark-blue">
           <div className="container mx-auto py-1 flex gap-x-4 justify-between items-center text-white text-sm font-bold">
@@ -185,7 +185,7 @@ export default function Navbar() {
           // }}
           // animate={hidden ? "hidden" : "visible"}
           // transition={{ duration: 0.35, ease: "easeIn" }}
-          className="bg-white opacity-95 drop-shadow z-10 sticky top-0"
+          className="bg-white"
         >
           {/* NAVBAR */}
           <div>
@@ -309,10 +309,10 @@ export default function Navbar() {
               <div className="mb-4 border-b border-gray-200 dark:border-gray-700">
                   <ul className="flex justify-around -mb-px heading text-xl font-medium text-center text-quantum dark:text-quantum" id="profileTab">
                       <li className="mr-2">
-                          <button className="inline-block py-1 m-3 border-b-2 border-transparent rounded-t-lg hover:text-quantum hover:border-quantum dark:hover:text-quantum" id="login-tab" type="button">Login</button>
+                          <button className="py-1 m-3 border-b-2 border-transparent rounded-t-lg hover:text-quantum hover:border-quantum dark:hover:text-quantum" id="login-tab" type="button">Login</button>
                       </li>
                       <li className="mr-2">
-                          <button className="inline-block py-1 m-3 border-b-2 border-transparent rounded-t-lg hover:text-quantum hover:border-quantum dark:hover:text-quantum" id="register-tab" type="button">Register</button>
+                          <button className="py-1 m-3 border-b-2 border-transparent rounded-t-lg hover:text-quantum hover:border-quantum dark:hover:text-quantum" id="register-tab" type="button">Register</button>
                       </li>
                   </ul>
               </div>
