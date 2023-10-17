@@ -134,7 +134,7 @@ export default function Navbar() {
       <header className="opacity-95 drop-shadow z-10 sticky top-0">
         {/* TOP HEADER */}
         <div className="bg-dark-blue">
-          <div className="container mx-auto py-1 flex gap-x-4 justify-between items-center text-white text-sm font-bold">
+          <div className="container mx-auto py-1 md:flex gap-x-4 justify-between items-center text-white text-sm font-bold">
             <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
             <div className="flex gap-x-4">
               <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
