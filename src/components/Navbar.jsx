@@ -429,7 +429,7 @@ export default function Navbar() {
                 className="hidden p-4 rounded-lg bg-white dark:bg-main-body"
                 id="login-contents"
               >
-                <div className="heading text-center text-xl my-6">
+                <div className="heading text-center text-xl mb-6">
                   Log in to QuantumGalaxy
                 </div>
                 <form onSubmit={handleLoginSubmit}>
@@ -453,7 +453,7 @@ export default function Navbar() {
                       />
                     </div>
                   </div>
-                  {loginErrors.email && <p className="text-sm text-red-500">{loginErrors.email}</p>}
+                  {loginErrors.email && <p className="text-sm text-red-500 -mt-3">{loginErrors.email}</p>}
                   <div className="my-4">
                     <label
                       htmlFor="login-password"
@@ -478,7 +478,7 @@ export default function Navbar() {
                         className="w-6 mr-1 aspect-square"
                       />
                     </div>
-                    {loginErrors.password && <p className="text-sm text-red-500">{loginErrors.password}</p>}
+                    {loginErrors.password && <p className="text-sm text-red-500 -mt-3">{loginErrors.password}</p>}
                     <div className="text-right text-xs text-quantum py-1 px-3 cursor-pointer hover:text-dark-quantum">
                       Forgot password?
                     </div>
@@ -521,7 +521,7 @@ export default function Navbar() {
                 className="hidden p-4 rounded-lg bg-white dark:bg-main-body"
                 id="register-contents"
               >
-                <div className="heading text-center text-xl my-6">
+                <div className="heading text-center text-xl mb-6">
                   Create your account
                 </div>
                 <form onSubmit={handleRegisterSubmit}>
@@ -544,7 +544,7 @@ export default function Navbar() {
                       />
                     </div>
                   </div>
-                  {registerErrors.name && <p className="text-sm text-red-500">{registerErrors.name}</p>}
+                  {registerErrors.name && <p className="text-sm text-red-500 -mt-3">{registerErrors.name}</p>}
                   <div className="my-4">
                     <label
                       htmlFor="register-email"
@@ -565,7 +565,7 @@ export default function Navbar() {
                       />
                     </div>
                   </div>
-                  {registerErrors.email && <p className="text-sm text-red-500">{registerErrors.email}</p>}
+                  {registerErrors.email && <p className="text-sm text-red-500 -mt-3">{registerErrors.email}</p>}
                   <div className="my-4">
                     <label
                       htmlFor="register-password"
@@ -591,7 +591,7 @@ export default function Navbar() {
                       />
                     </div>
                   </div>
-                  {registerErrors.password && <p className="text-sm text-red-500">{registerErrors.password}</p>}
+                  {registerErrors.password && <p className="text-sm text-red-500 -mt-3">{registerErrors.password}</p>}
                   <div className="my-4 px-3 flex items-center">
                     <div className="flex items-center">
                       <input
@@ -613,7 +613,7 @@ export default function Navbar() {
                       </span>
                     </label>
                   </div>
-                  {registerErrors.terms && <p className="text-sm text-red-500">{registerErrors.terms}</p>}
+                  {registerErrors.terms && <p className="text-sm text-red-500 -mt-3">{registerErrors.terms}</p>}
                   <div className="flex my-4">
                     <button
                       type="submit"
