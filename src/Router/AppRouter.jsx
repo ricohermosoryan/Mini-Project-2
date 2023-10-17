@@ -2,12 +2,12 @@ import React from "react";
 import NavbarTemplate from "../components/templates/NavbarTemplate";
 import Products from "../components/Products";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../components/pages/Home";
 import Shop from "../components/pages/Shop";
 import Reviews from "../components/pages/Reviews";
 import Blogs from "../components/pages/Blogs";
 import Product from "../components/pages/Product";
 import AboutUs from "../components/AboutUs";
+import Home from "../pages/Home";
 
 export default function AppRouter() {
   return (

@@ -158,7 +158,7 @@ export default function Navbar() {
               {navbarList.map((item, i) => (
                 <div
                   key={i}
-                  className="heading text-xl font-medium py-1 border-b border-transparent  hover:border-b hover:border-quantum"
+                  className="heading text-xl font-medium py-1 border-b border-transparent  hover:border-b hover:border-quantum hidden lg:block md:block"
                 >
                   {/* Code for the dropdown menu of Discover and support link */}
                   {item.name === "Discover" ||
