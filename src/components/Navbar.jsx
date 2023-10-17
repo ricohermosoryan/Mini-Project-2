@@ -15,6 +15,7 @@ import userImage from "../assets/user.svg";
 import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
+import eyeImage from "../assets/eye.svg";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 export const socialLinks = [
@@ -95,11 +96,29 @@ export default function Navbar() {
 
       tabs.show("login");
 
-      const contactsTab = tabs.getTab("register");
+      const inactiveTab = tabs.getTab("register");
 
       const activeTab = tabs.getActiveTab();
+
+      let loginTab; 
+      let registerTab;
+
+      if(modal) {
+        loginTab = document.getElementById('login-tab');
+        registerTab = document.getElementById('register-tab'); 
+      }
     }
   }, [modal]);
+
+  const switchToLogin = () => {
+    const loginTab = document.getElementById('login-tab');
+    loginTab.click();
+  }
+
+  const switchToRegister = () => {
+    const registerTab = document.getElementById('register-tab');
+    registerTab.click(); 
+  }
 
   //Framer Motion Dropdown
   const [isOpen, setIsOpen] = useState({
@@ -130,6 +149,99 @@ export default function Navbar() {
       Product: false,
     });
   };
+
+  // FORM VALIDATION
+  // Login form
+
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginErrors, setLoginErrors] = useState({});
+
+  const validateLogin = () => {
+    let errors = {};
+
+    if(!loginEmail) {
+      errors.email = 'Email is required';
+    } else {
+      errors.email = "";
+    }
+
+    if(!loginPassword) {
+      errors.password = 'Password is required';
+    } else {
+      errors.password = "";
+    }
+
+    setLoginErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  }
+
+  const handleLoginSubmit = e => {
+    e.preventDefault();
+
+    const isValid = validateLogin();
+
+    if(isValid) {
+      // submit form
+    }
+  }
+
+  // Register form
+
+  const [registerName, setRegisterName] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [registerTerms, setRegisterTerms] = useState(false);
+  const [registerErrors, setRegisterErrors] = useState({});
+
+  const validateRegister = () => {
+    let errors = {};
+
+    if(!registerName) {
+      errors.name = 'Name is required';
+    } else {
+      errors.name = "";
+    }
+
+    if(!registerEmail) {
+      errors.email = 'Email is required';
+    } else {
+      errors.email = "";
+    }
+
+    if(!registerPassword) {
+      errors.password = 'Password is required';
+    } else {
+      errors.password = "";
+    }
+
+    if(!registerTerms) {
+      errors.terms = 'You must accept the Terms & Conditions';
+    } else {
+      errors.terms = "";
+    }
+
+    // other validations
+
+    setRegisterErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  } 
+
+  const handleRegisterSubmit = e => {
+    e.preventDefault();
+
+    const isValid = validateRegister();
+
+    if(isValid) {
+      // submit form
+    }
+  }
+
+  // to show the password
+  const [showPassword, setShowPassword] = useState(false);
+  
   return (
     <>
       {/* TOP HEADER */}
@@ -320,7 +432,7 @@ export default function Navbar() {
                 <div className="heading text-center text-xl my-6">
                   Log in to QuantumGalaxy
                 </div>
-                <form>
+                <form onSubmit={handleLoginSubmit}>
                   <div className="my-4">
                     <label
                       htmlFor="login-email"
@@ -336,10 +448,12 @@ export default function Navbar() {
                         name="login-email"
                         id="login-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={loginEmail}
+                        onChange={e => setLoginEmail(e.target.value)}
                       />
                     </div>
                   </div>
+                  {loginErrors.email && <p className="text-sm text-red-500">{loginErrors.email}</p>}
                   <div className="my-4">
                     <label
                       htmlFor="login-password"
@@ -350,18 +464,21 @@ export default function Navbar() {
                     <div className="flex border rounded-lg px-3 py-3">
                       <img src={keyImage} className="w-6 mr-1 aspect-square" />
                       <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         name="login-password"
                         id="login-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={loginPassword}
+                        onChange={e => setLoginPassword(e.target.value)}
                       />
                       <img
-                        src={eyeSlashImage}
+                        src={showPassword ? eyeImage : eyeSlashImage}
+                        onClick={() => setShowPassword(!showPassword)}
                         className="w-6 mr-1 aspect-square"
                       />
                     </div>
+                    {loginErrors.password && <p className="text-sm text-red-500">{loginErrors.password}</p>}
                     <div className="text-right text-xs text-quantum py-1 px-3 cursor-pointer hover:text-dark-quantum">
                       Forgot password?
                     </div>
@@ -373,7 +490,6 @@ export default function Navbar() {
                         name="login-remember"
                         id="login-remember"
                         className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
-                        required
                       />
                     </div>
                     <label
@@ -393,7 +509,7 @@ export default function Navbar() {
                   </div>
                   <div className="text-sm text-center my-2">
                     Don't have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                    <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToRegister}>
                       Sign up
                     </span>
                   </div>
@@ -408,13 +524,13 @@ export default function Navbar() {
                 <div className="heading text-center text-xl my-6">
                   Create your account
                 </div>
-                <form>
+                <form onSubmit={handleRegisterSubmit}>
                   <div className="my-4">
                     <label
                       htmlFor="register-fullname"
                       className="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Email
+                      Full Name
                     </label>
                     <div className="flex border rounded-lg px-3 py-3">
                       <img src={userImage} className="w-6 mr-1 aspect-square" />
@@ -424,10 +540,11 @@ export default function Navbar() {
                         name="register-fullname"
                         id="register-fullname"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        onChange={e => setRegisterName(e.target.value)}
                       />
                     </div>
                   </div>
+                  {registerErrors.name && <p className="text-sm text-red-500">{registerErrors.name}</p>}
                   <div className="my-4">
                     <label
                       htmlFor="register-email"
@@ -443,10 +560,12 @@ export default function Navbar() {
                         name="register-email"
                         id="register-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={registerEmail}
+                        onChange={e => setRegisterEmail(e.target.value)}
                       />
                     </div>
                   </div>
+                  {registerErrors.email && <p className="text-sm text-red-500">{registerErrors.email}</p>}
                   <div className="my-4">
                     <label
                       htmlFor="register-password"
@@ -457,19 +576,22 @@ export default function Navbar() {
                     <div className="flex border rounded-lg px-3 py-3">
                       <img src={keyImage} className="w-6 mr-1 aspect-square" />
                       <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
                         name="register-password"
                         id="register-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={registerPassword}
+                        onChange={e => setRegisterPassword(e.target.value)} 
                       />
                       <img
-                        src={eyeSlashImage}
+                        src={showPassword ? eyeImage : eyeSlashImage}
+                        onClick={() => setShowPassword(!showPassword)}
                         className="w-6 mr-1 aspect-square"
                       />
                     </div>
                   </div>
+                  {registerErrors.password && <p className="text-sm text-red-500">{registerErrors.password}</p>}
                   <div className="my-4 px-3 flex items-center">
                     <div className="flex items-center">
                       <input
@@ -477,7 +599,8 @@ export default function Navbar() {
                         name="register-terms"
                         id="register-terms"
                         className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
-                        required
+                        value={registerTerms}
+                        onChange={e => setRegisterTerms(e.target.checked)} 
                       />
                     </div>
                     <label
@@ -490,6 +613,7 @@ export default function Navbar() {
                       </span>
                     </label>
                   </div>
+                  {registerErrors.terms && <p className="text-sm text-red-500">{registerErrors.terms}</p>}
                   <div className="flex my-4">
                     <button
                       type="submit"
@@ -500,7 +624,7 @@ export default function Navbar() {
                   </div>
                   <div className="text-sm text-center my-2">
                     Already have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                    <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToLogin}>
                       Sign in
                     </span>
                   </div>
