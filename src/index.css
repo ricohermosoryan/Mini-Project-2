@@ -38,6 +38,10 @@
         color: #0092c3;
     }
 
+    .border-dark-quantum {
+        border-color: #0092c3;
+    }
+
     .bg-main-body {
         background-color: #f7f7f7;
     }
@@ -57,7 +61,7 @@
     .modal,
     .overlay {
         width: 100vw;
-        height: 100vh;
+        height: 200vh;
         top: 0;
         left: 0;
         right: 0;
@@ -67,13 +71,5 @@
 
     .overlay {
         background: rgba(49, 49, 49, 0.8);
-    }
-
-    .modal-content {
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        line-height: 1.4;
     }
 }

@@ -16,6 +16,8 @@ import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
 import eyeImage from "../assets/eye.svg";
+import facebookLoginImage from "../assets/facebook-login.svg";
+import googleLoginImage from "../assets/google-login.svg";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 export const socialLinks = [
@@ -51,6 +53,8 @@ export default function Navbar() {
 
   const toggleModal = () => {
     setModal(!modal);
+    setLoginErrors({});
+    setRegisterErrors({});
   };
 
   if (modal) {
@@ -391,11 +395,11 @@ export default function Navbar() {
 
       {/* Login Modal */}
       {modal && (
-        <div id="modal-container" className="modal z-50">
+        <div id="modal-container" className="modal flex justify-center z-50">
           <div onClick={toggleModal} className="overlay">
           </div>
           {/* PROFILE TAB */}
-          <div className="modal-content rounded-lg bg-white w-96">
+          <div className="modal-content rounded-lg bg-white w-96 absolute top-20">
             {/* TABS */}
             <div className="border-b border-gray-200 dark:border-gray-700">
               <ul
@@ -508,13 +512,28 @@ export default function Navbar() {
                       Log In
                     </button>
                   </div>
-                  <div className="text-sm text-center my-2">
-                    Don't have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToRegister}>
-                      Sign up
-                    </span>
-                  </div>
                 </form>
+                <div className="flex justify-center items-center gap-4 my-2">
+                  <div className="h-px border grow"></div>
+                  <div className="text-sm">or Log In with</div>
+                  <div className="h-px border grow"></div>
+                </div>
+                <div className="flex gap-2 my-4">
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={googleLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Google</span>
+                  </div>
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={facebookLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Facebook</span>
+                  </div>
+                </div>
+                <div className="text-sm text-center my-2">
+                  Don't have an account? &nbsp;{" "}
+                  <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToRegister}>
+                    Sign up
+                  </span>
+                </div>
               </div>
 
               {/* REGISTER */}
@@ -623,13 +642,28 @@ export default function Navbar() {
                       Create Account
                     </button>
                   </div>
-                  <div className="text-sm text-center my-2">
-                    Already have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToLogin}>
-                      Sign in
-                    </span>
-                  </div>
                 </form>
+                <div className="flex justify-center items-center gap-4 my-2">
+                  <div className="h-px border grow"></div>
+                  <div className="text-sm">or Sign Up with</div>
+                  <div className="h-px border grow"></div>
+                </div>
+                <div className="flex gap-2 my-4">
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={googleLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Google</span>
+                  </div>
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={facebookLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Facebook</span>
+                  </div>
+                </div>
+                <div className="text-sm text-center my-2">
+                  Already have an account? &nbsp;{" "}
+                  <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToLogin}>
+                    Sign in
+                  </span>
+                </div>
               </div>
             </div>
           </div>
