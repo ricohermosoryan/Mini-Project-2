@@ -79,6 +79,7 @@ export default function Home() {
               </motion.button>
             </div>
           </div>
+          {/* Iphones images */}
           <div className="image relative md:mt-0 mt-11">
             <div className="">
               {/* Animation of phone hovering to air */}
@@ -96,7 +97,7 @@ export default function Home() {
                 animate={{ y: [0, 20, 0], opacity: [1, 1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <img className="" src={phone3} />
+              <img src={phone3} />
             </div>
           </div>
         </div>
@@ -173,7 +174,7 @@ export default function Home() {
       </div>
 
       {/* Subbanner 1 */}
-      <div className=" mt-6 mx-5 md:flex border-emerald-200 border-b lg:mx-20">
+      <div className=" mt-6 mx-5 md:flex lg:border-emerald-200 lg:border-b lg:mx-20">
         <div className="bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600 rounded-tl-lg rounded-bl-lg md:w-[60%] lg:w-[70%]">
           <div className="text-center ms-[190px] pt-2 md:mt-[30px] lg:ms-[790px]">
             <span className="text-neutral-950 text-[16px] md:text-[30px] lg:text-[40px] font-medium font-['Poppins']">
