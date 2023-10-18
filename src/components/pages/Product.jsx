@@ -11,6 +11,7 @@ import shieldImage from "../../assets/shield.svg";
 import alertImage from "../../assets/alert.svg";
 import atomeImage from "../../assets/atome.svg";
 import billeaseImage from "../../assets/billease.svg";
+import billeaseBaselineImage from "../../assets/billease-baseline.svg";
 import gcashImage from "../../assets/gcash.svg";
 import mastercardImage from "../../assets/mastercard.svg";
 import mayaImage from "../../assets/maya.svg";
@@ -109,6 +110,7 @@ export default function Product() {
                         </div>
                       </div>
                       {data.price && <p className="heading text-2xl font-semibold">{formatter.format(data.price)}</p>}
+                      <p className="flex items-baseline text-sm">or pay up to 12 monthly installments for only&nbsp;{data.price && <span className="heading text-base font-semibold">{formatter.format(data.price / 12)}</span>} with&nbsp;<img src={billeaseBaselineImage} className="w-16"/>.&nbsp;<span className="text-quantum underline"><a href="https://billease.ph/">Learn More.</a></span></p>
                       {data.brand && <p className="text-base">Brand: <em>{data.brand}</em></p>}
                       {data.description && <p className="text-base">{data.description}</p>}
                       <div className="flex gap-4">
