@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 
-const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
+const HamDropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
   return (
     //Framer Motion to animate the dropdown
     <AnimatePresence>
@@ -18,6 +18,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
             variants={{
               open: {
                 y: "0%",
+                x: "50%",
                 transition: {
                   when: "beforeChildren",
                   type: "spring",
@@ -25,7 +26,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 },
               },
               closed: {
-                y: "-600%",
+                y: "-800%",
                 transition: {
                   when: "afterChildren",
                   type: "spring",
@@ -147,4 +148,4 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
   );
 };
 
-export default DropdownMenu;
+export default HamDropdownMenu;

@@ -1,42 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import quantumLogoImage from "../assets/logo.svg";
-import newletterImage from "../assets/newsletter.svg";
-import facebookImage from "../assets/facebook.svg";
-import twitterImage from "../assets/twitter.svg";
-import instagramImage from "../assets/instagram.svg";
-import youtubeImage from "../assets/youtube.svg";
+import React, { useEffect, useState } from "react";
+import { motion, useCycle, AnimatePresence, MotionConfig } from "framer-motion";
+import { Tabs } from "flowbite";
 import searchImage from "../assets/search.svg";
 import basketImage from "../assets/basket.svg";
 import profileImage from "../assets/profile.svg";
-import DropdownMenu from "./DropdownMenu";
-import { Tabs } from "flowbite";
 import userImage from "../assets/user.svg";
 import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
-import Hamburger from "./Hamburger";
 
-export const socialLinks = [
-  { name: "Newsletter", icon: newletterImage, href: "" },
-  { name: "Facebook", icon: facebookImage, href: "" },
-  { name: "Twitter", icon: twitterImage, href: "" },
-  { name: "Instagram", icon: instagramImage, href: "" },
-  { name: "YouTube", icon: youtubeImage, href: "" },
-];
+import { Link } from "react-router-dom";
+import HamDropdownMenu from "./HamDropdownMenu";
 
-export const socialLinksExceptNewsletter = socialLinks.slice(1);
+export default function Hamburger(props) {
+  //thi will toggle the hamburger icon open and close
+  const [hamburger, toggleHamburger] = useCycle(false, true);
 
-export default function Navbar() {
+  // const [discover, toggleDiscover] = useCycle(false, true);
+
   const navbarList = [
     { name: "Home", href: "/home" },
     { name: "Products", href: "/" },
     { name: "Discover", href: "/" },
     { name: "Support", href: "/" },
-  ];
-
-  const companyLogo = [
-    { name: "QuantumGalaxy", image: quantumLogoImage, href: "/home" },
   ];
 
   const navbarIcons = [
@@ -130,133 +116,201 @@ export default function Navbar() {
       Product: false,
     });
   };
+
   return (
     <>
-      {/* TOP HEADER */}
-      <div className="bg-dark-blue">
-        <div className="container mx-auto py-1 md:flex gap-x-4 justify-between items-center text-white text-sm font-bold">
-          <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
-          <div className="flex gap-x-4">
-            <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
-              <a
-                href={socialLinks[0].href}
-                className="flex gap-x-2 cursor-pointer"
-              >
-                <img
-                  src={socialLinks[0].icon}
-                  className="w-4 aspect-square"
-                  alt={socialLinks[0].name}
-                ></img>
-                <div>Newsletter</div>
-              </a>
-            </div>
-            <div className="flex gap-x-2 items-center">
-              {socialLinksExceptNewsletter.map((item, i) => (
-                <nav key={i}>
-                  <a href={item.href} target="_blank">
-                    <img
-                      src={item.icon}
-                      className="w-4 aspect-square cursor-pointer"
-                      alt={item.name}
-                    />
-                  </a>
-                </nav>
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="relative z-10">
+        <motion.button
+          animate={hamburger ? "open" : "closed"}
+          onClick={() => toggleHamburger()}
+          className="flex flex-col space-y-1 me-6"
+        >
+          <motion.span
+            variants={{
+              closed: { rotate: 0, y: 0 },
+              open: { rotate: 45, y: 6 },
+            }}
+            className=" w-5 h-[2px] bg-black block"
+          ></motion.span>
+          <motion.span
+            variants={{
+              closed: { opacity: 1 },
+              open: { opacity: 0 },
+            }}
+            className=" w-5 h-[2px] bg-black block"
+          ></motion.span>
+          <motion.span
+            variants={{
+              closed: { rotate: 0, y: 0 },
+              open: { rotate: -45, y: -6 },
+            }}
+            className=" w-5 h-[2px] bg-black block"
+          ></motion.span>
+        </motion.button>
       </div>
 
-      {/* NAVBAR */}
-      <div className="bg-white opacity-95 drop-shadow z-10 sticky top-0 ">
-        <div className="container mx-auto py-5 flex  justify-between items-center">
-          <a href={companyLogo[0].href}>
-            <img
-              src={companyLogo[0].image}
-              className="w-60 h-20 aspect-auto cursor-pointer"
-              alt={companyLogo[0].name}
-            ></img>
-          </a>
-          <div className="flex gap-12">
-            {navbarList.map((item, i) => (
-              <nav
-                key={i}
-                className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum hidden md:block lg:block"
+      {/* Hamburger Menu */}
+      <AnimatePresence>
+        {hamburger && (
+          <MotionConfig
+            transition={{
+              type: "spring",
+              bounce: 0.25,
+            }}
+          >
+            <motion.div
+              variants={{
+                open: {
+                  y: "0%",
+                  transition: {
+                    when: "beforeChildren",
+                    type: "spring",
+                    bounce: 0.35,
+                  },
+                },
+                closed: {
+                  y: "-100%",
+                  transition: {
+                    when: "afterChildren",
+                    type: "spring",
+                    bounce: 0.25,
+                  },
+                },
+              }}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="fixed inset-0 h-[400px] bg-white space-y-10 p-6 container mx-auto"
+            >
+              {/* Icons */}
+              <motion.div
+                variants={{
+                  open: {
+                    y: "0%",
+                    opacity: 1,
+                  },
+                  closed: {
+                    y: "25%",
+                    opacity: 0,
+                  },
+                }}
+                className="flex gap-2"
               >
-                {/* Code for the dropdown menu of Discover and support link */}
-                {item.name === "Discover" ||
-                item.name === "Support" ||
-                item.name === "Products" ? (
-                  <div>
-                    <button
-                      className="hover:text-quantum"
-                      onClick={() => toggleDropdown(item.name)}
+                <div>
+                  <img
+                    src={navbarIcons[0].icon}
+                    className="w-10 aspect-square cursor-pointer "
+                    alt={navbarIcons[0].name}
+                  ></img>
+                </div>
+                <div>
+                  <img
+                    src={navbarIcons[1].icon}
+                    className="w-10 aspect-square cursor-pointer "
+                    alt={navbarIcons[1].name}
+                  ></img>
+                </div>
+                <div>
+                  <img
+                    src={navbarIcons[2].icon}
+                    className="w-10 aspect-square cursor-pointer "
+                    alt={navbarIcons[2].name}
+                    onClick={toggleModal}
+                  ></img>
+                </div>
+              </motion.div>
+
+              {/* Line */}
+              <motion.div
+                className="w-full bg-black h-px"
+                variants={{
+                  open: {
+                    y: "0%",
+                    opacity: 1,
+                  },
+                  closed: {
+                    y: "25%",
+                    opacity: 0,
+                  },
+                }}
+              ></motion.div>
+
+              {/* Links */}
+              <motion.div
+                variants={{
+                  open: {
+                    x: "0%",
+                    opacity: 1,
+                  },
+                  closed: {
+                    x: "-25%",
+                    opacity: 0,
+                  },
+                }}
+              >
+                <div className="w-[100px]">
+                  {navbarList.map((item, i) => (
+                    <nav
+                      key={i}
+                      className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum"
                     >
-                      {item.name}
-                    </button>
-                    {item.name === "Support" && (
-                      <DropdownMenu
-                        isOpen={isOpen["Support"]}
-                        toggleDropdown={() => toggleDropdown("Support")}
-                        dropdownType="support"
-                      />
-                    )}
-                    {item.name === "Discover" && (
-                      <DropdownMenu
-                        isOpen={isOpen["Discover"]}
-                        toggleDropdown={() => toggleDropdown("Discover")}
-                        dropdownType="discover"
-                      />
-                    )}
-                    {item.name === "Products" && (
-                      <DropdownMenu
-                        isOpen={isOpen["Products"]}
-                        toggleDropdown={() => toggleDropdown("Products")}
-                        dropdownType="products"
-                      />
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    to={item.href}
-                    onClick={closeDropdown}
-                    className="hover:text-quantum"
-                  >
-                    {item.name}
-                  </Link>
-                )}
-              </nav>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <div>
-              <img
-                src={navbarIcons[0].icon}
-                className="w-10 aspect-square cursor-pointer hidden md:block lg:block"
-                alt={navbarIcons[0].name}
-              ></img>
-            </div>
-            <div>
-              <img
-                src={navbarIcons[1].icon}
-                className="w-10 aspect-square cursor-pointer hidden md:block lg:block"
-                alt={navbarIcons[1].name}
-              ></img>
-            </div>
-            <div>
-              <img
-                src={navbarIcons[2].icon}
-                className="w-10 aspect-square cursor-pointer hidden md:block lg:block"
-                alt={navbarIcons[2].name}
-                onClick={toggleModal}
-              ></img>
-            </div>
-          </div>
-          <div className="md:hidden lg:hidden">
-            <Hamburger />
-          </div>
-        </div>
-      </div>
+                      {/* Code for the dropdown menu of Discover and support link */}
+                      {item.name === "Discover" ||
+                      item.name === "Support" ||
+                      item.name === "Products" ? (
+                        <div>
+                          <button
+                            className="hover:text-quantum"
+                            onClick={() => toggleDropdown(item.name)}
+                          >
+                            {item.name}
+                          </button>
+                          {item.name === "Support" && (
+                            <HamDropdownMenu
+                              isOpen={isOpen["Support"]}
+                              toggleDropdown={() => toggleDropdown("Support")}
+                              animate={isOpen ? "open" : "closed"}
+                              dropdownType="support"
+                            />
+                          )}
+                          {item.name === "Discover" && (
+                            // <button
+                            //   onClick={() => toggleDiscover()}
+                            //   animate={discover ? "open" : "closed"}
+                            // ></button>
+                            <HamDropdownMenu
+                              isOpen={isOpen["Discover"]}
+                              toggleDropdown={() => toggleDropdown("Discover")}
+                              animate={isOpen ? "open" : "closed"}
+                              dropdownType="discover"
+                            />
+                          )}
+                          {item.name === "Products" && (
+                            <HamDropdownMenu
+                              isOpen={isOpen["Products"]}
+                              toggleDropdown={() => toggleDropdown("Products")}
+                              animate={isOpen ? "open" : "closed"}
+                              dropdownType="products"
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          onClick={closeDropdown}
+                          className="hover:text-quantum"
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </nav>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          </MotionConfig>
+        )}
+      </AnimatePresence>
 
       {/* Login Modal */}
       {modal && (
@@ -513,6 +567,8 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* {discover && <div className="fixed inset-0 h-[500px] bg-white">Link</div>} */}
     </>
   );
 }
