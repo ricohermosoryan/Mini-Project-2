@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   aria-hidden="true"
+   focusable="false"
+   data-prefix="fal"
+   data-icon="shipping-fast"
+   role="img"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="speedytruck.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   width="512"
+   height="512"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="0.76367188"
+     inkscape:cx="155.82609"
+     inkscape:cy="244.86956"
+     inkscape:window-width="1920"
+     inkscape:window-height="947"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     fill="currentColor"
+     d="m 224,192 c 3.52,0 6.4,-2.88 6.4,-6.4 v -12.8 c 0,-3.52 -2.88,-6.4 -6.4,-6.4 H 32 c -3.52,0 -6.4,2.88 -6.4,6.4 v 12.8 c 0,3.52 2.88,6.4 6.4,6.4 z m 281.6,153.6 h -19.2 v -86.48 c 0,-13.44 -5.44,-26.64 -15.04,-36.16 L 404.24,155.84 C 394.8,146.24 381.6,140.8 368.08,140.8 H 332.8 V 101.28 C 332.8,80.72 315.04,64 293.28,64 H 90.72 C 68.96,64 51.2,80.72 51.2,101.28 V 115.2 H 6.4 c -3.52,0 -6.4,2.88 -6.4,6.4 v 12.8 c 0,3.52 2.88,6.4 6.4,6.4 h 192 c 3.52,0 6.4,-2.88 6.4,-6.4 v -12.8 c 0,-3.52 -2.88,-6.4 -6.4,-6.4 H 76.8 V 101.28 C 76.8,94.8 83.04,89.6 90.72,89.6 h 202.56 c 7.68,0 13.92,5.2 13.92,11.68 V 345.6 H 166.08 C 154.4,330.16 136,320 115.2,320 c -14.48,0 -27.68,4.96 -38.4,13.12 V 268.8 H 51.2 V 384 c 0,35.36 28.64,64 64,64 35.36,0 64,-28.64 64,-64 0,-4.4 -0.48,-8.64 -1.28,-12.8 h 156.16 c -0.88,4.16 -1.28,8.4 -1.28,12.8 0,35.36 28.64,64 64,64 35.36,0 64,-28.64 64,-64 0,-4.4 -0.48,-8.64 -1.28,-12.8 h 46.08 c 3.52,0 6.4,-2.88 6.4,-6.4 V 352 c 0,-3.52 -2.88,-6.4 -6.4,-6.4 z M 115.2,422.4 C 94,422.4 76.8,405.2 76.8,384 c 0,-21.2 17.2,-38.4 38.4,-38.4 21.2,0 38.4,17.2 38.4,38.4 0,21.2 -17.2,38.4 -38.4,38.4 z m 217.6,-256 h 35.28 c 6.72,0 13.36,2.72 18.08,7.52 l 67.12,67.12 c 0.64,0.64 0.88,1.52 1.44,2.24 H 332.8 Z m 64,256 c -21.2,0 -38.4,-17.2 -38.4,-38.4 0,-21.2 17.2,-38.4 38.4,-38.4 21.2,0 38.4,17.2 38.4,38.4 0,21.2 -17.2,38.4 -38.4,38.4 z m 64,-76.8 H 447.68 C 436,330.16 417.6,320 396.8,320 376,320 357.6,330.16 345.92,345.6 H 332.8 v -76.8 h 128 z M 204.8,236.8 V 224 c 0,-3.52 -2.88,-6.4 -6.4,-6.4 H 6.4 C 2.88,217.6 0,220.48 0,224 v 12.8 c 0,3.52 2.88,6.4 6.4,6.4 h 192 c 3.52,0 6.4,-2.88 6.4,-6.4 z"
+     id="path2"
+     style="fill:#000000;stroke-width:0.8" />
+</svg>

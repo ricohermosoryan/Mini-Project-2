@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+export const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "PHP",
+});
+
 export default function Products() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,11 +23,6 @@ export default function Products() {
       .catch((err) => console.error(err));
     return controller.abort();
   }, []);
-
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "PHP",
-  });
 
   return (
     <>
