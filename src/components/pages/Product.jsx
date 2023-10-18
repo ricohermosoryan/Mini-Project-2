@@ -1,6 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import starImage from "../../assets/star.svg";
+import { formatter } from "../Products";
+import shopImage from "../../assets/shop.svg";
+import verifyImage from "../../assets/verify.svg";
+import truckImage from "../../assets/truck.svg";
+import speedyTruckImage from "../../assets/speedytruck.svg";
+import shieldImage from "../../assets/shield.svg";
+import alertImage from "../../assets/alert.svg";
+import atomeImage from "../../assets/atome.svg";
+import billeaseImage from "../../assets/billease.svg";
+import gcashImage from "../../assets/gcash.svg";
+import mastercardImage from "../../assets/mastercard.svg";
+import mayaImage from "../../assets/maya.svg";
+import visaImage from "../../assets/visa.svg";
 
 export default function Product() {
   const { id } = useParams();
@@ -32,7 +46,7 @@ export default function Product() {
     <>
       <div className="container mx-auto">
         <div>
-          <div>
+          <div className="flex flex-wrap justify-center">
             {loading ? (
               // Loading image
               <div className="flex justify-center text-center mb-11 mt-10">
@@ -58,19 +72,108 @@ export default function Product() {
               </div>
             ) : (
               // Product Details
-              <div>
-                <div className="w-fit">
-                  <div>
-                    <img src={selectedImage} className="w-96" />
-                  </div>
-                  <div className="flex gap-1 justify-center">
-                    {data.image.map(image => (<img key={image} src={image} className="w-20" onClick={() => handleImageClick(image)} />))}
-                  </div>
-                </div>
                 <div>
-                  {data.title && <p className="">{data.title}</p>}
+                  <div className="flex gap-10">
+                    <div className="w-full">
+                      <div>
+                        <img src={selectedImage} className="w-full aspect-auto rounded-lg" />
+                      </div>
+                      <div className="flex gap-2 justify-center overflow-x-scroll ">
+                          {data.image.map(image => (<img key={image} src={image} className="w-1/5 aspect-auto rounded-lg" onClick={() => handleImageClick(image)} />))}
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      {data.title && <p className="heading text-xl font-semibold">{data.title}</p>}
+                      <div className="flex gap-4">
+                        <div className="flex gap-1 bg-quantum text-white w-max p-1.5 rounded-md">
+                          <img src={starImage} className="w-4 aspect-square"/>
+                          {data.rating && <p className="text-sm font-bold">{data.rating.rate}</p>}
+                        </div>
+                        <div className="border w-px"></div>
+                        <div className="my-auto">
+                          {data.rating && <p>sold {data.rating.count}</p>}
+                        </div>
+                      </div>
+                      <div className="flex gap-10">
+                        <div className="flex gap-2">
+                          <img src={shopImage} className="w-5 aspect-square" />
+                          <div className="text-sm">In Stock</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <img src={verifyImage} className="w-5 aspect-square" />
+                          <div className="text-sm">Guaranteed</div>
+                        </div>
+                        <div className="flex gap-2">
+                          <img src={truckImage} className="w-5 aspect-square" />
+                          <div className="text-sm">Free Delivery</div>
+                        </div>
+                      </div>
+                      {data.price && <p className="heading text-2xl font-semibold">{formatter.format(data.price)}</p>}
+                      {data.brand && <p className="text-base">Brand: <em>{data.brand}</em></p>}
+                      {data.description && <p className="text-base">{data.description}</p>}
+                      <div className="flex gap-4">
+                        <button className="grow bg-transparent rounded-lg p-3.5 text-quantum border-2 border-quantum heading text-lg hover:text-dark-quantum hover:border-dark-quantum">Add to Cart</button>
+                        <button className="grow bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">Buy Now</button>
+                      </div>
+                      <div className="flex gap-2">
+                        <div>
+                          <img src={speedyTruckImage} className="w-5 aspect-square"/>
+                        </div>
+                        <div className="text-sm">
+                          <p className="heading font-medium">Speedy Delivery:</p>
+                          <p>Metro Manila Area: 2-3 Business Days</p>
+                          <p>Greater Metropolitan Area: 3-5 Business Days</p>
+                          <p>Luzon Area: 5-7 Business Days</p>
+                          <p>Visayas/ Mindanao Area: 7-10 Business Days</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <div>
+                          <img src={shieldImage} className="w-5 aspect-square"/>
+                        </div>
+                        <div className="text-sm">
+                          <p className="heading font-medium">Safe and Easy Checkouts Using:</p>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <img src={atomeImage} className="w-20" />
+                                </td>
+                                <td>
+                                  <img src={billeaseImage} className="w-20" />
+                                </td>
+                                <td>
+                                  <img src={gcashImage} className="w-20" />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <img src={mastercardImage} className="w-20" />
+                                </td>
+                                <td>
+                                  <img src={mayaImage} className="w-20" />
+                                </td>
+                                <td>
+                                  <img src={visaImage} className="w-20" />
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <div>
+                          <img src={alertImage} className="w-5 aspect-square"/>
+                        </div>
+                        <div className="text-sm">
+                          <p className="heading font-medium">COVID-19 Response:</p>
+                          <p>We take our customers' safety against COVID-19 a top priority. We make sure that all of our personnel are fully vaccinated and protected from the virus.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                  <div></div>
                 </div>
-              </div>
             )}
           </div>
         </div>
