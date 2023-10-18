@@ -10,7 +10,7 @@ export default function HomeNewProduct() {
     axios
       .get("https://d6fq7jdbk9.execute-api.us-east-1.amazonaws.com/dev/gadgets")
       .then((res) => {
-        const limitedData = res.data.slice(0, 5);
+        const limitedData = res.data.slice(0, 6);
         setData(limitedData);
       })
       .catch((err) => console.error(err));
@@ -24,11 +24,11 @@ export default function HomeNewProduct() {
   });
   return (
     <>
-      <div className="space-x-1 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:ms-10 lg:ms-[-10px] ms-1">
+      <div className="space-x-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 md:ms-5 lg:ms-[90px] ms-1">
         {data.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-20 lg:w-52 mt-14"
+            className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-40 lg:w-52 mt-14"
           >
             {/* Render your card content here */}
             <img src={item.image[0]} />

@@ -8,6 +8,8 @@ import userImage from "../assets/user.svg";
 import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
+import facebookLoginImage from "../assets/facebook-login.svg";
+import googleLoginImage from "../assets/google-login.svg";
 
 import { Link } from "react-router-dom";
 import HamDropdownMenu from "./HamDropdownMenu";
@@ -36,6 +38,8 @@ export default function Hamburger(props) {
 
   const toggleModal = () => {
     setModal(!modal);
+    setLoginErrors({});
+    setRegisterErrors({});
   };
 
   if (modal) {
@@ -81,11 +85,29 @@ export default function Hamburger(props) {
 
       tabs.show("login");
 
-      const contactsTab = tabs.getTab("register");
+      const inactiveTab = tabs.getTab("register");
 
       const activeTab = tabs.getActiveTab();
+
+      let loginTab;
+      let registerTab;
+
+      if (modal) {
+        loginTab = document.getElementById("login-tab");
+        registerTab = document.getElementById("register-tab");
+      }
     }
   }, [modal]);
+
+  const switchToLogin = () => {
+    const loginTab = document.getElementById("login-tab");
+    loginTab.click();
+  };
+
+  const switchToRegister = () => {
+    const registerTab = document.getElementById("register-tab");
+    registerTab.click();
+  };
 
   //Framer Motion Dropdown
   const [isOpen, setIsOpen] = useState({
@@ -116,6 +138,120 @@ export default function Hamburger(props) {
       Product: false,
     });
   };
+
+  // FORM VALIDATION
+  // Login form
+
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginErrors, setLoginErrors] = useState({});
+
+  const validateLogin = () => {
+    let errors = {};
+
+    if (!loginEmail) {
+      errors.email = "Please enter your email";
+    } else {
+      errors.email = "";
+    }
+
+    if (!loginPassword) {
+      errors.password = "Please enter your password";
+    } else {
+      errors.password = "";
+    }
+
+    setLoginErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      validateLogin();
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [loginEmail, loginPassword]);
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+
+    const isValid = validateLogin();
+
+    if (isValid) {
+      // submit form
+    }
+  };
+
+  // Register form
+
+  const [registerName, setRegisterName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerTerms, setRegisterTerms] = useState(false);
+  const [registerErrors, setRegisterErrors] = useState({});
+
+  const validateRegister = () => {
+    let errors = {};
+
+    const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
+    if (!registerName) {
+      errors.name = "Please enter your full name";
+    } else if (!name_reg.test(registerName)) {
+      errors.name = "Invalid name format";
+    } else {
+      errors.name = "";
+    }
+
+    const email_reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!registerEmail) {
+      errors.email = "Please enter a valid email address";
+    } else if (!email_reg.test(registerEmail)) {
+      errors.email = "Invalid email address format";
+    } else {
+      errors.email = "";
+    }
+
+    if (!registerPassword) {
+      errors.password = "Create a unique password (min. 8 characters)";
+    } else if (registerPassword.length < 8) {
+      errors.password = "Passwords must be at least 8 characters long";
+    } else {
+      errors.password = "";
+    }
+
+    if (!registerTerms) {
+      errors.terms = "You must agree before submitting";
+    } else {
+      errors.terms = "";
+    }
+
+    setRegisterErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      validateRegister();
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [registerName, registerEmail, registerPassword, registerTerms]);
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+
+    const isValid = validateRegister();
+
+    if (isValid) {
+      // submit form
+    }
+  };
+
+  // to show the password
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -314,32 +450,10 @@ export default function Hamburger(props) {
 
       {/* Login Modal */}
       {modal && (
-        <div id="modal-container" className="modal z-50">
-          <div onClick={toggleModal} className="overlay">
-            <button
-              onClick={toggleModal}
-              className="close-modal hover:bg-gray-600 rounded-lg"
-            >
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                />
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
-          </div>
+        <div id="modal-container" className="modal flex justify-center z-50">
+          <div onClick={toggleModal} className="overlay"></div>
           {/* PROFILE TAB */}
-          <div className="modal-content rounded-lg bg-white w-96">
+          <div className="modal-content rounded-lg bg-white w-96 absolute top-20">
             {/* TABS */}
             <div className="border-b border-gray-200 dark:border-gray-700">
               <ul
@@ -374,10 +488,10 @@ export default function Hamburger(props) {
                 className="hidden p-4 rounded-lg bg-white dark:bg-main-body"
                 id="login-contents"
               >
-                <div className="heading text-center text-xl my-6">
+                <div className="heading text-center text-xl mb-6">
                   Log in to QuantumGalaxy
                 </div>
-                <form>
+                <form onSubmit={handleLoginSubmit}>
                   <div className="my-4">
                     <label
                       htmlFor="login-email"
@@ -393,10 +507,16 @@ export default function Hamburger(props) {
                         name="login-email"
                         id="login-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={loginEmail}
+                        onInput={(e) => setLoginEmail(e.target.value)}
                       />
                     </div>
                   </div>
+                  {loginErrors.email && (
+                    <p className="text-sm text-red-500 -mt-3">
+                      {loginErrors.email}
+                    </p>
+                  )}
                   <div className="my-4">
                     <label
                       htmlFor="login-password"
@@ -404,22 +524,29 @@ export default function Hamburger(props) {
                     >
                       Password
                     </label>
-                    <div className="flex border rounded-lg px-3 py-3">
+                    <div className="flex border rounded-lg px-3 py-3 mb-4">
                       <img src={keyImage} className="w-6 mr-1 aspect-square" />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="Password"
                         name="login-password"
                         id="login-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={loginPassword}
+                        onInput={(e) => setLoginPassword(e.target.value)}
                       />
                       <img
-                        src={eyeSlashImage}
+                        src={showPassword ? eyeImage : eyeSlashImage}
+                        onClick={() => setShowPassword(!showPassword)}
                         className="w-6 mr-1 aspect-square"
                       />
                     </div>
-                    <div className="text-right text-xs text-quantum py-1 px-3 cursor-pointer hover:text-dark-quantum">
+                    {loginErrors.password && (
+                      <p className="text-sm text-red-500 -mt-3">
+                        {loginErrors.password}
+                      </p>
+                    )}
+                    <div className="text-right text-xs text-quantum my-1 px-3 cursor-pointer hover:text-dark-quantum">
                       Forgot password?
                     </div>
                   </div>
@@ -430,7 +557,6 @@ export default function Hamburger(props) {
                         name="login-remember"
                         id="login-remember"
                         className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
-                        required
                       />
                     </div>
                     <label
@@ -448,13 +574,38 @@ export default function Hamburger(props) {
                       Log In
                     </button>
                   </div>
-                  <div className="text-sm text-center my-2">
-                    Don't have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                      Sign up
+                </form>
+                <div className="flex justify-center items-center gap-4 my-2">
+                  <div className="h-px border grow"></div>
+                  <div className="text-sm">or Log In with</div>
+                  <div className="h-px border grow"></div>
+                </div>
+                <div className="flex gap-2 my-4">
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={googleLoginImage} className="w-6 aspect-square" />
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">
+                      Google
                     </span>
                   </div>
-                </form>
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img
+                      src={facebookLoginImage}
+                      className="w-6 aspect-square"
+                    />
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">
+                      Facebook
+                    </span>
+                  </div>
+                </div>
+                <div className="text-sm text-center my-2">
+                  Don't have an account? &nbsp;{" "}
+                  <span
+                    className="text-quantum hover:text-dark-quantum cursor-pointer"
+                    onClick={switchToRegister}
+                  >
+                    Sign up
+                  </span>
+                </div>
               </div>
 
               {/* REGISTER */}
@@ -462,16 +613,16 @@ export default function Hamburger(props) {
                 className="hidden p-4 rounded-lg bg-white dark:bg-main-body"
                 id="register-contents"
               >
-                <div className="heading text-center text-xl my-6">
+                <div className="heading text-center text-xl mb-6">
                   Create your account
                 </div>
-                <form>
+                <form onSubmit={handleRegisterSubmit}>
                   <div className="my-4">
                     <label
                       htmlFor="register-fullname"
                       className="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Email
+                      Full Name
                     </label>
                     <div className="flex border rounded-lg px-3 py-3">
                       <img src={userImage} className="w-6 mr-1 aspect-square" />
@@ -481,10 +632,15 @@ export default function Hamburger(props) {
                         name="register-fullname"
                         id="register-fullname"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        onInput={(e) => setRegisterName(e.target.value)}
                       />
                     </div>
                   </div>
+                  {registerErrors.name && (
+                    <p className="text-sm text-red-500 -mt-3">
+                      {registerErrors.name}
+                    </p>
+                  )}
                   <div className="my-4">
                     <label
                       htmlFor="register-email"
@@ -500,10 +656,16 @@ export default function Hamburger(props) {
                         name="register-email"
                         id="register-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={registerEmail}
+                        onInput={(e) => setRegisterEmail(e.target.value)}
                       />
                     </div>
                   </div>
+                  {registerErrors.email && (
+                    <p className="text-sm text-red-500 -mt-3">
+                      {registerErrors.email}
+                    </p>
+                  )}
                   <div className="my-4">
                     <label
                       htmlFor="register-password"
@@ -514,19 +676,26 @@ export default function Hamburger(props) {
                     <div className="flex border rounded-lg px-3 py-3">
                       <img src={keyImage} className="w-6 mr-1 aspect-square" />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="Password"
                         name="register-password"
                         id="register-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        required
+                        value={registerPassword}
+                        onInput={(e) => setRegisterPassword(e.target.value)}
                       />
                       <img
-                        src={eyeSlashImage}
+                        src={showPassword ? eyeImage : eyeSlashImage}
+                        onClick={() => setShowPassword(!showPassword)}
                         className="w-6 mr-1 aspect-square"
                       />
                     </div>
                   </div>
+                  {registerErrors.password && (
+                    <p className="text-sm text-red-500 -mt-3">
+                      {registerErrors.password}
+                    </p>
+                  )}
                   <div className="my-4 px-3 flex items-center">
                     <div className="flex items-center">
                       <input
@@ -534,7 +703,8 @@ export default function Hamburger(props) {
                         name="register-terms"
                         id="register-terms"
                         className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
-                        required
+                        value={registerTerms}
+                        onInput={(e) => setRegisterTerms(e.target.checked)}
                       />
                     </div>
                     <label
@@ -547,6 +717,11 @@ export default function Hamburger(props) {
                       </span>
                     </label>
                   </div>
+                  {registerErrors.terms && (
+                    <p className="text-sm text-red-500 -mt-3">
+                      {registerErrors.terms}
+                    </p>
+                  )}
                   <div className="flex my-4">
                     <button
                       type="submit"
@@ -555,13 +730,38 @@ export default function Hamburger(props) {
                       Create Account
                     </button>
                   </div>
-                  <div className="text-sm text-center my-2">
-                    Already have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                      Sign in
+                </form>
+                <div className="flex justify-center items-center gap-4 my-2">
+                  <div className="h-px border grow"></div>
+                  <div className="text-sm">or Sign Up with</div>
+                  <div className="h-px border grow"></div>
+                </div>
+                <div className="flex gap-2 my-4">
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={googleLoginImage} className="w-6 aspect-square" />
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">
+                      Google
                     </span>
                   </div>
-                </form>
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img
+                      src={facebookLoginImage}
+                      className="w-6 aspect-square"
+                    />
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">
+                      Facebook
+                    </span>
+                  </div>
+                </div>
+                <div className="text-sm text-center my-2">
+                  Already have an account? &nbsp;{" "}
+                  <span
+                    className="text-quantum hover:text-dark-quantum cursor-pointer"
+                    onClick={switchToLogin}
+                  >
+                    Sign in
+                  </span>
+                </div>
               </div>
             </div>
           </div>
