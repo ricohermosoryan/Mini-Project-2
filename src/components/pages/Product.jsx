@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 export default function Product() {
   const { id } = useParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({image: []});
+  const [selectedImage, setSelectedImage] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,23 +17,29 @@ export default function Product() {
       )
       .then((res) => {
         setData(res.data);
+        setSelectedImage(res.data.image[0]); 
         setLoading(false);
       })
       .catch((err) => console.error(err));
     return controller.abort();
   }, []);
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image); 
+  }
+
   return (
     <>
       <div className="container mx-auto">
-        <div className=" rounded-md mt-5">
-          <div className="flex flex-wrap justify-center">
+        <div>
+          <div>
             {loading ? (
               // Loading image
-              <div className="text-center mb-11 mt-10">
+              <div className="flex justify-center text-center mb-11 mt-10">
                 <div role="status">
                   <svg
                     aria-hidden="true"
-                    className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                    className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-quantum"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -51,13 +58,18 @@ export default function Product() {
               </div>
             ) : (
               // Product Details
-              <div className="image">
-                {data.image && data.image[0] ? (
-                  <img src={data.image[0]} alt="Product Image" />
-                ) : (
-                  <p>No image available</p>
-                )}
-                {data.title}
+              <div>
+                <div className="w-fit">
+                  <div>
+                    <img src={selectedImage} className="w-96" />
+                  </div>
+                  <div className="flex gap-1 justify-center">
+                    {data.image.map(image => (<img key={image} src={image} className="w-20" onClick={() => handleImageClick(image)} />))}
+                  </div>
+                </div>
+                <div>
+                  {data.title && <p className="">{data.title}</p>}
+                </div>
               </div>
             )}
           </div>

@@ -54,6 +54,10 @@
         background-color: #0092c3;
     }
 
+    .fill-quantum {
+        fill: #00b0ea;
+    }
+
     body.active-modal {
         overflow-y: hidden;
     }
