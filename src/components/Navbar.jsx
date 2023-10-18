@@ -371,27 +371,6 @@ export default function Navbar() {
       {modal && (
         <div id="modal-container" className="modal z-50">
           <div onClick={toggleModal} className="overlay">
-            <button
-              onClick={toggleModal}
-              className="close-modal hover:bg-gray-600 rounded-lg"
-            >
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                />
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
           </div>
           {/* PROFILE TAB */}
           <div className="modal-content rounded-lg bg-white w-96">
