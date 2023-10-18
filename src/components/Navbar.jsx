@@ -161,13 +161,13 @@ export default function Navbar() {
     let errors = {};
 
     if(!loginEmail) {
-      errors.email = 'Email is required';
+      errors.email = 'Please enter your email';
     } else {
       errors.email = "";
     }
 
     if(!loginPassword) {
-      errors.password = 'Password is required';
+      errors.password = 'Please enter your password';
     } else {
       errors.password = "";
     }
@@ -177,6 +177,14 @@ export default function Navbar() {
     return Object.keys(errors).length === 0;
   }
 
+  useEffect(() => {
+  const timeout = setTimeout(() => {
+    validateLogin();
+  }, 100);
+
+  return () => clearTimeout(timeout);
+  }, [loginEmail, loginPassword]);
+  
   const handleLoginSubmit = e => {
     e.preventDefault();
 
@@ -198,37 +206,51 @@ export default function Navbar() {
   const validateRegister = () => {
     let errors = {};
 
-    if(!registerName) {
-      errors.name = 'Name is required';
+    const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
+    if (!registerName) {
+      errors.name = 'Please enter your full name';
+    } else if (!name_reg.test(registerName)) {
+      errors.name = 'Invalid name format';
     } else {
       errors.name = "";
     }
 
-    if(!registerEmail) {
-      errors.email = 'Email is required';
+    const email_reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!registerEmail) {
+      errors.email = 'Please enter a valid email address';
+    } else if (!email_reg.test(registerEmail)) {
+      errors.email = 'Invalid email address format';
     } else {
       errors.email = "";
     }
 
-    if(!registerPassword) {
-      errors.password = 'Password is required';
+    if (!registerPassword) {
+      errors.password = 'Create a unique password (min. 8 characters)';
+    } else if (registerPassword.length < 8) {
+      errors.password = 'Passwords must be at least 8 characters long';
     } else {
       errors.password = "";
     }
 
     if(!registerTerms) {
-      errors.terms = 'You must accept the Terms & Conditions';
+      errors.terms = 'You must agree before submitting';
     } else {
       errors.terms = "";
     }
-
-    // other validations
 
     setRegisterErrors(errors);
 
     return Object.keys(errors).length === 0;
   } 
 
+  useEffect(() => {
+  const timeout = setTimeout(() => {
+    validateRegister();
+  }, 100);
+  
+  return () => clearTimeout(timeout);
+  }, [registerName, registerEmail, registerPassword, registerTerms]);
+  
   const handleRegisterSubmit = e => {
     e.preventDefault();
 
@@ -428,7 +450,7 @@ export default function Navbar() {
                         id="login-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={loginEmail}
-                        onChange={e => setLoginEmail(e.target.value)}
+                        onInput={e => setLoginEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -440,7 +462,7 @@ export default function Navbar() {
                     >
                       Password
                     </label>
-                    <div className="flex border rounded-lg px-3 py-3">
+                    <div className="flex border rounded-lg px-3 py-3 mb-4">
                       <img src={keyImage} className="w-6 mr-1 aspect-square" />
                       <input
                         type={showPassword ? 'text' : 'password'}
@@ -449,7 +471,7 @@ export default function Navbar() {
                         id="login-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={loginPassword}
-                        onChange={e => setLoginPassword(e.target.value)}
+                        onInput={e => setLoginPassword(e.target.value)}
                       />
                       <img
                         src={showPassword ? eyeImage : eyeSlashImage}
@@ -458,7 +480,7 @@ export default function Navbar() {
                       />
                     </div>
                     {loginErrors.password && <p className="text-sm text-red-500 -mt-3">{loginErrors.password}</p>}
-                    <div className="text-right text-xs text-quantum py-1 px-3 cursor-pointer hover:text-dark-quantum">
+                    <div className="text-right text-xs text-quantum my-1 px-3 cursor-pointer hover:text-dark-quantum">
                       Forgot password?
                     </div>
                   </div>
@@ -519,7 +541,7 @@ export default function Navbar() {
                         name="register-fullname"
                         id="register-fullname"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        onChange={e => setRegisterName(e.target.value)}
+                        onInput={e => setRegisterName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -540,7 +562,7 @@ export default function Navbar() {
                         id="register-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={registerEmail}
-                        onChange={e => setRegisterEmail(e.target.value)}
+                        onInput={e => setRegisterEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -561,7 +583,7 @@ export default function Navbar() {
                         id="register-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={registerPassword}
-                        onChange={e => setRegisterPassword(e.target.value)} 
+                        onInput={e => setRegisterPassword(e.target.value)}
                       />
                       <img
                         src={showPassword ? eyeImage : eyeSlashImage}
@@ -579,7 +601,7 @@ export default function Navbar() {
                         id="register-terms"
                         className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
                         value={registerTerms}
-                        onChange={e => setRegisterTerms(e.target.checked)} 
+                        onInput={e => setRegisterTerms(e.target.checked)}
                       />
                     </div>
                     <label
