@@ -16,6 +16,8 @@ import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
 import eyeImage from "../assets/eye.svg";
+import facebookLoginImage from "../assets/facebook-login.svg";
+import googleLoginImage from "../assets/google-login.svg";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 export const socialLinks = [
@@ -51,6 +53,8 @@ export default function Navbar() {
 
   const toggleModal = () => {
     setModal(!modal);
+    setLoginErrors({});
+    setRegisterErrors({});
   };
 
   if (modal) {
@@ -161,13 +165,13 @@ export default function Navbar() {
     let errors = {};
 
     if(!loginEmail) {
-      errors.email = 'Email is required';
+      errors.email = 'Please enter your email';
     } else {
       errors.email = "";
     }
 
     if(!loginPassword) {
-      errors.password = 'Password is required';
+      errors.password = 'Please enter your password';
     } else {
       errors.password = "";
     }
@@ -177,6 +181,14 @@ export default function Navbar() {
     return Object.keys(errors).length === 0;
   }
 
+  useEffect(() => {
+  const timeout = setTimeout(() => {
+    validateLogin();
+  }, 100);
+
+  return () => clearTimeout(timeout);
+  }, [loginEmail, loginPassword]);
+  
   const handleLoginSubmit = e => {
     e.preventDefault();
 
@@ -198,37 +210,51 @@ export default function Navbar() {
   const validateRegister = () => {
     let errors = {};
 
-    if(!registerName) {
-      errors.name = 'Name is required';
+    const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
+    if (!registerName) {
+      errors.name = 'Please enter your full name';
+    } else if (!name_reg.test(registerName)) {
+      errors.name = 'Invalid name format';
     } else {
       errors.name = "";
     }
 
-    if(!registerEmail) {
-      errors.email = 'Email is required';
+    const email_reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!registerEmail) {
+      errors.email = 'Please enter a valid email address';
+    } else if (!email_reg.test(registerEmail)) {
+      errors.email = 'Invalid email address format';
     } else {
       errors.email = "";
     }
 
-    if(!registerPassword) {
-      errors.password = 'Password is required';
+    if (!registerPassword) {
+      errors.password = 'Create a unique password (min. 8 characters)';
+    } else if (registerPassword.length < 8) {
+      errors.password = 'Passwords must be at least 8 characters long';
     } else {
       errors.password = "";
     }
 
     if(!registerTerms) {
-      errors.terms = 'You must accept the Terms & Conditions';
+      errors.terms = 'You must agree before submitting';
     } else {
       errors.terms = "";
     }
-
-    // other validations
 
     setRegisterErrors(errors);
 
     return Object.keys(errors).length === 0;
   } 
 
+  useEffect(() => {
+  const timeout = setTimeout(() => {
+    validateRegister();
+  }, 100);
+  
+  return () => clearTimeout(timeout);
+  }, [registerName, registerEmail, registerPassword, registerTerms]);
+  
   const handleRegisterSubmit = e => {
     e.preventDefault();
 
@@ -369,32 +395,11 @@ export default function Navbar() {
 
       {/* Login Modal */}
       {modal && (
-        <div id="modal-container" className="modal z-50">
+        <div id="modal-container" className="modal flex justify-center z-50">
           <div onClick={toggleModal} className="overlay">
-            <button
-              onClick={toggleModal}
-              className="close-modal hover:bg-gray-600 rounded-lg"
-            >
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                />
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
           </div>
           {/* PROFILE TAB */}
-          <div className="modal-content rounded-lg bg-white w-96">
+          <div className="modal-content rounded-lg bg-white w-96 absolute top-20">
             {/* TABS */}
             <div className="border-b border-gray-200 dark:border-gray-700">
               <ul
@@ -449,7 +454,7 @@ export default function Navbar() {
                         id="login-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={loginEmail}
-                        onChange={e => setLoginEmail(e.target.value)}
+                        onInput={e => setLoginEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -461,7 +466,7 @@ export default function Navbar() {
                     >
                       Password
                     </label>
-                    <div className="flex border rounded-lg px-3 py-3">
+                    <div className="flex border rounded-lg px-3 py-3 mb-4">
                       <img src={keyImage} className="w-6 mr-1 aspect-square" />
                       <input
                         type={showPassword ? 'text' : 'password'}
@@ -470,7 +475,7 @@ export default function Navbar() {
                         id="login-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={loginPassword}
-                        onChange={e => setLoginPassword(e.target.value)}
+                        onInput={e => setLoginPassword(e.target.value)}
                       />
                       <img
                         src={showPassword ? eyeImage : eyeSlashImage}
@@ -479,7 +484,7 @@ export default function Navbar() {
                       />
                     </div>
                     {loginErrors.password && <p className="text-sm text-red-500 -mt-3">{loginErrors.password}</p>}
-                    <div className="text-right text-xs text-quantum py-1 px-3 cursor-pointer hover:text-dark-quantum">
+                    <div className="text-right text-xs text-quantum my-1 px-3 cursor-pointer hover:text-dark-quantum">
                       Forgot password?
                     </div>
                   </div>
@@ -507,13 +512,28 @@ export default function Navbar() {
                       Log In
                     </button>
                   </div>
-                  <div className="text-sm text-center my-2">
-                    Don't have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToRegister}>
-                      Sign up
-                    </span>
-                  </div>
                 </form>
+                <div className="flex justify-center items-center gap-4 my-2">
+                  <div className="h-px border grow"></div>
+                  <div className="text-sm">or Log In with</div>
+                  <div className="h-px border grow"></div>
+                </div>
+                <div className="flex gap-2 my-4">
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={googleLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Google</span>
+                  </div>
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={facebookLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Facebook</span>
+                  </div>
+                </div>
+                <div className="text-sm text-center my-2">
+                  Don't have an account? &nbsp;{" "}
+                  <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToRegister}>
+                    Sign up
+                  </span>
+                </div>
               </div>
 
               {/* REGISTER */}
@@ -540,7 +560,7 @@ export default function Navbar() {
                         name="register-fullname"
                         id="register-fullname"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        onChange={e => setRegisterName(e.target.value)}
+                        onInput={e => setRegisterName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -561,7 +581,7 @@ export default function Navbar() {
                         id="register-email"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={registerEmail}
-                        onChange={e => setRegisterEmail(e.target.value)}
+                        onInput={e => setRegisterEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -582,7 +602,7 @@ export default function Navbar() {
                         id="register-password"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
                         value={registerPassword}
-                        onChange={e => setRegisterPassword(e.target.value)} 
+                        onInput={e => setRegisterPassword(e.target.value)}
                       />
                       <img
                         src={showPassword ? eyeImage : eyeSlashImage}
@@ -600,7 +620,7 @@ export default function Navbar() {
                         id="register-terms"
                         className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
                         value={registerTerms}
-                        onChange={e => setRegisterTerms(e.target.checked)} 
+                        onInput={e => setRegisterTerms(e.target.checked)}
                       />
                     </div>
                     <label
@@ -622,13 +642,28 @@ export default function Navbar() {
                       Create Account
                     </button>
                   </div>
-                  <div className="text-sm text-center my-2">
-                    Already have an account? &nbsp;{" "}
-                    <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToLogin}>
-                      Sign in
-                    </span>
-                  </div>
                 </form>
+                <div className="flex justify-center items-center gap-4 my-2">
+                  <div className="h-px border grow"></div>
+                  <div className="text-sm">or Sign Up with</div>
+                  <div className="h-px border grow"></div>
+                </div>
+                <div className="flex gap-2 my-4">
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={googleLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Google</span>
+                  </div>
+                  <div className="flex grow w-full justify-center items-center gap-2 py-2 border border-quantum rounded-lg cursor-pointer hover:border-dark-quantum">
+                    <img src={facebookLoginImage} className="w-6 aspect-square"/>
+                    <span className="text-quantum heading font-medium text-base hover:text-dark-quantum">Facebook</span>
+                  </div>
+                </div>
+                <div className="text-sm text-center my-2">
+                  Already have an account? &nbsp;{" "}
+                  <span className="text-quantum hover:text-dark-quantum cursor-pointer" onClick={switchToLogin}>
+                    Sign in
+                  </span>
+                </div>
               </div>
             </div>
           </div>
