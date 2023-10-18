@@ -1,3 +1,5 @@
+'use client';
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -16,10 +18,11 @@ import gcashImage from "../../assets/gcash.svg";
 import mastercardImage from "../../assets/mastercard.svg";
 import mayaImage from "../../assets/maya.svg";
 import visaImage from "../../assets/visa.svg";
+import { Tabs } from 'flowbite-react';
 
 export default function Product() {
   const { id } = useParams();
-  const [data, setData] = useState({image: []});
+  const [data, setData] = useState({image: [], features: []});
   const [selectedImage, setSelectedImage] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -75,6 +78,8 @@ export default function Product() {
               // Product Details
                 <div>
                   <div className="flex gap-10">
+
+                    {/* IMAGE GALLERY */}
                     <div className="w-full">
                       <div>
                         <img src={selectedImage} className="w-full aspect-auto rounded-lg" />
@@ -84,7 +89,11 @@ export default function Product() {
                       </div>
                     </div>
                     <div className="w-full">
+
+                      {/* PRODUCT NAME */}
                       {data.title && <p className="heading text-xl font-semibold">{data.title}</p>}
+
+                      {/* PRODUCT RATING */}
                       <div className="flex gap-4">
                         <div className="flex gap-1 bg-quantum text-white w-max p-1.5 rounded-md">
                           <img src={starImage} className="w-4 aspect-square"/>
@@ -95,6 +104,8 @@ export default function Product() {
                           {data.rating && <p>sold {data.rating.count}</p>}
                         </div>
                       </div>
+
+                      {/* STORE PERKS */}
                       <div className="flex gap-10">
                         <div className="flex gap-2">
                           <img src={shopImage} className="w-5 aspect-square" />
@@ -109,14 +120,22 @@ export default function Product() {
                           <div className="text-sm">Free Delivery</div>
                         </div>
                       </div>
+
+                      {/* PRODUCT PRICE */}
                       {data.price && <p className="heading text-2xl font-semibold">{formatter.format(data.price)}</p>}
-                      <p className="flex items-baseline text-sm">or pay up to 12 monthly installments for only&nbsp;{data.price && <span className="heading text-base font-semibold">{formatter.format(data.price / 12)}</span>} with&nbsp;<img src={billeaseBaselineImage} className="w-16"/>.&nbsp;<span className="text-quantum underline"><a href="https://billease.ph/">Learn More.</a></span></p>
+                      <p className="flex items-baseline text-sm">or pay up to 12 monthly installments for only&nbsp;{data.price && <span className="heading text-base font-semibold">{formatter.format(data.price / 12)}</span>} with&nbsp;<img src={billeaseBaselineImage} className="w-16" />.&nbsp;<span className="text-quantum underline"><a href="https://billease.ph/" target="_blank">Learn More.</a></span></p>
+                      
+                      {/* PRODUCT DETAILS */}
                       {data.brand && <p className="text-base">Brand: <em>{data.brand}</em></p>}
                       {data.description && <p className="text-base">{data.description}</p>}
+
+                      {/* BUY BUTTONS */}
                       <div className="flex gap-4">
                         <button className="grow bg-transparent rounded-lg p-3.5 text-quantum border-2 border-quantum heading text-lg hover:text-dark-quantum hover:border-dark-quantum">Add to Cart</button>
                         <button className="grow bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">Buy Now</button>
                       </div>
+
+                      {/* COMMITMENTS */}
                       <div className="flex gap-2">
                         <div>
                           <img src={speedyTruckImage} className="w-5 aspect-square"/>
@@ -173,8 +192,58 @@ export default function Product() {
                         </div>
                       </div>
                     </div>
-                  </div>  
-                  <div></div>
+                  </div>
+                  <div>
+                    <Tabs.Group>
+                      <Tabs.Item active title="Description">
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="heading font-medium">Features</p>
+                          <ul>
+                            {data.features.map(feature => (<li key={feature}>{feature}</li>))}
+                          </ul>
+                          <p className="heading font-medium">Warranty</p>
+                          <ul>
+                            <li>1 year Official Warranty</li>
+                          </ul>
+                        </div>
+                      </Tabs.Item>
+                      <Tabs.Item title="Returns and Replacement">
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <p>When you receive your order, please take a video of your unboxing and make sure all items in your order are received and have no external defects. If QuantumGalaxy does not receive report of external defect within twenty four (24) hours from receipt of your item, it means that you received it free from external defect. Documenting your receipt and unboxing can help in case of disputes with the courier or other problems with your order.</p>
+                          <p>Send us an email at customercare@quantumgalaxy.com. You can also call/text +63 912 345-6789. We can also attend to your needs via our official social media channels.</p>
+                          <p>By purchasing at QuantumGalaxy, you agree and accept the warranty and repair policies as stated above.</p>
+                        </div>
+                      </Tabs.Item>
+                      <Tabs.Item title="Shipping">
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="heading font-medium">Standard Shipping</p>
+
+                          <p>Our delivery lead time for Metro Manila is 2-4 business days; For Luzon Area, 5-7 business days; and for Visayas and Mindanao, it is 7-10 business days. Please note that delivery times can be affected by extreme weather conditions, seasonal demand peaks, and other factors. Refer to your tracking number to see where your package is. For unusual circumstances, please contact customer service.</p>
+                          
+                          <p className="heading font-medium">Tracking Your Item</p>
+
+                          <p>As a policy, as soon as we have sent your package for shipping, the tracking number will immediately be sent to you via email and SMS within 24-48 hours after checkout. You may also contact us at orders@quantumgalaxy.com if you still haven't received the tracking number. Keep your tracking number secure and private. You can also track your order thru this link: https://www.quantumgalaxy.com/apps/parcelpanel</p>
+                          
+                          <p className="heading font-medium">Same Day Delivery</p>
+                          
+                          <p>Same Day Delivery is currently only available within Metro Manila from Mondays to Saturdays. Same Day Delivery is on payment first before delivery policy. The delivery rate is based on the rates provided by our courier partner Grab Express via their Grab Express App. Payment can be settled via GCash, or Bank Transfer through Instapay at BDO or Unionbank.</p>
+                          
+                          <p className="heading font-medium">Courier Partners</p>
+
+                          <p>QuantumGalaxy's trusted partner couriers are Entrego, Gogo, and Grab Express. Delivery through LBC can be considered as an alternative on a case-to-case basis. If your location is not within the serviceable area of our main partner couriers, shipping fees will be according to LBC rates and payment must be settled first before delivery. Cash On Pickup is currently not available thru LBC.</p>
+                          
+                          <p className="heading font-medium">Orders Outside of the Philippines</p>
+
+                          <p>We currently don't serve international orders on a large scale. You may get in touch with us if you need help with orders of this nature as we can work out a plan for your order. You can order from outside of the Philippines provided the item will be delivered to a Philippine address.</p>
+                        </div>
+                      </Tabs.Item>
+                      <Tabs.Item title="Review">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          No reviews yet
+                        </p>
+                      </Tabs.Item>
+                    </Tabs.Group>
+                  </div>
                 </div>
             )}
           </div>
