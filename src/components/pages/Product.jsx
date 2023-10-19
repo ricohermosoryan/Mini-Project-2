@@ -77,7 +77,7 @@ export default function Product() {
             ) : (
               // Product Details
                 <div>
-                  <div className="flex gap-10">
+                  <div className="flex flex-wrap md:flex-nowrap gap-10">
 
                     {/* IMAGE GALLERY */}
                     <div className="w-full">
@@ -106,16 +106,16 @@ export default function Product() {
                       </div>
 
                       {/* STORE PERKS */}
-                      <div className="flex gap-10">
-                        <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-x-10">
+                        <div className="flex flex-wrap gap-2">
                           <img src={shopImage} className="w-5 aspect-square" />
                           <div className="text-sm">In Stock</div>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                           <img src={verifyImage} className="w-5 aspect-square" />
                           <div className="text-sm">Guaranteed</div>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                           <img src={truckImage} className="w-5 aspect-square" />
                           <div className="text-sm">Free Delivery</div>
                         </div>
@@ -123,22 +123,22 @@ export default function Product() {
 
                       {/* PRODUCT PRICE */}
                       {data.price && <p className="heading text-2xl font-semibold">{formatter.format(data.price)}</p>}
-                      <p className="flex items-baseline text-sm">or pay up to 12 monthly installments for only&nbsp;{data.price && <span className="heading text-base font-semibold">{formatter.format(data.price / 12)}</span>} with&nbsp;<img src={billeaseBaselineImage} className="w-16" />.&nbsp;<span className="text-quantum underline"><a href="https://billease.ph/" target="_blank">Learn More.</a></span></p>
+                      <p className="flex flex-wrap items-baseline text-sm">or pay up to <span>12 monthly installments</span> for only&nbsp;{data.price && <span className="heading text-base font-semibold">{formatter.format(data.price / 12)}</span>} with&nbsp;<img src={billeaseBaselineImage} className="w-16" />.&nbsp;<span className="text-quantum underline"><a href="https://billease.ph/" target="_blank">Learn More.</a></span></p>
                       
                       {/* PRODUCT DETAILS */}
                       {data.brand && <p className="text-base">Brand: <em>{data.brand}</em></p>}
                       {data.description && <p className="text-base">{data.description}</p>}
 
                       {/* BUY BUTTONS */}
-                      <div className="flex gap-4">
+                      <div className="flex gap-x-4 flex-wrap md:flex-nowrap">
                         <button className="grow bg-transparent rounded-lg p-3.5 text-quantum border-2 border-quantum heading text-lg hover:text-dark-quantum hover:border-dark-quantum">Add to Cart</button>
                         <button className="grow bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">Buy Now</button>
                       </div>
 
                       {/* COMMITMENTS */}
                       <div className="flex gap-2">
-                        <div>
-                          <img src={speedyTruckImage} className="w-5 aspect-square"/>
+                        <div  className="h-5 w-5 aspect-square">
+                          <img src={speedyTruckImage} className="w-full"/>
                         </div>
                         <div className="text-sm">
                           <p className="heading font-medium">Speedy Delivery:</p>
@@ -149,8 +149,8 @@ export default function Product() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <div>
-                          <img src={shieldImage} className="w-5 aspect-square"/>
+                        <div className="h-5 w-5 aspect-square">
+                          <img src={shieldImage} className="w-full"/>
                         </div>
                         <div className="text-sm">
                           <p className="heading font-medium">Safe and Easy Checkouts Using:</p>
@@ -183,8 +183,8 @@ export default function Product() {
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <div>
-                          <img src={alertImage} className="w-5 aspect-square"/>
+                        <div className="h-5 w-5 aspect-square">
+                          <img src={alertImage} className="w-full"/>
                         </div>
                         <div className="text-sm">
                           <p className="heading font-medium">COVID-19 Response:</p>
