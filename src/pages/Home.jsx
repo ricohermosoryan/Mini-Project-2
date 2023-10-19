@@ -4,6 +4,17 @@ import phone2 from "../assets/phone2.svg";
 import phone3 from "../assets/phone3.svg";
 import shape from "../assets/figma-shape.svg";
 import iphone from "../assets/iphones.svg";
+import ellipse from "../assets/ellipse.svg";
+import ellipse1 from "../assets/ellipse1.svg";
+import ellipse2 from "../assets/ellipse2.svg";
+import playstation from "../assets/playstation.svg";
+import apple from "../assets/applelogo.svg";
+import cannon from "../assets/cannon.svg";
+import huawei from "../assets/huawei.svg";
+import lenovo from "../assets/lenovo.svg";
+import samsung from "../assets/samsung.svg";
+import sony from "../assets/sony.svg";
+import accessories from "../assets/accessories.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
 import HomeNewProduct from "./HomeNewProduct";
@@ -104,14 +115,14 @@ export default function Home() {
       </div>
 
       {/* On Sale Cards */}
-      <div className="bg-gray-900 rounded-lg mx-12 md:mx-20 lg:mx-40 mt-10 mb-20">
+      <div className="bg-gray-900 rounded-lg mx-6 md:mx-20 lg:mx-40 mt-10 mb-20">
         <div className=" relative text-center text-neutral-100 text-[32px] font-medium font-['Poppins'] lg:flex">
           <img src={shape} />
-          <span className="absolute top-[40px] left-[50px] md:top-[85px] md:left-[200px] lg:top-[120px] lg:left-[100px]  text-xl md:text-2xl lg:text-3xl">
+          <span className="absolute top-[40px] left-[80px] md:top-[85px] md:left-[200px] lg:top-[120px] lg:left-[100px]  text-xl md:text-2xl lg:text-3xl">
             Quantum Products
             <br /> On Sale
           </span>
-          <button className="absolute top-[120px] left-[120px] text-sm md:top-[200px] lg:top-[270px] md:left-[290px] lg:left-[210px] hover:underline">
+          <button className="absolute top-[120px] left-[150px] text-sm md:top-[200px] lg:top-[270px] md:left-[290px] lg:left-[210px] hover:underline">
             View all
           </button>
 
@@ -174,7 +185,7 @@ export default function Home() {
       </div>
 
       {/* Subbanner 1 */}
-      <div className=" mt-6 mx-5 md:flex lg:border-emerald-200 lg:border-b lg:mx-20">
+      <div className=" mt-10 mx-5 md:flex lg:border-emerald-200 lg:border-b lg:mx-20 ">
         <div className="bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600 rounded-tl-lg rounded-bl-lg md:w-[60%] lg:w-[70%]">
           <div className="text-center ms-[190px] pt-2 md:mt-[30px] lg:ms-[790px]">
             <span className="text-neutral-950 text-[16px] md:text-[30px] lg:text-[40px] font-medium font-['Poppins']">
@@ -191,15 +202,20 @@ export default function Home() {
               className="w-[200px] md:w-[290px] lg:w-[700px]"
             />
 
-            <button class="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]">
+            <motion.button
+              class="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
               <span class="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
                 Register Now
               </span>
-            </button>
+            </motion.button>
           </div>
         </div>
         <div className="mb-3 md:w-[40%] lg:w-[30%]">
-          <div class="w-[332px] h-[69px] justify-start items-start gap-4 inline-flex mt-3 ms-1 mb-3 md:ms-6 lg:mx-[100px] lg:mb-14 lg:mt-10">
+          <div class="w-[332px] h-[69px] justify-start items-start gap-4 inline-flex mt-3 ms-1 mb-3 md:ms-6 lg:mx-[100px] lg:mb-14 lg:mt-10 md:w-[270px]">
             <div class="w-[70px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
               <div class="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
                 8
@@ -242,7 +258,142 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div>banner2</div>
+
+      {/* Subbanner2 */}
+      <div className="mb-[90px] md:flex mt-10 lg:mx-20 md:mx-5">
+        <div className="Text mt-10 mx-[5px] md:w-[50%] lg:w-[70%] md:mt-1">
+          <div className=" text-center text-black text-[32px] font-medium lg:mt-[90px]">
+            Unleash the Power of the Quantum Galaxy with <br />
+            PlayStation 5: <br />
+            <div className=" text-black text-2xl font-normal mt-5 lg:mt-[50px]">
+              Discover the Best Deals to Elevate Your Gaming Experience to
+              Stellar Heights!
+            </div>
+          </div>
+        </div>
+        <div className="image mx-[5px] mt-[120px] md:w-[50%] lg:w-[30%]">
+          <div className=" text-blue-200 text-[20px] font-medium ms-[120px] my-[-70px] lg:ms-[180px] lg:text-[26px]">
+            Play Station 5
+          </div>
+          <div className="bg-sky-800 rounded-tl-[1px] rounded-tr-lg rounded-bl-[1px] rounded-br-lg lg:h-[363px]">
+            <img src={ellipse} alt="image" />
+            <img src={ellipse1} alt="image" className="lg:w-[520px]" />
+            <div className=" text-sky-800 text-[16px] font-medium my-[-120px] ms-[20px] lg:my-[-170px] lg:text-[21px] lg:ms-[30px]">
+              Digital Edition + 2TB
+            </div>
+          </div>
+          <img
+            src={playstation}
+            alt="image"
+            className="mt-[-90px] ms-[150px] lg:mt-[-260px] lg:w-[300px] lg:ms-[190px]"
+          />
+          <motion.button
+            className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            <div class="text-center text-neutral-100 text-base font-normal">
+              Buy Now
+            </div>
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Top Product */}
+      <div className=" mx-5 lg:mx-24 mb-[130px]">
+        <div className=" h-[0px]  shadow border border-zinc-500"></div>
+        <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
+          <div className="w-[155px] h-[13px] text-center text-black text-[12px] font-medium font-['Poppins'] ms-[-80px] md:text-[19px] md:ms-[-50px] lg:text-[28px] lg:w-[200px] lg:mt-[-3px] lg:ms-[-43px]">
+            Top Products
+          </div>
+        </div>
+        {/* brand image we can put link to search all depending on the brand */}
+        <div className="brands flex gap-2 mt-3 md:mt-5 md:gap-4 md:ms-3 lg:gap-[120px] justify-center lg:mt-[70px] lg:mb-[80px]">
+          <img
+            src={apple}
+            alt="image"
+            className="w-[30px] md:w-[60px] lg:w-[80px]"
+          />
+          <img
+            src={sony}
+            alt="sony"
+            className="w-[55px] md:w-[120px] lg:w-[160px]"
+          />
+          <img
+            src={samsung}
+            alt="samsung"
+            className="w-[55px] md:w-[120px] lg:w-[160px]"
+          />
+          <img
+            src={cannon}
+            alt="cannon"
+            className="w-[55px] md:w-[120px] lg:w-[160px]"
+          />
+          <img
+            src={huawei}
+            alt="huawei"
+            className="w-[40px] md:w-[80px] lg:w-[90px]"
+          />
+          <img
+            src={lenovo}
+            alt="lenovo"
+            className="w-[55px] md:w-[120px] lg:w-[140px]"
+          />
+        </div>
+        {/* Accesorries banner */}
+        <div className=" mt-7 lg:mx-32">
+          <div className="relative bg-slate-800 rounded-lg md:flex">
+            <div className="text md:w-[50%] md:ms-[60px] md:mt-[70px]">
+              <div className="text-center text-white text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
+                QUANTUM <br />
+                ACCESSORIES
+              </div>
+              <div className="text-white text-[20px] text-center font-light pt-3 pb-5 md:text-[22px] lg:text-[28px] lg:pt-10">
+                Various designs and brands
+              </div>
+              <motion.button
+                className="w-[110px] h-[30px] px-4 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex ms-[110px] md:ms-[80px] md:h-[34px] md:w-[130px] lg:w-[200px] lg:h-[40px] lg:ms-[250px] lg:mt-[40px]"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <div className="text-center text-slate-800 text-base font-normal md:text-lg">
+                  View All
+                </div>
+              </motion.button>
+            </div>
+            <div className="image h-[370px] md:h-[341px] lg:h-[450px]">
+              <img
+                src={ellipse2}
+                alt="ellipse"
+                className="w-[250px] h-[370px] ms-[85px] md:ms-[87px] md:h-[342px] lg:h-[450px] lg:w-[400px] lg:ms-[267px]"
+              />
+              <motion.img
+                src={accessories}
+                alt="image"
+                className="my-[-260px] md:w-[370px] md:my-[-290px] lg:w-[500px] lg:my-[-390px]"
+                initial={{ y: 0, opacity: 1 }}
+                animate={{ y: [0, 10, 0], opacity: [1, 1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quantum Blogs */}
+      <div className=" mx-5 lg:mx-24">
+        <div className=" h-[0px]  shadow border border-zinc-500"></div>
+        <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
+          <div className="w-[155px] h-[13px] text-center text-black text-[12px] font-medium font-['Poppins'] ms-[-80px] md:text-[19px] md:ms-[-50px] lg:text-[28px] lg:w-[300px] lg:mt-[-3px] lg:ms-[-93px]">
+            Quantum Blogs
+          </div>
+        </div>
+        <div className="text-center text-black text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
+          On Development
+        </div>
+      </div>
     </>
   );
 }
