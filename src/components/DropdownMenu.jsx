@@ -60,7 +60,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 </li>
                 <li className="p-2 ">
                   <Link
-                    to="/item2"
+                    to="/blogs"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     Blogs
@@ -68,7 +68,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 </li>
                 <li className="p-2 ">
                   <Link
-                    to="/item4"
+                    to="/news"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     News
@@ -76,7 +76,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 </li>
                 <li className="p-2 ">
                   <Link
-                    to="/item5"
+                    to="/reviews"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     Reviews
@@ -100,7 +100,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               >
                 <li className="p-2">
                   <Link
-                    to="/item3"
+                    to="/contactus"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     Contact Us
@@ -108,7 +108,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 </li>
                 <li className="p-2">
                   <Link
-                    to="/item6"
+                    to="/FAQs"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     FAQs

@@ -321,7 +321,7 @@ export default function Navbar() {
                 key={i}
                 className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum hidden md:block lg:block"
               >
-                {/* Code for the dropdown menu of Discover and support link */}
+                {/* Code for the dropdown menu of Product, Discover and support link */}
                 {item.name === "Discover" ||
                 item.name === "Support" ||
                 item.name === "Products" ? (
