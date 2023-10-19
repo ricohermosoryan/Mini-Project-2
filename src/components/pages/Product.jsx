@@ -77,15 +77,15 @@ export default function Product() {
             ) : (
               // Product Details
                 <div>
-                  <div className="flex flex-wrap md:flex-nowrap gap-x-10">
+                  <div className="flex flex-wrap md:flex-nowrap gap-x-10 my-10">
 
                     {/* IMAGE GALLERY */}
                     <div className="w-full">
                       <div>
-                        <img src={selectedImage} className="w-full aspect-auto rounded-lg" />
+                        <img src={selectedImage} className="w-full aspect-auto shadow rounded-t-lg" />
                       </div>
-                      <div className="flex gap-2 justify-center overflow-x-scroll ">
-                          {data.image.map(image => (<img key={image} src={image} className="w-1/5 aspect-auto rounded-lg cursor-pointer" onClick={() => handleImageClick(image)} />))}
+                      <div className="flex justify-center overflow-x-scroll shadow rounded-b-lg">
+                          {data.image.map(image => (<img key={image} src={image} className="w-1/5 aspect-auto m-1 rounded cursor-pointer hover:shadow" onClick={() => handleImageClick(image)} />))}
                       </div>
                     </div>
                     <div className="w-full">
@@ -193,16 +193,16 @@ export default function Product() {
                       </div>
                     </div>
                   </div>
-                  <div>
-                    <Tabs.Group>
-                      <Tabs.Item active title="Description">
+                  <div className="my-10">
+                    <Tabs.Group style="fullWidth">
+                      <Tabs.Item active title="Description" className="focus:ring-transparent">
                         <div className="text-sm text-gray-600 dark:text-gray-400">
                           <p className="heading font-medium my-1">Features</p>
-                          <ul>
-                            {data.features.map(feature => (<li key={feature}>{feature}</li>))}
+                          <ul className="mb-2">
+                            {data.features.map(feature => (<li key={feature} className="list-disc ml-4">{feature}</li>))}
                           </ul>
                           <p className="heading font-medium my-1">Warranty</p>
-                          <ul>
+                          <ul className="mb-2">
                             <li>1 year Official Warranty</li>
                           </ul>
                         </div>
