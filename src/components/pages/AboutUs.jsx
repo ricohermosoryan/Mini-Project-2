@@ -1,5 +1,5 @@
 import React from "react";
-import about from "../assets/about.svg";
+import about from "../../assets/about.svg";
 
 export default function AboutUs() {
   return (
