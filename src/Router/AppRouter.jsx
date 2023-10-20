@@ -1,7 +1,7 @@
 import React from "react";
 import NavbarTemplate from "../components/templates/NavbarTemplate";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Shop from "../components/pages/Shop";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+
 import Reviews from "../components/pages/Reviews";
 import Blogs from "../components/pages/Blogs";
 import Product from "../components/pages/Product";
@@ -13,15 +13,16 @@ import ContactUs from "../components/pages/ContactUs";
 import News from "../components/pages/News";
 import Blog from "../components/pages/Blog";
 import NewsPage from "../components/pages/NewsPage";
+import { AnimatePresence } from "framer-motion";
 
 export default function AppRouter() {
+  const location = useLocation();
   return (
     <>
-      <BrowserRouter>
-        <Routes>
+      <AnimatePresence initial={false} mode="wait">
+        <Routes location={location} key={location.pathname}>
           <Route element={<NavbarTemplate />}>
             <Route path="*" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<Product />} />
             <Route path="/blogs/:id" element={<Blog />} />
@@ -34,7 +35,7 @@ export default function AppRouter() {
             <Route path="/news" element={<News />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </AnimatePresence>
     </>
   );
 }
