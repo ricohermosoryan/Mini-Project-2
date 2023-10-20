@@ -40,37 +40,37 @@ export default function Reviews() {
     switch (rating) {
       case 1:
         icons = (
-          <React.Fragment>
+          <>
             <i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
-          </React.Fragment>
+          </>
         );
         break;
       case 2:
         icons = (
-          <React.Fragment>
+          <>
             <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
-          </React.Fragment>
+          </>
         );
         break;
       case 3:
         icons = (
-          <React.Fragment>
+          <>
             <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
-          </React.Fragment>
+          </>
         );
         break;
       case 4:
         icons = (
-          <React.Fragment>
+          <>
             <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i>
-          </React.Fragment>
+          </>
         );
         break;
       case 5:
         icons = (
-          <React.Fragment>
+          <>
             <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i>
-          </React.Fragment>
+          </>
         );
         break;
     }
