@@ -21,11 +21,14 @@ import visaImage from "../../assets/visa.svg";
 import { Tabs } from "flowbite-react";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
+import { getRatingIcons } from "./Reviews";
 
 export default function Product() {
   const { id } = useParams();
   const [data, setData] = useState({ image: [], features: [] });
   const [selectedImage, setSelectedImage] = useState();
+  const [productReviews, setProductReviews] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -42,6 +45,26 @@ export default function Product() {
       })
       .catch((err) => console.error(err));
     return controller.abort();
+  }, []);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const response = await fetch(`https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews/products/${id}`);
+      const data = await response.json();
+      setProductReviews(data);
+    };
+    
+    fetchReviews();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
+      const data = await response.json();
+      setUsers(data);
+    };
+    
+    fetchUsers();
   }, []);
 
   const handleImageClick = (image) => {
@@ -78,7 +101,7 @@ export default function Product() {
               </div>
             ) : (
               // Product Details
-              <div>
+              <div className="container px-4">
                 <div className="flex flex-wrap md:flex-nowrap gap-x-10 my-10">
                   {/* IMAGE GALLERY */}
                   <div className="w-full">
@@ -252,13 +275,13 @@ export default function Product() {
                   </div>
                 </div>
                 <div className="my-10">
-                  <Tabs.Group style="fullWidth">
+                  <Tabs.Group style="fullWidth" className="overflow-x-scroll">
                     <Tabs.Item
                       active
                       title="Description"
                       className="focus:ring-transparent"
                     >
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="heading font-medium my-1">Features</p>
                         <ul className="mb-2">
                           {data.features.map((feature) => (
@@ -274,7 +297,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Returns and Replacement">
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="mb-2">
                           When you receive your order, please take a video of
                           your unboxing and make sure all items in your order
@@ -299,7 +322,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Shipping">
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="heading font-medium my-1">
                           Standard Shipping
                         </p>
@@ -373,10 +396,24 @@ export default function Product() {
                         </p>
                       </div>
                     </Tabs.Item>
-                    <Tabs.Item title="Review">
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        No reviews yet
-                      </p>
+                    <Tabs.Item title="Reviews">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                        {productReviews.map(review => {
+                          const user = users.find(u => u.id === review.userId);
+                          return (
+                            <div key={review.id} className="review flex my-4">
+                              <div className="min-w-fit mr-2">
+                                <img src={user.image} className="w-12 aspect-square rounded-full shadow"/>
+                              </div>
+                              <div className="">
+                                <p className="heading font-medium">{user.fullName}</p>
+                                <p className="text-dark-quantum">{getRatingIcons(review.rating)}</p>
+                                <p className="italic">"{review.comment}"</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </Tabs.Item>
                   </Tabs.Group>
                 </div>

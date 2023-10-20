@@ -4,9 +4,73 @@ import reviews from "../../assets/reviews.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 
+// Rating icon
+export const getRatingIcons = (rating) => {
+  let icons;
+  switch (rating) {
+    case 1:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 2:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 3:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 4:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 5:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+        </>
+      );
+      break;
+  }
+  return icons;
+};
+
 export default function Reviews() {
+
   const [data, setData] = useState([]);
-  const [displayedReviews, setDisplayedReviews] = useState([]);
+  const [displayedReviews, setDisplayedReviews] = useState([]); 
   const [reviewsToShow, setReviewsToShow] = useState(21);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
@@ -16,94 +80,26 @@ export default function Reviews() {
     setLoading(true);
 
     async function fetchData() {
-      const usersRes = await fetch(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
-      );
+      const usersRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
       const userData = await usersRes.json();
       setUsers(userData);
 
-      const productsRes = await fetch(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
-      );
-      const productData = await productsRes.json();
+      const productsRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
+      const productData = await productsRes.json(); 
       setProducts(productData);
 
-      const reviewsRes = await axios.get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews"
-      );
+      const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
       const reviewsData = reviewsRes.data;
       setData(reviewsData);
     }
 
     fetchData()
-      .catch((err) => console.error(err))
+      .catch(err => console.error(err))
       .finally(() => setLoading(false));
 
     setDisplayedReviews(data.slice(0, reviewsToShow));
-  }, [data, reviewsToShow]);
 
-  // Rating icon
-  const getRatingIcons = (rating) => {
-    let icons;
-    switch (rating) {
-      case 1:
-        icons = (
-          <>
-            <i className="bx bxs-star"></i>
-            <i className="bx bx-star"></i>
-            <i className="bx bx-star"></i>
-            <i className="bx bx-star"></i>
-            <i className="bx bx-star"></i>
-          </>
-        );
-        break;
-      case 2:
-        icons = (
-          <>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bx-star"></i>
-            <i className="bx bx-star"></i>
-            <i className="bx bx-star"></i>
-          </>
-        );
-        break;
-      case 3:
-        icons = (
-          <>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bx-star"></i>
-            <i className="bx bx-star"></i>
-          </>
-        );
-        break;
-      case 4:
-        icons = (
-          <>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bx-star"></i>
-          </>
-        );
-        break;
-      case 5:
-        icons = (
-          <>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-            <i className="bx bxs-star"></i>
-          </>
-        );
-        break;
-    }
-    return icons;
-  };
+  }, [data, reviewsToShow]);
 
   return (
     <>
