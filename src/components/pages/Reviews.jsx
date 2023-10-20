@@ -4,42 +4,8 @@ import reviews from "../../assets/reviews.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 
-export default function Reviews() {
-
-  const [data, setData] = useState([]);
-  const [displayedReviews, setDisplayedReviews] = useState([]); 
-  const [reviewsToShow, setReviewsToShow] = useState(21);
-  const [users, setUsers] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    async function fetchData() {
-      const usersRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
-      const userData = await usersRes.json();
-      setUsers(userData);
-
-      const productsRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
-      const productData = await productsRes.json(); 
-      setProducts(productData);
-
-      const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
-      const reviewsData = reviewsRes.data;
-      setData(reviewsData);
-    }
-
-    fetchData()
-      .catch(err => console.error(err))
-      .finally(() => setLoading(false));
-
-    setDisplayedReviews(data.slice(0, reviewsToShow));
-
-  }, [data, reviewsToShow]);
-
-  // Rating icon
-  const getRatingIcons = (rating) => {
+// Rating icon
+export const getRatingIcons = (rating) => {
     let icons;
     switch (rating) {
       case 1:
@@ -80,6 +46,40 @@ export default function Reviews() {
     }
     return icons;
   };
+
+export default function Reviews() {
+
+  const [data, setData] = useState([]);
+  const [displayedReviews, setDisplayedReviews] = useState([]); 
+  const [reviewsToShow, setReviewsToShow] = useState(21);
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    async function fetchData() {
+      const usersRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
+      const userData = await usersRes.json();
+      setUsers(userData);
+
+      const productsRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
+      const productData = await productsRes.json(); 
+      setProducts(productData);
+
+      const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
+      const reviewsData = reviewsRes.data;
+      setData(reviewsData);
+    }
+
+    fetchData()
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+
+    setDisplayedReviews(data.slice(0, reviewsToShow));
+
+  }, [data, reviewsToShow]);
 
   return (
     <>
