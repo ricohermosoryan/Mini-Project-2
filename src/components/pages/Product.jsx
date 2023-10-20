@@ -49,21 +49,25 @@ export default function Product() {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const response = await fetch(`https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews/products/${id}`);
+      const response = await fetch(
+        `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews/products/${id}`
+      );
       const data = await response.json();
       setProductReviews(data);
     };
-    
+
     fetchReviews();
   }, [id]);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
+      const response = await fetch(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
+      );
       const data = await response.json();
       setUsers(data);
     };
-    
+
     fetchUsers();
   }, []);
 
@@ -398,16 +402,32 @@ export default function Product() {
                     </Tabs.Item>
                     <Tabs.Item title="Reviews">
                       <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
-                        {productReviews.map(review => {
-                          const user = users.find(u => u.id === review.userId);
+                        {productReviews.map((review) => {
+                          const user = users.find(
+                            (u) => u.id === review.userId
+                          );
+                          if (!user) {
+                            return (
+                              <div key={review.id} className="review flex my-4">
+                                <p className="italic">User not found</p>
+                              </div>
+                            );
+                          }
                           return (
                             <div key={review.id} className="review flex my-4">
                               <div className="min-w-fit mr-2">
-                                <img src={user.image} className="w-12 aspect-square rounded-full shadow"/>
+                                <img
+                                  src={user.image}
+                                  className="w-12 aspect-square rounded-full shadow"
+                                />
                               </div>
                               <div className="">
-                                <p className="heading font-medium">{user.fullName}</p>
-                                <p className="text-dark-quantum">{getRatingIcons(review.rating)}</p>
+                                <p className="heading font-medium">
+                                  {user.fullName}
+                                </p>
+                                <p className="text-dark-quantum">
+                                  {getRatingIcons(review.rating)}
+                                </p>
                                 <p className="italic">"{review.comment}"</p>
                               </div>
                             </div>
