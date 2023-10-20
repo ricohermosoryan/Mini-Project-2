@@ -16,11 +16,11 @@ export default function ContactUs() {
 
       <div className="mt-[100px] md:mt-[180px] md:flex lg:mt-[370px] lg:mx-[300px]">
         <div className="container lg:w-[40%]">
-          <div class=" text-zinc-700 text-[23px] font-bold flex mx-4 gap-2">
+          <div className=" text-zinc-700 text-[23px] font-bold flex mx-4 gap-2">
             <img src={message} alt="image" className="w-[27px]" />
             SEND US A MESSAGE
           </div>
-          <div class=" h-[0px] border border-zinc-400 mx-3"></div>
+          <div className=" h-[0px] border border-zinc-400 mx-3"></div>
           <div className="input mt-5 ms-3">
             <form>
               <div className="border rounded-lg shadow-sm mx-3 ">
@@ -54,7 +54,7 @@ export default function ContactUs() {
                 <textarea
                   id="message"
                   rows="4"
-                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border-none focus:ring-0 focus:border-none"
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border-none focus:ring-0 focus:border-none"
                   placeholder="Leave a comment..."
                 ></textarea>
               </div>
@@ -73,7 +73,7 @@ export default function ContactUs() {
         </div>
 
         <div className="quantumpage lg:w-[60%] lg:ms-[240px]">
-          <div class=" text-zinc-700 text-[23px] font-bold mt-4 mx-3 md:mt-0">
+          <div className=" text-zinc-700 text-[23px] font-bold mt-4 mx-3 md:mt-0">
             QUANTUM GALAXY
           </div>
           <div className="mx-3 mt-4">

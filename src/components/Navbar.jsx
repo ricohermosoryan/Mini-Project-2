@@ -320,6 +320,7 @@ export default function Navbar() {
               <nav
                 key={i}
                 className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum hidden md:block lg:block"
+                onMouseLeave={() => toggleDropdown(item.name)}
               >
                 {/* Code for the dropdown menu of Product, Discover and support link */}
                 {item.name === "Discover" ||
@@ -329,6 +330,7 @@ export default function Navbar() {
                     <button
                       className="hover:text-quantum"
                       onClick={() => toggleDropdown(item.name)}
+                      onMouseEnter={() => toggleDropdown(item.name)}
                     >
                       {item.name}
                     </button>

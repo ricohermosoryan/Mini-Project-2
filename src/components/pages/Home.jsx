@@ -203,56 +203,56 @@ export default function Home() {
             />
 
             <motion.button
-              class="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
+              className="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <span class="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
+              <span className="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
                 Register Now
               </span>
             </motion.button>
           </div>
         </div>
         <div className="mb-3 md:w-[40%] lg:w-[30%]">
-          <div class="w-[332px] h-[69px] justify-start items-start gap-4 inline-flex mt-3 ms-1 mb-3 md:ms-6 lg:mx-[100px] lg:mb-14 lg:mt-10 md:w-[270px]">
-            <div class="w-[70px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-              <div class="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
+          <div className="w-[332px] h-[69px] justify-start items-start gap-4 inline-flex mt-3 ms-1 mb-3 md:ms-6 lg:mx-[100px] lg:mb-14 lg:mt-10 md:w-[270px]">
+            <div className="w-[70px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
+              <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
                 8
               </div>
-              <div class="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
+              <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
                 Days
               </div>
             </div>
-            <div class="w-[71px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-              <div class="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
+            <div className="w-[71px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
+              <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
                 8
               </div>
-              <div class="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
+              <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
                 Days
               </div>
             </div>
-            <div class="w-[67px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-              <div class="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
+            <div className="w-[67px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
+              <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
                 8
               </div>
-              <div class="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
+              <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
                 Days
               </div>
             </div>
-            <div class="w-[65px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-              <div class="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
+            <div className="w-[65px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
+              <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
                 8
               </div>
-              <div class="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
+              <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
                 Days
               </div>
             </div>
           </div>
-          <div class="text-center text-neutral-950 text-[32px] md:text-[25px] font-medium mb-3 lg:text-[35px]">
+          <div className="text-center text-neutral-950 text-[32px] md:text-[25px] font-medium mb-3 lg:text-[35px]">
             It feels good to be the first
           </div>
-          <div class="text-zinc-800 text-2xl md:text-[20px] font-medium  leading-7 text-center md:text-left md:px-[25px] lg:text-[23px] lg:ps-[90px] lg:pt-[40px]">
+          <div className="text-zinc-800 text-2xl md:text-[20px] font-medium  leading-7 text-center md:text-left md:px-[25px] lg:text-[23px] lg:ps-[90px] lg:pt-[40px]">
             Get ready for the future of smartphones.Experience innovation like
             never before. Stay tuned for the big iPhone 15 pre-sale.
           </div>
@@ -293,7 +293,7 @@ export default function Home() {
             whileTap={{ scale: 0.9 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <div class="text-center text-neutral-100 text-base font-normal">
+            <div className="text-center text-neutral-100 text-base font-normal">
               Buy Now
             </div>
           </motion.button>
@@ -341,6 +341,7 @@ export default function Home() {
             className="w-[55px] md:w-[120px] lg:w-[140px]"
           />
         </div>
+
         {/* Accesorries banner */}
         <div className=" mt-7 lg:mx-32">
           <div className="relative bg-slate-800 rounded-lg md:flex">
@@ -367,7 +368,7 @@ export default function Home() {
               <img
                 src={ellipse2}
                 alt="ellipse"
-                className="w-[250px] h-[370px] ms-[85px] md:ms-[87px] md:h-[342px] lg:h-[450px] lg:w-[400px] lg:ms-[267px]"
+                className="w-[250px] h-[370px] ms-[85px] md:ms-[87px] md:h-[342px] lg:h-[450px] lg:w-[400px] lg:ms-[276px]"
               />
               <motion.img
                 src={accessories}

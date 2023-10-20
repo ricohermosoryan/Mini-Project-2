@@ -17,25 +17,30 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
             className="absolute mt-2 w-48 bg-white border rounded shadow-md "
             variants={{
               open: {
-                y: "0%",
-                transition: {
-                  when: "beforeChildren",
-                  type: "spring",
-                  bounce: 0.15,
-                },
+                y: "-5%",
+                opacity: 1,
+                transition: { duration: 0.5, ease: "easeInOut" },
+                // transition: {
+                //   // when: "beforeChildren",
+                //   type: "spring",
+                //   bounce: 0.15,
+                // },
               },
               closed: {
-                y: "-600%",
-                transition: {
-                  when: "afterChildren",
-                  type: "spring",
-                  bounce: 0.15,
-                },
+                y: "-5%",
+                opacity: 0,
+                transition: { duration: 0.1, ease: "easeInOut" },
+                // transition: {
+                //   // when: "afterChildren",
+                //   type: "spring",
+                //   bounce: 0.15,
+                // },
               },
             }}
             initial="closed"
             animate="open"
             exit="closed"
+            onMouseLeave={() => toggleDropdown()}
           >
             {dropdownType === "discover" && (
               <motion.ul

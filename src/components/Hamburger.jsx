@@ -389,6 +389,7 @@ export default function Hamburger(props) {
                     <nav
                       key={i}
                       className="heading text-xl font-medium py-1 border-b border-transparent hover:border-b hover:border-quantum"
+                      onMouseLeave={() => toggleDropdown(item.name)}
                     >
                       {/* Code for the dropdown menu of Discover and support link */}
                       {item.name === "Discover" ||
@@ -398,6 +399,7 @@ export default function Hamburger(props) {
                           <button
                             className="hover:text-quantum"
                             onClick={() => toggleDropdown(item.name)}
+                            onMouseEnter={() => toggleDropdown(item.name)}
                           >
                             {item.name}
                           </button>

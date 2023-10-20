@@ -6,7 +6,7 @@ export default function AboutUs() {
     <>
       <div className="">
         <img
-          className=" lg:object-cover lg:w-[4200px] lg:h-[250px]"
+          className=" lg:object-cover lg:w-screen lg:h-[280px]"
           src={about}
         />
 
