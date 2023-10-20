@@ -1,51 +1,71 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import reviews from "../../assets/reviews.svg";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
-    let icons;
-    switch (rating) {
-      case 1:
-        icons = (
-          <>
-            <i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
-          </>
-        );
-        break;
-      case 2:
-        icons = (
-          <>
-            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
-          </>
-        );
-        break;
-      case 3:
-        icons = (
-          <>
-            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
-          </>
-        );
-        break;
-      case 4:
-        icons = (
-          <>
-            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i>
-          </>
-        );
-        break;
-      case 5:
-        icons = (
-          <>
-            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i>
-          </>
-        );
-        break;
-    }
-    return icons;
-  };
+  let icons;
+  switch (rating) {
+    case 1:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 2:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 3:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 4:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bx-star"></i>
+        </>
+      );
+      break;
+    case 5:
+      icons = (
+        <>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+          <i className="bx bxs-star"></i>
+        </>
+      );
+      break;
+  }
+  return icons;
+};
 
 export default function Reviews() {
 
@@ -84,6 +104,7 @@ export default function Reviews() {
   return (
     <>
       <PageTransition>
+        {/* Banner */}
         <div className="banner">
           <img
             src={reviews}
@@ -91,6 +112,8 @@ export default function Reviews() {
             className="lg:w-screen lg:h-[400px] lg:object-cover"
           />
         </div>
+
+        {/* Customer Reviwes Header */}
         <div className=" mx-5 lg:mx-24 mt-10 md:mt-14 lg:mt-[90px]">
           <div className=" h-[0px]  shadow border border-zinc-500"></div>
           <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
@@ -98,38 +121,62 @@ export default function Reviews() {
               Customer Reviews
             </div>
           </div>
-          <div className="container mx-auto">
-            <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
-              {displayedReviews.map(review => {
-                // Find user
-                const user = users.find(u => u.id === review.userId);
 
-                // Find product 
-                const product = products.find(p => p.id === review.productId);
-                            
-                return (
-                  <div key={review.id} className="review flex shadow w-96 h-auto p-2">
-                    <div className="min-w-fit mr-2">
-                      <img src={user.image} className="w-12 aspect-square rounded-full shadow"/>
-                    </div>
-                    <div className="">
-                      <p className="heading font-medium">{user.fullName}</p>
-                      <p className="text-sm">{product.title}</p>
-                      <p className="text-dark-quantum">{getRatingIcons(review.rating)}</p>
-                      <p className="italic">"{review.comment}"</p>
-                    </div>
-                  </div>
-                )
-              })}
+          {/* User Reviews */}
+          <AnimatePresence>
+            <div className="container mx-auto">
+              <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
+                {displayedReviews.map((review) => {
+                  // Find user
+                  const user = users.find((u) => u.id === review.userId);
+
+                  // Find product
+                  const product = products.find(
+                    (p) => p.id === review.productId
+                  );
+
+                  return (
+                    <motion.div
+                      key={review.id}
+                      className="review flex shadow w-96 h-auto p-2"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        ease: "easeInOut",
+                        duration: 1,
+                      }}
+                    >
+                      <div className="min-w-fit mr-2">
+                        <img
+                          src={user.image}
+                          className="w-12 aspect-square rounded-full shadow"
+                        />
+                      </div>
+                      <div className="">
+                        <p className="heading font-medium">{user.fullName}</p>
+                        <p className="text-sm">{product.title}</p>
+                        <p className="text-dark-quantum">
+                          {getRatingIcons(review.rating)}
+                        </p>
+                        <p className="italic">"{review.comment}"</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              <div className="flex justify-center">
+                {displayedReviews.length < data.length && (
+                  <button
+                    className="text-quantum hover:text-dark-quantum"
+                    onClick={() => setReviewsToShow((prev) => prev + 21)}
+                  >
+                    Show More
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="flex justify-center">
-              {displayedReviews.length < data.length && (
-                <button className="text-quantum hover:text-dark-quantum" onClick={() => setReviewsToShow(prev => prev + 21)}>
-                  Show More
-                </button>
-              )}
-            </div>
-          </div>
+          </AnimatePresence>
         </div>
       </PageTransition>
     </>
