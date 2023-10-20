@@ -7,6 +7,8 @@ import PageTransition from "../PageTransition";
 export default function Reviews() {
 
   const [data, setData] = useState([]);
+  const [displayedReviews, setDisplayedReviews] = useState([]); 
+  const [reviewsToShow, setReviewsToShow] = useState(21);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,7 +34,9 @@ export default function Reviews() {
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
 
-  }, []);
+    setDisplayedReviews(data.slice(0, reviewsToShow));
+
+  }, [data, reviewsToShow]);
 
   // Rating icon
   const getRatingIcons = (rating) => {
@@ -94,9 +98,9 @@ export default function Reviews() {
               Customer Reviews
             </div>
           </div>
-          <div className="mt-[20px] md:mt-[40px] lg:mt-[70px] lg:mx-[300px] lg:flex lg:justify-center md:flex md:justify-center">
-            <div className="">
-              {data.map(review => {
+          <div className="container mx-auto">
+            <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
+              {displayedReviews.map(review => {
                 // Find user
                 const user = users.find(u => u.id === review.userId);
 
@@ -104,19 +108,26 @@ export default function Reviews() {
                 const product = products.find(p => p.id === review.productId);
                             
                 return (
-                  <div key={review.id} className="review">
-
-                    <p className="heading font-medium">{user.fullName}</p>
-
-                    <p className="">{product.title}</p>
-
-                    <p className="text-dark-quantum">{getRatingIcons(review.rating)}</p>
-
-                    <p className="italic">"{review.comment}"</p>
-
+                  <div key={review.id} className="review flex shadow w-96 h-auto p-2">
+                    <div className="min-w-fit mr-2">
+                      <img src={user.image} className="w-12 aspect-square rounded-full shadow"/>
+                    </div>
+                    <div className="">
+                      <p className="heading font-medium">{user.fullName}</p>
+                      <p className="text-sm">{product.title}</p>
+                      <p className="text-dark-quantum">{getRatingIcons(review.rating)}</p>
+                      <p className="italic">"{review.comment}"</p>
+                    </div>
                   </div>
                 )
               })}
+            </div>
+            <div className="flex justify-center">
+              {displayedReviews.length < data.length && (
+                <button className="text-quantum hover:text-dark-quantum" onClick={() => setReviewsToShow(prev => prev + 21)}>
+                  Show More
+                </button>
+              )}
             </div>
           </div>
         </div>
