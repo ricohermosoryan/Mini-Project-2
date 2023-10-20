@@ -10,10 +10,9 @@ import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
 import facebookLoginImage from "../assets/facebook-login.svg";
 import googleLoginImage from "../assets/google-login.svg";
-
 import { Link } from "react-router-dom";
 import HamDropdownMenu from "./HamDropdownMenu";
-import Search from "./Search";
+import icon from "../assets/icon.svg";
 
 export default function Hamburger(props) {
   //thi will toggle the hamburger icon open and close
@@ -317,10 +316,12 @@ export default function Hamburger(props) {
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed inset-0 h-[400px] bg-white space-y-10 p-6 container mx-auto"
+              className="fixed inset-0 h-[300px] bg-white space-y-3 p-6 container mx-auto"
             >
-              {/* Icons */}
-              <motion.div
+              <motion.img
+                src={icon}
+                alt="icon"
+                className="h-[55px] w-[55px]"
                 variants={{
                   open: {
                     y: "0%",
@@ -331,31 +332,11 @@ export default function Hamburger(props) {
                     opacity: 0,
                   },
                 }}
-                className="flex gap-2 mb-[90px]"
-              >
-                <div>
-                  <Search />
-                </div>
-                <div>
-                  <img
-                    src={navbarIcons[1].icon}
-                    className="w-10 aspect-square cursor-pointer "
-                    alt={navbarIcons[1].name}
-                  ></img>
-                </div>
-                <div>
-                  <img
-                    src={navbarIcons[2].icon}
-                    className="w-10 aspect-square cursor-pointer "
-                    alt={navbarIcons[2].name}
-                    onClick={toggleModal}
-                  ></img>
-                </div>
-              </motion.div>
+              />
 
               {/* Line */}
               <motion.div
-                className="w-full bg-black h-px"
+                className="w-full bg-black h-px mt-[20px]"
                 variants={{
                   open: {
                     y: "0%",

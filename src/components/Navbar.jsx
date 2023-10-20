@@ -20,6 +20,8 @@ import facebookLoginImage from "../assets/facebook-login.svg";
 import googleLoginImage from "../assets/google-login.svg";
 import Hamburger from "./Hamburger";
 import Search from "./Search";
+import Cart from "./Cart";
+import icon from "../assets/icon.svg";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -307,16 +309,26 @@ export default function Navbar() {
       </div>
 
       {/* NAVBAR */}
-      <div className="bg-white opacity-95 drop-shadow z-10 sticky top-0 ">
-        <div className="container mx-auto py-5 flex  justify-between items-center">
+      <div className="bg-white opacity-100 md:opacity-95 lg:opacity-95 drop-shadow z-10 sticky top-0 ">
+        <div className="container mx-auto py-5 flex  justify-between items-center md:gap-5">
           <a href={companyLogo[0].href}>
             <img
-              src={companyLogo[0].image}
-              className="w-60 h-20 aspect-auto cursor-pointer"
+              src={icon}
+              className="w-[60px] h-[60px] aspect-auto cursor-pointer block md:hidden lg:hidden"
               alt={companyLogo[0].name}
             ></img>
           </a>
-          <div className="flex gap-12">
+          <div className="lg:mx-[-330px]">
+            <a href={companyLogo[0].href}>
+              <img
+                src={companyLogo[0].image}
+                className="w-60 h-20 aspect-auto cursor-pointer hidden md:block lg:block"
+                alt={companyLogo[0].name}
+              ></img>
+            </a>
+          </div>
+
+          <div className="flex gap-12 md:gap-5 lg:gap-12 lg:ms-[360px]">
             {navbarList.map((item, i) => (
               <nav
                 key={i}
@@ -369,21 +381,17 @@ export default function Navbar() {
               </nav>
             ))}
           </div>
-          <div className="flex gap-2">
-            <div className="hidden md:block lg:block">
+          <div className="flex gap-2 me-[60px] lg:me-[10px]">
+            <div>
               <Search />
             </div>
             <div>
-              <img
-                src={navbarIcons[1].icon}
-                className="w-10 aspect-square cursor-pointer hidden md:block lg:block"
-                alt={navbarIcons[1].name}
-              ></img>
+              <Cart />
             </div>
             <div>
               <img
                 src={navbarIcons[2].icon}
-                className="w-10 aspect-square cursor-pointer hidden md:block lg:block"
+                className="w-10 aspect-square cursor-pointer "
                 alt={navbarIcons[2].name}
                 onClick={toggleModal}
               ></img>

@@ -26,17 +26,17 @@ export default function Search() {
             }}
           >
             <motion.div
-              className="fixed top-[60px] inset-0 h-[50px] md:top-[100px] md:mx-[120px] lg:mx-[400px]"
+              className="fixed top-[60px] inset-0 h-[50px] md:top-[100px] md:mx-[120px] lg:mx-[400px] "
               variants={{
                 open: {
-                  y: "0%",
+                  y: "70%",
                   transition: {
                     type: "spring",
                     bounce: 0.35,
                   },
                 },
                 closed: {
-                  y: "-900%",
+                  y: "-1400%",
                   transition: {
                     type: "spring",
                     bounce: 0.25,
@@ -54,11 +54,11 @@ export default function Search() {
                   className="bg-gray-50 border-gray-300 text-gray-900 text-sm  block w-full p-2.5 border-none outline-none focus:ring-0 focus:border-none"
                   placeholder="Search"
                 />
-                <button type="submit">
+                <button type="submit" className=" bg-white">
                   <img src={searchImage} alt="image" />
                 </button>
               </div>
-              <div className="hidden md:block lg:block border h-[150px] bg-white text-center rounded-b-lg">
+              <div className=" border h-[150px] bg-white text-center rounded-b-lg">
                 No Result Found
               </div>
             </motion.div>
