@@ -13,6 +13,7 @@ import googleLoginImage from "../assets/google-login.svg";
 
 import { Link } from "react-router-dom";
 import HamDropdownMenu from "./HamDropdownMenu";
+import Search from "./Search";
 
 export default function Hamburger(props) {
   //thi will toggle the hamburger icon open and close
@@ -330,14 +331,10 @@ export default function Hamburger(props) {
                     opacity: 0,
                   },
                 }}
-                className="flex gap-2"
+                className="flex gap-2 mb-[90px]"
               >
                 <div>
-                  <img
-                    src={navbarIcons[0].icon}
-                    className="w-10 aspect-square cursor-pointer "
-                    alt={navbarIcons[0].name}
-                  ></img>
+                  <Search />
                 </div>
                 <div>
                   <img

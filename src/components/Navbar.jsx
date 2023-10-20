@@ -19,6 +19,7 @@ import eyeImage from "../assets/eye.svg";
 import facebookLoginImage from "../assets/facebook-login.svg";
 import googleLoginImage from "../assets/google-login.svg";
 import Hamburger from "./Hamburger";
+import Search from "./Search";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -369,12 +370,8 @@ export default function Navbar() {
             ))}
           </div>
           <div className="flex gap-2">
-            <div>
-              <img
-                src={navbarIcons[0].icon}
-                className="w-10 aspect-square cursor-pointer hidden md:block lg:block"
-                alt={navbarIcons[0].name}
-              ></img>
+            <div className="hidden md:block lg:block">
+              <Search />
             </div>
             <div>
               <img
