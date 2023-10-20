@@ -8,7 +8,7 @@ export default function HomeNewProduct() {
     const controller = new AbortController();
 
     axios
-      .get("https://d6fq7jdbk9.execute-api.us-east-1.amazonaws.com/dev/gadgets")
+      .get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products")
       .then((res) => {
         const limitedData = res.data.slice(0, 6);
         setData(limitedData);
