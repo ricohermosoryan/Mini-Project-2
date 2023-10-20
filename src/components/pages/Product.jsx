@@ -78,7 +78,7 @@ export default function Product() {
               </div>
             ) : (
               // Product Details
-              <div>
+              <div className="container px-4">
                 <div className="flex flex-wrap md:flex-nowrap gap-x-10 my-10">
                   {/* IMAGE GALLERY */}
                   <div className="w-full">
@@ -252,7 +252,7 @@ export default function Product() {
                   </div>
                 </div>
                 <div className="my-10">
-                  <Tabs.Group style="fullWidth">
+                  <Tabs.Group style="fullWidth" className="overflow-x-scroll">
                     <Tabs.Item
                       active
                       title="Description"

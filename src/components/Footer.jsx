@@ -26,7 +26,7 @@ export default function Footer() {
       {/* FOOTER */}
       <footer className="bg-dark-blue mt-12">
         {/* MAIN FOOTER */}
-        <div className="container lg:grid lg:grid-cols-2 gap-x-60 mx-auto text-white py-16">
+        <div className="container lg:grid lg:grid-cols-2 gap-x-60 mx-auto text-white py-16 px-2">
           {/* MAIN FOOTER - LEFT */}
           <div>
             <img src={quantumLogoImage} className="w-max h-max aspect-auto" />
@@ -106,7 +106,7 @@ export default function Footer() {
 
         {/* SUBFOOTER */}
         <div className="bg-black">
-          <div className="container mx-auto py-3 lg:flex justify-between items-center text-sm text-white">
+          <div className="container mx-auto py-3 lg:flex justify-between items-center text-sm text-white px-2">
             <div>
               &copy; &nbsp;2023&nbsp; QuantumGalaxy&trade;.&nbsp; All Rights
               Reserved.
