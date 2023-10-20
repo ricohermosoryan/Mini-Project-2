@@ -1,9 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import reviews from "../../assets/reviews.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 
 export default function Reviews() {
+
+  const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    async function fetchData() {
+      const usersRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
+      const userData = await usersRes.json();
+      setUsers(userData);
+
+      const productsRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
+      const productData = await productsRes.json(); 
+      setProducts(productData);
+
+      const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
+      const reviewsData = reviewsRes.data;
+      setData(reviewsData);
+    }
+
+    fetchData()
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+
+  }, []);
+
+  // Rating icon
+  const getRatingIcons = (rating) => {
+    let icons;
+    switch (rating) {
+      case 1:
+        icons = (
+          <>
+            <i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
+          </>
+        );
+        break;
+      case 2:
+        icons = (
+          <>
+            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
+          </>
+        );
+        break;
+      case 3:
+        icons = (
+          <>
+            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i><i className='bx bx-star'></i>
+          </>
+        );
+        break;
+      case 4:
+        icons = (
+          <>
+            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bx-star'></i>
+          </>
+        );
+        break;
+      case 5:
+        icons = (
+          <>
+            <i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i><i className='bx bxs-star'></i>
+          </>
+        );
+        break;
+    }
+    return icons;
+  };
+
   return (
     <>
       <PageTransition>
@@ -22,8 +95,28 @@ export default function Reviews() {
             </div>
           </div>
           <div className="mt-[20px] md:mt-[40px] lg:mt-[70px] lg:mx-[300px] lg:flex lg:justify-center md:flex md:justify-center">
-            <div className="text-center text-black text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
-              On Development
+            <div className="">
+              {data.map(review => {
+                // Find user
+                const user = users.find(u => u.id === review.userId);
+
+                // Find product 
+                const product = products.find(p => p.id === review.productId);
+                            
+                return (
+                  <div key={review.id} className="review">
+
+                    <p className="heading font-medium">{user.fullName}</p>
+
+                    <p className="">{product.title}</p>
+
+                    <p className="text-dark-quantum">{getRatingIcons(review.rating)}</p>
+
+                    <p className="italic">"{review.comment}"</p>
+
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
