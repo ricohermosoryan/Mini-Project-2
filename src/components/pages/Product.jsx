@@ -19,6 +19,8 @@ import mastercardImage from "../../assets/mastercard.svg";
 import mayaImage from "../../assets/maya.svg";
 import visaImage from "../../assets/visa.svg";
 import { Tabs } from "flowbite-react";
+import { motion } from "framer-motion";
+import PageTransition from "../PageTransition";
 
 export default function Product() {
   const { id } = useParams();
@@ -48,7 +50,7 @@ export default function Product() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <PageTransition>
         <div>
           <div className="flex flex-wrap justify-center">
             {loading ? (
@@ -382,7 +384,7 @@ export default function Product() {
             )}
           </div>
         </div>
-      </div>
+      </PageTransition>
     </>
   );
 }

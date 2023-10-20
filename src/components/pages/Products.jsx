@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import PageTransition from "../PageTransition";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -15,7 +17,9 @@ export default function Products() {
     setLoading(true);
     const controller = new AbortController();
     axios
-      .get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products")
+      .get(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+      )
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -26,7 +30,7 @@ export default function Products() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <PageTransition>
         <div className=" rounded-md mt-5">
           <div className="flex flex-wrap justify-center">
             {loading ? (
@@ -77,7 +81,7 @@ export default function Products() {
             )}
           </div>
         </div>
-      </div>
+      </PageTransition>
     </>
   );
 }

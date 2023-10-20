@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import banner from "../../assets/FAQs.svg";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
+import PageTransition from "../PageTransition";
 
 export default function FAQs() {
   const [activeQuestion, setActiveQuestion] = useState(null);
@@ -42,44 +43,50 @@ export default function FAQs() {
   ];
   return (
     <>
-      <div className="banner">
-        <img src={banner} alt="image" className="lg:w-screen" />
-      </div>
-      <div className=" text-white heading w-[300px] md:w-[500px] lg:w-[600px] text-[16px] font-semibold my-[-40px] ms-[80px] md:my-[-80px] md:text-[28px] md:ms-[180px] lg:text-[40px] lg:my-[-170px] lg:ms-[700px]">
-        FREQUENTLY ASK QUESTIONS
-        <div className="w-[40px] h-[0px] absolute left-[165px] md:left-[370px] lg:left-[936px] border-2 border-gray-300 border-opacity-90 md:w-[55px] lg:w-[65px]"></div>
-      </div>
-
-      {/* Accordion */}
-      <div className="mt-[80px] md:mt-[160px] lg:mt-[340px]">
-        <div className="w-[89%] m-auto max-w-[1400px] bg-gray-300 p-4 rounded-lg shadow-md">
-          {question.map((q) => (
-            <div key={q.id} className="mb-4 last:mb-0">
-              <button
-                className="w-full text-left text-[14px] md:text-[20px] lg:text-[33px] focus:outline-none p-3 bg-gray-100 rounded-lg shadow-md flex justify-between items-center font-semibold"
-                onClick={() =>
-                  setActiveQuestion(activeQuestion === q.id ? null : q.id)
-                }
-              >
-                {q.question}
-                {activeQuestion === q.id ? <FaMinusCircle /> : <FaPlusCircle />}
-              </button>
-              <AnimatePresence>
-                {activeQuestion === q.id && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-2 text-gray-600 ml-4 md:text-[20px] lg:text-[27px]"
-                  >
-                    <p>{q.answer}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
+      <PageTransition>
+        <div className="banner">
+          <img src={banner} alt="image" className="lg:w-screen" />
         </div>
-      </div>
+        <div className=" text-white heading w-[300px] md:w-[500px] lg:w-[600px] text-[16px] font-semibold my-[-40px] ms-[80px] md:my-[-80px] md:text-[28px] md:ms-[180px] lg:text-[40px] lg:my-[-170px] lg:ms-[700px]">
+          FREQUENTLY ASK QUESTIONS
+          <div className="w-[40px] h-[0px] absolute left-[165px] md:left-[370px] lg:left-[936px] border-2 border-gray-300 border-opacity-90 md:w-[55px] lg:w-[65px]"></div>
+        </div>
+
+        {/* Accordion */}
+        <div className="mt-[80px] md:mt-[160px] lg:mt-[340px]">
+          <div className="w-[89%] m-auto max-w-[1400px] bg-gray-300 p-4 rounded-lg shadow-md">
+            {question.map((q) => (
+              <div key={q.id} className="mb-4 last:mb-0">
+                <button
+                  className="w-full text-left text-[14px] md:text-[20px] lg:text-[33px] focus:outline-none p-3 bg-gray-100 rounded-lg shadow-md flex justify-between items-center font-semibold"
+                  onClick={() =>
+                    setActiveQuestion(activeQuestion === q.id ? null : q.id)
+                  }
+                >
+                  {q.question}
+                  {activeQuestion === q.id ? (
+                    <FaMinusCircle />
+                  ) : (
+                    <FaPlusCircle />
+                  )}
+                </button>
+                <AnimatePresence>
+                  {activeQuestion === q.id && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-2 text-gray-600 ml-4 md:text-[20px] lg:text-[27px]"
+                    >
+                      <p>{q.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PageTransition>
     </>
   );
 }
