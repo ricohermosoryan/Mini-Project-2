@@ -22,6 +22,8 @@ import Hamburger from "./Hamburger";
 import Search from "./Search";
 import Cart from "./Cart";
 import icon from "../assets/icon.svg";
+import CartContext from "../context/CartContext";
+import { useContext } from "react";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -34,6 +36,9 @@ export const socialLinks = [
 export const socialLinksExceptNewsletter = socialLinks.slice(1);
 
 export default function Navbar() {
+  // Cart Items
+  const { items } = useContext(CartContext);
+
   const navbarList = [
     { name: "Home", href: "/home" },
     { name: "Products", href: "/" },
@@ -309,7 +314,7 @@ export default function Navbar() {
       </div>
 
       {/* NAVBAR */}
-      <div className="bg-white opacity-100 md:opacity-95 lg:opacity-95 drop-shadow z-10 sticky top-0 ">
+      <div className="bg-white opacity-100  drop-shadow z-10 sticky top-0 ">
         <div className="container mx-auto py-5 flex  justify-between items-center md:gap-5">
           <a href={companyLogo[0].href}>
             <img
@@ -385,8 +390,11 @@ export default function Navbar() {
             <div>
               <Search />
             </div>
-            <div>
+            <div className=" relative">
               <Cart />
+              <div className=" rounded-full bg-red-700 w-[20px] h-[20px] flex justify-center items-center absolute bottom-0 right-0 text-white">
+                {items.length}
+              </div>
             </div>
             <div>
               <img

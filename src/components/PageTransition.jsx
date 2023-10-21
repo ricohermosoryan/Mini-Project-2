@@ -16,7 +16,7 @@ export default function PageTransition({ children }) {
     <motion.div
       transition={{
         ease: "easeInOut",
-        duration: 0.6,
+        duration: 0.5,
       }}
       variants={Animation}
       initial="initial"

@@ -14,27 +14,32 @@ import News from "../components/pages/News";
 import Blog from "../components/pages/Blog";
 import NewsPage from "../components/pages/NewsPage";
 import { AnimatePresence } from "framer-motion";
+import { CartProvider } from "../context/CartContext";
+import Cart from "../components/Cart";
 
 export default function AppRouter() {
   const location = useLocation();
   return (
     <>
       <AnimatePresence initial={false} mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route element={<NavbarTemplate />}>
-            <Route path="*" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<Product />} />
-            <Route path="/blogs/:id" element={<Blog />} />
-            <Route path="/news/:id" element={<NewsPage />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/FAQs" element={<FAQs />} />
-            <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/news" element={<News />} />
-          </Route>
-        </Routes>
+        <CartProvider>
+          <Routes location={location} key={location.pathname}>
+            <Route element={<NavbarTemplate />}>
+              <Route path="*" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<Product />} />
+              <Route path="/blogs/:id" element={<Blog />} />
+              <Route path="/news/:id" element={<NewsPage />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/blogs" element={<Blogs />} />
+              <Route path="/FAQs" element={<FAQs />} />
+              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/cart" element={<Cart />} />
+            </Route>
+          </Routes>
+        </CartProvider>
       </AnimatePresence>
     </>
   );

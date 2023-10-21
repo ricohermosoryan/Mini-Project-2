@@ -3,6 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
+import { BsEyeFill } from "react-icons/bs";
+import cart from "../../assets/cart.svg";
+import star from "../../assets/star.svg";
+import { useContext } from "react";
+import CartContext from "../../context/CartContext";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -10,11 +15,12 @@ export const formatter = new Intl.NumberFormat("en-US", {
 });
 
 export default function Products() {
+  // Cart Items
+  const { addToCart } = useContext(CartContext);
+
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const controller = new AbortController();
     axios
       .get(
@@ -22,7 +28,6 @@ export default function Products() {
       )
       .then((res) => {
         setData(res.data);
-        setLoading(false);
       })
       .catch((err) => console.error(err));
     return controller.abort();
@@ -31,54 +36,76 @@ export default function Products() {
   return (
     <>
       <PageTransition>
-        <div className=" rounded-md mt-5">
+        <div className=" rounded-md mt-5 ">
           <div className="flex flex-wrap justify-center">
-            {loading ? (
-              // Loding image
-              <div className="text-center mb-11 mt-10">
-                <div role="status">
-                  <svg
-                    aria-hidden="true"
-                    className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                      fill="currentFill"
-                    />
-                  </svg>
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </div>
-            ) : (
-              data.map((item, i) => (
-                // Products Details
-                <div
-                  key={i}
-                  className="w-[300px] aspect-square m-3 group transition"
-                >
-                  <div className="relative">
-                    <div className=" absolute top-0 -right-11 group-hover:right-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex gap-3">
-                      <button>Add</button>
-                      <Link to={`${item.id}`}>View</Link>
-                    </div>
-                  </div>
+            {data.map((item, i) => (
+              // Products Details
+              <motion.div
+                key={i}
+                className="w-[300px] aspect-square m-3 group transition relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 1,
+                }}
+              >
+                {/* Image */}
+                <div className=" flex gap-3 items-center">
                   <img
                     src={item.image[0]}
                     alt="image"
-                    className="h-4/5 object-cover mx-auto my-1 group-hover:scale-110 transition duration-200 mb-3 pt-8"
+                    className="h-[300px] object-cover mx-auto my-1 group-hover:scale-110 transition duration-200 mb-3 pt-8 mt-[30px] shadow-lg"
                   />
-                  <p className="truncate mx-3">{item.title}</p>
-                  <p className="mx-3">{formatter.format(item.price)}</p>
                 </div>
-              ))
-            )}
+
+                {/* Buttons */}
+                <div className="absolute bottom-0 left-[-150px] group-hover:left-0 border-sky-300 rounded-lg border-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                  <button
+                    className="flex gap-2 p-3 font-bold"
+                    onClick={() =>
+                      addToCart({
+                        title: item.title,
+                        price: item.price,
+                        image: item.image[0],
+                        quantity: 1,
+                      })
+                    }
+                  >
+                    <img src={cart} alt="image" /> Add to Cart
+                  </button>
+                </div>
+
+                {/* View */}
+                <div className=" bg-sky-300/40 w-[50px] h-[50px] rounded-lg absolute top-0 right-[-50px] group-hover:right-0 opacity-0 group-hover:opacity-100 flex items-center justify-end transition-all duration-200">
+                  <Link
+                    to={`${item.id}`}
+                    className="w-[35px] h-[35px] bg-white flex items-center justify-center me-2 rounded-md"
+                  >
+                    <BsEyeFill className="w-[20px] h-[20px]" />
+                  </Link>
+                </div>
+
+                {/* Product Details */}
+                <div className="mx-4">
+                  <p className="truncate mx-3 mt-[10px] text-[18px] font-semibold">
+                    {item.title}
+                  </p>
+                  <p className=" mb-[40px] mx-3 mt-2">{item.category}</p>
+                  <p className="mx-3 group-hover:hidden text-left transition-all duration-200 text-[17px] font-semibold">
+                    {formatter.format(item.price)}
+                  </p>
+
+                  {/* Ratings */}
+                  <div className="border bg-quantum rounded-lg flex gap-0 px-4 w-[55px] h-[35px] items-center justify-center absolute bottom-0 right-4 group-hover:hidden">
+                    <img src={star} alt="image" className="w-[20px] h-[20px]" />
+
+                    <p className="text-white font-bold">{item.rating.rate}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </PageTransition>
