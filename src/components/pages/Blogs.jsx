@@ -37,7 +37,7 @@ export default function Blogs() {
                   <img src={item.image} className="h-full object-cover" />
                 </div>
                 <div className="w-full md:w-3/5">
-                  <p className="truncate mx-3 my-2 heading text-lg font-medium">{item.title}</p>
+                  <p className="truncate mx-3 mt-2 heading text-lg font-medium">{item.title}</p>
                   <p className="truncate mx-3 text-sm italic">on {item.date_published} by {item.author}</p>
                   <p className="truncate mx-3 text-xs">{item.category}</p>
                   <p className="mx-3 my-2 text-base sentence-truncate">{item.summary}</p>
