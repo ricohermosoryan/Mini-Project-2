@@ -32,20 +32,18 @@ export default function Blogs() {
         </div>
         <div className="container mx-auto p-2 flex flex-row-reverse flex-wrap-reverse gap-x-4 justify-around mt-[100px] md:mt-[180px] lg:mt-[370px] ">
           {data.map((item, i) => (
-            <Link to={`${item.id}`}>
-              <div key={i} className="flex flex-wrap w-full xl:w-[600px] 2xl:w-[750px] my-4 shadow">
+              <Link to={`${item.id}`} key={i} className="flex flex-wrap w-full xl:w-[600px] 2xl:w-[750px] my-4 shadow">
                 <div className="w-full md:w-2/5 lg:h-full">
                   <img src={item.image} className="h-full object-cover" />
                 </div>
                 <div className="w-full md:w-3/5">
-                  <p className="truncate mx-3 heading text-lg font-medium">{item.title}</p>
+                  <p className="truncate mx-3 my-2 heading text-lg font-medium">{item.title}</p>
                   <p className="truncate mx-3 text-sm italic">on {item.date_published} by {item.author}</p>
                   <p className="truncate mx-3 text-xs">{item.category}</p>
-                  <p className="truncate mx-3 my-4 text-base sentence-truncate">{item.summary}</p>
-                  <p className="truncate mx-3 text-xs italic">Tags: #{item.tags.map(tag => tag.replace(/ /g, '_')).join(' #')}</p>
+                  <p className="mx-3 my-2 text-base sentence-truncate">{item.summary}</p>
+                  <p className="truncate mx-3 my-2 text-xs italic"><span className="text-quantum">#{item.tags.map(tag => tag.replace(/ /g, '_')).join(' #')}</span></p>
                 </div>
-              </div>
-            </Link>
+              </Link>
           ))}
         </div>
       </PageTransition>

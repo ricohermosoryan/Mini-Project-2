@@ -55,7 +55,7 @@ export default function Blog() {
                       <div className="w-5 mx-2">
                         <img src={tagImage} />
                       </div>
-                      <p className="text-sm">Tags: {data.tags && (<span className="my-1 text-dark-quantum mx-2">#{data.tags.map(tag => tag.replace(/ /g, '_')).join(' #')}</span>)}</p>
+                      <p className="text-sm">Tags: {data.tags && (<span className="my-1 text-dark-quantum mx-2 hover:text-quantum cursor-pointer">#{data.tags.map(tag => tag.replace(/ /g, '_')).join(' #')}</span>)}</p>
                     </div>
                   </div>
                 </div>
