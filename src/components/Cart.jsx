@@ -80,7 +80,7 @@ export default function Cart() {
                       {items.map((item, index) => (
                         <div
                           key={index}
-                          className="flex gap-2 mb-4 mx-4 w-[360px]"
+                          className="flex gap-2 mb-4 mx-4 w-[359px]"
                         >
                           <div className="w-[250px] h-[140px]">
                             <img
@@ -122,9 +122,15 @@ export default function Cart() {
                           </div>
                         </div>
                       ))}
-                      <p className=" absolute top-[770px] text-[25px] font-bold">
-                        Grand Total: {formatter.format(calculateTotal())}
-                      </p>
+                      <div className="absolute top-[750px] flex justify-between w-[380px]">
+                        <p className=" text-[22px] font-bold">
+                          Grand Total: <br />{" "}
+                          {formatter.format(calculateTotal())}
+                        </p>
+                        <button className="border rounded-lg bg-gray-500 text-white px-[60px] py-5">
+                          Checkout
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     "No items in the cart."

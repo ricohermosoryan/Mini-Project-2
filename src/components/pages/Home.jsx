@@ -94,6 +94,7 @@ export default function Home() {
                 </motion.button>
               </div>
             </div>
+
             {/* Iphones images */}
             <div className="image relative md:mt-0 mt-11">
               <div className="">

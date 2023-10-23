@@ -21,8 +21,8 @@ export default function AppRouter() {
   const location = useLocation();
   return (
     <>
-      <AnimatePresence initial={false} mode="wait">
-        <CartProvider>
+      <CartProvider>
+        <AnimatePresence initial={false} mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route element={<NavbarTemplate />}>
               <Route path="*" element={<Home />} />
@@ -39,8 +39,8 @@ export default function AppRouter() {
               <Route path="/cart" element={<Cart />} />
             </Route>
           </Routes>
-        </CartProvider>
-      </AnimatePresence>
+        </AnimatePresence>
+      </CartProvider>
     </>
   );
 }
