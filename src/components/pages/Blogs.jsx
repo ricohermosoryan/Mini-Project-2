@@ -1,23 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import blogs from "../../assets/blogs.svg";
 import PageTransition from "../PageTransition";
 
 export default function Blogs() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    axios
+      .get(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/blogs"
+      )
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => console.error(err));
+    return controller.abort();
+  }, []);
+
   return (
     <>
       <PageTransition>
         <div className="banner">
           <img src={blogs} alt="image" className="lg:w-screen" />
         </div>
-        <div className=" text-white heading w-[200px] md:w-[400px] lg:w-[600px] text-[16px] font-semibold my-[-40px] ms-[160px] md:my-[-80px] md:text-[28px] md:ms-[350px] lg:text-[40px] lg:my-[-170px] lg:ms-[900px]">
+        <div className=" text-white heading text-[20px] font-semibold my-[-60px] ms-[150px] md:my-[-106px] md:text-[28px] md:ms-[350px] lg:text-[40px] lg:my-[-170px] lg:ms-[900px]">
           BLOGS
-          <div className="w-[30px] h-[0px] absolute left-[170px] md:left-[370px] lg:left-[936px] border-2 border-gray-300 border-opacity-90 md:w-[55px] lg:w-[65px]"></div>
+          <div className="w-[40px] h-[0px] absolute left-[165px] md:left-[370px] lg:left-[936px] border-2 border-neutral-200 border-opacity-70 md:w-[55px] lg:w-[65px]"></div>
         </div>
-
-        <div className="mt-[100px] md:mt-[180px] lg:mt-[370px] lg:mx-[300px] lg:flex lg:justify-center md:flex md:justify-center">
-          <div className="text-center text-black text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
-            On Development
-          </div>
+        <div className="container mx-auto p-2 flex flex-row-reverse flex-wrap-reverse gap-x-4 justify-around mt-[100px] md:mt-[180px] lg:mt-[370px] ">
+          {data.map((item, i) => (
+            <Link to={`${item.id}`}>
+              <div key={i} className="flex flex-wrap w-full xl:w-[600px] 2xl:w-[750px] my-4 shadow">
+                <div className="w-full md:w-2/5 lg:h-full">
+                  <img src={item.image} className="h-full object-cover" />
+                </div>
+                <div className="w-full md:w-3/5">
+                  <p className="truncate mx-3 heading text-lg font-medium">{item.title}</p>
+                  <p className="truncate mx-3 text-sm italic">on {item.date_published} by {item.author}</p>
+                  <p className="truncate mx-3 text-xs">{item.category}</p>
+                  <p className="truncate mx-3 my-4 text-base sentence-truncate">{item.summary}</p>
+                  <p className="truncate mx-3 text-xs italic">Tags: #{item.tags.map(tag => tag.replace(/ /g, '_')).join(' #')}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </PageTransition>
     </>
