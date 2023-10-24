@@ -66,10 +66,19 @@ export default function Products() {
       <PageTransition>
         <div className=" rounded-md mt-10 flex lg:mx-[150px]">
           {/* Filter */}
-          <div className=" hidden lg:block w-[500px] mt-5 ">
+          <motion.div
+            className=" hidden lg:block w-[500px] mt-5 "
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1,
+            }}
+          >
             <h3 className="mx-3">Filter</h3>
             <div className="h-[1px] border border-gray-400 mx-3"></div>
-          </div>
+          </motion.div>
 
           {/* Products */}
           <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:me-[40px]">
@@ -113,7 +122,7 @@ export default function Products() {
                 </div>
 
                 {/* View */}
-                <div className=" bg-sky-300/40 w-[50px] h-[50px] rounded-lg absolute top-[-60px] right-0 group-hover:top-0 opacity-0 group-hover:opacity-100 flex items-center justify-end transition-all duration-200 lg:top-0 lg:right-[-50px] lg:group-hover:right-0">
+                <div className=" bg-sky-300/40 w-[50px] h-[50px] rounded-lg absolute top-[-60px] right-0 group-hover:top-0 opacity-0 group-hover:opacity-100 flex items-center justify-end transition-all duration-200 lg:top-[50px] lg:right-[-50px] lg:group-hover:right-[-16px] lg:group-hover:top-[50px]">
                   <Link
                     to={`${item.id}`}
                     className="w-[35px] h-[35px] bg-white flex items-center justify-center me-2 rounded-md"

@@ -19,28 +19,53 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import HomeNewProduct from "../HomeNewProduct";
 import PageTransition from "../PageTransition";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 5; // Number of items per page
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   useEffect(() => {
-    const controller = new AbortController();
+    const controller1 = new AbortController();
+    const controller2 = new AbortController();
 
     axios
       .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products",
+        { signal: controller1.signal }
       )
       .then((res) => {
         const limitedData = res.data.slice(0, 20); // Limit data to 20 items
         setData(limitedData);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error(err);
+        }
+      });
 
-    return () => controller.abort();
+    axios
+      .get(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/blogs",
+        { signal: controller2.signal }
+      )
+      .then((res) => {
+        setBlogs(res.data);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error(err);
+        }
+      });
+
+    return () => {
+      controller1.abort();
+      controller2.abort();
+    };
   }, []);
 
   const handleChangePage = (page) => {
@@ -400,8 +425,38 @@ export default function Home() {
               Quantum Blogs
             </div>
           </div>
-          <div className="text-center text-black text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
-            On Development
+          <div className="container mx-auto p-2 flex flex-row-reverse flex-wrap-reverse gap-x-4 justify-around mt-[10px] md:mt-[40px] lg:mt-[80px] ">
+            {blogs.map((item, i) => (
+              <Link
+                to={`/blogs/${item.id}`}
+                key={i}
+                className="flex flex-wrap w-full xl:w-[600px] 2xl:w-[750px] my-4 shadow"
+              >
+                <div className="w-full md:w-2/5 lg:h-full">
+                  <img src={item.image} className="h-full object-cover" />
+                </div>
+                <div className="w-full md:w-3/5">
+                  <p className="truncate mx-3 mt-2 heading text-lg font-medium">
+                    {item.title}{" "}
+                  </p>
+                  <p className="truncate mx-3 text-sm italic">
+                    on {item.date_published} by {item.author}
+                  </p>
+                  <p className="truncate mx-3 text-xs">{item.category}</p>
+                  <p className="mx-3 my-2 text-base sentence-truncate">
+                    {item.summary}
+                  </p>
+                  <p className="truncate mx-3 my-2 text-xs italic">
+                    <span className="text-quantum">
+                      #
+                      {item.tags
+                        .map((tag) => tag.replace(/ /g, "_"))
+                        .join(" #")}
+                    </span>
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </PageTransition>

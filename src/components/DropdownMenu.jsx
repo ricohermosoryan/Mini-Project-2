@@ -143,6 +143,15 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                     All Product
                   </Link>
                 </li>
+                <li className="p-2">
+                  <span className="line-through  ">Promos</span>
+                </li>
+                <li className="p-2">
+                  <span className="line-through  ">Sales</span>
+                </li>
+                <li className="p-2">
+                  <span className="line-through  ">Deals</span>
+                </li>
               </motion.ul>
             )}
           </motion.div>
