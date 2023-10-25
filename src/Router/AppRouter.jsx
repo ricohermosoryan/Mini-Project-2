@@ -38,7 +38,7 @@ export default function AppRouter() {
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/searchpage" element={<SearchPage />} />
+              <Route path="/search" element={<SearchPage />} />
             </Route>
           </Routes>
         </AnimatePresence>

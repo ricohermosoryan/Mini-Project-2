@@ -91,7 +91,18 @@ export default function Search() {
                 ))}
 
                 {searchResults.length > 3 && (
-                  <button className="mt-4"><Link to={`SearchPage`}>View More</Link></button>  
+                  <Link 
+                    to={{
+                      pathname: '/search',  
+                      state: {
+                        searchQuery,
+                        searchResults
+                      }
+                    }}
+                    className="mt-4"
+                  >
+                    <button>View More</button>
+                  </Link>
                 )}
               </div>
             </motion.div>
