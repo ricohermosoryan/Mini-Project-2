@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import searchImage from "../assets/search.svg";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Search() {
   const [search, setSearch] = useCycle(false, true);
@@ -9,22 +10,15 @@ export default function Search() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
-    const fetchResults = async () => {
-      if (searchQuery) {
-        const response = await fetch(`https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`);
-        const data = await response.json();
-        setSearchResults(data);  
-      }
-    };
-    
-    fetchResults();
-  }, [searchQuery]);
   
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  const handleSearch = async () => {
+    const response = await fetch(`https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`);
+    const data = await response.json();
+    setSearchResults(data);
+  }
+  
+  // Only show first 3 results
+  const displayedResults = searchResults.slice(0, 3);
 
   return (
     <>
@@ -71,29 +65,34 @@ export default function Search() {
                 <input
                   type="text"
                   id="input-group-1"
-                  onChange={handleSearch} 
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   value={searchQuery}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSearch();
+                    }  
+                  }}
                   className="bg-gray-50 border-gray-300 text-gray-900 text-sm  block w-full p-2.5 border-none outline-none focus:ring-0 focus:border-none"
                   placeholder="Search for products"
                 />
-                <button type="submit" className=" bg-white">
+                <button type="submit" className=" bg-white" onClick={handleSearch}>
                   <img src={searchImage} alt="image" />
                 </button>
               </div>
-              <div className="border h-[150px] bg-white text-center rounded-b-lg">
-
-                {searchResults.length > 0 ? (
-                  <div>
-                    {searchResults.map(product => (
-                      <div key={product.id} className="result">
-                        <h3>{product.title}</h3>
-                      </div>  
-                    ))}
+              <div className="border bg-white p-4 rounded-b-lg">
+                {displayedResults.map(product => (
+                  <div key={product.id} className="">
+                    <div>
+                      <Link to={`Products/${product.id}`}><p className="heading">{product.title}</p></Link>
+                      <p>{product.brand} | {product.category}</p>
+                      <p className="truncate">{product.description}</p>
+                    </div>
                   </div>
-                ) : (
-                  <p>No results found</p> 
-                )}
+                ))}
 
+                {searchResults.length > 3 && (
+                  <button className="mt-4">View More</button>  
+                )}
               </div>
             </motion.div>
           </MotionConfig>
