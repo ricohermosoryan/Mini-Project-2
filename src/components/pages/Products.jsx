@@ -67,7 +67,7 @@ export default function Products() {
         <div className=" rounded-md mt-10 flex lg:mx-[150px]">
           {/* Filter */}
           <motion.div
-            className=" hidden lg:block w-[500px] mt-5 "
+            className=" w-[500px] mt-5 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

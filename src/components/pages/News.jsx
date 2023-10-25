@@ -5,6 +5,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import newsIcon from "../../assets/newsicon.svg";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function News() {
   const [data, setData] = useState([]);
@@ -97,9 +98,11 @@ export default function News() {
                       <div className="border border-gray-400 h-[1px] mt-3 mb-5"></div>
                       <div className="flex justify-between items-center lg:justify-around">
                         <p className="lg:text-[18px]">{item.author}</p>
-                        <button className=" bg-slate-600 rounded-lg px-6 py-3 text-white lg:px-5 lg:py-2 lg:text-[23px]">
-                          Read More
-                        </button>
+                        <a href={item.url} target="_blank">
+                          <button className=" bg-slate-600 rounded-lg px-6 py-3 text-white lg:px-5 lg:py-2 lg:text-[23px]">
+                            Read More
+                          </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -133,12 +136,13 @@ export default function News() {
                     alt="No Image"
                     className=" object-cover h-[100px] lg:w-[340px] lg:h-[200px]"
                   />
+
+                  <div className="h-[100px]">
+                    <h6 className="text-[13px] pt-[10px] lg:text-[18px]">
+                      {item.title}
+                    </h6>
+                  </div>
                 </a>
-                <div className="h-[100px]">
-                  <h6 className="text-[13px] pt-[10px] lg:text-[18px]">
-                    {item.title}
-                  </h6>
-                </div>
                 <span className="flex text-[13px] mt-3 py-5">
                   <img src={newsIcon} alt="img" className="h-[17px] w-[17px]" />{" "}
                   {dayjs(item.publishedAt).format("MMM DD, YYYY")}

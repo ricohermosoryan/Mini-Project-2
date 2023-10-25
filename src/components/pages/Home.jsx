@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import HomeNewProduct from "../HomeNewProduct";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
+import { BsEyeFill } from "react-icons/bs";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -109,14 +110,16 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex justify-center mt-10">
-                <motion.button
-                  className="text-center text-neutral-100 text-lg md:text-xl font-medium font-['Inter'] leading-7 w-40 h-10 px-4 py-1 bg-gradient-to-br from-sky-500 via-blue-600 to-sky-500 rounded-lg"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  Explore More
-                </motion.button>
+                <Link to="/products">
+                  <motion.button
+                    className="text-center text-neutral-100 text-lg md:text-xl font-medium font-['Inter'] leading-7 w-40 h-10 px-4 py-1 bg-gradient-to-br from-sky-500 via-blue-600 to-sky-500 rounded-lg"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    Explore More
+                  </motion.button>
+                </Link>
               </div>
             </div>
 
@@ -152,9 +155,11 @@ export default function Home() {
               Quantum Products
               <br /> On Sale
             </span>
-            <button className="absolute top-[120px] left-[150px] text-sm md:top-[200px] lg:top-[270px] md:left-[290px] lg:left-[210px] hover:underline">
-              View all
-            </button>
+            <Link to="/products">
+              <button className="absolute top-[120px] left-[150px] text-sm md:top-[200px] lg:top-[270px] md:left-[290px] lg:left-[210px] hover:underline">
+                View all
+              </button>
+            </Link>
 
             {/* Carousel Cards */}
             <div className="card">
@@ -166,7 +171,19 @@ export default function Home() {
                       className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-32 lg:w-52 mt-14"
                     >
                       {/* Render your card content here */}
-                      <img src={item.image[0]} />
+                      <div className="group relative mb-5">
+                        <img
+                          src={item.image[0]}
+                          className="group-hover:scale-110 transition duration-200"
+                        />
+                        <div className=" absolute top-[-11px] right-[-10px] opacity-0 group-hover:opacity-100 transition-all duration-200 bg-sky-300/40 p-2 rounded-lg">
+                          <Link to={`/products/${item.id}`}>
+                            {" "}
+                            <BsEyeFill className=" text-gray-700 text-[17px] bg-white rounded-lg" />
+                          </Link>
+                        </div>
+                      </div>
+
                       <p className=" text-black text-xs md:text-base lg:text-lg">
                         {item.brand}
                       </p>
@@ -176,6 +193,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+
                 {/* Arrows */}
                 <div className="mt-4 flex justify-center items-center space-x-4">
                   <button
@@ -215,7 +233,9 @@ export default function Home() {
           <div className="">
             <HomeNewProduct />
           </div>
-          <button className=" mt-5 hover:underline ms-5">View All</button>
+          <Link to="/products">
+            <button className=" mt-5 hover:underline ms-5">View All</button>
+          </Link>
         </div>
 
         {/* Subbanner 1 */}
@@ -236,16 +256,18 @@ export default function Home() {
                 className="w-[200px] md:w-[290px] lg:w-[700px]"
               />
 
-              <motion.button
-                className="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span className="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
-                  Register Now
-                </span>
-              </motion.button>
+              <Link to="/products">
+                <motion.button
+                  className="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <span className="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
+                    Register Now
+                  </span>
+                </motion.button>
+              </Link>
             </div>
           </div>
           <div className="mb-3 md:w-[40%] lg:w-[30%]">
@@ -321,16 +343,19 @@ export default function Home() {
               alt="image"
               className="mt-[-90px] ms-[150px] lg:mt-[-260px] lg:w-[300px] lg:ms-[190px]"
             />
-            <motion.button
-              className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <div className="text-center text-neutral-100 text-base font-normal">
-                Buy Now
-              </div>
-            </motion.button>
+
+            <Link to="/products">
+              <motion.button
+                className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <div className="text-center text-neutral-100 text-base font-normal">
+                  Buy Now
+                </div>
+              </motion.button>
+            </Link>
           </div>
         </div>
 
@@ -387,16 +412,18 @@ export default function Home() {
                 <div className="text-white text-[20px] text-center font-light pt-3 pb-5 md:text-[22px] lg:text-[28px] lg:pt-10">
                   Various designs and brands
                 </div>
-                <motion.button
-                  className="w-[110px] h-[30px] px-4 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex ms-[110px] md:ms-[80px] md:h-[34px] md:w-[130px] lg:w-[200px] lg:h-[40px] lg:ms-[250px] lg:mt-[40px]"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <div className="text-center text-slate-800 text-base font-normal md:text-lg">
-                    View All
-                  </div>
-                </motion.button>
+                <Link to="/products">
+                  <motion.button
+                    className="w-[110px] h-[30px] px-4 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex ms-[110px] md:ms-[80px] md:h-[34px] md:w-[130px] lg:w-[200px] lg:h-[40px] lg:ms-[250px] lg:mt-[40px]"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <div className="text-center text-slate-800 text-base font-normal md:text-lg">
+                      View All
+                    </div>
+                  </motion.button>
+                </Link>
               </div>
               <div className="image h-[370px] md:h-[341px] lg:h-[450px]">
                 <img

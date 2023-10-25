@@ -12,7 +12,6 @@ import FAQs from "../components/pages/FAQs";
 import ContactUs from "../components/pages/ContactUs";
 import News from "../components/pages/News";
 import Blog from "../components/pages/Blog";
-import NewsPage from "../components/pages/NewsPage";
 import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "../context/CartContext";
 import Cart from "../components/Cart";
@@ -29,7 +28,6 @@ export default function AppRouter() {
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<Product />} />
               <Route path="/blogs/:id" element={<Blog />} />
-              <Route path="/news/:id" element={<NewsPage />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/blogs" element={<Blogs />} />
