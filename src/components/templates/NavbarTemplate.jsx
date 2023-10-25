@@ -7,7 +7,9 @@ export default function NavbarTemplate() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="min-h-screen">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );
