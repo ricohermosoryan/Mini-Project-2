@@ -91,7 +91,7 @@ export default function Search() {
                 ))}
 
                 {searchResults.length > 3 && (
-                  <button className="mt-4">View More</button>  
+                  <button className="mt-4"><Link to={`SearchPage`}>View More</Link></button>  
                 )}
               </div>
             </motion.div>
