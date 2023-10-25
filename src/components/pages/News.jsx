@@ -90,8 +90,8 @@ export default function News() {
                         <img src={newsIcon} alt="img" />{" "}
                         {dayjs(item.publishedAt).format("MMM DD, YYYY")}
                       </span>
-                      <h2 className="lg:pb-5 lg:text-[30px]">{item.title}</h2>
-                      <p className=" lg:text-[20px] lg:pb-[30px]">
+                      <h2 className="lg:pb-5 lg:text-[25px]">{item.title}</h2>
+                      <p className=" lg:text-[20px] lg:pb-[15px]">
                         {item.description}
                       </p>
                       <div className="border border-gray-400 h-[1px] mt-3 mb-5"></div>
