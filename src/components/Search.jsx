@@ -12,6 +12,7 @@ export default function Search() {
   const [searchResults, setSearchResults] = useState([]);
   
   const handleSearch = async () => {
+    localStorage.setItem('searchQuery', searchQuery);
     const response = await fetch(`https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`);
     const data = await response.json();
     setSearchResults(data);
@@ -81,9 +82,9 @@ export default function Search() {
               </div>
               <div className="border bg-white p-4 rounded-b-lg">
                 {displayedResults.map(product => (
-                  <div key={product.id} className="">
+                  <div key={product.id} className="my-4">
                     <div>
-                      <Link to={`Products/${product.id}`}><p className="heading">{product.title}</p></Link>
+                      <Link to={`products/${product.id}`}><p className="heading hover:text-quantum">{product.title}</p></Link>
                       <p>{product.brand} | {product.category}</p>
                       <p className="truncate">{product.description}</p>
                     </div>
@@ -99,7 +100,7 @@ export default function Search() {
                         searchResults
                       }
                     }}
-                    className="mt-4"
+                    className="mt-4 flex justify-center text-sm text-quantum hover:text-dark-quantum"
                   >
                     <button>View More</button>
                   </Link>
