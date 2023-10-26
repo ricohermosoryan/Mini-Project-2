@@ -69,13 +69,12 @@ export default function Products() {
   };
 
   const handleCategoryCheckbox = (category) => {
-    const updatedFilters = { ...filters };
-    if (updatedFilters.category.includes(category)) {
-      updatedFilters.category = updatedFilters.category.filter((c) => c !== category);
-    } else {
-      updatedFilters.category = [...updatedFilters.category, category];
-    }
-    setFilters(updatedFilters);
+    setFilters((prevFilters) => {
+      const updatedCategories = prevFilters.category.includes(category)
+        ? prevFilters.category.filter((c) => c !== category)
+        : [...prevFilters.category, category];
+      return { ...prevFilters, category: updatedCategories };
+    });
   };
 
   const applyFilters = () => {
@@ -88,14 +87,26 @@ export default function Products() {
         },
       })
       .then((res) => {
-        const filteredData = res.data.filter(product => {
-          return selectedCategories.every(category => {
-            return product.category.includes(category);  
-          });
+        const filteredData = res.data.filter((product) => {
+          return (
+            selectedCategories.length === 0 ||
+            selectedCategories.some((category) => product.category.includes(category))
+          );
         });
         setData(filteredData);
+        setCurrentPage(1);
       })
       .catch((err) => console.error(err));
+  };
+
+  const clearAllFilters = () => {
+    setFilters({
+      brand: "",
+      maxPrice: "",
+      category: [],
+      subcategory: "",
+      minRating: "",
+    });;
   };
 
   // For Page number pagination
@@ -143,7 +154,7 @@ export default function Products() {
             <div className="lg:w-1/5 xl:w-1/6 hidden lg:block">
               <div className="flex justify-between items-baseline my-4">
                 <p className="font-bold">Filter</p>
-                <button className="text-quantum text-xs">Clear all</button>
+                <button className="text-quantum text-xs" onClick={clearAllFilters}>Clear all</button>
               </div>
               <div className="accordion">
                 <div className="accordion-item">
@@ -160,7 +171,7 @@ export default function Products() {
                            handleCategoryCheckbox("Smartphones and Accessories")
                          }
                        />
-                       <label for="mobile">Mobile Phones</label>
+                       <label htmlFor="mobile">Mobile Phones</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -169,7 +180,7 @@ export default function Products() {
                          checked={filters.category.includes("Laptops and Computers")}
                          onChange={() => handleCategoryCheckbox("Laptops and Computers")}
                        />
-                       <label for="laptops">Laptops & Computers</label>
+                       <label htmlFor="laptops">Laptops & Computers</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -178,7 +189,7 @@ export default function Products() {
                          checked={filters.category.includes("Wearable Technology")}
                          onChange={() => handleCategoryCheckbox("Wearable Technology")}
                        />
-                       <label for="wearables">Wearables</label>
+                       <label htmlFor="wearables">Wearables</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -187,7 +198,7 @@ export default function Products() {
                          checked={filters.category.includes("Audio and Headphones")}
                          onChange={() => handleCategoryCheckbox("Audio and Headphones")}
                        />
-                       <label for="audio">Audio</label>
+                       <label htmlFor="audio">Audio</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -196,7 +207,7 @@ export default function Products() {
                          checked={filters.category.includes("Camera and Photography")}
                          onChange={() => handleCategoryCheckbox("Camera and Photography")}
                        />
-                       <label for="cameras">Cameras</label>
+                       <label htmlFor="cameras">Cameras</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -205,7 +216,7 @@ export default function Products() {
                          checked={filters.category.includes("Gaming Gear")}
                          onChange={() => handleCategoryCheckbox("Gaming Gear")}
                        />
-                       <label for="gaming">Gaming</label>
+                       <label htmlFor="gaming">Gaming</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -214,7 +225,7 @@ export default function Products() {
                          checked={filters.category.includes("Home Automation")}
                          onChange={() => handleCategoryCheckbox("Home Automation")}
                        />
-                       <label for="smarthome">Home Automation</label>
+                       <label htmlFor="smarthome">Home Automation</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -223,7 +234,7 @@ export default function Products() {
                          checked={filters.category.includes("Software and Apps")}
                          onChange={() => handleCategoryCheckbox("Software and Apps")}
                        />
-                       <label for="software">Software & Apps</label>
+                       <label htmlFor="software">Software & Apps</label>
                      </div>
                      <div className="flex items-center gap-2">
                        <input
@@ -232,7 +243,7 @@ export default function Products() {
                          checked={filters.category.includes("Tech for Kids")}
                          onChange={() => handleCategoryCheckbox("Tech for Kids")}
                        />
-                       <label for="tech4kids">Tech for Kids</label>
+                       <label htmlFor="tech4kids">Tech for Kids</label>
                      </div>
                   </div>
                 </div>
