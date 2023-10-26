@@ -70,7 +70,7 @@ useEffect(() => {
               <img src={searchImage} alt="image" />
             </button>
           </div>
-          <div className="p-4 ">
+          <div className="p-4">
             {searchResults.map(product => (
               <div key={product.id} className="my-4">
                 <div className="w-40 h-40 aspect-square my-2">
@@ -78,7 +78,7 @@ useEffect(() => {
                 </div>
                 <div className="my-2">
                   <Link to={`../products/${product.id}`}><p className="heading hover:text-quantum">{product.title}</p></Link>
-                  <p>{product.brand} | {product.category}</p>
+                  <p>{product.brand} | {product.category.join(", ")}</p>
                   <p className="truncate">{product.description}</p>
                 </div>
               </div>
