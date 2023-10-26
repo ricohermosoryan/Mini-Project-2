@@ -27,10 +27,10 @@ import { useContext } from "react";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
-  { name: "Facebook", icon: facebookImage, href: "" },
-  { name: "Twitter", icon: twitterImage, href: "" },
-  { name: "Instagram", icon: instagramImage, href: "" },
-  { name: "YouTube", icon: youtubeImage, href: "" },
+  { name: "Facebook", icon: facebookImage, href: "https://www.facebook.com" },
+  { name: "Twitter", icon: twitterImage, href: "https://twitter.com" },
+  { name: "Instagram", icon: instagramImage, href: "https://www.instagram.com" },
+  { name: "YouTube", icon: youtubeImage, href: "https://www.youtube.com" },
 ];
 
 export const socialLinksExceptNewsletter = socialLinks.slice(1);
