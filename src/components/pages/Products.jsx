@@ -24,7 +24,7 @@ export default function Products() {
   const [data, setData] = useState([]);
 
   const [filters, setFilters] = useState({
-    brand: "",
+    brand: [],
     maxPrice: "",
     category: [],
     subcategory: "",
@@ -33,6 +33,7 @@ export default function Products() {
 
   const [isAccordion1Open, setAccordion1Open] = useState(false);
   const [isAccordion2Open, setAccordion2Open] = useState(false);
+  const [isAccordion3Open, setAccordion3Open] = useState(false);
 
   const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -77,14 +78,36 @@ export default function Products() {
     });
   };
 
+  const maxProductPrice = Math.max(...data.map((item) => item.price));
+
+  const getUniqueBrands = (data) => {
+    const brands = new Set();
+    data.forEach((item) => {
+      brands.add(item.brand);
+    });
+    const sortedBrands = Array.from(brands).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+    return sortedBrands;
+  }
+
+  const handleBrandCheckbox = (brand) => {
+    setFilters((prevFilters) => {
+      const updatedBrands = prevFilters.brand.includes(brand)
+        ? prevFilters.brand.filter((c) => c !== brand)
+        : [...prevFilters.brand, brand];
+      return { ...prevFilters, brand: updatedBrands };
+    });
+  };
+
   const applyFilters = () => {
     const selectedCategories = filters.category;
+    const selectedBrands = filters.brand;
     axios
       .get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/filter", {
         params: {
           ...filters,
           maxPrice: filters.maxPrice,
           category: selectedCategories.join(","),
+          brand: selectedBrands.join(","),
         },
       })
       .then((res) => {
@@ -100,16 +123,15 @@ export default function Products() {
       .catch((err) => console.error(err));
   };
 
-  const maxProductPrice = Math.max(...data.map((item) => item.price));
-
   const clearAllFilters = () => {
     setFilters({
-      brand: "",
+      brand: [],
       maxPrice: "",
       category: [],
       subcategory: "",
       minRating: "",
-    });;
+    });
+    applyFilters();
   };
 
   // For Page number pagination
@@ -280,6 +302,27 @@ export default function Products() {
                         />
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* BRAND FILTER */}
+                <div className="accordion-item">
+                  <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion3Open(!isAccordion3Open)}>
+                    Brands
+                  </div>
+                  <div className={`accordion-content h-60 overflow-y-scroll ${isAccordion3Open ? "hidden" : ""}`}>
+                    <div className="flex flex-col">
+                      {getUniqueBrands(data).map((brand) => (
+                        <label key={brand} className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={filters.brand.includes(brand)}
+                            onChange={() => handleBrandCheckbox(brand)}
+                          />
+                          {brand}
+                        </label>
+                      ))}
                     </div>
                   </div>
                 </div>
