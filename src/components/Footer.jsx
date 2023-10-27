@@ -8,10 +8,10 @@ import { socialLinks, socialLinksExceptNewsletter } from "./Navbar";
 
 export default function Footer() {
   const footerAboutUsList = [
-    { name: "About QuantumGalaxy", href: "" },
+    { name: "About QuantumGalaxy", href: "/about" },
     { name: "Leadership Team", href: "" },
     { name: "Privacy Policy", href: "" },
-    { name: "Contact Us", href: "" },
+    { name: "Contact Us", href: "/contactus" },
   ];
 
   const footerResourcesList = [

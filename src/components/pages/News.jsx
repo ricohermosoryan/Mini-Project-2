@@ -55,6 +55,8 @@ export default function News() {
           groundbreaking innovations to cosmic discoveries, we've got you
           covered. Explore the quantum leaps in tech with us.
         </div>
+
+        {/* Hot Topics */}
         <div className=" mx-5 lg:mx-24 mt-10 md:mt-14 lg:mt-[90px]">
           <div className=" h-[0px]  shadow border border-zinc-500"></div>
           <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
@@ -64,7 +66,7 @@ export default function News() {
           </div>
 
           <motion.div
-            className="mb-[70px] mt-[20px] md:mt-[40px] lg:mt-[70px] lg:mx-[300px] lg:flex lg:justify-center md:flex md:justify-center"
+            className="mb-[70px] mt-[20px] md:mt-[40px] lg:mt-[30px] lg:mx-[300px] lg:flex lg:justify-center md:flex md:justify-center lg:mb-[120px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -86,7 +88,7 @@ export default function News() {
                         />
                       </a>
                     </div>
-                    <div className="text-left">
+                    <div className="text-left flex flex-col justify-center">
                       <span className="flex text-[17px] lg:pb-[20px] lg:pt-3">
                         <img src={newsIcon} alt="img" />{" "}
                         {dayjs(item.publishedAt).format("MMM DD, YYYY")}
@@ -96,7 +98,7 @@ export default function News() {
                         {item.description}
                       </p>
                       <div className="border border-gray-400 h-[1px] mt-3 mb-5"></div>
-                      <div className="flex justify-between items-center lg:justify-around">
+                      <div className="flex justify-between items-center lg:justify-between lg:mx-5">
                         <p className="lg:text-[18px]">{item.author}</p>
                         <a href={item.url} target="_blank">
                           <button className=" bg-slate-600 rounded-lg px-6 py-3 text-white lg:px-5 lg:py-2 lg:text-[23px]">
@@ -111,6 +113,7 @@ export default function News() {
             </div>
           </motion.div>
 
+          {/* Latest News */}
           <div className=" h-[0px]  shadow border border-zinc-500"></div>
           <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
             <div className="w-[155px] h-[13px] text-center text-black text-[20px] font-bold my-[-6px]  ms-[-80px] md:text-[24px] md:ms-[-50px] lg:text-[28px] lg:w-[200px] lg:mt-[-3px] lg:ms-[-43px]">

@@ -8,16 +8,18 @@ export default function Search() {
 
   const navbarIcons = [{ name: "Search", icon: searchImage }];
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  
+
   const handleSearch = async () => {
-    localStorage.setItem('searchQuery', searchQuery);
-    const response = await fetch(`https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`);
+    localStorage.setItem("searchQuery", searchQuery);
+    const response = await fetch(
+      `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`
+    );
     const data = await response.json();
     setSearchResults(data);
-  }
-  
+  };
+
   // Only show first 3 results
   const displayedResults = searchResults.slice(0, 3);
 
@@ -69,38 +71,56 @@ export default function Search() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   value={searchQuery}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       handleSearch();
-                    }  
+                    }
                   }}
                   className="bg-gray-50 border-gray-300 text-gray-900 text-sm  block w-full p-2.5 border-none outline-none focus:ring-0 focus:border-none"
                   placeholder="Search for products"
                 />
-                <button type="submit" className=" bg-white" onClick={handleSearch}>
+                <button
+                  type="submit"
+                  className=" bg-white"
+                  onClick={handleSearch}
+                >
                   <img src={searchImage} alt="image" />
                 </button>
               </div>
-              <div className="border bg-white p-4 rounded-b-lg">
-                {displayedResults.map(product => (
+
+              <div className="border bg-white p-4 rounded-b-lg grid grid-cols-3 gap-1">
+                {displayedResults.map((product) => (
                   <div key={product.id} className="my-4">
                     <div>
-                      <Link to={`products/${product.id}`}><p className="heading hover:text-quantum">{product.title}</p></Link>
-                      <p>{product.brand} | {product.category}</p>
-                      <p className="truncate">{product.description}</p>
+                      <Link to={`products/${product.id}`}>
+                        <p className=" flex justify-center">
+                          <img
+                            src={product.image[0]}
+                            alt="image"
+                            className="w-[150px] h-[150px]"
+                          />
+                        </p>
+
+                        <p className="heading hover:text-quantum">
+                          {product.title}
+                        </p>
+                      </Link>
+                      <p>
+                        {product.brand} | {product.category}
+                      </p>
                     </div>
                   </div>
                 ))}
 
                 {searchResults.length > 3 && (
-                  <Link 
+                  <Link
                     to={{
-                      pathname: '/search',  
+                      pathname: "/search",
                       state: {
                         searchQuery,
-                        searchResults
-                      }
+                        searchResults,
+                      },
                     }}
-                    className="mt-4 flex justify-center text-sm text-quantum hover:text-dark-quantum"
+                    className="mt-4 col-span-3 flex justify-center text-sm text-quantum hover:text-dark-quantum"
                   >
                     <button>View More</button>
                   </Link>

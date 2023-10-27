@@ -189,7 +189,7 @@ export default function Home() {
                   }
                   className={`px-3 py-1 ${
                     !canGoPrevious && "cursor-not-allowed"
-                  } bg-white rounded-full text-black px-1 py-1 hover:bg-black hover:text-white`}
+                  } bg-white rounded-full text-black px-1 py-3 hover:bg-black hover:text-white`}
                 >
                   <span className="text-xl">
                     <AiOutlineLeft />
@@ -199,7 +199,7 @@ export default function Home() {
                   onClick={() => canGoNext && handleChangePage(currentPage + 1)}
                   className={`px-3 py-1 ${
                     !canGoNext && "cursor-not-allowed"
-                  } bg-white rounded-full text-black px-1 py-1 hover:bg-black hover:text-white`}
+                  } bg-white rounded-full text-black px-1 py-3 hover:bg-black hover:text-white`}
                 >
                   <span className="text-xl">
                     <AiOutlineRight />
