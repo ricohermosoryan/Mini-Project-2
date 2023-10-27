@@ -150,31 +150,30 @@ export default function Home() {
 
             {/* Carousel Cards */}
             <div className="container">
-              <div className="space-x-1 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] ms-1">
+              <div className="space-x-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-2 ">
                 {paginatedData.map((item, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-32 lg:w-52 mt-14"
+                    className="bg-white rounded-lg shadow-lg p-3  mt-14 relative "
                   >
                     {/* Render your card content here */}
                     <div className="group relative mb-5">
-                      <img
-                        src={item.image[0]}
-                        className="group-hover:scale-110 transition duration-200"
-                      />
-                      <div className=" absolute top-[-11px] right-[-10px] opacity-0 group-hover:opacity-100 transition-all duration-200 bg-sky-300/40 p-2 rounded-lg">
-                        <Link to={`/products/${item.id}`}>
-                          {" "}
-                          <BsEyeFill className=" text-gray-700 text-[17px] bg-white rounded-lg" />
-                        </Link>
-                      </div>
+                      <Link to={`/products/${item.id}`}>
+                        <img
+                          src={item.image[0]}
+                          className="group-hover:scale-110 transition duration-200 "
+                        />
+                      </Link>
                     </div>
-                    <div className="h-[80px]">
-                      <p className=" text-black text-[9px] md:text-[13px] lg:text-[14px] text-left">
+                    <div className="mb-10">
+                      <p className=" text-black heading text-[9px] md:text-[13px] lg:text-[14px] text-left truncate">
                         {item.title}
                       </p>
+                      <p className="text-quantum text-[9px] md:text-[13px] lg:text-[14px] text-left pt-2">
+                        {item.brand}
+                      </p>
                     </div>
-                    <p className=" text-black text-xs text-left md:text-base lg:text-lg">
+                    <p className=" text-black text-xs text-left md:text-base lg:text-lg absolute bottom-3 left-2">
                       {formatter.format(item.price)}
                     </p>
                   </div>

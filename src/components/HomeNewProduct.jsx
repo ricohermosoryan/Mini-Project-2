@@ -42,15 +42,16 @@ export default function HomeNewProduct() {
               />
             </Link>
             <div className="border border-gray-400 h-[1px]"></div>
-            <p className=" text-black text-xs md:text-base lg:text-lg mt-2">
+            <p className=" truncate heading">{item.title}</p>
+            <p className=" text-quantum text-xs md:text-base lg:text-lg mt-2">
               {item.brand}
             </p>
-            <div className="flex justify-between items-center">
-              <p className=" text-black text-xs text-left md:text-base lg:text-lg">
+            <div className="md:flex lg:flex justify-between items-center md:gap-2">
+              <p className=" text-black text-xs text-left md:text-base lg:text-lg pb-3 pt-3">
                 {formatter.format(item.price)}
               </p>
-              <p className="flex bg-quantum rounded-lg p-1 text-white">
-                <img src={star} alt="image" className="w-[20px] h-[20px]" />
+              <p className="flex items-center bg-quantum rounded-lg p-1 text-white text-[13px] md:text-[15px] w-[50px]">
+                <img src={star} alt="image" className="w-[15px] h-[15px]" />
                 {item.rating.rate}
               </p>
             </div>

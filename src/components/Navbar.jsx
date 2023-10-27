@@ -24,12 +24,17 @@ import Cart from "./Cart";
 import icon from "../assets/icon.svg";
 import CartContext from "../context/CartContext";
 import { useContext } from "react";
+import { IoLogInOutline } from "react-icons/io5";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
   { name: "Facebook", icon: facebookImage, href: "https://www.facebook.com" },
   { name: "Twitter", icon: twitterImage, href: "https://twitter.com" },
-  { name: "Instagram", icon: instagramImage, href: "https://www.instagram.com" },
+  {
+    name: "Instagram",
+    icon: instagramImage,
+    href: "https://www.instagram.com",
+  },
   { name: "YouTube", icon: youtubeImage, href: "https://www.youtube.com" },
 ];
 
@@ -168,20 +173,23 @@ export default function Navbar() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginErrors, setLoginErrors] = useState({});
+  const [user, setUser] = useState(false);
 
   const validateLogin = () => {
     let errors = {};
 
+    const data = JSON.parse(localStorage.getItem("data"));
+
     if (!loginEmail) {
       errors.email = "Please enter your email";
-    } else {
-      errors.email = "";
+    } else if (loginEmail !== data.email) {
+      errors.email = "Incorrect Email";
     }
 
     if (!loginPassword) {
       errors.password = "Please enter your password";
-    } else {
-      errors.password = "";
+    } else if (loginPassword !== data.password) {
+      errors.password = "Incorrect Password";
     }
 
     setLoginErrors(errors);
@@ -189,21 +197,27 @@ export default function Navbar() {
     return Object.keys(errors).length === 0;
   };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      validateLogin();
-    }, 100);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     validateLogin();
+  //   }, 100);
 
-    return () => clearTimeout(timeout);
-  }, [loginEmail, loginPassword]);
+  //   return () => clearTimeout(timeout);
+  // }, [loginEmail, loginPassword]);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
     const isValid = validateLogin();
+    console.log(isValid);
 
     if (isValid) {
       // submit form
+      toggleModal();
+
+      setUser(true);
+
+      alert("Login Sucessfull");
     }
   };
 
@@ -218,67 +232,93 @@ export default function Navbar() {
   const validateRegister = () => {
     let errors = {};
 
-    const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
+    console.log(errors);
+
     if (!registerName) {
       errors.name = "Please enter your full name";
-    } else if (!name_reg.test(registerName)) {
-      errors.name = "Invalid name format";
-    } else {
-      errors.name = "";
     }
 
-    const email_reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (!registerEmail) {
       errors.email = "Please enter a valid email address";
-    } else if (!email_reg.test(registerEmail)) {
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerEmail)) {
       errors.email = "Invalid email address format";
-    } else {
-      errors.email = "";
     }
 
     if (!registerPassword) {
       errors.password = "Create a unique password (min. 8 characters)";
     } else if (registerPassword.length < 8) {
       errors.password = "Passwords must be at least 8 characters long";
-    } else {
-      errors.password = "";
     }
 
     if (!registerTerms) {
       errors.terms = "You must agree before submitting";
-    } else {
-      errors.terms = "";
     }
+
+    // const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
+    // if (!registerName) {
+    //   errors.name = "Please enter your full name";
+    // } else if (!name_reg.test(registerName)) {
+    //   errors.name = "Invalid name format";
+    // } else {
+    //   errors.name = "";
+    // }
+
+    // const email_reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    // if (!registerEmail) {
+    //   errors.email = "Please enter a valid email address";
+    // } else if (!email_reg.test(registerEmail)) {
+    //   errors.email = "Invalid email address format";
+    // } else {
+    //   errors.email = "";
+    // }
+
+    // if (!registerPassword) {
+    //   errors.password = "Create a unique password (min. 8 characters)";
+    // } else if (registerPassword.length < 8) {
+    //   errors.password = "Passwords must be at least 8 characters long";
+    // } else {
+    //   errors.password = "";
+    // }
+
+    // if (!registerTerms) {
+    //   errors.terms = "You must agree before submitting";
+    // } else {
+    //   errors.terms = "";
+    // }
 
     setRegisterErrors(errors);
 
     return Object.keys(errors).length === 0;
   };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      validateRegister();
-    }, 100);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     validateRegister();
+  //   }, 100);
 
-    return () => clearTimeout(timeout);
-  }, [registerName, registerEmail, registerPassword, registerTerms]);
+  //   return () => clearTimeout(timeout);
+  // }, [registerName, registerEmail, registerPassword, registerTerms]);
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
 
     const isValid = validateRegister();
+    console.log(isValid);
 
     if (isValid) {
       // submit form
-      // localStorage.setItem("registerName", registerName);
-      // localStorage.setItem("registerEmail", registerEmail);
-      // localStorage.setItem("registerPassword", registerPassword);
-      // localStorage.setItem("registerTerms", registerTerms);
-      // setRegisterName("");
-      // setRegisterEmail("");
-      // setRegisterPassword("");
-      // setRegisterTerms(false);
-      console.log(registerEmail, registerName, registerPassword, registerTerms);
+
+      const data = {
+        name: registerName,
+        email: registerEmail,
+        password: registerPassword,
+        terms: registerTerms,
+      };
+      const localData = localStorage.setItem("data", JSON.stringify(data));
+
+      if (localData !== null) {
+        alert("Registration Suscessful");
+      }
     }
   };
 
@@ -405,14 +445,22 @@ export default function Navbar() {
                 {items.length}
               </div>
             </div>
-            <div>
-              <img
-                src={navbarIcons[2].icon}
-                className="w-10 aspect-square cursor-pointer "
-                alt={navbarIcons[2].name}
-                onClick={toggleModal}
-              ></img>
-            </div>
+            {user ? (
+              <div>
+                <img
+                  src={navbarIcons[2].icon}
+                  className="w-10 aspect-square cursor-pointer "
+                  alt={navbarIcons[2].name}
+                />
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <IoLogInOutline
+                  className="w-[32px] h-[32px] aspect-square cursor-pointer "
+                  onClick={toggleModal}
+                />
+              </div>
+            )}
           </div>
           <div className="md:hidden lg:hidden">
             <Hamburger />
