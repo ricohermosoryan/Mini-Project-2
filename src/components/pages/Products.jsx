@@ -11,6 +11,7 @@ import star from "../../assets/star.svg";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
+import ProductFilter from "../ProductFilter";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -23,6 +24,8 @@ export default function Products() {
 
   const [data, setData] = useState([]);
 
+  const [hoveredItem, setHoveredItem] = useState(null);
+
   const [filters, setFilters] = useState({
     brand: [],
     maxPrice: "",
@@ -30,12 +33,6 @@ export default function Products() {
     subcategory: "",
     minRating: "",
   });
-
-  const [isAccordion1Open, setAccordion1Open] = useState(false);
-  const [isAccordion2Open, setAccordion2Open] = useState(false);
-  const [isAccordion3Open, setAccordion3Open] = useState(false);
-
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -79,15 +76,6 @@ export default function Products() {
   };
 
   const maxProductPrice = Math.max(...data.map((item) => item.price));
-
-  const getUniqueBrands = (data) => {
-    const brands = new Set();
-    data.forEach((item) => {
-      brands.add(item.brand);
-    });
-    const sortedBrands = Array.from(brands).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-    return sortedBrands;
-  }
 
   const handleBrandCheckbox = (brand) => {
     setFilters((prevFilters) => {
@@ -162,175 +150,39 @@ export default function Products() {
             </Breadcrumb>
           </div>
 
-          {/* <div>
+          <div className="flex justify-end">
             <button onClick={() => setShowFilter(!showFilter)}>Filter</button>
-          </div> */}
+          </div>
 
           {/* Off-canvas filter */}
-          {/* <div
+          <div
             className={`off-canvas fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform z-10 ${
               showFilter ? "translate-x-0" : "-translate-x-full"
             } transition-transform ease-in-out duration-300`}
           >
-          </div> */}
+            <ProductFilter
+              data={data}
+              filters={filters}
+              handleCategoryCheckbox={handleCategoryCheckbox}
+              maxProductPrice={maxProductPrice}
+              handleBrandCheckbox={handleBrandCheckbox}
+              applyFilters={applyFilters}
+              clearAllFilters={clearAllFilters}
+            />
+          </div>
 
           <div className="flex">
             {/* FILTER */}
             <div className="lg:w-1/5 xl:w-1/6 hidden lg:block">
-              <div className="flex justify-between items-baseline my-4">
-                <p className="font-bold">Filters</p>
-                <button className="text-quantum text-xs" onClick={clearAllFilters}>Clear all</button>
-              </div>
-              <div className="accordion">
-
-                {/* CATEGORY FILTER */}
-                <div className="accordion-item">
-                  <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion1Open(!isAccordion1Open)}>
-                    Category
-                  </div>
-                  <div className={`accordion-content ${isAccordion1Open ? "hidden" : ""}`}>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="mobile"
-                         checked={filters.category.includes("Smartphones and Accessories")}
-                         onChange={() =>
-                           handleCategoryCheckbox("Smartphones and Accessories")
-                         }
-                       />
-                       <label htmlFor="mobile">Mobile Phones</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="laptops"
-                         checked={filters.category.includes("Laptops and Computers")}
-                         onChange={() => handleCategoryCheckbox("Laptops and Computers")}
-                       />
-                       <label htmlFor="laptops">Laptops & Computers</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="wearables"
-                         checked={filters.category.includes("Wearable Technology")}
-                         onChange={() => handleCategoryCheckbox("Wearable Technology")}
-                       />
-                       <label htmlFor="wearables">Wearables</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="audio"
-                         checked={filters.category.includes("Audio and Headphones")}
-                         onChange={() => handleCategoryCheckbox("Audio and Headphones")}
-                       />
-                       <label htmlFor="audio">Audio</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="cameras"
-                         checked={filters.category.includes("Camera and Photography")}
-                         onChange={() => handleCategoryCheckbox("Camera and Photography")}
-                       />
-                       <label htmlFor="cameras">Cameras</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="gaming"
-                         checked={filters.category.includes("Gaming Gear")}
-                         onChange={() => handleCategoryCheckbox("Gaming Gear")}
-                       />
-                       <label htmlFor="gaming">Gaming</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="smarthome"
-                         checked={filters.category.includes("Home Automation")}
-                         onChange={() => handleCategoryCheckbox("Home Automation")}
-                       />
-                       <label htmlFor="smarthome">Home Automation</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="software"
-                         checked={filters.category.includes("Software and Apps")}
-                         onChange={() => handleCategoryCheckbox("Software and Apps")}
-                       />
-                       <label htmlFor="software">Software & Apps</label>
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <input
-                         type="checkbox"
-                         id="tech4kids"
-                         checked={filters.category.includes("Tech for Kids")}
-                         onChange={() => handleCategoryCheckbox("Tech for Kids")}
-                       />
-                       <label htmlFor="tech4kids">Tech for Kids</label>
-                     </div>
-                  </div>
-                </div>
-
-                {/* PRICE FILTER */}
-                <div className="accordion-item">
-                  <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion2Open(!isAccordion2Open)}>
-                    Price
-                  </div>
-                  <div className={`accordion-content ${isAccordion2Open ? "hidden" : ""}`}>
-                    <div>
-                      <input
-                        className="w-full bg-transparent"
-                        type="range"
-                        id="price"
-                        value={filters.maxPrice}
-                        max={maxProductPrice}
-                        onChange={(e) => setFilters({ ...filters, maxPrice: parseInt(e.target.value) })}
-                      />
-                      <div className="flex w-full items-center gap-x-2 overflow-hidden">
-                        <label className="min-w-fit" htmlFor="maxPrice">Max Price: </label>
-                        <div className="w-full flex items-center bg-white px-2">&#8369;&nbsp;
-                          <input
-                          className="w-full border-none focus:ring-0 bg-transparent"
-                          type="number"
-                          id="maxPrice"
-                          value={filters.maxPrice}
-                          onChange={(e) => setFilters({ ...filters, maxPrice: parseInt(e.target.value) })}
-                        />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* BRAND FILTER */}
-                <div className="accordion-item">
-                  <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion3Open(!isAccordion3Open)}>
-                    Brands
-                  </div>
-                  <div className={`accordion-content h-60 overflow-y-scroll ${isAccordion3Open ? "hidden" : ""}`}>
-                    <div className="flex flex-col">
-                      {getUniqueBrands(data).map((brand) => (
-                        <label key={brand} className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            checked={filters.brand.includes(brand)}
-                            onChange={() => handleBrandCheckbox(brand)}
-                          />
-                          {brand}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <button onClick={applyFilters}>Apply Filters</button>
-
+              <ProductFilter
+                data={data}
+                filters={filters}
+                handleCategoryCheckbox={handleCategoryCheckbox}
+                maxProductPrice={maxProductPrice}
+                handleBrandCheckbox={handleBrandCheckbox}
+                applyFilters={applyFilters}
+                clearAllFilters={clearAllFilters}
+              />
             </div>
 
             {/* PRODUCTS */}
