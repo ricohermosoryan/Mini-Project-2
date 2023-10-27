@@ -151,18 +151,19 @@ export default function Products() {
           </div>
 
           <div className="flex justify-end">
-            <button onClick={() => setShowFilter(!showFilter)}>Filter</button>
+            <button className="lg:hidden" onClick={() => setShowFilter(!showFilter)}>Filter</button>
           </div>
 
           {/* Off-canvas filter */}
           <div
-            className={`off-canvas fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform z-10 ${
+            className={`off-canvas fixed inset-y-0 left-0 w-80 bg-white shadow-lg transform z-10 p-4 overflow-y-scroll ${
               showFilter ? "translate-x-0" : "-translate-x-full"
             } transition-transform ease-in-out duration-300`}
           >
             <ProductFilter
               data={data}
               filters={filters}
+              setFilters={setFilters}
               handleCategoryCheckbox={handleCategoryCheckbox}
               maxProductPrice={maxProductPrice}
               handleBrandCheckbox={handleBrandCheckbox}
@@ -177,6 +178,7 @@ export default function Products() {
               <ProductFilter
                 data={data}
                 filters={filters}
+                setFilters={setFilters}
                 handleCategoryCheckbox={handleCategoryCheckbox}
                 maxProductPrice={maxProductPrice}
                 handleBrandCheckbox={handleBrandCheckbox}
