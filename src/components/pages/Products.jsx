@@ -24,7 +24,7 @@ export default function Products() {
   const [data, setData] = useState([]);
 
   const [filters, setFilters] = useState({
-    brand: "",
+    brand: [],
     maxPrice: "",
     category: [],
     subcategory: "",
@@ -33,6 +33,7 @@ export default function Products() {
 
   const [isAccordion1Open, setAccordion1Open] = useState(false);
   const [isAccordion2Open, setAccordion2Open] = useState(false);
+  const [isAccordion3Open, setAccordion3Open] = useState(false);
 
   const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -77,13 +78,36 @@ export default function Products() {
     });
   };
 
+  const maxProductPrice = Math.max(...data.map((item) => item.price));
+
+  const getUniqueBrands = (data) => {
+    const brands = new Set();
+    data.forEach((item) => {
+      brands.add(item.brand);
+    });
+    const sortedBrands = Array.from(brands).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+    return sortedBrands;
+  }
+
+  const handleBrandCheckbox = (brand) => {
+    setFilters((prevFilters) => {
+      const updatedBrands = prevFilters.brand.includes(brand)
+        ? prevFilters.brand.filter((c) => c !== brand)
+        : [...prevFilters.brand, brand];
+      return { ...prevFilters, brand: updatedBrands };
+    });
+  };
+
   const applyFilters = () => {
     const selectedCategories = filters.category;
+    const selectedBrands = filters.brand;
     axios
       .get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/filter", {
         params: {
           ...filters,
+          maxPrice: filters.maxPrice,
           category: selectedCategories.join(","),
+          brand: selectedBrands.join(","),
         },
       })
       .then((res) => {
@@ -101,12 +125,13 @@ export default function Products() {
 
   const clearAllFilters = () => {
     setFilters({
-      brand: "",
+      brand: [],
       maxPrice: "",
       category: [],
       subcategory: "",
       minRating: "",
-    });;
+    });
+    applyFilters();
   };
 
   // For Page number pagination
@@ -153,10 +178,12 @@ export default function Products() {
             {/* FILTER */}
             <div className="lg:w-1/5 xl:w-1/6 hidden lg:block">
               <div className="flex justify-between items-baseline my-4">
-                <p className="font-bold">Filter</p>
+                <p className="font-bold">Filters</p>
                 <button className="text-quantum text-xs" onClick={clearAllFilters}>Clear all</button>
               </div>
               <div className="accordion">
+
+                {/* CATEGORY FILTER */}
                 <div className="accordion-item">
                   <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion1Open(!isAccordion1Open)}>
                     Category
@@ -247,13 +274,67 @@ export default function Products() {
                      </div>
                   </div>
                 </div>
+
+                {/* PRICE FILTER */}
+                <div className="accordion-item">
+                  <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion2Open(!isAccordion2Open)}>
+                    Price
+                  </div>
+                  <div className={`accordion-content ${isAccordion2Open ? "hidden" : ""}`}>
+                    <div>
+                      <input
+                        className="w-full bg-transparent"
+                        type="range"
+                        id="price"
+                        value={filters.maxPrice}
+                        max={maxProductPrice}
+                        onChange={(e) => setFilters({ ...filters, maxPrice: parseInt(e.target.value) })}
+                      />
+                      <div className="flex w-full items-center gap-x-2 overflow-hidden">
+                        <label className="min-w-fit" htmlFor="maxPrice">Max Price: </label>
+                        <div className="w-full flex items-center bg-white px-2">&#8369;&nbsp;
+                          <input
+                          className="w-full border-none focus:ring-0 bg-transparent"
+                          type="number"
+                          id="maxPrice"
+                          value={filters.maxPrice}
+                          onChange={(e) => setFilters({ ...filters, maxPrice: parseInt(e.target.value) })}
+                        />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* BRAND FILTER */}
+                <div className="accordion-item">
+                  <div className="accordion-trigger cursor-pointer" onClick={() => setAccordion3Open(!isAccordion3Open)}>
+                    Brands
+                  </div>
+                  <div className={`accordion-content h-60 overflow-y-scroll ${isAccordion3Open ? "hidden" : ""}`}>
+                    <div className="flex flex-col">
+                      {getUniqueBrands(data).map((brand) => (
+                        <label key={brand} className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={filters.brand.includes(brand)}
+                            onChange={() => handleBrandCheckbox(brand)}
+                          />
+                          {brand}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
               <button onClick={applyFilters}>Apply Filters</button>
 
             </div>
 
             {/* PRODUCTS */}
-            <div className="w-full lg:w-4/5 xl:w-5/6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+            <div className="w-full lg:w-4/5 xl:w-5/6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-4">
               {/* PRODUCT ITEMS */}
 
               {paginatedData.map((item, i) => (
@@ -305,7 +386,7 @@ export default function Products() {
                     </div>
 
                     {/* ADD TO CART */}
-                    <div className="absolute bottom-0 left-[-150px] group-hover:left-0 border-sky-300 rounded-lg border-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                    <div className="absolute bottom-0 left-[-10px] group-hover:left-0 border-sky-300 rounded-lg border-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
                       <button
                         className="flex gap-2 p-3 font-semibold"
                         onClick={() =>
