@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useDebugValue } from "react";
 import { Link } from "react-router-dom";
 import quantumLogoImage from "../assets/logo.svg";
 import newletterImage from "../assets/newsletter.svg";
@@ -24,7 +24,7 @@ import Cart from "./Cart";
 import icon from "../assets/icon.svg";
 import CartContext from "../context/CartContext";
 import { useContext } from "react";
-import { IoLogInOutline } from "react-icons/io5";
+import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -173,7 +173,9 @@ export default function Navbar() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginErrors, setLoginErrors] = useState({});
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(
+    localStorage.getItem("userLogin") === "true"
+  );
 
   const validateLogin = () => {
     let errors = {};
@@ -209,16 +211,23 @@ export default function Navbar() {
     e.preventDefault();
 
     const isValid = validateLogin();
-    console.log(isValid);
 
     if (isValid) {
       // submit form
+
+      localStorage.setItem("userLogin", "true");
+
       toggleModal();
 
       setUser(true);
 
       alert("Login Sucessfull");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userLogin");
+    setUser(false);
   };
 
   // Register form
@@ -363,12 +372,12 @@ export default function Navbar() {
       </div>
 
       {/* NAVBAR */}
-      <div className="bg-white opacity-100  drop-shadow z-10 sticky top-0 ">
-        <div className="container mx-auto py-5 flex  justify-between items-center md:gap-5">
+      <div className="bg-white opacity-100  drop-shadow z-10 sticky top-0">
+        <div className="container mx-auto py-5 flex  justify-between items-center md:gap-1">
           <a href={companyLogo[0].href}>
             <img
               src={icon}
-              className="w-[60px] h-[60px] aspect-auto cursor-pointer block md:hidden lg:hidden"
+              className="w-[60px] h-[60px] aspect-auto cursor-pointer block md:block lg:hidden"
               alt={companyLogo[0].name}
             ></img>
           </a>
@@ -376,13 +385,13 @@ export default function Navbar() {
             <a href={companyLogo[0].href}>
               <img
                 src={companyLogo[0].image}
-                className="w-60 h-20 aspect-auto cursor-pointer hidden md:block lg:block"
+                className="w-60 h-20 aspect-auto cursor-pointer hidden md:hidden lg:block"
                 alt={companyLogo[0].name}
               ></img>
             </a>
           </div>
 
-          <div className="flex gap-12 md:gap-5 lg:gap-12 lg:ms-[360px]">
+          <div className="flex gap-12 md:gap-4 lg:gap-12 lg:ms-[360px]">
             {navbarList.map((item, i) => (
               <nav
                 key={i}
@@ -451,6 +460,7 @@ export default function Navbar() {
                   src={navbarIcons[2].icon}
                   className="w-10 aspect-square cursor-pointer "
                   alt={navbarIcons[2].name}
+                  onClick={handleLogout}
                 />
               </div>
             ) : (
