@@ -15,10 +15,10 @@ export default function Footer() {
   ];
 
   const footerResourcesList = [
-    { name: "Blogs", href: "" },
-    { name: "News", href: "" },
-    { name: "Reviews", href: "" },
-    { name: "FAQ", href: "" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "News", href: "/news" },
+    { name: "Reviews", href: "/reviews" },
+    { name: "FAQ", href: "/FAQs" },
   ];
 
   return (

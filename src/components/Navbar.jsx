@@ -270,6 +270,15 @@ export default function Navbar() {
 
     if (isValid) {
       // submit form
+      // localStorage.setItem("registerName", registerName);
+      // localStorage.setItem("registerEmail", registerEmail);
+      // localStorage.setItem("registerPassword", registerPassword);
+      // localStorage.setItem("registerTerms", registerTerms);
+      // setRegisterName("");
+      // setRegisterEmail("");
+      // setRegisterPassword("");
+      // setRegisterTerms(false);
+      console.log(registerEmail, registerName, registerPassword, registerTerms);
     }
   };
 

@@ -21,6 +21,7 @@ import HomeNewProduct from "../HomeNewProduct";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -31,42 +32,28 @@ export default function Home() {
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   useEffect(() => {
-    const controller1 = new AbortController();
-    const controller2 = new AbortController();
+    const controller = new AbortController();
 
     axios
       .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products",
-        { signal: controller1.signal }
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
       )
       .then((res) => {
         const limitedData = res.data.slice(0, 20); // Limit data to 20 items
         setData(limitedData);
       })
-      .catch((err) => {
-        if (err.name !== "AbortError") {
-          console.error(err);
-        }
-      });
+      .catch((err) => console.error(err));
 
     axios
       .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/blogs",
-        { signal: controller2.signal }
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/blogs"
       )
       .then((res) => {
         setBlogs(res.data);
       })
-      .catch((err) => {
-        if (err.name !== "AbortError") {
-          console.error(err);
-        }
-      });
+      .catch((err) => console.error(err));
 
-    return () => {
-      controller1.abort();
-      controller2.abort();
-    };
+    return controller.abort();
   }, []);
 
   const handleChangePage = (page) => {
@@ -162,61 +149,62 @@ export default function Home() {
             </Link>
 
             {/* Carousel Cards */}
-            <div className="card">
-              <div className="container">
-                <div className="space-x-1 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] ms-1">
-                  {paginatedData.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-32 lg:w-52 mt-14"
-                    >
-                      {/* Render your card content here */}
-                      <div className="group relative mb-5">
-                        <img
-                          src={item.image[0]}
-                          className="group-hover:scale-110 transition duration-200"
-                        />
-                        <div className=" absolute top-[-11px] right-[-10px] opacity-0 group-hover:opacity-100 transition-all duration-200 bg-sky-300/40 p-2 rounded-lg">
-                          <Link to={`/products/${item.id}`}>
-                            {" "}
-                            <BsEyeFill className=" text-gray-700 text-[17px] bg-white rounded-lg" />
-                          </Link>
-                        </div>
+            <div className="container">
+              <div className="space-x-1 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] ms-1">
+                {paginatedData.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-32 lg:w-52 mt-14"
+                  >
+                    {/* Render your card content here */}
+                    <div className="group relative mb-5">
+                      <img
+                        src={item.image[0]}
+                        className="group-hover:scale-110 transition duration-200"
+                      />
+                      <div className=" absolute top-[-11px] right-[-10px] opacity-0 group-hover:opacity-100 transition-all duration-200 bg-sky-300/40 p-2 rounded-lg">
+                        <Link to={`/products/${item.id}`}>
+                          {" "}
+                          <BsEyeFill className=" text-gray-700 text-[17px] bg-white rounded-lg" />
+                        </Link>
                       </div>
-
-                      <p className=" text-black text-xs md:text-base lg:text-lg">
-                        {item.brand}
-                      </p>
-                      <p className=" text-black text-xs text-left md:text-base lg:text-lg">
-                        {formatter.format(item.price)}
+                    </div>
+                    <div className="h-[80px]">
+                      <p className=" text-black text-[9px] md:text-[13px] lg:text-[14px] text-left">
+                        {item.title}
                       </p>
                     </div>
-                  ))}
-                </div>
+                    <p className=" text-black text-xs text-left md:text-base lg:text-lg">
+                      {formatter.format(item.price)}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-                {/* Arrows */}
-                <div className="mt-4 flex justify-center items-center space-x-4">
-                  <button
-                    onClick={() =>
-                      canGoPrevious && handleChangePage(currentPage - 1)
-                    }
-                    className={`px-3 py-1 ${
-                      !canGoPrevious && "cursor-not-allowed"
-                    }`}
-                  >
-                    <span className="text-xl">←</span>
-                  </button>
-                  <button
-                    onClick={() =>
-                      canGoNext && handleChangePage(currentPage + 1)
-                    }
-                    className={`px-3 py-1 ${
-                      !canGoNext && "cursor-not-allowed"
-                    }`}
-                  >
-                    <span className="text-xl">→</span>
-                  </button>
-                </div>
+              {/* Arrows */}
+              <div className="mt-4 flex justify-end  items-center space-x-4 mb-5 me-5">
+                <button
+                  onClick={() =>
+                    canGoPrevious && handleChangePage(currentPage - 1)
+                  }
+                  className={`px-3 py-1 ${
+                    !canGoPrevious && "cursor-not-allowed"
+                  } bg-white rounded-full text-black px-1 py-1 hover:bg-black hover:text-white`}
+                >
+                  <span className="text-xl">
+                    <AiOutlineLeft />
+                  </span>
+                </button>
+                <button
+                  onClick={() => canGoNext && handleChangePage(currentPage + 1)}
+                  className={`px-3 py-1 ${
+                    !canGoNext && "cursor-not-allowed"
+                  } bg-white rounded-full text-black px-1 py-1 hover:bg-black hover:text-white`}
+                >
+                  <span className="text-xl">
+                    <AiOutlineRight />
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -316,8 +304,8 @@ export default function Home() {
         </div>
 
         {/* Subbanner2 */}
-        <div className="mb-[90px] md:flex mt-10 lg:mx-20 md:mx-5">
-          <div className="Text mt-10 mx-[5px] md:w-[50%] lg:w-[70%] md:mt-1">
+        <div className="mb-[90px] md:flex mt-10 lg:mx-20 md:mx-5 lg:border-b lg:border-b-blue-200 lg:h-[425px]">
+          <div className="Text mt-10 mx-[5px] md:w-[50%] lg:w-[70%] md:mt-1 ">
             <div className=" text-center text-black text-[32px] font-medium lg:mt-[90px]">
               Unleash the Power of the Quantum Galaxy with <br />
               PlayStation 5: <br />
