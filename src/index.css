@@ -85,4 +85,12 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    input[type="range"]::-moz-range-progress {
+        background-color: #00b0ea;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+        background-color: #00b0ea;
+    }
 }
