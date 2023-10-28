@@ -25,6 +25,7 @@ import icon from "../assets/icon.svg";
 import CartContext from "../context/CartContext";
 import { useContext } from "react";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
+import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "" },
@@ -334,6 +335,9 @@ export default function Navbar() {
   // to show the password
   const [showPassword, setShowPassword] = useState(false);
 
+  // Profile dropdown
+  const [profile, toggleProfile] = useCycle(false, true);
+
   return (
     <>
       {/* TOP HEADER */}
@@ -460,8 +464,58 @@ export default function Navbar() {
                   src={navbarIcons[2].icon}
                   className="w-10 aspect-square cursor-pointer "
                   alt={navbarIcons[2].name}
-                  onClick={handleLogout}
+                  animate={profile ? "open" : "closed"}
+                  onClick={() => toggleProfile()}
                 />
+                <AnimatePresence>
+                  {[
+                    profile && (
+                      <MotionConfig
+                        transition={{
+                          type: "spring",
+                          bounce: 0.25,
+                        }}
+                      >
+                        <motion.div
+                          variants={{
+                            open: {
+                              y: "0%",
+                              transition: {
+                                type: "spring",
+                                bounce: 0.25,
+                              },
+                            },
+                            closed: {
+                              y: "-300%",
+                              transition: {
+                                type: "spring",
+                                bounce: 0.25,
+                              },
+                            },
+                          }}
+                          initial="closed"
+                          animate="open"
+                          exit="closed"
+                          className="fixed h-[140px] w-[150px] bg-white shadow-lg rounded-lg border"
+                        >
+                          <ul className=" space-y-1 mx-2 my-2 text-lg font-bold">
+                            <li className=" line-through">Account Profile</li>
+                            <li className=" line-through">Payment</li>
+                            <li className=" line-through">Setting</li>
+                            <li>
+                              <button
+                                onClick={handleLogout}
+                                className="hover:text-quantum hover:border-b hover:border-quantum"
+                              >
+                                Logout
+                              </button>
+                            </li>
+                          </ul>
+                        </motion.div>
+                      </MotionConfig>
+                    ),
+                  ]}
+                </AnimatePresence>
               </div>
             ) : (
               <div className="flex items-center">
