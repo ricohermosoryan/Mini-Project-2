@@ -12,6 +12,7 @@ import { useContext } from "react";
 import CartContext from "../../context/CartContext";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import ProductFilter from "../ProductFilter";
+import filterImage from "../../assets/filter.svg";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -151,7 +152,7 @@ export default function Products() {
           </div>
 
           <div className="flex justify-end">
-            <button className="lg:hidden" onClick={() => setShowFilter(!showFilter)}>Filter</button>
+            <div className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum" onClick={() => setShowFilter(!showFilter)}>Filter <img src={filterImage} className="w-4 h-4 aspect-square"/></div>
           </div>
 
           {/* Off-canvas filter */}
@@ -233,7 +234,7 @@ export default function Products() {
                     <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
                     <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
                       <p className="font-semibold">{formatter.format(item.price)}</p>
-                      <div className="bg-quantum flex gap-1 py-1 px-2 rounded-md">
+                      <div className="bg-quantum flex gap-1 py-1 px-1.5 rounded-md">
                         <img src={star} alt="image" className="w-5 h-5" />
                         <p className="text-white font-bold">{item.rating.rate}</p>
                       </div>
