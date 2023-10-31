@@ -28,7 +28,7 @@ import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 
 export const socialLinks = [
-  { name: "Newsletter", icon: newletterImage, href: "" },
+  { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
   { name: "Facebook", icon: facebookImage, href: "https://www.facebook.com" },
   { name: "Twitter", icon: twitterImage, href: "https://twitter.com" },
   {
@@ -42,6 +42,13 @@ export const socialLinks = [
 export const socialLinksExceptNewsletter = socialLinks.slice(1);
 
 export default function Navbar() {
+  const handleNewsletterClick = (event) => {
+    event.preventDefault();
+    const newsletterElement = document.querySelector("#newsletter");
+    if (newsletterElement) {
+      newsletterElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   // Cart Items
   const { items } = useContext(CartContext);
 
@@ -348,7 +355,8 @@ export default function Navbar() {
             <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
               <a
                 href={socialLinks[0].href}
-                className="flex gap-x-2 cursor-pointer"
+                onClick={handleNewsletterClick}
+                className="flex gap-x-2 cursor-pointer scroll-smooth"
               >
                 <img
                   src={socialLinks[0].icon}
