@@ -795,9 +795,8 @@ export default function Navbar() {
                       htmlFor="register-terms"
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      I agree to all{" "}
-                      <span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                        <a href={"/terms-and-conditions"}>Terms & Conditions</a>
+                      I agree to QuantumGalaxy's&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                        <a href={"/privacy-policy"}>Privacy Policy</a>
                       </span>
                     </label>
                   </div>
