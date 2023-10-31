@@ -42,6 +42,23 @@ export const socialLinks = [
 export const socialLinksExceptNewsletter = socialLinks.slice(1);
 
 export default function Navbar() {
+  const messages = [
+    "Ships anywhere in the Philippines",
+  ];
+
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+
   const handleNewsletterClick = (event) => {
     event.preventDefault();
     const newsletterElement = document.querySelector("#newsletter");
@@ -350,9 +367,9 @@ export default function Navbar() {
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
         <div className="container mx-auto py-1 md:flex gap-x-4 justify-between items-center text-white text-sm font-bold px-2">
-          <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
+          <div className="truncate uppercase">{messages[messageIndex]}</div>
           <div className="flex gap-x-4">
-            <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
+            <div className="flex items-center md:px-4 pr-4 border-r md:border-l border-l-0 border-t-0 border-b-0 border-gray-300">
               <a
                 href={socialLinks[0].href}
                 onClick={handleNewsletterClick}
@@ -360,7 +377,7 @@ export default function Navbar() {
               >
                 <img
                   src={socialLinks[0].icon}
-                  className="w-4 aspect-square"
+                  className="w-4 h-4 aspect-square"
                   alt={socialLinks[0].name}
                 ></img>
                 <div>Newsletter</div>
@@ -368,11 +385,11 @@ export default function Navbar() {
             </div>
             <div className="flex gap-x-2 items-center">
               {socialLinksExceptNewsletter.map((item, i) => (
-                <nav key={i}>
+                <nav key={i} className="w-4 h-4">
                   <a href={item.href} target="_blank">
                     <img
                       src={item.icon}
-                      className="w-4 aspect-square cursor-pointer"
+                      className="w-4 h-4 aspect-square cursor-pointer"
                       alt={item.name}
                     />
                   </a>
