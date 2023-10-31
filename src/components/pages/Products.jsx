@@ -13,6 +13,7 @@ import CartContext from "../../context/CartContext";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import ProductFilter from "../ProductFilter";
 import filterImage from "../../assets/filter.svg";
+import closeButtonImage from "../../assets/xmark.svg";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -161,6 +162,9 @@ export default function Products() {
               showFilter ? "translate-x-0" : "-translate-x-full"
             } transition-transform ease-in-out duration-300`}
           >
+            <div className="flex justify-end">
+              <img src={closeButtonImage} className="w-4 h-4 aspect-square cursor-pointer" onClick={() => setShowFilter(!showFilter)}/>
+            </div>
             <ProductFilter
               data={data}
               filters={filters}
