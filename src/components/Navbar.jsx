@@ -659,7 +659,7 @@ export default function Navbar() {
                     </button>
                   </div>
                 </form>
-                <div className="flex justify-center items-center gap-4 my-2">
+                {/* <div className="flex justify-center items-center gap-4 my-2">
                   <div className="h-px border grow"></div>
                   <div className="text-sm">or Log In with</div>
                   <div className="h-px border grow"></div>
@@ -680,7 +680,7 @@ export default function Navbar() {
                       Facebook
                     </span>
                   </div>
-                </div>
+                </div> */}
                 <div className="text-sm text-center my-2">
                   Don't have an account? &nbsp;{" "}
                   <span
@@ -815,7 +815,7 @@ export default function Navbar() {
                     </button>
                   </div>
                 </form>
-                <div className="flex justify-center items-center gap-4 my-2">
+                {/* <div className="flex justify-center items-center gap-4 my-2">
                   <div className="h-px border grow"></div>
                   <div className="text-sm">or Sign Up with</div>
                   <div className="h-px border grow"></div>
@@ -836,7 +836,7 @@ export default function Navbar() {
                       Facebook
                     </span>
                   </div>
-                </div>
+                </div> */}
                 <div className="text-sm text-center my-2">
                   Already have an account? &nbsp;{" "}
                   <span
