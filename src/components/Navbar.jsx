@@ -797,7 +797,7 @@ export default function Navbar() {
                     >
                       I agree to all{" "}
                       <span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                        Terms & Conditions
+                        <a href={"/terms-and-conditions"}>Terms & Conditions</a>
                       </span>
                     </label>
                   </div>

@@ -16,6 +16,9 @@ import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "../context/CartContext";
 import Cart from "../components/Cart";
 import SearchPage from "../components/pages/SearchPage";
+import PrivacyPolicy from "../components/pages/PrivacyPolicy";
+import TermsAndConditions from "../components/pages/TermsAndConditions";
+import LeadershipTeam from "../components/pages/LeadershipTeam";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -37,6 +40,9 @@ export default function AppRouter() {
               <Route path="/news" element={<News />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/leadership-team" element={<LeadershipTeam />} />
             </Route>
           </Routes>
         </AnimatePresence>
