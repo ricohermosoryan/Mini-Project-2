@@ -15,7 +15,10 @@ export default function News() {
     const controller = new AbortController();
     axios
       .get(
-        "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=09ec3da0970a4c6ba2fb492c17461e4d"
+        "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=09ec3da0970a4c6ba2fb492c17461e4d",
+        {
+          headers: { Authorization: "09ec3da0970a4c6ba2fb492c17461e4d" },
+        }
       )
       .then((res) => {
         const limitedData = res.data.articles.slice(0, 1);
@@ -25,7 +28,10 @@ export default function News() {
 
     axios
       .get(
-        "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=09ec3da0970a4c6ba2fb492c17461e4d"
+        "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=09ec3da0970a4c6ba2fb492c17461e4d",
+        {
+          headers: { Authorization: "09ec3da0970a4c6ba2fb492c17461e4d" },
+        }
       )
       .then((res) => {
         const limitedData = res.data.articles.slice(0, 10);
