@@ -17,7 +17,7 @@ import { CartProvider } from "../context/CartContext";
 import Cart from "../components/Cart";
 import SearchPage from "../components/pages/SearchPage";
 import PrivacyPolicy from "../components/pages/PrivacyPolicy";
-import LeadershipTeam from "../components/pages/LeadershipTeam";
+import TermsOfService from "../components/pages/TermsOfService";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -40,7 +40,7 @@ export default function AppRouter() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/leadership-team" element={<LeadershipTeam />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
             </Route>
           </Routes>
         </AnimatePresence>

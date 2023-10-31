@@ -781,21 +781,20 @@ export default function Navbar() {
                     </p>
                   )}
                   <div className="my-4 px-3 flex items-center">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        name="register-terms"
-                        id="register-terms"
-                        className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
-                        value={registerTerms}
-                        onInput={(e) => setRegisterTerms(e.target.checked)}
-                      />
-                    </div>
+                    <input
+                      type="checkbox"
+                      name="register-terms"
+                      id="register-terms"
+                      className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum self-baseline"
+                      value={registerTerms}
+                      onInput={(e) => setRegisterTerms(e.target.checked)}
+                    />
                     <label
                       htmlFor="register-terms"
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-white relative -top-0.5"
                     >
-                      I agree to QuantumGalaxy's&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                      I agree to the&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                        <a href={"/terms-of-service"}>Terms of Service</a></span>&nbsp;and&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
                         <a href={"/privacy-policy"}>Privacy Policy</a>
                       </span>
                     </label>
