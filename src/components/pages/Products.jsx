@@ -193,7 +193,7 @@ export default function Products() {
             </div>
 
             {/* PRODUCTS */}
-            <div className="w-full lg:w-4/5 xl:w-5/6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-4">
+            <div className="w-full lg:w-4/5 xl:w-5/6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:mx-4 mx-1">
               {/* PRODUCT ITEMS */}
 
               {paginatedData.map((item, i) => (
