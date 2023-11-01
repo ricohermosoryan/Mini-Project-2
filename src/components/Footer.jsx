@@ -9,8 +9,8 @@ import { socialLinks, socialLinksExceptNewsletter } from "./Navbar";
 export default function Footer() {
   const footerAboutUsList = [
     { name: "About QuantumGalaxy", href: "/about" },
-    { name: "Leadership Team", href: "" },
-    { name: "Privacy Policy", href: "" },
+    { name: "Terms of Service", href: "/terms-of-service" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Contact Us", href: "/contactus" },
   ];
 
@@ -38,7 +38,7 @@ export default function Footer() {
               meets possibility! Join our newsletter for updates, exclusive
               offers, and more!
             </div>
-            <div className="flex max-w-lg my-4 border rounded-lg px-3 py-1">
+            <div id="newsletter" className="flex max-w-lg my-4 border rounded-lg px-3 py-1">
               <img src={inputImage} className="w-8 aspect-square" />
               <input
                 type="text"

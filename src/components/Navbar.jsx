@@ -28,7 +28,7 @@ import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 
 export const socialLinks = [
-  { name: "Newsletter", icon: newletterImage, href: "" },
+  { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
   { name: "Facebook", icon: facebookImage, href: "https://www.facebook.com" },
   { name: "Twitter", icon: twitterImage, href: "https://twitter.com" },
   {
@@ -42,6 +42,30 @@ export const socialLinks = [
 export const socialLinksExceptNewsletter = socialLinks.slice(1);
 
 export default function Navbar() {
+  const messages = [
+    "Ships anywhere in the Philippines",
+  ];
+
+  const [messageIndex, setMessageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+
+  const handleNewsletterClick = (event) => {
+    event.preventDefault();
+    const newsletterElement = document.querySelector("#newsletter");
+    if (newsletterElement) {
+      newsletterElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   // Cart Items
   const { items } = useContext(CartContext);
 
@@ -343,16 +367,17 @@ export default function Navbar() {
       {/* TOP HEADER */}
       <div className="bg-dark-blue">
         <div className="container mx-auto py-1 md:flex gap-x-4 justify-between items-center text-white text-sm font-bold px-2">
-          <div className="truncate">SHIPS ANYWHERE IN THE PHILIPPINES</div>
+          <div className="truncate uppercase">{messages[messageIndex]}</div>
           <div className="flex gap-x-4">
-            <div className="flex items-center px-4 border-r border-l border-t-0 border-b-0 border-gray-300">
+            <div className="flex items-center md:px-4 pr-4 border-r md:border-l border-l-0 border-t-0 border-b-0 border-gray-300">
               <a
                 href={socialLinks[0].href}
-                className="flex gap-x-2 cursor-pointer"
+                onClick={handleNewsletterClick}
+                className="flex gap-x-2 cursor-pointer scroll-smooth"
               >
                 <img
                   src={socialLinks[0].icon}
-                  className="w-4 aspect-square"
+                  className="w-4 h-4 aspect-square"
                   alt={socialLinks[0].name}
                 ></img>
                 <div>Newsletter</div>
@@ -360,11 +385,11 @@ export default function Navbar() {
             </div>
             <div className="flex gap-x-2 items-center">
               {socialLinksExceptNewsletter.map((item, i) => (
-                <nav key={i}>
+                <nav key={i} className="w-4 h-4">
                   <a href={item.href} target="_blank">
                     <img
                       src={item.icon}
-                      className="w-4 aspect-square cursor-pointer"
+                      className="w-4 h-4 aspect-square cursor-pointer"
                       alt={item.name}
                     />
                   </a>
@@ -659,7 +684,7 @@ export default function Navbar() {
                     </button>
                   </div>
                 </form>
-                <div className="flex justify-center items-center gap-4 my-2">
+                {/* <div className="flex justify-center items-center gap-4 my-2">
                   <div className="h-px border grow"></div>
                   <div className="text-sm">or Log In with</div>
                   <div className="h-px border grow"></div>
@@ -680,7 +705,7 @@ export default function Navbar() {
                       Facebook
                     </span>
                   </div>
-                </div>
+                </div> */}
                 <div className="text-sm text-center my-2">
                   Don't have an account? &nbsp;{" "}
                   <span
@@ -781,23 +806,21 @@ export default function Navbar() {
                     </p>
                   )}
                   <div className="my-4 px-3 flex items-center">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        name="register-terms"
-                        id="register-terms"
-                        className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum"
-                        value={registerTerms}
-                        onInput={(e) => setRegisterTerms(e.target.checked)}
-                      />
-                    </div>
+                    <input
+                      type="checkbox"
+                      name="register-terms"
+                      id="register-terms"
+                      className="text-sm p-0 m-0 border rounded outline-none focus:ring-0 focus:border checked:bg-quantum self-baseline"
+                      value={registerTerms}
+                      onInput={(e) => setRegisterTerms(e.target.checked)}
+                    />
                     <label
                       htmlFor="register-terms"
-                      className="ml-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="ml-2 text-sm font-medium text-gray-900 dark:text-white relative -top-0.5"
                     >
-                      I agree to all{" "}
-                      <span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                        Terms & Conditions
+                      I agree to the&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                        <a href={"/terms-of-service"}>Terms of Service</a></span>&nbsp;and&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                        <a href={"/privacy-policy"}>Privacy Policy</a>
                       </span>
                     </label>
                   </div>
@@ -815,7 +838,7 @@ export default function Navbar() {
                     </button>
                   </div>
                 </form>
-                <div className="flex justify-center items-center gap-4 my-2">
+                {/* <div className="flex justify-center items-center gap-4 my-2">
                   <div className="h-px border grow"></div>
                   <div className="text-sm">or Sign Up with</div>
                   <div className="h-px border grow"></div>
@@ -836,7 +859,7 @@ export default function Navbar() {
                       Facebook
                     </span>
                   </div>
-                </div>
+                </div> */}
                 <div className="text-sm text-center my-2">
                   Already have an account? &nbsp;{" "}
                   <span
