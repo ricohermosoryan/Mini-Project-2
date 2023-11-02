@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { formatter } from "./Products";
 import shopImage from "../../assets/shop.svg";
 import verifyImage from "../../assets/verify.svg";
@@ -17,7 +17,7 @@ import gcashImage from "../../assets/gcash.svg";
 import mastercardImage from "../../assets/mastercard.svg";
 import mayaImage from "../../assets/maya.svg";
 import visaImage from "../../assets/visa.svg";
-import { Rating, Tabs } from "flowbite-react";
+import { Breadcrumb, Rating, Tabs } from "flowbite-react";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { getRatingIcons } from "./Reviews";
@@ -91,10 +91,28 @@ export default function Product() {
             duration: 1,
           }}
         >
-          <div className="flex flex-wrap justify-center">
+          <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link to="/products" className="text-gray-700">Products</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  {data.title && (
+                      <p className="truncate">
+                        {data.title}
+                      </p>
+                    )}
+                </Breadcrumb.Item>
+              </Breadcrumb>
+            </div>
             {
               // Product Details
-              <div className="container px-4">
+              <div className="">
                 <div className="flex flex-wrap md:flex-nowrap gap-x-10 my-10">
                   {/* IMAGE GALLERY */}
                   <div className="w-full">
