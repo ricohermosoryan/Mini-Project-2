@@ -272,7 +272,7 @@ export default function Products() {
                       <p className="font-semibold">{formatter.format(item.price)}</p>
                       <div className="bg-quantum flex gap-1 py-1 px-1.5 rounded-md">
                         <img src={star} alt="image" className="w-5 h-5" />
-                        <p className="text-white font-bold">{item.rating.rate}</p>
+                        <p className="text-white font-bold">{item.rating.rate.toFixed(1)}</p>
                       </div>
                     </div>
 

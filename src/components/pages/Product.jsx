@@ -35,6 +35,14 @@ export default function Product() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [starCounts, setStarCounts] = useState({
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+  });
+
   useEffect(() => {
     setLoading(true);
     const controller = new AbortController();
@@ -58,10 +66,18 @@ export default function Product() {
       );
       const data = await response.json();
       setProductReviews(data);
+
+      const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      data.forEach((review) => {
+        counts[review.rating]++;
+      });
+
+      setStarCounts(counts);
     };
 
     fetchReviews();
   }, [id]);
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -300,7 +316,7 @@ export default function Product() {
                         <p className="heading font-medium my-1">Features</p>
                         <ul className="mb-2">
                           {data.features.map((feature) => (
-                            <li key={feature} className="list-disc ml-4">
+                            <li key={feature} className="list-disc list-inside">
                               {feature}
                             </li>
                           ))}
@@ -365,7 +381,7 @@ export default function Product() {
                           orders@quantumgalaxy.com if you still haven't received
                           the tracking number. Keep your tracking number secure
                           and private. You can also track your order thru this
-                          link: https://www.quantumgalaxy.com/apps/parcelpanel
+                          link: https://www.quantumgalaxy.ph/apps/parcelpanel
                         </p>
 
                         <p className="heading font-medium my-1">
@@ -413,6 +429,57 @@ export default function Product() {
                     </Tabs.Item>
                     <Tabs.Item title="Reviews">
                       <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2" >
+                        <Rating className="mb-2">
+                          {data.rating && <div>{getRatingIcons(Math.floor(data.rating.rate))}</div>}
+                          {data.rating && <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{data.rating.rate.toFixed(2)} out of 5</p>}
+                        </Rating>
+                        {data.rating && <p className="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">{data.rating.count} global ratings</p>}
+                        
+                        {data.rating &&
+                          <div className="mb-8">
+                            <div class="flex items-center mb-2">
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">5 star</span>
+                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[5] / data.rating.count) * 100}%` }}></div>
+                              </div>
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[5] / data.rating.count) * 100)}%</span>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">4 star</span>
+                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[4] / data.rating.count) * 100}%` }}></div>
+                              </div>
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[4] / data.rating.count) * 100)}%</span>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">3 star</span>
+                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[3] / data.rating.count) * 100}%` }}></div>
+                              </div>
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[3] / data.rating.count) * 100)}%</span>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">2 star</span>
+                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[2] / data.rating.count) * 100}%` }}></div>
+                              </div>
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[2] / data.rating.count) * 100)}%</span>
+                            </div>
+
+                            <div class="flex items-center mb-2">
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">1 star</span>
+                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[1] / data.rating.count) * 100}%` }}></div>
+                              </div>
+                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[1] / data.rating.count) * 100)}%</span>
+                            </div>
+
+                          </div>
+                        }
+
                         {productReviews.map((review) => {
                           const user = users.find(
                             (u) => u.id === review.userId
@@ -436,9 +503,9 @@ export default function Product() {
                                 <p className="heading font-medium">
                                   {user.fullName}
                                 </p>
-                                <p className="text-dark-quantum">
+                                <div className="text-dark-quantum">
                                   {getRatingIcons(review.rating)}
-                                </p>
+                                </div>
                                 <p className="italic">"{review.comment}"</p>
                               </div>
                             </div>
