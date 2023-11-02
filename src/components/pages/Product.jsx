@@ -3,7 +3,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import starImage from "../../assets/star.svg";
 import { formatter } from "./Products";
 import shopImage from "../../assets/shop.svg";
 import verifyImage from "../../assets/verify.svg";
@@ -126,17 +125,15 @@ export default function Product() {
 
                     {/* PRODUCT RATING */}
                     <div className="flex gap-4 my-2">
-                      <div className="flex gap-1 bg-quantum text-white w-max p-1.5 rounded-md">
-                        <img src={starImage} className="w-4 aspect-square" />
+                      <div className="flex gap-1 text-white w-max p-1.5 rounded-md">
                         {data.rating && (
                           <p className="text-sm font-bold">
-                            {data.rating.rate}
+                            {getRatingIcons(Math.floor(data.rating.rate))}
                           </p>
                         )}
                       </div>
-                      <div className="border w-px"></div>
                       <div className="my-auto">
-                        {data.rating && <p>sold {data.rating.count}</p>}
+                        {data.rating && <p className="text-sm">{data.rating.rate.toFixed(2)} out of 5</p>}
                       </div>
                     </div>
 
