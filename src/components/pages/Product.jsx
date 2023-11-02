@@ -17,7 +17,7 @@ import gcashImage from "../../assets/gcash.svg";
 import mastercardImage from "../../assets/mastercard.svg";
 import mayaImage from "../../assets/maya.svg";
 import visaImage from "../../assets/visa.svg";
-import { Tabs } from "flowbite-react";
+import { Rating, Tabs } from "flowbite-react";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { getRatingIcons } from "./Reviews";
@@ -125,16 +125,12 @@ export default function Product() {
 
                     {/* PRODUCT RATING */}
                     <div className="flex gap-4 my-2">
-                      <div className="flex gap-1 text-white w-max p-1.5 rounded-md">
-                        {data.rating && (
-                          <p className="text-sm font-bold">
-                            {getRatingIcons(Math.floor(data.rating.rate))}
-                          </p>
-                        )}
-                      </div>
-                      <div className="my-auto">
-                        {data.rating && <p className="text-sm">{data.rating.rate.toFixed(2)} out of 5</p>}
-                      </div>
+                      <Rating className="my-auto">
+                        <Rating.Star className="text-quantum"/>
+                        {data.rating && <p className="text-sm ml-2 font-bold ">{data.rating.rate.toFixed(2)}</p>}
+                        <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
+                        {data.rating && <p className="text-sm">{data.rating.count} reviews</p>}
+                      </Rating>
                     </div>
 
                     {/* STORE PERKS */}
@@ -398,7 +394,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Reviews">
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2" >
                         {productReviews.map((review) => {
                           const user = users.find(
                             (u) => u.id === review.userId
