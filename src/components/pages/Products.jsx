@@ -42,6 +42,16 @@ export default function Products() {
 
   const [showFilter, setShowFilter] = useState(false);
 
+  // Sorting state
+  const [sortType, setSortType] = useState("none"); // Default is no sorting
+  const sortFunctions = {
+    none: (a, b) => 0,
+    priceAsc: (a, b) => a.price - b.price,
+    priceDesc: (a, b) => b.price - a.price,
+    ratingAsc: (a, b) => a.rating.rate - b.rating.rate,
+    ratingDesc: (a, b) => b.rating.rate - a.rating.rate,
+  };
+
   useEffect(() => {
     const controller = new AbortController();
     axios
@@ -59,7 +69,9 @@ export default function Products() {
   const canGoPrevious = currentPage > 1;
   const canGoNext = currentPage < totalPages;
 
-  const paginatedData = data.slice(
+  // Apply sorting
+  const sortedData = [...data].sort(sortFunctions[sortType]);
+  const paginatedData = sortedData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -152,8 +164,26 @@ export default function Products() {
             </Breadcrumb>
           </div>
 
-          <div className="flex justify-end">
-            <div className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum" onClick={() => setShowFilter(!showFilter)}>Filter <img src={filterImage} className="w-4 h-4 aspect-square"/></div>
+          <div className="flex justify-end gap-x-2">
+            {/* Sort dropdown */}
+            <div>
+              <select
+                className="text-sm bg-transparent text-dark-quantum cursor-pointer hover:text-quantum focus:border-transparent border-transparent ring-0 focus:ring-0"
+                value={sortType}
+                onChange={(e) => setSortType(e.target.value)}
+              >
+                <option className="text-sm" value="none">Sort by</option>
+                <option className="text-sm" value="priceAsc">Price - Low to High</option>
+                <option className="text-sm" value="priceDesc">Price - High to Low</option>
+                <option className="text-sm" value="ratingAsc">Rating - Low to High</option>
+                <option className="text-sm" value="ratingDesc">Rating - High to Low</option>
+              </select>
+            </div>
+
+            {/* Filter button */}
+            <div className="flex">
+              <div className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum" onClick={() => setShowFilter(!showFilter)}>Filter <img src={filterImage} className="w-4 h-4 aspect-square"/></div>
+            </div>
           </div>
 
           {/* Off-canvas filter */}
