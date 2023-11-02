@@ -14,6 +14,7 @@ import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import ProductFilter from "../ProductFilter";
 import filterImage from "../../assets/filter.svg";
 import closeButtonImage from "../../assets/xmark.svg";
+import { shuffle } from "lodash";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -59,7 +60,8 @@ export default function Products() {
         "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
       )
       .then((res) => {
-        setData(res.data);
+        const shuffledData = shuffle(res.data); // Shuffle the data array
+      setData(shuffledData);
       })
       .catch((err) => console.error(err));
     return controller.abort();
