@@ -86,7 +86,7 @@ export default function Home() {
                 </span>
                 <div className=" text-center mt-5">
                   <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium font-['Inter']">
-                    “Join us where gadgets takes you
+                    “Join us where gadgets takes you{" "}
                   </span>
                   <span className="text-quantum text-[20px] md:text-[26px] lg:text-[32px] font-medium font-['Inter']">
                     beyond limits
