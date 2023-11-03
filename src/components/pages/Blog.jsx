@@ -6,6 +6,8 @@ import PageTransition from "../PageTransition";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import tagImage from "../../assets/tag.svg";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function Blog() {
   const { id } = useParams();
@@ -30,6 +32,26 @@ export default function Blog() {
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link to="/blogs" className="text-gray-700">Blogs</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  {blogs.title && (
+                      <p className="truncate">
+                        {blogs.title}
+                      </p>
+                    )}
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
@@ -43,10 +65,10 @@ export default function Blog() {
             <div className="flex flex-wrap justify-center">
               {
                 <div className="container px-4">
-                  <div className="flex flex-wrap md:flex-nowrap gap-x-10 my-10">
+                  <div className="flex flex-wrap md:flex-nowrap gap-x-10 mb-10">
                     <div className="w-full">
                       {blogs.image && (
-                        <img className="my-8" src={blogs.image} />
+                        <img className="mb-8" src={blogs.image} />
                       )}
                       {blogs.title && (
                         <p className="heading text-xl font-semibold my-2">

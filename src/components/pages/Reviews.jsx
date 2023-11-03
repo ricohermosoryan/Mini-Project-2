@@ -3,8 +3,9 @@ import axios from "axios";
 import reviews from "../../assets/reviews.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
-import { Rating } from "flowbite-react";
+import { Breadcrumb, Rating } from "flowbite-react";
 import { shuffle } from "lodash";
+import { Link } from "react-router-dom";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
@@ -137,6 +138,19 @@ export default function Reviews() {
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Reviews
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         {/* Banner */}
         <div className="banner">
           <img
