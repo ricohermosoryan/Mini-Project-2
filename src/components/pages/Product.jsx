@@ -242,7 +242,7 @@ export default function Product() {
                       </p>
                     )}
                     {data.description && (
-                      <p className="text-base">{data.description}</p>
+                      <p className="text-base text-justify">{data.description}</p>
                     )}
 
                     {/* BUY BUTTONS */}
@@ -270,7 +270,7 @@ export default function Product() {
                       <div className="h-5 w-5 aspect-square">
                         <img src={speedyTruckImage} className="w-full" />
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 text-justify">
                         <p className="heading font-medium my-1">
                           Speedy Delivery:
                         </p>
@@ -320,7 +320,7 @@ export default function Product() {
                       <div className="h-5 w-5 aspect-square">
                         <img src={alertImage} className="w-full" />
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 text-justify">
                         <p className="heading font-medium my-1">
                           COVID-19 Response:
                         </p>
@@ -340,7 +340,7 @@ export default function Product() {
                       title="Description"
                       className="focus:ring-transparent"
                     >
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2 text-justify">
                         <p className="heading font-medium my-1">Features</p>
                         <ul className="mb-2">
                           {data.features.map((feature) => (
@@ -356,7 +356,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Returns and Replacement">
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-justify text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="mb-2">
                           When you receive your order, please take a video of
                           your unboxing and make sure all items in your order
@@ -369,7 +369,7 @@ export default function Product() {
                           problems with your order.
                         </p>
                         <p className="mb-2">
-                          Send us an email at customercare@quantumgalaxy.com.
+                          Send us an email at customercare@quantumgalaxy.ph.
                           You can also call/text +63 912 345-6789. We can also
                           attend to your needs via our official social media
                           channels.
@@ -381,7 +381,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Shipping">
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-justify text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="heading font-medium my-1">
                           Standard Shipping
                         </p>
