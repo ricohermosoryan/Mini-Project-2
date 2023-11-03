@@ -23,6 +23,7 @@ import PageTransition from "../PageTransition";
 import { getRatingIcons } from "./Reviews";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
+import { shuffle } from "lodash";
 
 export default function Product() {
   // Cart Items
@@ -109,7 +110,9 @@ export default function Product() {
         );
       });
 
-      setRelatedProducts(related);
+      const shuffledRelated = shuffle(related);
+
+      setRelatedProducts(shuffledRelated);
     }
 
     if(data.category && data.subcategory) {
