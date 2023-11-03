@@ -299,11 +299,11 @@ export default function Products() {
             </div>
           </div>
 
-          <div className="overflow-x-auto justify-center hidden sm:flex">
+          <div className="overflow-x-auto justify-center hidden sm:flex mt-10">
             <Pagination currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
           </div>
 
-          <div className="flex overflow-x-auto justify-center sm:hidden">
+          <div className="flex overflow-x-auto justify-center sm:hidden mt-10">
             <Pagination layout="navigation" currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
           </div>
 
