@@ -83,7 +83,8 @@ export default function Reviews() {
 
   const [data, setData] = useState([]);
   const [displayedReviews, setDisplayedReviews] = useState([]); 
-  const [reviewsToShow, setReviewsToShow] = useState(21);
+  const initialReviewsToShow = 21;
+  const [reviewsToShow, setReviewsToShow] = useState(initialReviewsToShow);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -114,6 +115,24 @@ export default function Reviews() {
     setDisplayedReviews(data.slice(0, reviewsToShow));
   }, [data, reviewsToShow]);
 
+  // INFINITE SCROLLING
+  useEffect(() => {
+  setDisplayedReviews(data.slice(0, reviewsToShow));
+
+  function handleScroll() {
+    const distanceToBottom = document.documentElement.scrollHeight - (window.innerHeight + window.scrollY);
+    const scrollThreshold = 200;
+    if (distanceToBottom < scrollThreshold) {
+      setReviewsToShow((prev) => prev + 21);
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, [data, reviewsToShow]);
 
   return (
     <>
@@ -170,24 +189,14 @@ export default function Reviews() {
                       <div className="">
                         <p className="heading font-medium">{user.fullName}</p>
                         <p className="text-sm">{product.title}</p>
-                        <p className="text-dark-quantum">
+                        <div className="text-dark-quantum">
                           {getRatingIcons(review.rating)}
-                        </p>
+                        </div>
                         <p className="italic">"{review.comment}"</p>
                       </div>
                     </motion.div>
                   );
                 })}
-              </div>
-              <div className="flex justify-center">
-                {displayedReviews.length < data.length && (
-                  <button
-                    className="text-quantum hover:text-dark-quantum"
-                    onClick={() => setReviewsToShow((prev) => prev + 21)}
-                  >
-                    Show More
-                  </button>
-                )}
               </div>
             </div>
           </AnimatePresence>
