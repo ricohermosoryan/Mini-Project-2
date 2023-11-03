@@ -437,44 +437,44 @@ export default function Product() {
                         
                         {data.rating &&
                           <div className="mb-8">
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">5 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[5] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">5 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[5] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[5] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[5] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">4 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[4] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">4 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[4] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[4] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[4] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">3 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[3] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">3 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[3] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[3] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[3] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">2 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[2] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">2 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[2] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[2] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[2] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">1 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[1] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">1 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[1] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[1] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[1] / data.rating.count) * 100)}%</span>
                             </div>
 
                           </div>
