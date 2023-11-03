@@ -9,7 +9,6 @@ import { Breadcrumb, Rating, Pagination } from 'flowbite-react';
 import cart from "../../assets/cart.svg";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
-import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import ProductFilter from "../ProductFilter";
 import filterImage from "../../assets/filter.svg";
 import closeButtonImage from "../../assets/xmark.svg";
@@ -67,8 +66,6 @@ export default function Products() {
   }, []);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
 
   // Apply sorting
   const sortedData = [...data].sort(sortFunctions[sortType]);
@@ -114,7 +111,7 @@ export default function Products() {
         },
       })
       .then((res) => {
-        const filteredData = res.data.filter((product) => {
+        const filteredData = shuffle(res.data).filter((product) => {
           return (
             selectedCategories.length === 0 ||
             selectedCategories.some((category) => product.category.includes(category))
