@@ -545,16 +545,15 @@ export default function Product() {
                 </div>
 
                 <div className="my-10">
-                  <h2 className="heading text-xl font-semibold mb-4">Related Products</h2>
+                  <h2 className="heading text-lg font-semibold mb-4">Related Products</h2>
                   
-                  <div className="flex gap-4 overflow-x-auto w-full">
+                  <div className="flex gap-4 overflow-x-scroll scroll-smooth w-full">
 
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-
+                    <div className="flex w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5">
                       {relatedProducts.slice(0, 10).map((product, i) => (
                         <motion.div
                           key={i}
-                          className="aspect-square m-3 group transition relative"
+                          className="aspect-square m-3 group transition relative min-w-full"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -564,16 +563,16 @@ export default function Product() {
                           }}
                           onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
                         >
-                          <div className="p-4">
+                          <div className="p-4 min-w-full">
                             <Link to={`/products/${product.id}`}>
-                              <div className="relative">
-                                <img src={product.image[0]} className="absolute inset-0 rounded-lg"
+                              <div className="relative w-full">
+                                <img src={product.image[0]} className="absolute inset-0 rounded-lg w-full"
                                   style={{
                                     transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
                                     transition: 'transform 0.5s ease-in',
                                   }}/>
                                 <img
-                                  className="rounded-lg shadow"
+                                  className="rounded-lg shadow w-full"
                                   src={hoveredItem === i ? product.image[1] : product.image[0]}
                                   alt={product.title}
                                   style={{
@@ -585,7 +584,7 @@ export default function Product() {
                               </div>
                             </Link>
                           </div>
-                          <div>
+                          <div className="min-w-full">
                             <Link to={`/products/${product.id}`}>
                               <p className="truncate heading font-medium">{product.title}</p>
                             </Link>
@@ -616,16 +615,12 @@ export default function Product() {
                                 <img src={cart} alt="image" /> Add to Cart
                               </button>
                             </div>
-                          </div>
+                            </div>
                         </motion.div>
                       ))}
-                      
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
             }
           </div>
