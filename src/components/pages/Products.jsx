@@ -14,6 +14,7 @@ import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import ProductFilter from "../ProductFilter";
 import filterImage from "../../assets/filter.svg";
 import closeButtonImage from "../../assets/xmark.svg";
+import { shuffle } from "lodash";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -42,6 +43,16 @@ export default function Products() {
 
   const [showFilter, setShowFilter] = useState(false);
 
+  // Sorting state
+  const [sortType, setSortType] = useState("none"); // Default is no sorting
+  const sortFunctions = {
+    none: (a, b) => 0,
+    priceAsc: (a, b) => a.price - b.price,
+    priceDesc: (a, b) => b.price - a.price,
+    ratingAsc: (a, b) => a.rating.rate - b.rating.rate,
+    ratingDesc: (a, b) => b.rating.rate - a.rating.rate,
+  };
+
   useEffect(() => {
     const controller = new AbortController();
     axios
@@ -49,7 +60,8 @@ export default function Products() {
         "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
       )
       .then((res) => {
-        setData(res.data);
+        const shuffledData = shuffle(res.data); // Shuffle the data array
+      setData(shuffledData);
       })
       .catch((err) => console.error(err));
     return controller.abort();
@@ -59,7 +71,9 @@ export default function Products() {
   const canGoPrevious = currentPage > 1;
   const canGoNext = currentPage < totalPages;
 
-  const paginatedData = data.slice(
+  // Apply sorting
+  const sortedData = [...data].sort(sortFunctions[sortType]);
+  const paginatedData = sortedData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -152,8 +166,26 @@ export default function Products() {
             </Breadcrumb>
           </div>
 
-          <div className="flex justify-end">
-            <div className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum" onClick={() => setShowFilter(!showFilter)}>Filter <img src={filterImage} className="w-4 h-4 aspect-square"/></div>
+          <div className="flex justify-end gap-x-2">
+            {/* Sort dropdown */}
+            <div>
+              <select
+                className="text-sm bg-transparent text-dark-quantum cursor-pointer hover:text-quantum focus:border-transparent border-transparent ring-0 focus:ring-0"
+                value={sortType}
+                onChange={(e) => setSortType(e.target.value)}
+              >
+                <option className="text-sm" value="none">Sort by</option>
+                <option className="text-sm" value="priceAsc">Price - Low to High</option>
+                <option className="text-sm" value="priceDesc">Price - High to Low</option>
+                <option className="text-sm" value="ratingAsc">Rating - Low to High</option>
+                <option className="text-sm" value="ratingDesc">Rating - High to Low</option>
+              </select>
+            </div>
+
+            {/* Filter button */}
+            <div className="flex">
+              <div className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum" onClick={() => setShowFilter(!showFilter)}>Filter <img src={filterImage} className="w-4 h-4 aspect-square"/></div>
+            </div>
           </div>
 
           {/* Off-canvas filter */}
@@ -240,7 +272,7 @@ export default function Products() {
                       <p className="font-semibold">{formatter.format(item.price)}</p>
                       <div className="bg-quantum flex gap-1 py-1 px-1.5 rounded-md">
                         <img src={star} alt="image" className="w-5 h-5" />
-                        <p className="text-white font-bold">{item.rating.rate}</p>
+                        <p className="text-white font-bold">{item.rating.rate.toFixed(1)}</p>
                       </div>
                     </div>
 

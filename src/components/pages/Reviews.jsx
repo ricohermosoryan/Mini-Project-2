@@ -3,6 +3,7 @@ import axios from "axios";
 import reviews from "../../assets/reviews.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
+import { Rating } from "flowbite-react";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
@@ -11,55 +12,65 @@ export const getRatingIcons = (rating) => {
     case 1:
       icons = (
         <>
-          <i className="bx bxs-star"></i>
-          <i className="bx bx-star"></i>
-          <i className="bx bx-star"></i>
-          <i className="bx bx-star"></i>
-          <i className="bx bx-star"></i>
+          <Rating>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+          </Rating>
         </>
       );
       break;
     case 2:
       icons = (
         <>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bx-star"></i>
-          <i className="bx bx-star"></i>
-          <i className="bx bx-star"></i>
+          <Rating>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+          </Rating>
         </>
       );
       break;
     case 3:
       icons = (
         <>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bx-star"></i>
-          <i className="bx bx-star"></i>
+          <Rating>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+          </Rating>
         </>
       );
       break;
     case 4:
       icons = (
         <>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bx-star"></i>
+          <Rating>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star filled={false} />
+          </Rating>
         </>
       );
       break;
     case 5:
       icons = (
         <>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
-          <i className="bx bxs-star"></i>
+          <Rating>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum"/>
+          </Rating>
         </>
       );
       break;
