@@ -4,6 +4,7 @@ import reviews from "../../assets/reviews.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { Rating } from "flowbite-react";
+import { shuffle } from "lodash";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
@@ -101,16 +102,18 @@ export default function Reviews() {
 
       const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
       const reviewsData = reviewsRes.data;
-      setData(reviewsData);
+      setData(shuffle(reviewsData));
     }
 
     fetchData()
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
+  }, []);
 
+  useEffect(() => {
     setDisplayedReviews(data.slice(0, reviewsToShow));
-
   }, [data, reviewsToShow]);
+
 
   return (
     <>
