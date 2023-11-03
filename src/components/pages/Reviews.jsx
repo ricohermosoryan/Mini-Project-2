@@ -189,7 +189,7 @@ export default function Reviews() {
                       <div className="">
                         <p className="heading font-medium">{user.fullName}</p>
                         <p className="text-sm">{product.title}</p>
-                        <div className="text-dark-quantum">
+                        <div className="text-dark-quantum my-0.5">
                           {getRatingIcons(review.rating)}
                         </div>
                         <p className="italic">"{review.comment}"</p>

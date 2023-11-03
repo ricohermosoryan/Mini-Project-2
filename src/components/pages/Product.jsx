@@ -503,7 +503,7 @@ export default function Product() {
                                 <p className="heading font-medium">
                                   {user.fullName}
                                 </p>
-                                <div className="text-dark-quantum">
+                                <div className="text-dark-quantum my-0.5">
                                   {getRatingIcons(review.rating)}
                                 </div>
                                 <p className="italic">"{review.comment}"</p>
