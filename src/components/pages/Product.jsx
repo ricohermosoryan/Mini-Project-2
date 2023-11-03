@@ -23,6 +23,7 @@ import PageTransition from "../PageTransition";
 import { getRatingIcons } from "./Reviews";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
+import cart from "../../assets/cart.svg";
 import { shuffle } from "lodash";
 
 export default function Product() {
@@ -35,6 +36,7 @@ export default function Product() {
   const [productReviews, setProductReviews] = useState([]);
   const [users, setUsers] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [hoveredItem, setHoveredItem] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [starCounts, setStarCounts] = useState({
@@ -106,8 +108,8 @@ export default function Product() {
       const related = products.filter(product => {
         return product.id !== id && (
           product.category.includes(data.category[0]) || 
-          product.subcategory.includes(data.subcategory[0])  
-        );
+          product.subcategory.includes(data.subcategory[0])) &&
+          product.id !== data.id;
       });
 
       const shuffledRelated = shuffle(related);
@@ -542,30 +544,88 @@ export default function Product() {
                   </Tabs.Group>
                 </div>
 
-<div className="my-10">
+                <div className="my-10">
+                  <h2 className="heading text-xl font-semibold mb-4">Related Products</h2>
+                  
+                  <div className="flex gap-4 overflow-x-auto w-full">
 
-  <h2 className="heading text-xl font-semibold mb-4">Related Products</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
 
-  <div className="flex gap-4 overflow-x-auto">
-    
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 ">
+                      {relatedProducts.slice(0, 10).map((product, i) => (
+                        <motion.div
+                          key={i}
+                          className="aspect-square m-3 group transition relative"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{
+                            ease: "easeInOut",
+                            duration: 1,
+                          }}
+                          onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
+                        >
+                          <div className="p-4">
+                            <Link to={`/products/${product.id}`}>
+                              <div className="relative">
+                                <img src={product.image[0]} className="absolute inset-0 rounded-lg"
+                                  style={{
+                                    transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                                    transition: 'transform 0.5s ease-in',
+                                  }}/>
+                                <img
+                                  className="rounded-lg shadow"
+                                  src={hoveredItem === i ? product.image[1] : product.image[0]}
+                                  alt={product.title}
+                                  style={{
+                                    transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                                    opacity: hoveredItem === i ? 1 : 0.8,
+                                    transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                                  }}
+                                />
+                              </div>
+                            </Link>
+                          </div>
+                          <div>
+                            <Link to={`/products/${product.id}`}>
+                              <p className="truncate heading font-medium">{product.title}</p>
+                            </Link>
+                            <p className="text-sm text-dark-quantum mb-2">{product.brand}</p>
+                            <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
+                              <p className="font-semibold">{formatter.format(product.price)}</p>
+                              <div className="flex gap-x-4 my-2">
+                                <Rating className="my-auto">
+                                  <Rating.Star className="text-quantum"/>
+                                  {product.rating && <p className="text-sm ml-0.5 font-bold ">{product.rating.rate.toFixed(2)}</p>}
+                                </Rating>
+                              </div>
+                            </div>
 
-      {relatedProducts.slice(0,10).map(product => (
-        <div key={product.id}>
-          <Link to={`/products/${product.id}`}><img src={product.image[0]} alt={product.title} /></Link>
-          <Link to={`/products/${product.id}`}><p className="mt-2 font-medium truncate">{product.title}</p></Link>
-          <p className="text-sm">{formatter.format(product.price)}</p>
-        </div>
-        ))}
+                            {/* ADD TO CART */}
+                            <div className="absolute bottom-0 left-[-10px] group-hover:left-0 border-sky-300 rounded-lg border-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                              <button
+                                className="flex gap-2 p-3 font-semibold"
+                                onClick={() =>
+                                  addToCart({
+                                    title: product.title,
+                                    price: product.price,
+                                    image: product.image[0],
+                                    quantity: 1,
+                                  })
+                                }
+                              >
+                                <img src={cart} alt="image" /> Add to Cart
+                              </button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                      
+                    </div>
 
-    </div>
-  
-  </div>
+                  </div>
 
-</div>
+                </div>
 
-
-                
               </div>
             }
           </div>
