@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
-import { Breadcrumb, Rating } from 'flowbite-react';
+import { Breadcrumb, Rating, Pagination } from 'flowbite-react';
 import cart from "../../assets/cart.svg";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
@@ -77,7 +77,7 @@ export default function Products() {
     currentPage * itemsPerPage
   );
 
-  const handleChangePage = (page) => {
+  const onPageChange = (page) => {
     setCurrentPage(page);
   };
 
@@ -299,36 +299,12 @@ export default function Products() {
             </div>
           </div>
 
-          <div className=" mt-[90px] flex gap-2 justify-center">
-            {canGoPrevious && (
-              <button
-                onClick={() => handleChangePage(currentPage - 1)}
-                className="border-2 border-gray-400 rounded-full px-3 py-2 hover:bg-black hover:text-white"
-              >
-                <FiArrowLeft />
-              </button>
-            )}
-            {pageNumbers.map((number) => (
-              <button
-                key={number}
-                onClick={() => handleChangePage(number)}
-                className={
-                  number === currentPage
-                    ? "px-4 py-2 bg-black text-white rounded-full border-2"
-                    : "border-gray-400 px-4 py-2 hover:bg-black hover:text-white rounded-full border-2 "
-                }
-              >
-                {number}
-              </button>
-            ))}
-            {canGoNext && (
-              <button
-                onClick={() => handleChangePage(currentPage + 1)}
-                className="border-2 border-gray-400 rounded-full px-3 py-2 hover:bg-black hover:text-white"
-              >
-                <FiArrowRight />
-              </button>
-            )}
+          <div className="overflow-x-auto justify-center hidden sm:flex">
+            <Pagination currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
+          </div>
+
+          <div className="flex overflow-x-auto justify-center sm:hidden">
+            <Pagination layout="navigation" currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
           </div>
 
         </div>
