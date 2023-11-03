@@ -3,6 +3,8 @@ import banner from "../../assets/FAQs.svg";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function FAQs() {
   const [activeQuestion, setActiveQuestion] = useState(null);
@@ -44,6 +46,19 @@ export default function FAQs() {
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  FAQs
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         <div className="banner">
           <img src={banner} alt="image" className="lg:w-screen" />
         </div>

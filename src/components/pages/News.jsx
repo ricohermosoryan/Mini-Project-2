@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import newsIcon from "../../assets/newsicon.svg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Breadcrumb } from "flowbite-react";
 
 export default function News() {
   const [data, setData] = useState([]);
@@ -39,6 +40,19 @@ export default function News() {
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  News
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         <div className="banner">
           <img
             src={news}

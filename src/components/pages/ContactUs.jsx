@@ -3,11 +3,26 @@ import contactus from "../../assets/contactus.svg";
 import message from "../../assets/sendmessage.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
+import { Link } from "react-router-dom";
+import { Breadcrumb } from "flowbite-react";
 
 export default function ContactUs() {
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Contact Us
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         <div className="banner">
           <img src={contactus} alt="image" className="lg:w-screen" />
         </div>

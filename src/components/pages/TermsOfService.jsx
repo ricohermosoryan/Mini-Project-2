@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 import PageTransition from "../PageTransition";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function TermsOfService() {
   
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Terms of Service
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         <div className="container mx-auto text-justify">
 
           <h1 className="mt-4">Terms of Service</h1>
