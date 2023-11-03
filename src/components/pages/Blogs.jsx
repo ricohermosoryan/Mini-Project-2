@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import blogs1 from "../../assets/blogs.svg";
 import PageTransition from "../PageTransition";
 import { motion } from "framer-motion";
+import { Breadcrumb } from "flowbite-react";
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
@@ -24,6 +25,20 @@ export default function Blogs() {
   return (
     <>
       <PageTransition>
+
+        <div className="container mx-auto px-4">
+          <div className="my-6">
+            <Breadcrumb className="truncate">
+              <Breadcrumb.Item>
+                  <Link to="/home" className="text-gray-700">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                Blogs
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+        </div>
+
         <div className="banner">
           <img src={blogs1} alt="image" className="lg:w-screen" />
         </div>

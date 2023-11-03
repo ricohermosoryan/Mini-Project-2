@@ -23,6 +23,8 @@ import PageTransition from "../PageTransition";
 import { getRatingIcons } from "./Reviews";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
+import cart from "../../assets/cart.svg";
+import { shuffle } from "lodash";
 
 export default function Product() {
   // Cart Items
@@ -33,6 +35,8 @@ export default function Product() {
   const [selectedImage, setSelectedImage] = useState();
   const [productReviews, setProductReviews] = useState([]);
   const [users, setUsers] = useState([]);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [hoveredItem, setHoveredItem] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [starCounts, setStarCounts] = useState({
@@ -94,6 +98,30 @@ export default function Product() {
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
+
+  useEffect(() => {
+
+    const fetchRelated = async () => {
+      const response = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
+      const products = await response.json();
+
+      const related = products.filter(product => {
+        return product.id !== id && (
+          product.category.includes(data.category[0]) || 
+          product.subcategory.includes(data.subcategory[0])) &&
+          product.id !== data.id;
+      });
+
+      const shuffledRelated = shuffle(related);
+
+      setRelatedProducts(shuffledRelated);
+    }
+
+    if(data.category && data.subcategory) {
+      fetchRelated();
+    }
+
+  }, [data.category, data.subcategory, id]);
 
   return (
     <>
@@ -158,7 +186,7 @@ export default function Product() {
                     )}
 
                     {/* PRODUCT RATING */}
-                    <div className="flex gap-4 my-2">
+                    <div className="flex gap-x-4 my-2">
                       <Rating className="my-auto">
                         <Rating.Star className="text-quantum"/>
                         {data.rating && <p className="text-sm ml-2 font-bold ">{data.rating.rate.toFixed(2)}</p>}
@@ -214,7 +242,7 @@ export default function Product() {
                       </p>
                     )}
                     {data.description && (
-                      <p className="text-base">{data.description}</p>
+                      <p className="text-base text-justify">{data.description}</p>
                     )}
 
                     {/* BUY BUTTONS */}
@@ -242,7 +270,7 @@ export default function Product() {
                       <div className="h-5 w-5 aspect-square">
                         <img src={speedyTruckImage} className="w-full" />
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 text-justify">
                         <p className="heading font-medium my-1">
                           Speedy Delivery:
                         </p>
@@ -292,7 +320,7 @@ export default function Product() {
                       <div className="h-5 w-5 aspect-square">
                         <img src={alertImage} className="w-full" />
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 text-justify">
                         <p className="heading font-medium my-1">
                           COVID-19 Response:
                         </p>
@@ -312,7 +340,7 @@ export default function Product() {
                       title="Description"
                       className="focus:ring-transparent"
                     >
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2 text-justify">
                         <p className="heading font-medium my-1">Features</p>
                         <ul className="mb-2">
                           {data.features.map((feature) => (
@@ -328,7 +356,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Returns and Replacement">
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-justify text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="mb-2">
                           When you receive your order, please take a video of
                           your unboxing and make sure all items in your order
@@ -341,7 +369,7 @@ export default function Product() {
                           problems with your order.
                         </p>
                         <p className="mb-2">
-                          Send us an email at customercare@quantumgalaxy.com.
+                          Send us an email at customercare@quantumgalaxy.ph.
                           You can also call/text +63 912 345-6789. We can also
                           attend to your needs via our official social media
                           channels.
@@ -353,7 +381,7 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Shipping">
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
+                      <div className="text-sm text-justify text-gray-600 dark:text-gray-400 my-4 px-2">
                         <p className="heading font-medium my-1">
                           Standard Shipping
                         </p>
@@ -437,44 +465,44 @@ export default function Product() {
                         
                         {data.rating &&
                           <div className="mb-8">
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">5 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[5] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">5 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[5] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[5] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[5] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">4 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[4] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">4 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[4] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[4] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[4] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">3 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[3] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">3 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[3] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[3] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[3] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">2 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[2] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">2 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[2] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[2] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[2] / data.rating.count) * 100)}%</span>
                             </div>
 
-                            <div class="flex items-center mb-2">
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">1 star</span>
-                              <div class="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div class="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[1] / data.rating.count) * 100}%` }}></div>
+                            <div className="flex items-center mb-2">
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">1 star</span>
+                              <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
+                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[1] / data.rating.count) * 100}%` }}></div>
                               </div>
-                              <span class="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[1] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[1] / data.rating.count) * 100)}%</span>
                             </div>
 
                           </div>
@@ -503,7 +531,7 @@ export default function Product() {
                                 <p className="heading font-medium">
                                   {user.fullName}
                                 </p>
-                                <div className="text-dark-quantum">
+                                <div className="text-dark-quantum my-0.5">
                                   {getRatingIcons(review.rating)}
                                 </div>
                                 <p className="italic">"{review.comment}"</p>
@@ -514,6 +542,84 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                   </Tabs.Group>
+                </div>
+
+                <div className="my-10">
+                  <h2 className="heading text-lg font-semibold mb-4">Related Products</h2>
+                  
+                  <div className="flex gap-4 overflow-x-scroll scroll-smooth w-full">
+
+                    <div className="flex w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5">
+                      {relatedProducts.slice(0, 10).map((product, i) => (
+                        <motion.div
+                          key={i}
+                          className="aspect-square m-3 group transition relative min-w-full"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{
+                            ease: "easeInOut",
+                            duration: 1,
+                          }}
+                          onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
+                        >
+                          <div className="p-4 min-w-full">
+                            <Link to={`/products/${product.id}`}>
+                              <div className="relative w-full">
+                                <img src={product.image[0]} className="absolute inset-0 rounded-lg w-full"
+                                  style={{
+                                    transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                                    transition: 'transform 0.5s ease-in',
+                                  }}/>
+                                <img
+                                  className="rounded-lg shadow w-full"
+                                  src={hoveredItem === i ? product.image[1] : product.image[0]}
+                                  alt={product.title}
+                                  style={{
+                                    transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                                    opacity: hoveredItem === i ? 1 : 0.8,
+                                    transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                                  }}
+                                />
+                              </div>
+                            </Link>
+                          </div>
+                          <div className="min-w-full">
+                            <Link to={`/products/${product.id}`}>
+                              <p className="truncate heading font-medium">{product.title}</p>
+                            </Link>
+                            <p className="text-sm text-dark-quantum mb-2">{product.brand}</p>
+                            <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
+                              <p className="font-semibold">{formatter.format(product.price)}</p>
+                              <div className="flex gap-x-4 my-2">
+                                <Rating className="my-auto">
+                                  <Rating.Star className="text-quantum"/>
+                                  {product.rating && <p className="text-sm ml-0.5 font-bold ">{product.rating.rate.toFixed(2)}</p>}
+                                </Rating>
+                              </div>
+                            </div>
+
+                            {/* ADD TO CART */}
+                            <div className="absolute bottom-0 left-[-10px] group-hover:left-0 border-sky-300 rounded-lg border-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
+                              <button
+                                className="flex gap-2 p-3 font-semibold"
+                                onClick={() =>
+                                  addToCart({
+                                    title: product.title,
+                                    price: product.price,
+                                    image: product.image[0],
+                                    quantity: 1,
+                                  })
+                                }
+                              >
+                                <img src={cart} alt="image" /> Add to Cart
+                              </button>
+                            </div>
+                            </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             }

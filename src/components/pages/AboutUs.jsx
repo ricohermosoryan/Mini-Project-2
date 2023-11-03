@@ -2,11 +2,26 @@ import React from "react";
 import about from "../../assets/about.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
+import { Breadcrumb } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function AboutUs() {
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  About Us
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         <div className="">
           <img
             className=" lg:object-cover lg:w-screen lg:h-[280px]"

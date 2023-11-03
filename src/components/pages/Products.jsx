@@ -5,12 +5,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
-import { Breadcrumb } from 'flowbite-react';
+import { Breadcrumb, Rating, Pagination } from 'flowbite-react';
 import cart from "../../assets/cart.svg";
-import star from "../../assets/star.svg";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
-import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import ProductFilter from "../ProductFilter";
 import filterImage from "../../assets/filter.svg";
 import closeButtonImage from "../../assets/xmark.svg";
@@ -68,8 +66,6 @@ export default function Products() {
   }, []);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
 
   // Apply sorting
   const sortedData = [...data].sort(sortFunctions[sortType]);
@@ -78,7 +74,7 @@ export default function Products() {
     currentPage * itemsPerPage
   );
 
-  const handleChangePage = (page) => {
+  const onPageChange = (page) => {
     setCurrentPage(page);
   };
 
@@ -115,7 +111,7 @@ export default function Products() {
         },
       })
       .then((res) => {
-        const filteredData = res.data.filter((product) => {
+        const filteredData = shuffle(res.data).filter((product) => {
           return (
             selectedCategories.length === 0 ||
             selectedCategories.some((category) => product.category.includes(category))
@@ -270,9 +266,11 @@ export default function Products() {
                     <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
                     <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
                       <p className="font-semibold">{formatter.format(item.price)}</p>
-                      <div className="bg-quantum flex gap-1 py-1 px-1.5 rounded-md">
-                        <img src={star} alt="image" className="w-5 h-5" />
-                        <p className="text-white font-bold">{item.rating.rate.toFixed(1)}</p>
+                      <div className="flex gap-x-4 my-2">
+                        <Rating className="my-auto">
+                          <Rating.Star className="text-quantum"/>
+                          {item.rating && <p className="text-sm ml-0.5 font-bold ">{item.rating.rate.toFixed(2)}</p>}
+                        </Rating>
                       </div>
                     </div>
 
@@ -298,36 +296,12 @@ export default function Products() {
             </div>
           </div>
 
-          <div className=" mt-[90px] flex gap-2 justify-center">
-            {canGoPrevious && (
-              <button
-                onClick={() => handleChangePage(currentPage - 1)}
-                className="border-2 border-gray-400 rounded-full px-3 py-2 hover:bg-black hover:text-white"
-              >
-                <FiArrowLeft />
-              </button>
-            )}
-            {pageNumbers.map((number) => (
-              <button
-                key={number}
-                onClick={() => handleChangePage(number)}
-                className={
-                  number === currentPage
-                    ? "px-4 py-2 bg-black text-white rounded-full border-2"
-                    : "border-gray-400 px-4 py-2 hover:bg-black hover:text-white rounded-full border-2 "
-                }
-              >
-                {number}
-              </button>
-            ))}
-            {canGoNext && (
-              <button
-                onClick={() => handleChangePage(currentPage + 1)}
-                className="border-2 border-gray-400 rounded-full px-3 py-2 hover:bg-black hover:text-white"
-              >
-                <FiArrowRight />
-              </button>
-            )}
+          <div className="overflow-x-auto justify-center hidden sm:flex mt-10">
+            <Pagination currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
+          </div>
+
+          <div className="flex overflow-x-auto justify-center sm:hidden mt-10">
+            <Pagination layout="navigation" currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
           </div>
 
         </div>

@@ -3,7 +3,9 @@ import axios from "axios";
 import reviews from "../../assets/reviews.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
-import { Rating } from "flowbite-react";
+import { Breadcrumb, Rating } from "flowbite-react";
+import { shuffle } from "lodash";
+import { Link } from "react-router-dom";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
@@ -82,7 +84,8 @@ export default function Reviews() {
 
   const [data, setData] = useState([]);
   const [displayedReviews, setDisplayedReviews] = useState([]); 
-  const [reviewsToShow, setReviewsToShow] = useState(21);
+  const initialReviewsToShow = 21;
+  const [reviewsToShow, setReviewsToShow] = useState(initialReviewsToShow);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -101,20 +104,53 @@ export default function Reviews() {
 
       const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
       const reviewsData = reviewsRes.data;
-      setData(reviewsData);
+      setData(shuffle(reviewsData));
     }
 
     fetchData()
-      .catch(err => console.error(err))
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
+  }, []);
 
+  useEffect(() => {
     setDisplayedReviews(data.slice(0, reviewsToShow));
-
   }, [data, reviewsToShow]);
+
+  // INFINITE SCROLLING
+  useEffect(() => {
+  setDisplayedReviews(data.slice(0, reviewsToShow));
+
+  function handleScroll() {
+    const distanceToBottom = document.documentElement.scrollHeight - (window.innerHeight + window.scrollY);
+    const scrollThreshold = 200;
+    if (distanceToBottom < scrollThreshold) {
+      setReviewsToShow((prev) => prev + 21);
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, [data, reviewsToShow]);
 
   return (
     <>
       <PageTransition>
+        <div className="container mx-auto px-4">
+            {/* BREADCRUMB */}
+            <div className="my-6">
+              <Breadcrumb className="truncate">
+                <Breadcrumb.Item>
+                    <Link to="/home" className="text-gray-700">Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Reviews
+                </Breadcrumb.Item>
+              </Breadcrumb>
+          </div>
+        </div>
         {/* Banner */}
         <div className="banner">
           <img
@@ -167,24 +203,14 @@ export default function Reviews() {
                       <div className="">
                         <p className="heading font-medium">{user.fullName}</p>
                         <p className="text-sm">{product.title}</p>
-                        <p className="text-dark-quantum">
+                        <div className="text-dark-quantum my-0.5">
                           {getRatingIcons(review.rating)}
-                        </p>
+                        </div>
                         <p className="italic">"{review.comment}"</p>
                       </div>
                     </motion.div>
                   );
                 })}
-              </div>
-              <div className="flex justify-center">
-                {displayedReviews.length < data.length && (
-                  <button
-                    className="text-quantum hover:text-dark-quantum"
-                    onClick={() => setReviewsToShow((prev) => prev + 21)}
-                  >
-                    Show More
-                  </button>
-                )}
               </div>
             </div>
           </AnimatePresence>
