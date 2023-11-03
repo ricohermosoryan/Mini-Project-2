@@ -5,9 +5,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
-import { Breadcrumb } from 'flowbite-react';
+import { Breadcrumb, Rating } from 'flowbite-react';
 import cart from "../../assets/cart.svg";
-import star from "../../assets/star.svg";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
 import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
@@ -270,9 +269,11 @@ export default function Products() {
                     <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
                     <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
                       <p className="font-semibold">{formatter.format(item.price)}</p>
-                      <div className="bg-quantum flex gap-1 py-1 px-1.5 rounded-md">
-                        <img src={star} alt="image" className="w-5 h-5" />
-                        <p className="text-white font-bold">{item.rating.rate.toFixed(1)}</p>
+                      <div className="flex gap-x-4 my-2">
+                        <Rating className="my-auto">
+                          <Rating.Star className="text-quantum"/>
+                          {item.rating && <p className="text-sm ml-0.5 font-bold ">{item.rating.rate.toFixed(2)}</p>}
+                        </Rating>
                       </div>
                     </div>
 

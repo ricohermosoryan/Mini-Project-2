@@ -158,7 +158,7 @@ export default function Product() {
                     )}
 
                     {/* PRODUCT RATING */}
-                    <div className="flex gap-4 my-2">
+                    <div className="flex gap-x-4 my-2">
                       <Rating className="my-auto">
                         <Rating.Star className="text-quantum"/>
                         {data.rating && <p className="text-sm ml-2 font-bold ">{data.rating.rate.toFixed(2)}</p>}
