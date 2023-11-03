@@ -33,6 +33,7 @@ export default function Product() {
   const [selectedImage, setSelectedImage] = useState();
   const [productReviews, setProductReviews] = useState([]);
   const [users, setUsers] = useState([]);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const [starCounts, setStarCounts] = useState({
@@ -94,6 +95,28 @@ export default function Product() {
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
+
+  useEffect(() => {
+
+    const fetchRelated = async () => {
+      const response = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
+      const products = await response.json();
+
+      const related = products.filter(product => {
+        return product.id !== id && (
+          product.category.includes(data.category[0]) || 
+          product.subcategory.includes(data.subcategory[0])  
+        );
+      });
+
+      setRelatedProducts(related);
+    }
+
+    if(data.category && data.subcategory) {
+      fetchRelated();
+    }
+
+  }, [data.category, data.subcategory, id]);
 
   return (
     <>
@@ -515,6 +538,31 @@ export default function Product() {
                     </Tabs.Item>
                   </Tabs.Group>
                 </div>
+
+<div className="my-10">
+
+  <h2 className="heading text-xl font-semibold mb-4">Related Products</h2>
+
+  <div className="flex gap-4 overflow-x-auto">
+    
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 ">
+
+      {relatedProducts.slice(0,10).map(product => (
+        <div key={product.id}>
+          <Link to={`/products/${product.id}`}><img src={product.image[0]} alt={product.title} /></Link>
+          <Link to={`/products/${product.id}`}><p className="mt-2 font-medium truncate">{product.title}</p></Link>
+          <p className="text-sm">{formatter.format(product.price)}</p>
+        </div>
+        ))}
+
+    </div>
+  
+  </div>
+
+</div>
+
+
+                
               </div>
             }
           </div>
