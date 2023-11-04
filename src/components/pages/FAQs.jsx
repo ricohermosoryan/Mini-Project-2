@@ -26,7 +26,7 @@ export default function FAQs() {
       question:
         "HOW DO I ORDER?",
       answer:
-        "Ordering from QuantumGalaxy is as easy as 1-2-3! Just follow these steps: \n\n&nbsp;1. Create an account. \n&nbsp;2. Search for the item or browse until you find something you like and press ADD TO CART. \n&nbsp;3. Fill out the details and choose the payment method you prefer. \n\nAll purchases are considered final and prices are subject to change without prior notice.",
+        "Ordering from QuantumGalaxy is as easy as 1-2-3! Just follow these steps: \n\n&nbsp;1. Create an account. \n&nbsp;2. Search for the item or browse until you find something you like and press Add to Cart. \n&nbsp;3. Fill out the details and choose the payment method you prefer. \n\nAll purchases are considered final and prices are subject to change without prior notice.",
     },
     {
       id: 2,
@@ -175,7 +175,7 @@ export default function FAQs() {
         <div className="w-full relative">
           <img src={faqBanner} className="w-full object-cover" />
           <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center md:hidden">FAQs</h1>
-          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center hidden md:block">Frequently Asked Questions</h1>
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center hidden md:block">FREQUENTLY ASKED QUESTIONS</h1>
         </div>
 
         {/* ACCORDION */}
