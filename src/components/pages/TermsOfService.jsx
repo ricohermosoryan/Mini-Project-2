@@ -6,8 +6,14 @@ import termsOfServiceBanner from "../../assets/termsofservice.svg";
 
 export default function TermsOfService() {
   useEffect(() => {
-    // Scroll to the top of the page when the component is mounted
-    window.scrollTo(0, 48);
+    const scrollPosition = window.scrollY;
+
+    // Set the scroll position based on the condition
+    if (scrollPosition === 0) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, 48);
+    }
   }, []);
   
   return (

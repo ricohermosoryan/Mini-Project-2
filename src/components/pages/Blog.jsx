@@ -16,7 +16,14 @@ export default function Blog() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 48);
+    const scrollPosition = window.scrollY;
+
+    // Set the scroll position based on the condition
+    if (scrollPosition === 0) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, 48);
+    }
     setLoading(true);
     const controller = new AbortController();
     axios
