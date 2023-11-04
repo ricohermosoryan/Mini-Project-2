@@ -173,7 +173,7 @@ export default function FAQs() {
           <Accordion flush>
             {question.map((q) => (
               <Accordion.Panel key={q.id}>
-                <Accordion.Title><p className="heading text-lg">{q.question}</p></Accordion.Title>
+                <Accordion.Title><p className="heading text-dark-quantum text-lg">{q.question}</p></Accordion.Title>
                 <Accordion.Content>
                   <div className="px-2 mb-2 text-gray-600 dark:text-gray-500"
                     dangerouslySetInnerHTML={{
