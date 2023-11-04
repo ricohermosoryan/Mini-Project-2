@@ -22,6 +22,7 @@ import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import dayjs from "dayjs";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -454,7 +455,7 @@ export default function Home() {
                     {item.title}{" "}
                   </p>
                   <p className="truncate mx-3 text-sm italic">
-                    on {item.date_published} by {item.author}
+                    on {dayjs(item.date_published).format("YYYY-MM-DD")} by {item.author}
                   </p>
                   <p className="truncate mx-3 text-xs">{item.category}</p>
                   <p className="mx-3 my-2 text-base sentence-truncate">
