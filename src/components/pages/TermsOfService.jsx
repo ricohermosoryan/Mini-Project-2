@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PageTransition from "../PageTransition";
 import { Breadcrumb } from "flowbite-react";
 import { Link } from "react-router-dom";
 import termsOfServiceBanner from "../../assets/termsofservice.svg";
 
 export default function TermsOfService() {
+  useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
+  }, []);
   
   return (
     <>

@@ -12,6 +12,7 @@ export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 48);
     const controller = new AbortController();
     axios
       .get(

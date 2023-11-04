@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PageTransition from "../PageTransition";
 import { Breadcrumb } from "flowbite-react";
 import { Link } from "react-router-dom";
 import privacyPolicyBanner from "../../assets/privacypolicy.svg";
 
 export default function PrivacyPolicy() {
-  
+  useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
+  }, []);
   return (
     <>
       <PageTransition>

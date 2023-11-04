@@ -33,6 +33,8 @@ export default function Home() {
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 0);
     const controller = new AbortController();
 
     axios

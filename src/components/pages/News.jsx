@@ -13,6 +13,8 @@ export default function News() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
     const controller = new AbortController();
     axios
       .get(

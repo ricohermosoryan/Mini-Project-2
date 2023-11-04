@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import banner from "../../assets/FAQs.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
@@ -9,6 +9,10 @@ import { Link } from "react-router-dom";
 import faqBanner from "../../assets/faq.svg";
 
 export default function FAQs() {
+  useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
+  }, []);
 
   const question = [
     {

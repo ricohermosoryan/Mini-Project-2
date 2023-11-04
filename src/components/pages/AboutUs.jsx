@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import about from "../../assets/about.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
@@ -11,6 +11,11 @@ import about3Image from "../../assets/about3.svg";
 import about4Image from "../../assets/about4.svg";
 
 export default function AboutUs() {
+  useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
+  }, []);
+
   return (
     <>
       <PageTransition>

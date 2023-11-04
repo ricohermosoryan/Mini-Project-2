@@ -16,6 +16,7 @@ export default function Blog() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 48);
     setLoading(true);
     const controller = new AbortController();
     axios

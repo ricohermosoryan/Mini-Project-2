@@ -92,6 +92,8 @@ export default function Reviews() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
     setLoading(true);
 
     async function fetchData() {

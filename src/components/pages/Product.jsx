@@ -48,6 +48,8 @@ export default function Product() {
   });
 
   useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
     setLoading(true);
     const controller = new AbortController();
     axios
