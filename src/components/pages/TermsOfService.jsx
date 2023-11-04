@@ -29,7 +29,7 @@ export default function TermsOfService() {
           <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl text-white text-center">Terms of Service</h1>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-4 text-justify">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8 text-justify">
 
           <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">OVERVIEW</h2>
 
