@@ -409,7 +409,7 @@ export default function Product() {
                           orders@quantumgalaxy.com if you still haven't received
                           the tracking number. Keep your tracking number secure
                           and private. You can also track your order thru this
-                          link: https://www.quantumgalaxy.ph/apps/parcelpanel
+                          link: https://www.quantumgalaxy.ph/tracking
                         </p>
 
                         <p className="heading font-medium my-1">

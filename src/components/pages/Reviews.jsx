@@ -6,6 +6,7 @@ import PageTransition from "../PageTransition";
 import { Breadcrumb, Rating } from "flowbite-react";
 import { shuffle } from "lodash";
 import { Link } from "react-router-dom";
+import reviewsBanner from "../../assets/reviews_1.svg";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
@@ -138,83 +139,73 @@ export default function Reviews() {
   return (
     <>
       <PageTransition>
+
         <div className="container mx-auto px-4">
-            {/* BREADCRUMB */}
-            <div className="my-6">
-              <Breadcrumb className="truncate">
-                <Breadcrumb.Item>
-                    <Link to="/home" className="text-gray-700">Home</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  Reviews
-                </Breadcrumb.Item>
-              </Breadcrumb>
+          {/* BREADCRUMB */}
+          <div className="my-6">
+            <Breadcrumb className="truncate">
+              <Breadcrumb.Item>
+                  <Link to="/home" className="text-gray-700">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                Reviews
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </div>
-        </div>
-        {/* Banner */}
-        <div className="banner">
-          <img
-            src={reviews}
-            alt="image"
-            className="lg:w-screen lg:h-[400px] lg:object-cover"
-          />
         </div>
 
-        {/* Customer Reviwes Header */}
-        <div className=" mx-5 lg:mx-24 mt-10 md:mt-14 lg:mt-[90px]">
-          <div className=" h-[0px]  shadow border border-zinc-500"></div>
-          <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
-            <div className="w-[195px] h-[13px] text-center text-black text-[20px] font-bold my-[-6px] md:w-[230px]  ms-[-98px] md:text-[24px] md:ms-[-88px] lg:text-[28px] lg:w-[280px] lg:mt-[-3px] lg:ms-[-85px]">
-              Customer Reviews
-            </div>
-          </div>
+        {/* BANNER */}
+        <div className="w-full relative">
+          <img src={reviewsBanner} className="w-full object-cover" />
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center">CUSTOMER REVIEWS</h1>
+        </div>
+
 
           {/* User Reviews */}
-          <AnimatePresence>
-            <div className="container mx-auto">
-              <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
-                {displayedReviews.map((review) => {
-                  // Find user
-                  const user = users.find((u) => u.id === review.userId);
+        <AnimatePresence>
+          <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8">
+            <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
+              {displayedReviews.map((review) => {
+                // Find user
+                const user = users.find((u) => u.id === review.userId);
 
-                  // Find product
-                  const product = products.find(
-                    (p) => p.id === review.productId
-                  );
+                // Find product
+                const product = products.find(
+                  (p) => p.id === review.productId
+                );
 
-                  return (
-                    <motion.div
-                      key={review.id}
-                      className="review flex shadow w-96 h-auto p-2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{
-                        ease: "easeInOut",
-                        duration: 1,
-                      }}
-                    >
-                      <div className="min-w-fit mr-2">
-                        <img
-                          src={user.image}
-                          className="w-12 aspect-square rounded-full shadow"
-                        />
+                return (
+                  <motion.div
+                    key={review.id}
+                    className="review flex shadow w-96 h-auto p-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      ease: "easeInOut",
+                      duration: 1,
+                    }}
+                  >
+                    <div className="min-w-fit mr-2">
+                      <img
+                        src={user.image}
+                        className="w-12 aspect-square rounded-full shadow"
+                      />
+                    </div>
+                    <div className="">
+                      <p className="heading font-medium">{user.fullName}</p>
+                      <p className="text-sm">{product.title}</p>
+                      <div className="text-dark-quantum my-0.5">
+                        {getRatingIcons(review.rating)}
                       </div>
-                      <div className="">
-                        <p className="heading font-medium">{user.fullName}</p>
-                        <p className="text-sm">{product.title}</p>
-                        <div className="text-dark-quantum my-0.5">
-                          {getRatingIcons(review.rating)}
-                        </div>
-                        <p className="italic">"{review.comment}"</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                      <p className="italic">"{review.comment}"</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-          </AnimatePresence>
-        </div>
+          </div>
+        </AnimatePresence>
       </PageTransition>
     </>
   );
