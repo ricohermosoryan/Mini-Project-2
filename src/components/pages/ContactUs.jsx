@@ -1,34 +1,38 @@
-import React from "react";
-import contactus from "../../assets/contactus.svg";
+import React, { useEffect } from "react";
 import message from "../../assets/sendmessage.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "flowbite-react";
+import contactBanner from "../../assets/contact.svg";
 
 export default function ContactUs() {
+  useEffect(() => {
+    // Scroll to the top of the page when the component is mounted
+    window.scrollTo(0, 48);
+  }, []);
+
   return (
     <>
       <PageTransition>
         <div className="container mx-auto px-4">
-            {/* BREADCRUMB */}
-            <div className="my-6">
-              <Breadcrumb className="truncate">
-                <Breadcrumb.Item>
-                    <Link to="/home" className="text-gray-700">Home</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  Contact Us
-                </Breadcrumb.Item>
-              </Breadcrumb>
+          {/* BREADCRUMB */}
+          <div className="my-6">
+            <Breadcrumb className="truncate">
+              <Breadcrumb.Item>
+                  <Link to="/home" className="text-gray-700">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                Contact Us
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </div>
         </div>
-        <div className="banner">
-          <img src={contactus} alt="image" className="lg:w-screen" />
-        </div>
-        <div className=" text-white heading w-[200px] md:w-[500px] lg:w-[600px] text-[16px] font-semibold my-[-40px] ms-[130px] md:my-[-80px] md:text-[28px] md:ms-[310px] lg:text-[40px] lg:my-[-170px] lg:ms-[850px]">
-          CONTACT US
-          <div className="w-[40px] h-[0px] absolute left-[165px] md:left-[370px] lg:left-[936px] border-2 border-gray-300 border-opacity-90 md:w-[55px] lg:w-[65px]"></div>
+
+        {/* BANNER */}
+        <div className="w-full relative">
+          <img src={contactBanner} className="w-full object-cover" />
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center">CONTACT US</h1>
         </div>
 
         <div className="mt-[100px] md:mt-[180px] md:flex lg:mt-[370px] lg:mx-[300px]">
