@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PageTransition from "../PageTransition";
 import { Breadcrumb } from "flowbite-react";
 import { Link } from "react-router-dom";
+import privacyPolicyBanner from "../../assets/privacypolicy.svg";
 
 export default function PrivacyPolicy() {
   
@@ -9,29 +10,35 @@ export default function PrivacyPolicy() {
     <>
       <PageTransition>
         <div className="container mx-auto px-4">
-            {/* BREADCRUMB */}
-            <div className="my-6">
-              <Breadcrumb className="truncate">
-                <Breadcrumb.Item>
-                    <Link to="/home" className="text-gray-700">Home</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  Privacy Policy
-                </Breadcrumb.Item>
-              </Breadcrumb>
+          {/* BREADCRUMB */}
+          <div className="my-6">
+            <Breadcrumb className="truncate">
+              <Breadcrumb.Item>
+                  <Link to="/home" className="text-gray-700">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                Privacy Policy
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </div>
         </div>
-        <div className="container mx-auto text-justify">
-          <h1 className="mt-4">QuantumGalaxy Account Privacy Policy</h1>
 
-          <p className="my-2">Our Privacy Policy was updated on October 28, 2023.</p>
+        {/* BANNER */}
+        <div className="w-full relative">
+          <img src={privacyPolicyBanner} className="w-full object-cover" />
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl text-white text-center">Privacy Policy</h1>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8 text-justify">
+
+          <p className="my-2">Our Privacy Policy was updated on September 28, 2023.</p>
           <p className="my-2">Please take a moment to familiarize yourself with our privacy practices and let us know if you have any questions.</p>
 
-          <h2 className="mt-4 mb-1 underline">INTRODUCTION</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">INTRODUCTION</h2>
 
           <p className="my-2">Understanding the importance of your privacy and the data given to us, QuantumGalaxy has committed to the strict compliance of processing them based on this outline and in compliance with Republic Act 10173 or the Data Privacy Act of 2012 (DPA), along with its implementing rules and regulations (IRR). QuantumGalaxy  shall regularly review the sufficiency and accuracy of this policy. We reserve the right to modify or change the privacy policy at any time.</p>
 
-          <h2 className="mt-4 mb-1 underline">COLLECTION OF DATA (Personal and Sensitive Information)</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">COLLECTION OF DATA (Personal and Sensitive Information)</h2>
 
           <p className="my-2">By ordering/registering in QuantumGalaxy, you voluntarily disclose to us personal data which may include sensitive personal information (such as: Name, Address, Emails, Contact Information, and alike). Such data attained will only be processed upon your express consent freely given and will only be used within a primary purpose of collection and other matters/concerns within the context allowed by the DPA and its IRR. Some of the uses, among others, are as follows:</p>
           <ul className="my-2">
@@ -46,11 +53,11 @@ export default function PrivacyPolicy() {
 
           <p className="my-2">QuantumGalaxy may share your personal data with third parties and our affiliates for the abovementioned purposes, specifically completing transactions with you, managing your account and our relationship with you and fulfilling any legal or regulatory requirements and requests as deemed necessary. In doing so, we commit to ensure that these parties keep your personal data secure from unauthorized access, collection, use, disclosure or other similar risks and retain your personal data only for as long as they need your data to fulfill abovementioned purposes.</p>
 
-          <h2 className="mt-4 mb-1 underline">WITHDRAWAL OF CONSENT</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">WITHDRAWAL OF CONSENT</h2>
 
           <p className="my-2">The Data Subject also has the right to withdraw consent. Such may be made by a request (written or electronic) addressed to us or sent through our email provided below. However, QuantumGalaxy reserves the right to inform and discontinue providing its services or performing any other transactions in certain instances depending on the extent of the consent withdrawal.</p>
 
-          <h2 className="mt-4 mb-1 underline">COMMITMENT TO LAWFUL PROCESSES</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">COMMITMENT TO LAWFUL PROCESSES</h2>
 
           <p className="my-2">As part of our community, you hereby agree and authorize QuantumGalaxy to disclose personal information in any legal and regulatory enforcement and/or public authority within the framework of and in compliance with the DPA and its IRR. Such instances may be for:</p>
           <ul className="my-2">
@@ -62,15 +69,15 @@ export default function PrivacyPolicy() {
 
           <p className="my-2">WITH THIS CONCERNS, YOU HEREBY WAIVE ANY RIGHT OF ACTION REGARDING THE DISCLOSURE OF YOUR PERSONAL AND SENSITIVE INFORMATION ACCORDING TO THE PURPOSE AND INSTANCES ABOVEMENTIONED.</p>
 
-          <h2 className="mt-4 mb-1 underline">COOKIES</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">COOKIES</h2>
 
           <p className="my-2">QuantumGalaxy may use cookies and other online technologies in the storage of data aimed to provide a better experience in using our website and other platforms.</p>
 
-          <h2 className="mt-4 mb-1 underline">SPAMS, VIRUSES, SPYWARES, AND OTHER SECURITY THREATS</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">SPAMS, VIRUSES, SPYWARES, AND OTHER SECURITY THREATS</h2>
 
           <p className="my-2">QuantumGalaxy does not tolerate Spams, Viruses and Spywares. Likewise, we request from you to not use any email or accounts which may contain the same. For any suspicion on your messages and emails, please do contact us in the information as provided in the “Complaints Section” below.</p>
 
-          <h2 className="mt-4 mb-1 underline">PERSONAL INFORMATION SECURITY</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">PERSONAL INFORMATION SECURITY</h2>
 
           <p className="my-2">QuantumGalaxy ensures that all information collected will be safely and securely stored. We protect your personal information by:</p>
           <ul className="my-2">
@@ -83,7 +90,7 @@ export default function PrivacyPolicy() {
 
           <p className="my-2">Your password is the key to your account. Please use unique numbers, letters and special characters, and do not share your QuantumGalaxy password to anyone. If you do share your password with others, you will be responsible for all actions taken in the name of your account and the consequences. If you lose control of your password, you may lose substantial control over your personal information and other information submitted to QuantumGalaxy. You could also be subject to legally binding actions taken on your behalf. Therefore, if your password has been compromised for any reason or if you have grounds to believe that your password has been compromised, you should immediately contact us and change your password. You are reminded to log off of your account and close the browser when finished using a shared computer.</p>
 
-          <h2 className="mt-4 mb-1 underline">INQUIRIES AND COMPLAINTS</h2>
+          <h2 className="heading text-xl text-dark-quantum mt-4 mb-1 text-left">INQUIRIES AND COMPLAINTS</h2>
 
           <p className="my-2"><span className="font-semibold">General:</span> Every data subject has the right to reasonable access to his or her personal data being processed by the personal information controller or personal information processor.</p>
 
