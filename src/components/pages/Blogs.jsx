@@ -6,6 +6,7 @@ import PageTransition from "../PageTransition";
 import { motion } from "framer-motion";
 import { Breadcrumb } from "flowbite-react";
 import blogsBanner from "../../assets/blogs_1.svg";
+import dayjs from "dayjs";
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
@@ -71,18 +72,18 @@ export default function Blogs() {
               </Link>
               <div className="w-full md:w-3/5 shadow">
                 <Link to={`${blogs[blogs.length-1].id}`}>
-                  <p className="truncate mx-3 mt-2 heading text-lg font-medium">
+                  <p className="mx-3 mt-2 heading text-lg font-medium">
                     {blogs[blogs.length-1].title}
                   </p>
                 </Link>
-                <p className="truncate mx-3 text-sm italic">
-                  on {blogs[blogs.length-1].date_published} by {blogs[blogs.length-1].author}
+                <p className="mx-3 text-sm italic">
+                  on {dayjs(blogs[blogs.length - 1].date_published).format("YYYY-MM-DD")} by {blogs[blogs.length-1].author}
                 </p>
-                <p className="truncate mx-3 text-xs">{blogs[blogs.length-1].category}</p>
+                <p className="mx-3 text-xs">{blogs[blogs.length-1].category}</p>
                 <p className="mx-3 my-2 text-base sentence-truncate">
                   {blogs[blogs.length-1].summary}
                 </p>
-                <p className="truncate mx-3 my-2 text-xs italic">
+                <p className="mx-3 my-2 text-xs italic">
                   <span className="text-quantum">
                     #{blogs[blogs.length-1].tags.map((tag) => tag.replace(/ /g, "_")).join(" #")}
                   </span>
@@ -120,7 +121,7 @@ export default function Blogs() {
                     <p className="truncate mx-3 mt-2 heading text-lg font-medium">{item.title}</p>
                   </Link>
                   <p className="truncate mx-3 text-sm italic">
-                    on {item.date_published} by {item.author}
+                    on {dayjs(item.date_published).format("YYYY-MM-DD")} by {item.author}
                   </p>
                   <p className="truncate mx-3 text-xs">{item.category}</p>
                   <p className="mx-3 my-2 text-base sentence-truncate">{item.summary}</p>
