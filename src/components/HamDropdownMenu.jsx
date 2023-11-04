@@ -107,7 +107,7 @@ const HamDropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
               >
                 <li className="p-2">
                   <Link
-                    to="/contactus"
+                    to="/contact"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     Contact Us

@@ -11,7 +11,7 @@ export default function Footer() {
     { name: "About QuantumGalaxy", href: "/about" },
     { name: "Terms of Service", href: "/terms-of-service" },
     { name: "Privacy Policy", href: "/privacy-policy" },
-    { name: "Contact Us", href: "/contactus" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   const footerResourcesList = [
