@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
         {/* BANNER */}
         <div className="w-full relative">
           <img src={privacyPolicyBanner} className="w-full object-cover" />
-          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl text-white text-center">PRIVACY POLICY</h1>
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center">PRIVACY POLICY</h1>
         </div>
 
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8 text-justify">
