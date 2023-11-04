@@ -7,10 +7,10 @@ import newsIcon from "../../assets/newsicon.svg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "flowbite-react";
+import newsBanner from "../../assets/news_1.svg";
 
 export default function News() {
-  const [data, setData] = useState([]);
-  const [data1, setData1] = useState([]);
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -19,68 +19,85 @@ export default function News() {
         "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/news"
       )
       .then((res) => {
-        const limitedData = res.data.articles.slice(0, 1);
-        setData(limitedData);
+        setNews(res.data);
       })
       .catch((err) => console.error(err));
-
-    axios
-      .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/news"
-      )
-      .then((res) => {
-        const limitedData = res.data.articles.slice(0, 10);
-        setData1(limitedData);
-      })
-      .catch((err) => console.error(err));
-
     return controller.abort();
   }, []);
 
   return (
     <>
       <PageTransition>
+
+        {/* BREADCRUMB */}
         <div className="container mx-auto px-4">
-            {/* BREADCRUMB */}
-            <div className="my-6">
-              <Breadcrumb className="truncate">
-                <Breadcrumb.Item>
-                    <Link to="/home" className="text-gray-700">Home</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  News
-                </Breadcrumb.Item>
-              </Breadcrumb>
+          <div className="my-6">
+            <Breadcrumb className="truncate">
+              <Breadcrumb.Item>
+                  <Link to="/home" className="text-gray-700">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                News
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </div>
-        </div>
-        <div className="banner">
-          <img
-            src={news}
-            alt="image"
-            className="lg:w-screen lg:h-[400px] lg:object-cover"
-          />
-        </div>
-        <div className="text-zinc-700 text-[22px] font-bold text-center mt-8 md:text-[30px]">
-          Quantum Galaxy Tech News
-        </div>
-        <div className=" text-center text-zinc-700 text-[18px] font-medium mt-5 mx-5 md:text-[24px] lg:mx-[150px]">
-          Welcome to the Quantum Galaxy Tech News page, your portal to the
-          latest and most exciting developments in the world of technology. From
-          groundbreaking innovations to cosmic discoveries, we've got you
-          covered. Explore the quantum leaps in tech with us.
         </div>
 
-        {/* Hot Topics */}
-        <div className=" mx-5 lg:mx-24 mt-10 md:mt-14 lg:mt-[90px]">
-          <div className=" h-[0px]  shadow border border-zinc-500"></div>
-          <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
-            <div className="w-[155px] h-[13px] text-center text-black text-[20px] font-bold my-[-6px]  ms-[-80px] md:text-[24px] md:ms-[-50px] lg:text-[28px] lg:w-[200px] lg:mt-[-3px] lg:ms-[-43px]">
-              Hot Topics
+        {/* BANNER */}
+        <div className="w-full relative">
+          <img src={newsBanner} className="w-full object-cover" />
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl text-white text-center">NEWS</h1>
+        </div>
+
+        {/* HOT TOPIC */}
+        <div className="container mx-auto px-4 mt-8 flex items-center">
+          <div className="border border-quantum grow h-px"></div>
+          <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Hot Topic</h2>
+          <div className="border border-quantum grow-[8] h-px"></div>
+        </div>
+
+        <motion.div
+          className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-2 flex gap-x-4 justify-around"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            ease: "easeInOut",
+            duration: 1,
+          }}
+        >
+          {news.length > 0 && (
+            <div className="flex flex-wrap w-full my-4">
+              <Link to={`${news[news.length-1].url}`} target="_blank" className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow">
+                <img src={news[news.length-1].urlToImage} className="h-full object-cover w-full" />
+              </Link>
+              <div className="w-full md:w-3/5 shadow">
+                <Link to={`${news[news.length-1].url}`} target="_blank">
+                  <p className="mx-3 mt-2 heading text-lg font-medium">
+                    {news[news.length-1].title}
+                  </p>
+                </Link>
+                <p className="mx-3 text-sm italic">
+                  on {dayjs(news[news.length - 1].publishedAt).format("YYYY-MM-DD")} by {news[news.length-1].author}
+                </p>
+                <p className="mx-3 text-xs">&nbsp;</p>
+                <p className="mx-3 my-2 text-base paragraph-truncate">
+                  {news[news.length-1].content}
+                </p>
+              </div>
             </div>
-          </div>
+          )}
+        </motion.div>
+
+        {/* LATEST NEWS */}
+        <div className="container mx-auto px-4 mt-8 flex items-center">
+          <div className="border border-quantum grow h-px"></div>
+          <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Latest News</h2>
+          <div className="border border-quantum grow-[8] h-px"></div>
+        </div>
 
           <motion.div
-            className="mb-[70px] mt-[20px] md:mt-[40px] lg:mt-[30px] lg:mx-[300px] lg:flex lg:justify-center md:flex md:justify-center lg:mb-[120px]"
+            className="container mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -88,86 +105,27 @@ export default function News() {
               ease: "easeInOut",
               duration: 1,
             }}
-          >
-            <div className="text-center text-black text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
-              {data.map((item, i) => (
-                <div key={i}>
-                  <div className=" lg:flex lg:gap-5">
-                    <div className="lg:w-[1330px] lg:h-[400px]">
-                      <a href={item.url} target="_blank">
-                        <img
-                          src={item.urlToImage}
-                          alt="No Image"
-                          className=" object-cover"
-                        />
-                      </a>
-                    </div>
-                    <div className="text-left flex flex-col justify-center">
-                      <span className="flex text-[17px] lg:pb-[20px] lg:pt-3">
-                        <img src={newsIcon} alt="img" />{" "}
-                        {dayjs(item.publishedAt).format("MMM DD, YYYY")}
-                      </span>
-                      <h2 className="lg:pb-5 lg:text-[25px]">{item.title}</h2>
-                      <p className=" lg:text-[20px] lg:pb-[15px]">
-                        {item.description}
-                      </p>
-                      <div className="border border-gray-400 h-[1px] mt-3 mb-5"></div>
-                      <div className="flex justify-between items-center lg:justify-between lg:mx-5">
-                        <p className="lg:text-[18px]">{item.author}</p>
-                        <a href={item.url} target="_blank">
-                          <button className=" bg-slate-600 rounded-lg px-6 py-3 text-white lg:px-5 lg:py-2 lg:text-[23px]">
-                            Read More
-                          </button>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+        >
+          <div className="mx-auto sm:px-4 md:px-8 lg:px-12 my-2 flex flex-row flex-wrap">
+            {news.slice(0, news.length - 1).reverse().map((item, i) => (
+              <div key={i} className="flex flex-wrap w-full xl:w-1/2 my-4 px-4">
+                <Link to={`${item.url}`} target="_blank" className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow ">
+                  <img src={item.urlToImage} className="h-full object-cover w-full" />
+                </Link>
+                <div className="w-full md:w-3/5 shadow ">
+                  <Link to={`${item.url}`} target="_blank">
+                    <p className="truncate mx-3 mt-2 heading text-lg font-medium">{item.title}</p>
+                  </Link>
+                  <p className="truncate mx-3 text-sm italic">
+                    on {dayjs(item.publishedAt).format("YYYY-MM-DD")} by {item.author}
+                  </p>
+                  <p className="truncate mx-3 text-xs">&nbsp;</p>
+                  <p className="mx-3 my-2 text-base paragraph-truncate">{item.content}</p>
                 </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Latest News */}
-          <div className=" h-[0px]  shadow border border-zinc-500"></div>
-          <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
-            <div className="w-[155px] h-[13px] text-center text-black text-[20px] font-bold my-[-6px]  ms-[-80px] md:text-[24px] md:ms-[-50px] lg:text-[28px] lg:w-[200px] lg:mt-[-3px] lg:ms-[-43px]">
-              Latest News
-            </div>
-          </div>
-
-          <motion.div
-            className="mt-[30px] grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              ease: "easeInOut",
-              duration: 1,
-            }}
-          >
-            {data1.map((item, i) => (
-              <div key={i} className=" shadow-lg rounded-lg">
-                <a href={item.url} target="_blank">
-                  <img
-                    src={item.urlToImage}
-                    alt="No Image"
-                    className=" object-cover h-[100px] lg:w-[340px] lg:h-[200px]"
-                  />
-
-                  <div className="h-[100px]">
-                    <h6 className="text-[13px] pt-[10px] lg:text-[18px]">
-                      {item.title}
-                    </h6>
-                  </div>
-                </a>
-                <span className="flex text-[13px] mt-3 py-5">
-                  <img src={newsIcon} alt="img" className="h-[17px] w-[17px]" />{" "}
-                  {dayjs(item.publishedAt).format("MMM DD, YYYY")}
-                </span>
               </div>
             ))}
+            </div>
           </motion.div>
-        </div>
       </PageTransition>
     </>
   );

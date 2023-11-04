@@ -86,6 +86,14 @@
         text-overflow: ellipsis;
     }
 
+    .paragraph-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     input[type="range"]::-moz-range-progress {
         background-color: #00b0ea;
     }

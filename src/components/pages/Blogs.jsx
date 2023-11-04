@@ -67,8 +67,8 @@ export default function Blogs() {
         >
           {blogs.length > 0 && (
             <div className="flex flex-wrap w-full my-4">
-              <Link to={`${blogs[blogs.length-1].id}`} className="w-full md:w-2/5 lg:h-full shadow">
-                <img src={blogs[blogs.length-1].image} className="h-full object-cover" />
+              <Link to={`${blogs[blogs.length-1].id}`} className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow">
+                <img src={blogs[blogs.length-1].image} className="h-full object-cover w-full" />
               </Link>
               <div className="w-full md:w-3/5 shadow">
                 <Link to={`${blogs[blogs.length-1].id}`}>
@@ -113,8 +113,8 @@ export default function Blogs() {
           <div className="mx-auto sm:px-4 md:px-8 lg:px-12 my-2 flex flex-row flex-wrap">
             {blogs.slice(0, blogs.length - 1).reverse().map((item, i) => (
               <div key={i} className="flex flex-wrap w-full xl:w-1/2 my-4 px-4">
-                <Link to={`${item.id}`} className="w-full md:w-2/5 lg:h-full shadow ">
-                  <img src={item.image} className="h-full object-cover" />
+                <Link to={`${item.id}`} className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow ">
+                  <img src={item.image} className="h-full object-cover w-full" />
                 </Link>
                 <div className="w-full md:w-3/5 shadow ">
                   <Link to={`${item.id}`}>
