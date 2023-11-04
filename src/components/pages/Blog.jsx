@@ -8,6 +8,7 @@ import rehypeRaw from "rehype-raw";
 import tagImage from "../../assets/tag.svg";
 import { Breadcrumb } from "flowbite-react";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 export default function Blog() {
   const { id } = useParams();
@@ -64,33 +65,33 @@ export default function Blog() {
           >
             <div className="flex flex-wrap justify-center">
               {
-                <div className="container px-4">
+                <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
                   <div className="flex flex-wrap md:flex-nowrap gap-x-10 mb-10">
                     <div className="w-full">
                       {blogs.image && (
                         <img className="mb-8" src={blogs.image} />
                       )}
                       {blogs.title && (
-                        <p className="heading text-xl font-semibold my-2">
+                        <h2 className="heading text-xl text-dark-quantum font-semibold my-2">
                           {blogs.title}
-                        </p>
+                        </h2>
                       )}
                       <p className="text-base my-1">
                         {" "}
                         by{" "}
                         {blogs.author && (
-                          <span className="font-semibold underline">
+                          <span className="font-semibold">
                             {blogs.author}
                           </span>
                         )}
                       </p>
                       {blogs.date_published && (
                         <span className="text-base my-1 italic">
-                          {blogs.date_published}
+                          {dayjs(blogs.date_published).format("YYYY-MM-DD")}
                         </span>
                       )}
                       {blogs.category && (
-                        <p className="text-sm my-1">{blogs.category}</p>
+                        <p className="text-sm my-1 text-quantum">{blogs.category}</p>
                       )}
                       <ReactMarkdown
                         className="text-justify my-4"
@@ -99,10 +100,10 @@ export default function Blog() {
                         {blogs.content}
                       </ReactMarkdown>
                       <p className="my-10 italic">
-                        For gadgets and electronics, get it at{" "}
+                        For gadgets and electronics, get it at&nbsp;<Link to="/home">
                         <span className="text-quantum hover:text-dark-quantum cursor-pointer">
                           QuantumGalaxy
-                        </span>
+                        </span></Link>
                         !
                       </p>
                       <div className="flex align-center opacity-70">
@@ -112,7 +113,7 @@ export default function Blog() {
                         <p className="text-sm">
                           Tags:{" "}
                           {blogs.tags && (
-                            <span className="my-1 text-dark-quantum mx-2 hover:text-quantum cursor-pointer">
+                            <span className="my-1 text-dark-quantum mx-2 hover:text-quantum">
                               #
                               {blogs.tags
                                 .map((tag) => tag.replace(/ /g, "_"))
