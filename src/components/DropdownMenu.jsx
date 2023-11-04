@@ -113,7 +113,7 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 </li>
                 <li className="p-2">
                   <Link
-                    to="/FAQs"
+                    to="/faq"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
                     FAQs

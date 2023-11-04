@@ -34,7 +34,7 @@ export default function AppRouter() {
               <Route path="/about" element={<AboutUs />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/blogs" element={<Blogs />} />
-              <Route path="/FAQs" element={<FAQs />} />
+              <Route path="/faq" element={<FAQs />} />
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
               <Route path="/cart" element={<Cart />} />
