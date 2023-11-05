@@ -62,7 +62,7 @@ const HamDropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                     to="/about"
                     className="hover:text-quantum hover:border-b hover:border-quantum"
                   >
-                    About
+                    About Us
                   </Link>
                 </li>
                 <li className="p-2 ">
