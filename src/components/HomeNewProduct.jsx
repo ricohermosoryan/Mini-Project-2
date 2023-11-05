@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import star from "../assets/star.svg";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Rating } from "flowbite-react";
+import cart from "../assets/cart.svg";
 
 export default function HomeNewProduct() {
   const [data, setData] = useState([]);
+
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -14,8 +19,7 @@ export default function HomeNewProduct() {
         "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
       )
       .then((res) => {
-        const limitedData = res.data.slice(0, 6);
-        setData(limitedData);
+        setData(res.data);
       })
       .catch((err) => console.error(err));
 
@@ -28,36 +32,168 @@ export default function HomeNewProduct() {
   });
   return (
     <>
-      <div className="space-x-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 md:ms-5 lg:ms-[90px] ms-1">
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-lg p-3 w-24 md:w-40 lg:w-52 mt-14"
+      <div className="w-full hidden lg:grid grid-cols-5 mx-4">
+        {data.slice(0, data.length/2).reverse().slice(0, 5).map((item, i) => (
+          <motion.div
+            key={i}
+            className="aspect-square mx-3 group transition relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1,
+            }}
+            onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
-            {/* Render your card content here */}
-            <Link to={`/products/${item.id}`}>
-              <img
-                src={item.image[0]}
-                className="hover:scale-110 transition-all duration-200 mb-4"
-              />
-            </Link>
-            <div className="border border-gray-400 h-[1px]"></div>
-            <p className=" truncate heading">{item.title}</p>
-            <p className=" text-quantum text-xs md:text-base lg:text-lg mt-2">
-              {item.brand}
-            </p>
-            <div className="md:flex lg:flex justify-between items-center md:gap-2">
-              <p className=" text-black text-xs text-left md:text-base lg:text-lg pb-3 pt-3">
-                {formatter.format(item.price)}
-              </p>
-              <p className="flex items-center bg-quantum rounded-lg p-1 text-white text-[13px] md:text-[15px] w-[50px]">
-                <img src={star} alt="image" className="w-[15px] h-[15px]" />
-                {item.rating.rate}
-              </p>
+            <div className="p-4">
+              <Link to={`${item.id}`}>
+                <div className="relative">
+                  <img src={item.image[0]} className="absolute inset-0 rounded-lg"
+                    style={{
+                      transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                      transition: 'transform 0.5s ease-in',
+                    }}/>
+                  <img
+                    className="rounded-lg shadow"
+                    src={hoveredItem === i ? item.image[1] : item.image[0]}
+                    alt={item.title}
+                    style={{
+                      transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                      opacity: hoveredItem === i ? 1 : 0.8,
+                      transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                    }}
+                  />
+                </div>
+              </Link>
             </div>
-          </div>
+            <div>
+              <Link to={`${item.id}`}>
+                <p className="truncate heading font-medium">{item.title}</p>
+              </Link>
+              <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
+              <div className="flex items-center justify-between py-2 transition-all duration-200">
+                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <div className="flex gap-x-4 my-2">
+                  <Rating className="my-auto">
+                    <Rating.Star className="text-quantum"/>
+                    {item.rating && <p className="text-sm ml-0.5 font-bold ">{item.rating.rate.toFixed(2)}</p>}
+                  </Rating>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         ))}
       </div>
+
+      <div className="w-full hidden md:grid lg:hidden grid-cols-3 mx-2">
+        {data.slice(0, data.length/2).reverse().slice(0, 3).map((item, i) => (
+          <motion.div
+            key={i}
+            className="aspect-square mx-3 group transition relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1,
+            }}
+            onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
+          >
+            <div className="p-4">
+              <Link to={`${item.id}`}>
+                <div className="relative">
+                  <img src={item.image[0]} className="absolute inset-0 rounded-lg"
+                    style={{
+                      transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                      transition: 'transform 0.5s ease-in',
+                    }}/>
+                  <img
+                    className="rounded-lg shadow"
+                    src={hoveredItem === i ? item.image[1] : item.image[0]}
+                    alt={item.title}
+                    style={{
+                      transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                      opacity: hoveredItem === i ? 1 : 0.8,
+                      transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                    }}
+                  />
+                </div>
+              </Link>
+            </div>
+            <div>
+              <Link to={`${item.id}`}>
+                <p className="truncate heading font-medium">{item.title}</p>
+              </Link>
+              <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
+              <div className="flex items-center justify-between py-2 transition-all duration-200">
+                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <div className="flex gap-x-4 my-2">
+                  <Rating className="my-auto">
+                    <Rating.Star className="text-quantum"/>
+                    {item.rating && <p className="text-sm ml-0.5 font-bold ">{item.rating.rate.toFixed(2)}</p>}
+                  </Rating>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="w-full grid md:hidden grid-cols-2 mx-1">
+        {data.slice(0, data.length/2).reverse().slice(0, 2).map((item, i) => (
+          <motion.div
+            key={i}
+            className="aspect-square mx-2 group transition relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              ease: "easeInOut",
+              duration: 1,
+            }}
+            onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
+          >
+            <div className="p-4">
+              <Link to={`${item.id}`}>
+                <div className="relative">
+                  <img src={item.image[0]} className="absolute inset-0 rounded-lg"
+                    style={{
+                      transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                      transition: 'transform 0.5s ease-in',
+                    }}/>
+                  <img
+                    className="rounded-lg shadow"
+                    src={hoveredItem === i ? item.image[1] : item.image[0]}
+                    alt={item.title}
+                    style={{
+                      transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                      opacity: hoveredItem === i ? 1 : 0.8,
+                      transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                    }}
+                  />
+                </div>
+              </Link>
+            </div>
+            <div>
+              <Link to={`${item.id}`}>
+                <p className="truncate heading font-medium">{item.title}</p>
+              </Link>
+              <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
+              <div className="flex items-center justify-between py-2 transition-all duration-200">
+                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <div className="flex gap-x-4 my-2">
+                  <Rating className="my-auto">
+                    <Rating.Star className="text-quantum"/>
+                    {item.rating && <p className="text-sm ml-0.5 font-bold ">{item.rating.rate.toFixed(2)}</p>}
+                  </Rating>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
     </>
   );
 }
