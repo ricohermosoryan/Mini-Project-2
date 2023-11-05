@@ -276,19 +276,6 @@ export default function Home() {
                 alt="image"
                 className="w-[200px] md:w-[290px] lg:w-[700px]"
               />
-
-              <Link to="/products">
-                <motion.button
-                  className="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <span className="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
-                    Register Now
-                  </span>
-                </motion.button>
-              </Link>
             </div>
           </div>
           <div className="mb-3 md:w-[40%] lg:w-[30%]">

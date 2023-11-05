@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import star from "../assets/star.svg";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Rating } from "flowbite-react";
-import cart from "../assets/cart.svg";
 
 export default function HomeNewProduct() {
   const [data, setData] = useState([]);
