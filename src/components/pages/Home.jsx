@@ -445,12 +445,12 @@ export default function Home() {
           <div className=" my-12 lg:my-24 lg:mx-32">
             <div className="relative bg-slate-800 rounded-lg md:flex">
               <div className="text md:w-[50%] md:ms-[60px] md:mt-[70px]">
-                <div className="text-center text-white text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
+                <div className="heading text-center text-white text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
                   QUANTUM <br />
                   ACCESSORIES
                 </div>
-                <div className="text-white text-[20px] text-center font-light pt-3 pb-5 md:text-[22px] lg:text-[28px] lg:pt-10">
-                  Various designs and brands
+                <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px] lg:pt-10">
+                  Explore limitless possibilities
                 </div>
                 <Link to="/products">
                   <motion.button
