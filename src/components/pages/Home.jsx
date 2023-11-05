@@ -12,6 +12,7 @@ import accessories from "../../assets/accessories.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
 import HomeNewProduct from "../HomeNewProduct";
+import HomeBestSellers from "../HomeBestSellers";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
@@ -323,6 +324,23 @@ export default function Home() {
           </div>
         </div>
 
+        {/* BEST SELLERS */}
+        <div className=" mx-5 lg:mx-24 my-12">
+          <div className="container mx-auto px-4 my-2">
+            <div className="flex items-baseline border-b-2 border-quantum">
+              <div className="border border-transparent grow h-px"></div>
+              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Best Sellers</h2>
+              <div className="border border-transparent grow-[8] h-px"></div>
+              <Link to="/products"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+              <div className="border border-transparent grow h-px"></div>
+            </div>    
+          </div>
+
+          <div className="container mx-auto px-4">
+            <HomeBestSellers />
+          </div>
+        </div>
+
         {/* Subbanner2 */}
         <div className="mb-[90px] md:flex mt-10 lg:mx-20 md:mx-5 lg:border-b lg:border-b-blue-200 lg:h-[425px]">
           <div className="Text mt-10 mx-[5px] md:w-[50%] lg:w-[70%] md:mt-1 ">
@@ -366,8 +384,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
-
 
         {/* TOP BRANDS */}
 
