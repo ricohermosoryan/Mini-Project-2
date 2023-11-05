@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import message from "../../assets/sendmessage.svg";
-import { motion } from "framer-motion";
+'use client'
+
+import React, { useEffect, useState } from "react";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "flowbite-react";
 import contactBanner from "../../assets/contact.svg";
+import emailIcon from "../../assets/sms_1.svg";
+import callIcon from "../../assets/call-incoming.svg";
 
 export default function ContactUs() {
   useEffect(() => {
@@ -17,6 +19,29 @@ export default function ContactUs() {
       window.scrollTo(0, 48);
     }
   }, []);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    comment: "",
+  });
+
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if all required fields are completed
+    if (formData.name && formData.email && formData.comment) {
+      setMessage("Message sent.");
+    } else if (!formData.name) {
+      setMessage("Please enter your full name.");
+    } else if (!formData.email) {
+      setMessage("Please enter your email address.");
+    } else if (!formData.comment) {
+      setMessage("Please enter your message.");
+    }
+  };
 
   return (
     <>
@@ -44,128 +69,85 @@ export default function ContactUs() {
           </div>
         </div>
 
-        <div className="mt-[100px] md:mt-[180px] md:flex lg:mt-[370px] lg:mx-[300px]">
-          <div className="container lg:w-[40%]">
-            <div className=" text-zinc-700 text-[23px] font-bold flex mx-4 gap-2">
-              <img src={message} alt="image" className="w-[27px]" />
-              SEND US A MESSAGE
-            </div>
-            <div className=" h-[0px] border border-zinc-400 mx-3"></div>
-            <div className="input mt-5 ms-3">
-              <form>
-                <div className="border rounded-lg shadow-sm mx-3 ">
-                  <input
-                    type="text"
-                    id="input-group-1"
-                    className="bg-gray-50 border-gray-300 text-gray-900 text-sm  block w-full p-2.5 border-none outline-none focus:ring-0 focus:border-none"
-                    placeholder="Your Name"
-                  />
-                </div>
-
-                <div className=" border rounded-lg flex items-center shadow-sm mx-3 mt-3">
-                  <svg
-                    className="w-4 h-4 text-gray-500 dark:text-gray-400 ms-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 16"
-                  >
-                    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                  </svg>
-                  <input
-                    type="text"
-                    id="input-group-1"
-                    className="bg-gray-50 border-gray-300 text-gray-900 text-sm  block w-full p-2.5 border-none outline-none focus:ring-0 focus:border-none"
-                    placeholder="Email"
-                  />
-                </div>
-                <div className="border rounded-lg shadow-sm mx-3 mt-3">
-                  <textarea
-                    id="message"
-                    rows="4"
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border-none focus:ring-0 focus:border-none"
-                    placeholder="Leave a comment..."
-                  ></textarea>
-                </div>
-              </form>
-
-              <motion.button
-                type="submit"
-                className="grow text-white heading bg-quantum hover:bg-dark-quantum focus:outline-none font-medium rounded-lg text-base w-[120px] ms-[230px] px-5 py-2.5 text-center mt-5 mx-3 md:ms-[280px] lg:ms-[370px]"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                Submit
-              </motion.button>
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8 flex flex-wrap w-full">
+          <div className="lg:w-1/2 w-full text-justify lg:pr-8">
+            <h2 className="heading text-xl my-2 text-dark-quantum">Send us a message</h2>
+            <p>We're here to assist you every step of the way. Whether you have a question, need technical support, or simply want to share your feedback, our dedicated team is ready to listen and provide prompt assistance.</p>
+            <div className="flex w-full my-12">
+              <Link to="mailto:customercare@quantumgalaxy.ph" className="w-1/2 items-center flex flex-col text-center">
+                <img src={emailIcon} className="w-12 h-12 aspect-square my-2" />
+                <p className="heading font-medium">Email</p>
+                <p className="sm:hidden">customercare@<br />quantumgalaxy.ph</p>
+                <p className="hidden sm:block">customercare@quantumgalaxy.ph</p>
+              </Link>
+              <Link to="tel:+639123456789" className="w-1/2 items-center flex flex-col">
+                <img src={callIcon} className="w-12 h-12 aspect-square my-2" />
+                <p className="heading font-medium">Phone</p>
+                <p className="">+63 912 345-6789</p>
+              </Link>
             </div>
           </div>
 
-          <div className="quantumpage lg:w-[60%] lg:ms-[240px]">
-            <div className=" text-zinc-700 text-[23px] font-bold mt-4 mx-3 md:mt-0">
-              QUANTUM GALAXY
-            </div>
-            <div className="mx-3 mt-4">
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Office Address:{" "}
-                <span className="text-zinc-700 text-[18px] font-normal ">
-                  23 Road 2 Project 6 Quezon City
-                </span>
-              </span>
-            </div>
-            <div className="mx-3 mt-6">
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Email:{" "}
-                <span className="text-zinc-700 text-[18px] font-normal ">
-                  admin@quantumgalaxy.ph
-                </span>
-              </span>{" "}
-              <br />
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Phone Number:{" "}
-                <span className="text-zinc-700 text-[18px] font-normal ">
-                  (02) 8745 5923
-                </span>
-              </span>
-              <br />
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Mobile Number:{" "}
-                <span className="text-zinc-700 text-[18px] font-normal ">
-                  +63 914 534 5923
-                </span>
-              </span>
-            </div>
-            <div className="mx-3 mt-6">
+          {/* MESSAGE FORM */}
+          <div className="w-full lg:w-1/2 lg:pl-8 justify-center ">
+
+            <form className="flex max-w-lg flex-col gap-4 mx-auto" onSubmit={handleSubmit}>
               <div>
-                <span className="text-zinc-700 text-2xl font-semibold">
-                  You may also reach us through the following:
-                </span>
-                <span className="text-zinc-700 text-xl font-semibold "> </span>
+                {/* NAME INPUT */}
+                <div className="mb-2 block">
+                  <label className="text-sm font-medium text-gray-900 dark:text-white" htmlFor="name">Your full name</label>
+                </div>
+                <div className="flex">
+                  <div className="relative w-full">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-gray-500 dark:text-gray-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                    <input className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-transparent focus:ring-cyan-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-transparent dark:focus:ring-cyan-400 p-2.5 text-sm pl-10 rounded-lg" id="name" type="text" placeholder="QuantumGalaxy Customer" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required="" autoComplete="off" />
+                  </div>
+                </div>
               </div>
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Facebook:{" "}
-                <span className="text-zinc-700 text-[15px] font-normal ">
-                  https://www.facebook.com/QuantumGalaxyph
-                </span>
-              </span>
-              <br />
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Messenger: <br />
-                <span className="text-zinc-700 text-[15px] font-normal ">
-                  https://m.me/QuantumGalaxyph
-                </span>
-              </span>
-              <br />
-              <span className="text-zinc-700 text-[21px] font-semibold ">
-                Instagram:{" "}
-                <span className="text-zinc-700 text-[15px] font-normal ">
-                  https://www.instagram.com/QuantumGalaxyph
-                </span>
-              </span>
-            </div>
+              <div>
+                {/* EMAIL INPUT */}
+                <div className="mb-2 block">
+                  <label className="text-sm font-medium text-gray-900 dark:text-white" htmlFor="email">Your email</label>
+                </div>
+                <div className="flex">
+                  <div className="relative w-full">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" aria-hidden="true" className="h-5 w-5 text-gray-500 dark:text-gray-400" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    </div>
+                    <input className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-transparent focus:ring-cyan-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-transparent dark:focus:ring-cyan-400 p-2.5 text-sm pl-10 rounded-lg" id="email" type="email" placeholder="name@quantumgalaxy.ph" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required="" autoComplete="off" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                {/* COMMENT INPUT */}
+                <div className="mb-2 block">
+                  <label className="text-sm font-medium text-gray-900 dark:text-white" htmlFor="comment">Your message</label>
+                </div>
+                <textarea className="block w-full rounded-lg border disabled:cursor-not-allowed disabled:opacity-50 text-sm bg-gray-50 border-gray-300 text-gray-900 focus:border-transparent focus:ring-cyan-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-transparent dark:focus:ring-cyan-400" id="comment" placeholder="Leave a comment..." required="" rows="4" value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })}></textarea>
+              </div>
+              <div>
+                {/* FILE INPUT */}
+                <div className="mb-2 block">
+                  <label className="text-sm font-medium text-gray-900 dark:text-white" htmlFor="file">Upload file</label>
+                </div>
+                <div className="flex">
+                  <div className="relative w-full">
+                    <input className="rounded-lg overflow-hidden block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-transparent focus:ring-cyan-400 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-transparent dark:focus:ring-cyan-400 text-sm" id="file" type="file" />
+                  </div>
+                </div>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">You can upload a screenshot for better assistance.</p>
+              </div>
+              <button type="submit" className="group flex items-center justify-center p-0.5 text-center font-medium relative focus:z-10 focus:outline-none text-white bg-quantum border border-transparent enabled:hover:bg-dark-quantum focus:ring-cyan-300 dark:bg-cyan-600 dark:enabled:hover:bg-quantum dark:focus:ring-cyan-800 rounded-lg focus:ring-2">
+                <span className="flex items-center transition-all duration-200 rounded-md text-sm px-4 py-2">Submit</span>
+              </button>
+              {message && <p className="text-sm text-dark-quantum">{message}</p>}
+            </form>
           </div>
+
         </div>
+
       </PageTransition>
     </>
   );
