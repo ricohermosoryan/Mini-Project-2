@@ -165,7 +165,10 @@ export default function Reviews() {
         {/* BANNER */}
         <div className="w-full relative">
           <img src={reviewsBanner} className="w-full object-cover" />
-          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center">CUSTOMER REVIEWS</h1>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <h1 className="heading text-2xl lg:text-3xl xl:text-4xl text-white text-center whitespace-nowrap">CUSTOMER REVIEWS</h1>
+            <div className="h-1 w-12 lg:w-14 xl:w-16 bg-white mx-auto my-1"></div>
+          </div>
         </div>
 
 
