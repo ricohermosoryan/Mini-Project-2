@@ -20,21 +20,11 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 y: "-5%",
                 opacity: 1,
                 transition: { duration: 0.5, ease: "easeInOut" },
-                // transition: {
-                //   // when: "beforeChildren",
-                //   type: "spring",
-                //   bounce: 0.15,
-                // },
               },
               closed: {
                 y: "-5%",
                 opacity: 0,
                 transition: { duration: 0.1, ease: "easeInOut" },
-                // transition: {
-                //   // when: "afterChildren",
-                //   type: "spring",
-                //   bounce: 0.15,
-                // },
               },
             }}
             initial="closed"
