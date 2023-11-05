@@ -100,4 +100,32 @@
   input[type="range"]::-moz-range-thumb {
       background-color: #00b0ea;
   }
+
+  .marquee .images-left {
+    animation: scroll-left 60s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  .marquee .images-right {
+    animation: scroll-right 60s linear infinite;
+  }
+
+  @keyframes scroll-right {
+    from {
+      transform: translateX(-25%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
 }
