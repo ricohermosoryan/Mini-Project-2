@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PageTransition from "../PageTransition";
 import { Breadcrumb } from "flowbite-react";
 import { Link } from "react-router-dom";
 import termsOfServiceBanner from "../../assets/termsofservice.svg";
 
 export default function TermsOfService() {
+  useEffect(() => {
+    const scrollPosition = window.scrollY;
+
+    // Set the scroll position based on the condition
+    if (scrollPosition === 0) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, 48);
+    }
+  }, []);
   
   return (
     <>
@@ -26,7 +36,10 @@ export default function TermsOfService() {
         {/* BANNER */}
         <div className="w-full relative">
           <img src={termsOfServiceBanner} className="w-full object-cover" />
-          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 heading text-2xl lg:text-3xl xl:text-4xl text-white text-center">TERMS OF SERVICE</h1>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <h1 className="heading text-2xl lg:text-3xl xl:text-4xl text-white text-center whitespace-nowrap">TERMS OF SERVICE</h1>
+            <div className="h-1 w-12 lg:w-14 xl:w-16 bg-white mx-auto my-1"></div>
+          </div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8 text-justify">
