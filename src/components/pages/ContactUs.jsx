@@ -142,7 +142,11 @@ export default function ContactUs() {
               <button type="submit" className="group flex items-center justify-center p-0.5 text-center font-medium relative focus:z-10 focus:outline-none text-white bg-quantum border border-transparent enabled:hover:bg-dark-quantum focus:ring-cyan-300 dark:bg-cyan-600 dark:enabled:hover:bg-quantum dark:focus:ring-cyan-800 rounded-lg focus:ring-2">
                 <span className="flex items-center transition-all duration-200 rounded-md text-sm px-4 py-2">Submit</span>
               </button>
-              {message && <p className="text-sm text-dark-quantum">{message}</p>}
+              {message && (
+                <p className={`text-sm ${message === "Message sent." ? "text-dark-quantum" : "text-red-500"} mt-2`}>
+                  {message}
+                </p>
+              )}
             </form>
           </div>
 

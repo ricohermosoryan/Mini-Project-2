@@ -71,7 +71,7 @@ export default function Navbar() {
 
   const navbarList = [
     { name: "Home", href: "/home" },
-    { name: "Products", href: "/" },
+    { name: "Products", href: "/products" },
     { name: "Discover", href: "/" },
     { name: "Support", href: "/" },
   ];
@@ -166,7 +166,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState({
     Discover: false,
     Support: false,
-    Product: false,
   });
 
   const toggleDropdown = (itemName) => {
@@ -188,7 +187,6 @@ export default function Navbar() {
     setIsOpen({
       Discover: false,
       Support: false,
-      Product: false,
     });
   };
 
@@ -429,8 +427,7 @@ export default function Navbar() {
               >
                 {/* Code for the dropdown menu of Product, Discover and support link */}
                 {item.name === "Discover" ||
-                item.name === "Support" ||
-                item.name === "Products" ? (
+                item.name === "Support" ? (
                   <div>
                     <button
                       className="hover:text-quantum"
@@ -451,13 +448,6 @@ export default function Navbar() {
                         isOpen={isOpen["Discover"]}
                         toggleDropdown={() => toggleDropdown("Discover")}
                         dropdownType="discover"
-                      />
-                    )}
-                    {item.name === "Products" && (
-                      <DropdownMenu
-                        isOpen={isOpen["Products"]}
-                        toggleDropdown={() => toggleDropdown("Products")}
-                        dropdownType="products"
                       />
                     )}
                   </div>

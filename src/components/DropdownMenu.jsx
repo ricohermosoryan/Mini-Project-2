@@ -20,21 +20,11 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 y: "-5%",
                 opacity: 1,
                 transition: { duration: 0.5, ease: "easeInOut" },
-                // transition: {
-                //   // when: "beforeChildren",
-                //   type: "spring",
-                //   bounce: 0.15,
-                // },
               },
               closed: {
                 y: "-5%",
                 opacity: 0,
                 transition: { duration: 0.1, ease: "easeInOut" },
-                // transition: {
-                //   // when: "afterChildren",
-                //   type: "spring",
-                //   bounce: 0.15,
-                // },
               },
             }}
             initial="closed"
@@ -118,39 +108,6 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                   >
                     FAQs
                   </Link>
-                </li>
-              </motion.ul>
-            )}
-
-            {dropdownType === "products" && (
-              <motion.ul
-                variants={{
-                  open: {
-                    x: "0%",
-                    opacity: 1,
-                  },
-                  closed: {
-                    x: "-25%",
-                    opacity: 0,
-                  },
-                }}
-              >
-                <li className="p-2">
-                  <Link
-                    to="/products"
-                    className="hover:text-quantum hover:border-b hover:border-quantum"
-                  >
-                    All Product
-                  </Link>
-                </li>
-                <li className="p-2">
-                  <span className="line-through  ">Promos</span>
-                </li>
-                <li className="p-2">
-                  <span className="line-through  ">Sales</span>
-                </li>
-                <li className="p-2">
-                  <span className="line-through  ">Deals</span>
                 </li>
               </motion.ul>
             )}

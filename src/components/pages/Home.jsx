@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import phone1 from "../../assets/phone1.svg";
 import phone2 from "../../assets/phone2.svg";
 import phone3 from "../../assets/phone3.svg";
@@ -23,6 +23,37 @@ import { Link } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import dayjs from "dayjs";
+import { HiChevronRight } from "react-icons/hi";
+import amazonImage from "../../assets/brands/amazon.png"
+import ankerImage from "../../assets/brands/anker.png"
+import appleImage from "../../assets/brands/apple.png"
+import asusImage from "../../assets/brands/asus.png"
+import boseImage from "../../assets/brands/bose.png"
+import canonImage from "../../assets/brands/canon.png"
+import dellImage from "../../assets/brands/dell.png"
+import fitbitImage from "../../assets/brands/fitbit.png"
+import fujifilmImage from "../../assets/brands/fujifilm.png"
+import googleImage from "../../assets/brands/google.png"
+import hpImage from "../../assets/brands/hp.png"
+import htcImage from "../../assets/brands/htc.png"
+import jabraImage from "../../assets/brands/jabra.png"
+import jblImage from "../../assets/brands/jbl.png"
+import kingstonImage from "../../assets/brands/kingston.png"
+import lexarImage from "../../assets/brands/lexar.png"
+import lgImage from "../../assets/brands/lg.png"
+import logitechImage from "../../assets/brands/logitech.png"
+import msiImage from "../../assets/brands/msi.png"
+import nikonImage from "../../assets/brands/nikon.png"
+import oculusImage from "../../assets/brands/oculus.png"
+import philipsImage from "../../assets/brands/philips.png"
+import razerImage from "../../assets/brands/razer.png"
+import samsungImage from "../../assets/brands/samsung.png"
+import sandiskImage from "../../assets/brands/sandisk.png"
+import sonyImage from "../../assets/brands/sony.png"
+import steelseriesImage from "../../assets/brands/steelseries.png"
+import tplinkImage from "../../assets/brands/tplink.png"
+import ugreenImage from "../../assets/brands/ugreen.png"
+import westerndigitalImage from "../../assets/brands/westerndigital.png"
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -75,6 +106,15 @@ export default function Home() {
     style: "currency",
     currency: "PHP",
   });
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      ref.current.appendChild(ref.current.firstChild);
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -349,47 +389,63 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Top Product */}
-        <div className=" mx-5 lg:mx-24 mb-[130px]">
-          <div className=" h-[0px]  shadow border border-zinc-500"></div>
-          <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
-            <div className="w-[155px] h-[13px] text-center text-black text-[12px] font-medium font-['Poppins'] ms-[-80px] md:text-[19px] md:ms-[-50px] lg:text-[28px] lg:w-[200px] lg:mt-[-3px] lg:ms-[-43px]">
-              Top Products
+
+
+        {/* TOP BRANDS */}
+
+        <div className="container mx-auto px-4 mt-8">
+          <div className="flex items-baseline border-b-2 border-quantum">
+            <div className="border border-transparent grow h-px"></div>
+            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Top Brands</h2>
+            <div className="border border-transparent grow-[8] h-px"></div>
+            <p className="invisible text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p>
+            <div className="border border-transparent grow h-px"></div>
+          </div>    
+        </div>
+
+        <div className="container mx-auto px-8">
+          <div className="my-12 marquee overflow-hidden">
+            <div className="images-left h-6 lg:h-8 flex lg:gap-x-12 gap-x-6" ref={ref} >
+              <img src={amazonImage} className="h-full" />
+              <img src={ankerImage} className="h-full" />
+              <img src={appleImage} className="h-full" />
+              <img src={asusImage} className="h-full" />
+              <img src={boseImage} className="h-full" />
+              <img src={canonImage} className="h-full" />
+              <img src={dellImage} className="h-full" />
+              <img src={fitbitImage} className="h-full" />
+              <img src={fujifilmImage} className="h-full" />
+              <img src={googleImage} className="h-full" />
+              <img src={hpImage} className="h-full" />
+              <img src={htcImage} className="h-full" />
+              <img src={jabraImage} className="h-full" />
+              <img src={jblImage} className="h-full" />
+              <img src={kingstonImage} className="h-full" />
             </div>
           </div>
-          {/* brand image we can put link to search all depending on the brand */}
-          <div className="brands flex gap-2 mt-3 md:mt-5 md:gap-4 md:ms-3 lg:gap-[120px] justify-center lg:mt-[70px] lg:mb-[80px]">
-            <img
-              src={apple}
-              alt="image"
-              className="w-[30px] md:w-[60px] lg:w-[80px]"
-            />
-            <img
-              src={sony}
-              alt="sony"
-              className="w-[55px] md:w-[120px] lg:w-[160px]"
-            />
-            <img
-              src={samsung}
-              alt="samsung"
-              className="w-[55px] md:w-[120px] lg:w-[160px]"
-            />
-            <img
-              src={cannon}
-              alt="cannon"
-              className="w-[55px] md:w-[120px] lg:w-[160px]"
-            />
-            <img
-              src={huawei}
-              alt="huawei"
-              className="w-[40px] md:w-[80px] lg:w-[90px]"
-            />
-            <img
-              src={lenovo}
-              alt="lenovo"
-              className="w-[55px] md:w-[120px] lg:w-[140px]"
-            />
+
+          <div className="my-12 marquee overflow-hidden">
+            <div className="images-right h-6 lg:h-8 flex lg:gap-x-12 gap-x-6" ref={ref} >
+              <img src={lexarImage} className="h-full" />
+              <img src={lgImage} className="h-full" />
+              <img src={logitechImage} className="h-full" />
+              <img src={msiImage} className="h-full" />
+              <img src={nikonImage} className="h-full" />
+              <img src={oculusImage} className="h-full" />
+              <img src={philipsImage} className="h-full" />
+              <img src={razerImage} className="h-full" />
+              <img src={samsungImage} className="h-full" />
+              <img src={sandiskImage} className="h-full" />
+              <img src={sonyImage} className="h-full" />
+              <img src={steelseriesImage} className="h-full" />
+              <img src={tplinkImage} className="h-full" />
+              <img src={ugreenImage} className="h-full" />
+              <img src={westerndigitalImage} className="h-full"/>
+            </div>
           </div>
+        </div>
+
+        <div className=" mx-5 lg:mx-24 my-12">
 
           {/* Accesorries banner */}
           <div className=" mt-7 lg:mx-32">
@@ -434,48 +490,56 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Quantum Blogs */}
-        <div className=" mx-5 lg:mx-24">
-          <div className=" h-[0px]  shadow border border-zinc-500"></div>
-          <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
-            <div className="w-[155px] h-[13px] text-center text-black text-[12px] font-medium font-['Poppins'] ms-[-80px] md:text-[19px] md:ms-[-50px] lg:text-[28px] lg:w-[300px] lg:mt-[-3px] lg:ms-[-93px]">
-              Quantum Blogs
-            </div>
-          </div>
-          <div className="container mx-auto p-2 flex flex-row-reverse flex-wrap-reverse gap-x-4 justify-around mt-[10px] md:mt-[40px] lg:mt-[80px] ">
-            {blogs.map((item, i) => (
-              <Link
-                to={`/blogs/${item.id}`}
-                key={i}
-                className="flex flex-wrap w-full xl:w-[600px] 2xl:w-[750px] my-4 shadow"
-              >
-                <div className="w-full md:w-2/5 lg:h-full">
-                  <img src={item.image} className="h-full object-cover" />
-                </div>
-                <div className="w-full md:w-3/5">
-                  <p className="truncate mx-3 mt-2 heading text-lg font-medium">
-                    {item.title}{" "}
-                  </p>
+        {/* QUANTUM BLOGS */}
+          
+        <div className="container mx-auto px-4 my-2">
+          <div className="flex items-baseline border-b-2 border-quantum">
+            <div className="border border-transparent grow h-px"></div>
+            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Our Blogs</h2>
+            <div className="border border-transparent grow-[8] h-px"></div>
+            <Link to="/blogs"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+            <div className="border border-transparent grow h-px"></div>
+          </div>    
+        </div>
+
+        <motion.div
+          className="container mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            ease: "easeInOut",
+            duration: 1,
+          }}
+        >
+          
+          <div className="mx-auto sm:px-4 md:px-8 lg:px-12 my-4 flex flex-row flex-wrap">
+            
+            {blogs.slice(0, 4).reverse().map((item, i) => (
+              <div key={i} className="flex flex-wrap w-full xl:w-1/2 my-4 px-4">
+                <Link to={`${item.id}`} className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow ">
+                  <img src={item.image} className="h-full object-cover w-full" />
+                </Link>
+                <div className="w-full md:w-3/5 shadow ">
+                  <Link to={`${item.id}`}>
+                    <p className="truncate mx-3 mt-2 heading text-lg font-medium">{item.title}</p>
+                  </Link>
                   <p className="truncate mx-3 text-sm italic">
                     on {dayjs(item.date_published).format("YYYY-MM-DD")} by {item.author}
                   </p>
                   <p className="truncate mx-3 text-xs">{item.category}</p>
-                  <p className="mx-3 my-2 text-base sentence-truncate">
-                    {item.summary}
-                  </p>
+                  <p className="mx-3 my-2 text-base sentence-truncate">{item.summary}</p>
                   <p className="truncate mx-3 my-2 text-xs italic">
                     <span className="text-quantum">
-                      #
-                      {item.tags
-                        .map((tag) => tag.replace(/ /g, "_"))
-                        .join(" #")}
+                      #{item.tags.map((tag) => tag.replace(/ /g, "_")).join(" #")}
                     </span>
                   </p>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
+          
       </PageTransition>
     </>
   );

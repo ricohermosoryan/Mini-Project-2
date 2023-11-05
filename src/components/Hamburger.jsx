@@ -22,7 +22,7 @@ export default function Hamburger(props) {
 
   const navbarList = [
     { name: "Home", href: "/home" },
-    { name: "Products", href: "/" },
+    { name: "Products", href: "/products" },
     { name: "Discover", href: "/" },
     { name: "Support", href: "/" },
   ];
@@ -113,7 +113,6 @@ export default function Hamburger(props) {
   const [isOpen, setIsOpen] = useState({
     Discover: false,
     Support: false,
-    Product: false,
   });
 
   const toggleDropdown = (itemName) => {
@@ -135,7 +134,6 @@ export default function Hamburger(props) {
     setIsOpen({
       Discover: false,
       Support: false,
-      Product: false,
     });
   };
 
@@ -371,8 +369,7 @@ export default function Hamburger(props) {
                     >
                       {/* Code for the dropdown menu of Discover and support link */}
                       {item.name === "Discover" ||
-                      item.name === "Support" ||
-                      item.name === "Products" ? (
+                      item.name === "Support" ? (
                         <div>
                           <button
                             className="hover:text-quantum"
@@ -399,14 +396,6 @@ export default function Hamburger(props) {
                               toggleDropdown={() => toggleDropdown("Discover")}
                               animate={isOpen ? "open" : "closed"}
                               dropdownType="discover"
-                            />
-                          )}
-                          {item.name === "Products" && (
-                            <HamDropdownMenu
-                              isOpen={isOpen["Products"]}
-                              toggleDropdown={() => toggleDropdown("Products")}
-                              animate={isOpen ? "open" : "closed"}
-                              dropdownType="products"
                             />
                           )}
                         </div>

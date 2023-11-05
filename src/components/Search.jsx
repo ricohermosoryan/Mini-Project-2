@@ -21,7 +21,7 @@ export default function Search() {
   };
 
   // Only show first 3 results
-  const displayedResults = searchResults.slice(0, 3);
+  const displayedResults = window.innerWidth < 1024 ? searchResults.slice(0, 2) : searchResults.slice(0, 3);
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function Search() {
             }}
           >
             <motion.div
-              className="fixed top-[60px] inset-0 h-[50px] md:top-[100px] md:mx-[120px] lg:mx-[400px] "
+              className="fixed top-[60px] inset-0 h-[50px] md:top-[100px] max-w-4xl mx-auto"
               variants={{
                 open: {
                   y: "70%",
@@ -87,25 +87,25 @@ export default function Search() {
                 </button>
               </div>
 
-              <div className="border bg-white p-4 rounded-b-lg grid grid-cols-3 gap-1">
+              <div className="border bg-white p-4 rounded-b-lg grid grid-cols-2 lg:grid-cols-3 justify-center mx-auto">
                 {displayedResults.map((product) => (
-                  <div key={product.id} className="my-4">
+                  <div key={product.id} className="my-4 lg:px-6 px-4">
                     <div>
                       <Link to={`products/${product.id}`}>
                         <p className=" flex justify-center">
                           <img
                             src={product.image[0]}
                             alt="image"
-                            className="w-[150px] h-[150px]"
+                            className="w-40 aspect-square"
                           />
                         </p>
 
-                        <p className="heading hover:text-quantum">
+                        <p className="heading hover:text-quantum sentence-truncate">
                           {product.title}
                         </p>
                       </Link>
-                      <p>
-                        {product.brand} | {product.category}
+                      <p className="text-sm sentence-truncate">
+                        <span className="text-dark-quantum">{product.brand}</span> | {product.category}
                       </p>
                     </div>
                   </div>

@@ -142,7 +142,7 @@ export default function ProductFilter({
           <div className={`accordion-content mb-6 ${isAccordion2Open ? "hidden" : ""}`}>
             <div>
               <input
-                className="w-full bg-transparent appearance-none"
+                className="w-full bg-transparent"
                 type="range"
                 id="price"
                 value={filters.maxPrice}
