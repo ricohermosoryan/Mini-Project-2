@@ -4,101 +4,100 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-    * {
-        box-sizing: border-box;
-        /* border: 1px solid red; */
-    }
+  * {
+      box-sizing: border-box;
+      /* border: 1px solid red; */
+  }
 
-    html {
-        background-color: #f7f7f7;
-        font-family: "Nunito Sans", sans-serif, system-ui;
-        color: #191919;
-    }
+  html {
+      background-color: #f7f7f7;
+      font-family: "Nunito Sans", sans-serif, system-ui;
+      color: #191919;
+  }
 
-    h1, h2, h3, h4, h5, h6, .heading {
-        font-family: "Poppins", sans-serif, system-ui;
-        color: #191919;
-        font-weight: 600;
-    }
+  h1, h2, h3, h4, h5, h6, .heading {
+      font-family: "Poppins", sans-serif, system-ui;
+      color: #191919;
+      font-weight: 600;
+  }
 
-    .text-quantum {
-        color: #00b0ea;
-    }
+  .text-quantum {
+      color: #00b0ea;
+  }
 
-    .bg-quantum {
-        background-color: #00b0ea;
-    }
+  .bg-quantum {
+      background-color: #00b0ea;
+  }
 
-    .border-quantum {
-        border-color: #00b0ea;
-    }
+  .border-quantum {
+      border-color: #00b0ea;
+  }
 
-    .text-dark-quantum {
-        color: #0092c3;
-    }
+  .text-dark-quantum {
+      color: #0092c3;
+  }
 
-    .border-dark-quantum {
-        border-color: #0092c3;
-    }
+  .border-dark-quantum {
+      border-color: #0092c3;
+  }
 
-    .bg-main-body {
-        background-color: #f7f7f7;
-    }
+  .bg-main-body {
+      background-color: #f7f7f7;
+  }
 
-    .bg-dark-blue {
-        background-color: #111827;
-    }
+  .bg-dark-blue {
+      background-color: #111827;
+  }
 
-    .bg-dark-quantum {
-        background-color: #0092c3;
-    }
+  .bg-dark-quantum {
+      background-color: #0092c3;
+  }
 
-    .fill-quantum {
-        fill: #00b0ea;
-    }
+  .fill-quantum {
+      fill: #00b0ea;
+  }
 
-    body.active-modal {
-        overflow-y: hidden;
-    }
+  body.active-modal {
+      overflow-y: hidden;
+  }
 
-    .modal,
-    .overlay {
-        width: 100vw;
-        height: 200vh;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        position: fixed;
-    }
+  .modal,
+  .overlay {
+      width: 100vw;
+      height: 200vh;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: fixed;
+  }
 
-    .overlay {
-        background: rgba(49, 49, 49, 0.8);
-    }
+  .overlay {
+      background: rgba(49, 49, 49, 0.8);
+  }
 
-    .sentence-truncate {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .sentence-truncate {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
 
-    .paragraph-truncate {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .paragraph-truncate {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
 
-    input[type="range"]::-moz-range-progress {
-        background-color: #00b0ea;
-    }
+  input[type="range"]::-moz-range-progress {
+      background-color: #00b0ea;
+  }
 
-    input[type="range"]::-moz-range-thumb {
-        background-color: #00b0ea;
-    }
+  input[type="range"]::-moz-range-thumb {
+      background-color: #00b0ea;
+  }
 }
