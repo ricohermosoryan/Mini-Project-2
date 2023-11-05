@@ -3,8 +3,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Rating } from "flowbite-react";
+import { shuffle } from "lodash";
 
-export default function HomeNewProduct() {
+export default function HomeBestSellers() {
   const [data, setData] = useState([]);
 
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -13,16 +14,17 @@ export default function HomeNewProduct() {
     const controller = new AbortController();
 
     axios
-      .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
-      )
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => console.error(err));
+        .get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products")
+        .then((res) => {
+            const shuffledData = shuffle(res.data);
+            // Sort the data by rating.rate in descending order
+            const sortedData = shuffledData.sort((a, b) => b.rating.rate - a.rating.rate);
+            setData(sortedData);
+        })
+        .catch((err) => console.error(err));
 
     return () => controller.abort();
-  }, []);
+    }, []);
 
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -31,7 +33,7 @@ export default function HomeNewProduct() {
   return (
     <>
       <div className="w-full hidden lg:grid grid-cols-5 mx-4">
-        {data.slice(0, data.length/2).reverse().slice(0, 5).map((item, i) => (
+        {data.slice(0, data.length - 1).slice(0, 5).map((item, i) => (
           <motion.div
             key={i}
             className="aspect-square mx-3 group transition relative"
@@ -85,7 +87,7 @@ export default function HomeNewProduct() {
       </div>
 
       <div className="w-full hidden md:grid lg:hidden grid-cols-3 mx-2">
-        {data.slice(0, data.length/2).reverse().slice(0, 3).map((item, i) => (
+        {data.slice(0, data.length - 1).slice(0, 3).map((item, i) => (
           <motion.div
             key={i}
             className="aspect-square mx-3 group transition relative"
@@ -139,7 +141,7 @@ export default function HomeNewProduct() {
       </div>
 
       <div className="w-full grid md:hidden grid-cols-2 mx-1">
-        {data.slice(0, data.length/2).reverse().slice(0, 2).map((item, i) => (
+        {data.slice(0, data.length - 1).slice(0, 2).map((item, i) => (
           <motion.div
             key={i}
             className="aspect-square mx-2 group transition relative"

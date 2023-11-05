@@ -8,19 +8,13 @@ import ellipse from "../../assets/ellipse.svg";
 import ellipse1 from "../../assets/ellipse1.svg";
 import ellipse2 from "../../assets/ellipse2.svg";
 import playstation from "../../assets/playstation.svg";
-import apple from "../../assets/applelogo.svg";
-import cannon from "../../assets/cannon.svg";
-import huawei from "../../assets/huawei.svg";
-import lenovo from "../../assets/lenovo.svg";
-import samsung from "../../assets/samsung.svg";
-import sony from "../../assets/sony.svg";
 import accessories from "../../assets/accessories.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
 import HomeNewProduct from "../HomeNewProduct";
+import HomeBestSellers from "../HomeBestSellers";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
-import { BsEyeFill } from "react-icons/bs";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import dayjs from "dayjs";
 import { HiChevronRight } from "react-icons/hi";
@@ -120,21 +114,18 @@ export default function Home() {
     <>
       {/* Banner */}
       <PageTransition>
-        <div className="mx-5 mt-10">
-          <div className="bg-zinc-800 rounded-[25px] flex flex-col md:flex-row justify-around items-center">
-            <div className="text  md:text-left">
-              <div className="text-center text-quantum  font-semibold font-['Inter'] pt-5">
-                <span className="text-3xl md:text-4xl lg:text-5xl">
-                  Quantum Store
-                </span>
+        <div className="mt-10">
+          <div className="bg-zinc-800 flex flex-col md:flex-row justify-around items-center">
+            <div className="text md:text-left">
+              <div className="text-center text-quantum font-semibold heading pt-5">
                 <div className=" text-center mt-5">
-                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium font-['Inter']">
-                    “Join us where gadgets takes you{" "}
+                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium heading">
+                    “Unleash the Future,{" "}
                   </span>
-                  <span className="text-quantum text-[20px] md:text-[26px] lg:text-[32px] font-medium font-['Inter']">
-                    beyond limits
+                  <span className="text-quantum text-[20px] md:text-[26px] lg:text-[32px] font-medium heading whitespace-nowrap">
+                    Go Beyond Limits
                   </span>
-                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium font-['Inter']">
+                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium heading">
                     ”
                   </span>
                 </div>
@@ -142,12 +133,12 @@ export default function Home() {
               <div className="flex justify-center mt-10">
                 <Link to="/products">
                   <motion.button
-                    className="text-center text-neutral-100 text-lg md:text-xl font-medium font-['Inter'] leading-7 w-40 h-10 px-4 py-1 bg-gradient-to-br from-sky-500 via-blue-600 to-sky-500 rounded-lg"
+                    className="text-center text-neutral-100 text-lg md:text-xl font-medium heading leading-7 w-40 h-10 px-4 py-1 bg-gradient-to-br from-sky-500 via-blue-600 to-sky-500 rounded-lg"
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    Explore More
+                    Shop Now
                   </motion.button>
                 </Link>
               </div>
@@ -254,18 +245,19 @@ export default function Home() {
 
         {/* New Product */}
         <div className=" mx-5 lg:mx-24">
-          <div className=" h-[0px]  shadow border border-zinc-500"></div>
-          <div className="w-[139px] h-[32.66px] px-[92px] py-[7px]  bg-neutral-100 border border-zinc-500 mt-[-18px] ms-[77px] md:ms-[238px] md:w-[240px] md:h-[40px] md:mt-[-20px] lg:ms-[740px] lg:w-[300px] lg:h-[50px] lg:mt-[-26px]">
-            <div className="w-[155px] h-[13px] text-center text-black text-[12px] font-medium font-['Poppins'] ms-[-80px] md:text-[19px] md:ms-[-50px] lg:text-[28px] lg:w-[200px] lg:mt-[-3px] lg:ms-[-43px]">
-              New Products
-            </div>
+          <div className="container mx-auto px-4 my-2">
+            <div className="flex items-baseline border-b-2 border-quantum">
+              <div className="border border-transparent grow h-px"></div>
+              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">New Products</h2>
+              <div className="border border-transparent grow-[8] h-px"></div>
+              <Link to="/products"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+              <div className="border border-transparent grow h-px"></div>
+            </div>    
           </div>
-          <div className="">
+
+          <div className="container mx-auto px-4">
             <HomeNewProduct />
           </div>
-          <Link to="/products">
-            <button className=" mt-5 hover:underline ms-5">View All</button>
-          </Link>
         </div>
 
         {/* Subbanner 1 */}
@@ -285,19 +277,6 @@ export default function Home() {
                 alt="image"
                 className="w-[200px] md:w-[290px] lg:w-[700px]"
               />
-
-              <Link to="/products">
-                <motion.button
-                  className="w-[100px] h-[25px] md:h-[38px] md:w-[125px] bg-blue-600 rounded-lg my-[23px] lg:my-[160px] lg:ms-[96px] lg:w-[145px] lg:h-[44px]"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <span className="text-center text-neutral-100 text-[13px] md:text-[15px] font-normal lg:text-[20px]">
-                    Register Now
-                  </span>
-                </motion.button>
-              </Link>
             </div>
           </div>
           <div className="mb-3 md:w-[40%] lg:w-[30%]">
@@ -345,6 +324,23 @@ export default function Home() {
           </div>
         </div>
 
+        {/* BEST SELLERS */}
+        <div className=" mx-5 lg:mx-24 my-12">
+          <div className="container mx-auto px-4 my-2">
+            <div className="flex items-baseline border-b-2 border-quantum">
+              <div className="border border-transparent grow h-px"></div>
+              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Best Sellers</h2>
+              <div className="border border-transparent grow-[8] h-px"></div>
+              <Link to="/products"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+              <div className="border border-transparent grow h-px"></div>
+            </div>    
+          </div>
+
+          <div className="container mx-auto px-4">
+            <HomeBestSellers />
+          </div>
+        </div>
+
         {/* Subbanner2 */}
         <div className="mb-[90px] md:flex mt-10 lg:mx-20 md:mx-5 lg:border-b lg:border-b-blue-200 lg:h-[425px]">
           <div className="Text mt-10 mx-[5px] md:w-[50%] lg:w-[70%] md:mt-1 ">
@@ -374,7 +370,7 @@ export default function Home() {
               className="mt-[-90px] ms-[150px] lg:mt-[-260px] lg:w-[300px] lg:ms-[190px]"
             />
 
-            <Link to="/products">
+            <Link to="/products/43">
               <motion.button
                 className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
                 whileHover={{ scale: 1.2 }}
@@ -388,8 +384,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
-
 
         {/* TOP BRANDS */}
 
@@ -448,7 +442,7 @@ export default function Home() {
         <div className=" mx-5 lg:mx-24 my-12">
 
           {/* Accesorries banner */}
-          <div className=" mt-7 lg:mx-32">
+          <div className=" my-12 lg:my-24 lg:mx-32">
             <div className="relative bg-slate-800 rounded-lg md:flex">
               <div className="text md:w-[50%] md:ms-[60px] md:mt-[70px]">
                 <div className="text-center text-white text-[22px] font-medium pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
