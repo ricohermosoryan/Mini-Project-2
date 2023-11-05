@@ -56,7 +56,7 @@ export default function SearchPage() {
   return (
     <>
       <PageTransition>
-        <div className="container mx-auto">
+        <div className="container mx-auto px-1">
           <div className="border rounded-t-lg flex my-4">
             <input
               type="text"
@@ -75,9 +75,9 @@ export default function SearchPage() {
               <img src={searchImage} alt="image" />
             </button>
           </div>
-          <div className="p-4 grid grid-cols-4 gap-4">
+          <div className="p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4">
             {searchResults.map((product) => (
-              <div key={product.id} className="my-4 shadow-lg rounded-lg">
+              <div key={product.id} className="my-2 lg:my-3 shadow-lg rounded-lg">
                 <div className=" aspect-square my-2">
                   <Link to={`../products/${product.id}`}>
                     <img
@@ -88,14 +88,14 @@ export default function SearchPage() {
                 </div>
                 <div className="my-2">
                   <Link to={`../products/${product.id}`}>
-                    <p className="heading hover:text-quantum mb-5">
+                    <p className="heading hover:text-quantum mb-2 px-2 lg:px-4 sentence-truncate">
                       {product.title}
                     </p>
                   </Link>
-                  <p>
-                    {product.brand} | {product.category.join(", ")}
+                  <p className="text-sm px-2 lg:px-4 truncate my-1">
+                    <span className="text-dark-quantum">{product.brand}</span> | {product.category.join(", ")}
                   </p>
-                  <p className="truncate">{product.description}</p>
+                  <p className="text-sm italic px-2 lg:px-4 sentence-truncate">{product.description}</p>
                 </div>
               </div>
             ))}
