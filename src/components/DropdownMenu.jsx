@@ -121,39 +121,6 @@ const DropdownMenu = ({ isOpen, toggleDropdown, dropdownType }) => {
                 </li>
               </motion.ul>
             )}
-
-            {dropdownType === "products" && (
-              <motion.ul
-                variants={{
-                  open: {
-                    x: "0%",
-                    opacity: 1,
-                  },
-                  closed: {
-                    x: "-25%",
-                    opacity: 0,
-                  },
-                }}
-              >
-                <li className="p-2">
-                  <Link
-                    to="/products"
-                    className="hover:text-quantum hover:border-b hover:border-quantum"
-                  >
-                    All Product
-                  </Link>
-                </li>
-                <li className="p-2">
-                  <span className="line-through  ">Promos</span>
-                </li>
-                <li className="p-2">
-                  <span className="line-through  ">Sales</span>
-                </li>
-                <li className="p-2">
-                  <span className="line-through  ">Deals</span>
-                </li>
-              </motion.ul>
-            )}
           </motion.div>
         </MotionConfig>
       )}
