@@ -368,8 +368,8 @@ export default function Navbar() {
           <div className="truncate uppercase">{messages[messageIndex]}</div>
           <div className="flex gap-x-4">
             <div className="flex items-center md:px-4 pr-4 border-r md:border-l border-l-0 border-t-0 border-b-0 border-gray-300">
-              <a
-                href={socialLinks[0].href}
+              <Link
+                to={socialLinks[0].href}
                 onClick={handleNewsletterClick}
                 className="flex gap-x-2 cursor-pointer scroll-smooth"
               >
@@ -379,18 +379,18 @@ export default function Navbar() {
                   alt={socialLinks[0].name}
                 ></img>
                 <div>Newsletter</div>
-              </a>
+              </Link>
             </div>
             <div className="flex gap-x-2 items-center">
               {socialLinksExceptNewsletter.map((item, i) => (
                 <nav key={i} className="w-4 h-4">
-                  <a href={item.href} target="_blank">
+                  <Link to={item.href} target="_blank">
                     <img
                       src={item.icon}
                       className="w-4 h-4 aspect-square cursor-pointer"
                       alt={item.name}
                     />
-                  </a>
+                  </Link>
                 </nav>
               ))}
             </div>
@@ -401,21 +401,21 @@ export default function Navbar() {
       {/* NAVBAR */}
       <div className="bg-white opacity-100  drop-shadow z-10 sticky top-0">
         <div className="container mx-auto py-5 flex  justify-between items-center md:gap-1">
-          <a href={companyLogo[0].href}>
+          <Link to={companyLogo[0].href}>
             <img
               src={icon}
               className="w-[60px] h-[60px] aspect-auto cursor-pointer block md:block lg:hidden"
               alt={companyLogo[0].name}
             ></img>
-          </a>
+          </Link>
           <div className="lg:mx-[-330px]">
-            <a href={companyLogo[0].href}>
+            <Link to={companyLogo[0].href}>
               <img
                 src={companyLogo[0].image}
                 className="w-60 h-20 aspect-auto cursor-pointer hidden md:hidden lg:block"
                 alt={companyLogo[0].name}
               ></img>
-            </a>
+            </Link>
           </div>
 
           <div className="flex gap-12 md:gap-4 lg:gap-12 lg:ms-[360px]">
@@ -556,7 +556,7 @@ export default function Navbar() {
             {/* TABS */}
             <div className="border-b border-gray-200 dark:border-gray-700">
               <ul
-                className="flex justify-evenly -mb-px heading text-md font-medium text-center text-quantum dark:text-quantum"
+                className="flex justify-evenly -mb-px heading text-md font-semibold text-center text-quantum dark:text-quantum"
                 id="profileTab"
               >
                 <li className="mr-2">
@@ -809,8 +809,8 @@ export default function Navbar() {
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-white relative -top-0.5"
                     >
                       I agree to the&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                        <a href={"/terms-of-service"}>Terms of Service</a></span>&nbsp;and&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                        <a href={"/privacy-policy"}>Privacy Policy</a>
+                        <Link to={"/terms-of-service"}>Terms of Service</Link></span>&nbsp;and&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                        <Link to={"/privacy-policy"}>Privacy Policy</Link>
                       </span>
                     </label>
                   </div>
