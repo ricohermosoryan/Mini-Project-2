@@ -42,9 +42,7 @@ export const socialLinks = [
 export const socialLinksExceptNewsletter = socialLinks.slice(1);
 
 export default function Navbar() {
-  const messages = [
-    "Ships anywhere in the Philippines",
-  ];
+  const messages = ["Ships anywhere in the Philippines"];
 
   const [messageIndex, setMessageIndex] = useState(0);
 
@@ -57,7 +55,6 @@ export default function Navbar() {
       clearInterval(interval);
     };
   }, []);
-
 
   const handleNewsletterClick = (event) => {
     event.preventDefault();
@@ -426,8 +423,7 @@ export default function Navbar() {
                 onMouseLeave={() => toggleDropdown(item.name)}
               >
                 {/* Code for the dropdown menu of Product, Discover and support link */}
-                {item.name === "Discover" ||
-                item.name === "Support" ? (
+                {item.name === "Discover" || item.name === "Support" ? (
                   <div>
                     <button
                       className="hover:text-quantum"
@@ -468,7 +464,13 @@ export default function Navbar() {
               <Search />
             </div>
             <div className=" relative">
-              <Cart />
+              <Link to="/cart">
+                <img
+                  src={navbarIcons[1].icon}
+                  alt={navbarIcons[1].name}
+                  className="w-10 aspect-square cursor-pointer "
+                />
+              </Link>
               <div className=" rounded-full bg-red-700 w-[20px] h-[20px] flex justify-center items-center absolute bottom-0 right-0 text-white">
                 {items.length}
               </div>
@@ -808,8 +810,12 @@ export default function Navbar() {
                       htmlFor="register-terms"
                       className="ml-2 text-sm font-medium text-gray-900 dark:text-white relative -top-0.5"
                     >
-                      I agree to the&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                        <Link to={"/terms-of-service"}>Terms of Service</Link></span>&nbsp;and&nbsp;<span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                      I agree to the&nbsp;
+                      <span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                        <Link to={"/terms-of-service"}>Terms of Service</Link>
+                      </span>
+                      &nbsp;and&nbsp;
+                      <span className="text-quantum hover:text-dark-quantum cursor-pointer">
                         <Link to={"/privacy-policy"}>Privacy Policy</Link>
                       </span>
                     </label>

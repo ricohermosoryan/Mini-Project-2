@@ -21,6 +21,12 @@ export function CartProvider({ children }) {
     updateCart(newCart);
   };
 
+  const removeAllFromCart = () => {
+    const newCart = [...items];
+    newCart.splice(0);
+    updateCart(newCart);
+  };
+
   const incrementQuantity = (index) => {
     const newCart = [...items];
     newCart[index].quantity++;
@@ -48,6 +54,7 @@ export function CartProvider({ children }) {
         items,
         addToCart,
         removeFromCart,
+        removeAllFromCart,
         incrementQuantity,
         decrementQuantity,
       }}

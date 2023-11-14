@@ -18,41 +18,43 @@ import { Link } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import dayjs from "dayjs";
 import { HiChevronRight } from "react-icons/hi";
-import amazonImage from "../../assets/brands/amazon.png"
-import ankerImage from "../../assets/brands/anker.png"
-import appleImage from "../../assets/brands/apple.png"
-import asusImage from "../../assets/brands/asus.png"
-import boseImage from "../../assets/brands/bose.png"
-import canonImage from "../../assets/brands/canon.png"
-import dellImage from "../../assets/brands/dell.png"
-import fitbitImage from "../../assets/brands/fitbit.png"
-import fujifilmImage from "../../assets/brands/fujifilm.png"
-import googleImage from "../../assets/brands/google.png"
-import hpImage from "../../assets/brands/hp.png"
-import htcImage from "../../assets/brands/htc.png"
-import jabraImage from "../../assets/brands/jabra.png"
-import jblImage from "../../assets/brands/jbl.png"
-import kingstonImage from "../../assets/brands/kingston.png"
-import lexarImage from "../../assets/brands/lexar.png"
-import lgImage from "../../assets/brands/lg.png"
-import logitechImage from "../../assets/brands/logitech.png"
-import msiImage from "../../assets/brands/msi.png"
-import nikonImage from "../../assets/brands/nikon.png"
-import oculusImage from "../../assets/brands/oculus.png"
-import philipsImage from "../../assets/brands/philips.png"
-import razerImage from "../../assets/brands/razer.png"
-import samsungImage from "../../assets/brands/samsung.png"
-import sandiskImage from "../../assets/brands/sandisk.png"
-import sonyImage from "../../assets/brands/sony.png"
-import steelseriesImage from "../../assets/brands/steelseries.png"
-import tplinkImage from "../../assets/brands/tplink.png"
-import ugreenImage from "../../assets/brands/ugreen.png"
-import westerndigitalImage from "../../assets/brands/westerndigital.png"
+import amazonImage from "../../assets/brands/amazon.png";
+import ankerImage from "../../assets/brands/anker.png";
+import appleImage from "../../assets/brands/apple.png";
+import asusImage from "../../assets/brands/asus.png";
+import boseImage from "../../assets/brands/bose.png";
+import canonImage from "../../assets/brands/canon.png";
+import dellImage from "../../assets/brands/dell.png";
+import fitbitImage from "../../assets/brands/fitbit.png";
+import fujifilmImage from "../../assets/brands/fujifilm.png";
+import googleImage from "../../assets/brands/google.png";
+import hpImage from "../../assets/brands/hp.png";
+import htcImage from "../../assets/brands/htc.png";
+import jabraImage from "../../assets/brands/jabra.png";
+import jblImage from "../../assets/brands/jbl.png";
+import kingstonImage from "../../assets/brands/kingston.png";
+import lexarImage from "../../assets/brands/lexar.png";
+import lgImage from "../../assets/brands/lg.png";
+import logitechImage from "../../assets/brands/logitech.png";
+import msiImage from "../../assets/brands/msi.png";
+import nikonImage from "../../assets/brands/nikon.png";
+import oculusImage from "../../assets/brands/oculus.png";
+import philipsImage from "../../assets/brands/philips.png";
+import razerImage from "../../assets/brands/razer.png";
+import samsungImage from "../../assets/brands/samsung.png";
+import sandiskImage from "../../assets/brands/sandisk.png";
+import sonyImage from "../../assets/brands/sony.png";
+import steelseriesImage from "../../assets/brands/steelseries.png";
+import tplinkImage from "../../assets/brands/tplink.png";
+import ugreenImage from "../../assets/brands/ugreen.png";
+import westerndigitalImage from "../../assets/brands/westerndigital.png";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const itemsPerPage = 5; // Number of items per page
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -184,33 +186,62 @@ export default function Home() {
 
             {/* Carousel Cards */}
             <div className="container">
-              <div className="space-x-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-2 ">
-                {paginatedData.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-white rounded-lg shadow-lg p-3  mt-14 relative "
+              <div className="space-x-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-2">
+                {paginatedData.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    className="aspect-square mx-3 group transition relative bg-white rounded-lg mt-6 p-2 w-[200px]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      ease: "easeInOut",
+                      duration: 1,
+                    }}
+                    onMouseEnter={() => setHoveredItem(i)}
+                    onMouseLeave={() => setHoveredItem(null)}
                   >
                     {/* Render your card content here */}
-                    <div className="group relative mb-5">
-                      <Link to={`/products/${item.id}`}>
-                        <img
-                          src={item.image[0]}
-                          className="group-hover:scale-110 transition duration-200 "
-                        />
+                    <div className="p-4">
+                      <Link to={`${item.id}`}>
+                        <div className="relative">
+                          <img
+                            src={item.image[0]}
+                            className="absolute inset-0 rounded-lg"
+                            style={{
+                              transform:
+                                hoveredItem === i ? "scale(1.1)" : "scale(1)",
+                              transition: "transform 0.5s ease-in",
+                            }}
+                          />
+                          <img
+                            src={
+                              hoveredItem === i ? item.image[1] : item.image[0]
+                            }
+                            alt={item.title}
+                            style={{
+                              transform:
+                                hoveredItem === i ? "scale(1.1)" : "scale(1)",
+                              opacity: hoveredItem === i ? 1 : 0.8,
+                              transition:
+                                "transform 0.5s ease-in, opacity 0.3s ease-in",
+                            }}
+                          />
+                        </div>
                       </Link>
                     </div>
                     <div className="mb-10">
                       <p className=" text-black heading text-[9px] md:text-[13px] lg:text-[14px] text-left truncate">
                         {item.title}
                       </p>
-                      <p className="text-quantum text-[9px] md:text-[13px] lg:text-[14px] text-left pt-2">
+                      <p className="text-dark-quantum text-[9px] md:text-[13px] lg:text-sm text-left pt-2">
                         {item.brand}
                       </p>
                     </div>
                     <p className=" text-black text-xs text-left md:text-base lg:text-lg absolute bottom-3 left-2">
                       {formatter.format(item.price)}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -248,11 +279,17 @@ export default function Home() {
           <div className="container mx-auto px-4 my-2">
             <div className="flex items-baseline border-b-2 border-quantum">
               <div className="border border-transparent grow h-px"></div>
-              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">New Products</h2>
+              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
+                New Products
+              </h2>
               <div className="border border-transparent grow-[8] h-px"></div>
-              <Link to="/products"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+              <Link to="/products">
+                <p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">
+                  View All <HiChevronRight />
+                </p>
+              </Link>
               <div className="border border-transparent grow h-px"></div>
-            </div>    
+            </div>
           </div>
 
           <div className="container mx-auto px-4">
@@ -329,11 +366,17 @@ export default function Home() {
           <div className="container mx-auto px-4 my-2">
             <div className="flex items-baseline border-b-2 border-quantum">
               <div className="border border-transparent grow h-px"></div>
-              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Best Sellers</h2>
+              <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
+                Best Sellers
+              </h2>
               <div className="border border-transparent grow-[8] h-px"></div>
-              <Link to="/products"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+              <Link to="/products">
+                <p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">
+                  View All <HiChevronRight />
+                </p>
+              </Link>
               <div className="border border-transparent grow h-px"></div>
-            </div>    
+            </div>
           </div>
 
           <div className="container mx-auto px-4">
@@ -390,16 +433,23 @@ export default function Home() {
         <div className="container mx-auto px-4 mt-8">
           <div className="flex items-baseline border-b-2 border-quantum">
             <div className="border border-transparent grow h-px"></div>
-            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Top Brands</h2>
+            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
+              Top Brands
+            </h2>
             <div className="border border-transparent grow-[8] h-px"></div>
-            <p className="invisible text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p>
+            <p className="invisible text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">
+              View All <HiChevronRight />
+            </p>
             <div className="border border-transparent grow h-px"></div>
-          </div>    
+          </div>
         </div>
 
         <div className="container mx-auto px-8">
           <div className="my-12 marquee overflow-hidden">
-            <div className="images-left h-6 lg:h-8 flex lg:gap-x-12 gap-x-6" ref={ref} >
+            <div
+              className="images-left h-6 lg:h-8 flex lg:gap-x-12 gap-x-6"
+              ref={ref}
+            >
               <img src={amazonImage} className="h-full" />
               <img src={ankerImage} className="h-full" />
               <img src={appleImage} className="h-full" />
@@ -419,7 +469,10 @@ export default function Home() {
           </div>
 
           <div className="my-12 marquee overflow-hidden">
-            <div className="images-right h-6 lg:h-8 flex lg:gap-x-12 gap-x-6" ref={ref} >
+            <div
+              className="images-right h-6 lg:h-8 flex lg:gap-x-12 gap-x-6"
+              ref={ref}
+            >
               <img src={lexarImage} className="h-full" />
               <img src={lgImage} className="h-full" />
               <img src={logitechImage} className="h-full" />
@@ -434,13 +487,12 @@ export default function Home() {
               <img src={steelseriesImage} className="h-full" />
               <img src={tplinkImage} className="h-full" />
               <img src={ugreenImage} className="h-full" />
-              <img src={westerndigitalImage} className="h-full"/>
+              <img src={westerndigitalImage} className="h-full" />
             </div>
           </div>
         </div>
 
         <div className=" mx-5 lg:mx-24 my-12">
-
           {/* Accesorries banner */}
           <div className=" my-12 lg:my-24 lg:mx-32">
             <div className="relative bg-slate-800 rounded-lg md:flex">
@@ -485,15 +537,21 @@ export default function Home() {
         </div>
 
         {/* QUANTUM BLOGS */}
-          
+
         <div className="container mx-auto px-4 my-2">
           <div className="flex items-baseline border-b-2 border-quantum">
             <div className="border border-transparent grow h-px"></div>
-            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">Our Blogs</h2>
+            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
+              Our Blogs
+            </h2>
             <div className="border border-transparent grow-[8] h-px"></div>
-            <Link to="/blogs"><p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">View All <HiChevronRight /></p></Link>
+            <Link to="/blogs">
+              <p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">
+                View All <HiChevronRight />
+              </p>
+            </Link>
             <div className="border border-transparent grow h-px"></div>
-          </div>    
+          </div>
         </div>
 
         <motion.div
@@ -506,34 +564,51 @@ export default function Home() {
             duration: 1,
           }}
         >
-          
           <div className="mx-auto sm:px-4 md:px-8 lg:px-12 my-4 flex flex-row flex-wrap">
-            
-            {blogs.slice(0, 4).reverse().map((item, i) => (
-              <div key={i} className="flex flex-wrap w-full xl:w-1/2 my-4 px-4">
-                <Link to={`${item.id}`} className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow ">
-                  <img src={item.image} className="h-full object-cover w-full" />
-                </Link>
-                <div className="w-full md:w-3/5 shadow ">
-                  <Link to={`${item.id}`}>
-                    <p className="truncate mx-3 mt-2 heading text-lg font-medium">{item.title}</p>
+            {blogs
+              .slice(0, 4)
+              .reverse()
+              .map((item, i) => (
+                <div
+                  key={i}
+                  className="flex flex-wrap w-full xl:w-1/2 my-4 px-4"
+                >
+                  <Link
+                    to={`${item.id}`}
+                    className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow "
+                  >
+                    <img
+                      src={item.image}
+                      className="h-full object-cover w-full"
+                    />
                   </Link>
-                  <p className="truncate mx-3 text-sm italic">
-                    on {dayjs(item.date_published).format("YYYY-MM-DD")} by {item.author}
-                  </p>
-                  <p className="truncate mx-3 text-xs">{item.category}</p>
-                  <p className="mx-3 my-2 text-base sentence-truncate">{item.summary}</p>
-                  <p className="truncate mx-3 my-2 text-xs italic">
-                    <span className="text-quantum">
-                      #{item.tags.map((tag) => tag.replace(/ /g, "_")).join(" #")}
-                    </span>
-                  </p>
+                  <div className="w-full md:w-3/5 shadow ">
+                    <Link to={`${item.id}`}>
+                      <p className="truncate mx-3 mt-2 heading text-lg font-medium">
+                        {item.title}
+                      </p>
+                    </Link>
+                    <p className="truncate mx-3 text-sm italic">
+                      on {dayjs(item.date_published).format("YYYY-MM-DD")} by{" "}
+                      {item.author}
+                    </p>
+                    <p className="truncate mx-3 text-xs">{item.category}</p>
+                    <p className="mx-3 my-2 text-base sentence-truncate">
+                      {item.summary}
+                    </p>
+                    <p className="truncate mx-3 my-2 text-xs italic">
+                      <span className="text-quantum">
+                        #
+                        {item.tags
+                          .map((tag) => tag.replace(/ /g, "_"))
+                          .join(" #")}
+                      </span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </motion.div>
-          
       </PageTransition>
     </>
   );
