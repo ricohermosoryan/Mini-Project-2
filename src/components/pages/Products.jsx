@@ -86,6 +86,11 @@ export default function Products() {
     setCurrentPage(page);
   };
 
+  useEffect(() => {
+    // Run applyFilters whenever filters change
+    applyFilters();
+  }, [filters]);
+
   const handleCategoryCheckbox = (category) => {
     setFilters((prevFilters) => {
       const updatedCategories = prevFilters.category.includes(category)
@@ -94,8 +99,6 @@ export default function Products() {
       return { ...prevFilters, category: updatedCategories };
     });
   };
-
-  const maxProductPrice = Math.max(...data.map((item) => item.price));
 
   const handleBrandCheckbox = (brand) => {
     setFilters((prevFilters) => {
@@ -116,8 +119,8 @@ export default function Products() {
           params: {
             ...filters,
             maxPrice: filters.maxPrice,
-            category: selectedCategories.join(","),
-            brand: selectedBrands.join(","),
+            category: selectedCategories.map(encodeURIComponent).join(","),
+            brand: selectedBrands.map(encodeURIComponent).join(","),
           },
         }
       )
@@ -144,7 +147,6 @@ export default function Products() {
       subcategory: "",
       minRating: "",
     });
-    applyFilters();
   };
 
   // For Page number pagination
@@ -226,7 +228,6 @@ export default function Products() {
               filters={filters}
               setFilters={setFilters}
               handleCategoryCheckbox={handleCategoryCheckbox}
-              maxProductPrice={maxProductPrice}
               handleBrandCheckbox={handleBrandCheckbox}
               applyFilters={applyFilters}
               clearAllFilters={clearAllFilters}
@@ -241,7 +242,6 @@ export default function Products() {
                 filters={filters}
                 setFilters={setFilters}
                 handleCategoryCheckbox={handleCategoryCheckbox}
-                maxProductPrice={maxProductPrice}
                 handleBrandCheckbox={handleBrandCheckbox}
                 applyFilters={applyFilters}
                 clearAllFilters={clearAllFilters}
@@ -267,7 +267,7 @@ export default function Products() {
                   onMouseLeave={() => setHoveredItem(null)}
                 >
                   <div className="p-4">
-                    <Link to={`${item.id}`}>
+                    <Link to={`${item._id}`}>
                       <div className="relative">
                         <img
                           src={item.image[0]}
@@ -283,7 +283,7 @@ export default function Products() {
                           src={
                             hoveredItem === i ? item.image[1] : item.image[0]
                           }
-                          alt={item.title}
+                          alt={item.name}
                           style={{
                             transform:
                               hoveredItem === i ? "scale(1.1)" : "scale(1)",
@@ -296,9 +296,9 @@ export default function Products() {
                     </Link>
                   </div>
                   <div>
-                    <Link to={`${item.id}`}>
+                    <Link to={`${item._id}`}>
                       <p className="truncate heading font-medium">
-                        {item.title}
+                        {item.name}
                       </p>
                     </Link>
                     <p className="text-sm text-dark-quantum mb-2">
@@ -326,7 +326,7 @@ export default function Products() {
                         className="flex gap-2 p-3 font-semibold"
                         onClick={() =>
                           addToCart({
-                            title: item.title,
+                            name: item.name,
                             price: item.price,
                             image: item.image[0],
                             quantity: 1,

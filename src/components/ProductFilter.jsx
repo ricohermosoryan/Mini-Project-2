@@ -4,16 +4,13 @@ export default function ProductFilter({
   filters,
   setFilters,
   handleCategoryCheckbox,
-  maxProductPrice,
   handleBrandCheckbox,
-  applyFilters,
   clearAllFilters,
   data
 }) {
 
   const [isAccordion1Open, setAccordion1Open] = React.useState(false);
   const [isAccordion2Open, setAccordion2Open] = React.useState(false);
-  const [isAccordion3Open, setAccordion3Open] = React.useState(false);
 
   const getUniqueBrands = (data) => {
     const brands = new Set();
@@ -134,43 +131,12 @@ export default function ProductFilter({
           </div>
         </div>
 
-        {/* PRICE FILTER */}
-        <div className="accordion-item">
-          <div className="accordion-trigger heading font-medium my-2 bg-quantum text-white p-1 cursor-pointer" onClick={() => setAccordion2Open(!isAccordion2Open)}>
-            Price
-          </div>
-          <div className={`accordion-content mb-6 ${isAccordion2Open ? "hidden" : ""}`}>
-            <div>
-              <input
-                className="w-full bg-transparent"
-                type="range"
-                id="price"
-                value={filters.maxPrice}
-                max={maxProductPrice}
-                onChange={(e) => setFilters({ ...filters, maxPrice: parseInt(e.target.value) })}
-              />
-              <div className="flex w-full items-center gap-x-2 overflow-hidden">
-                <label className="min-w-fit" htmlFor="maxPrice">Max: </label>
-                <div className="w-full flex items-center bg-white px-2">&#8369;&nbsp;
-                  <input
-                  className="w-full border-none focus:ring-0 bg-transparent"
-                  type="number"
-                  id="maxPrice"
-                  value={filters.maxPrice}
-                  onChange={(e) => setFilters({ ...filters, maxPrice: parseInt(e.target.value) })}
-                />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* BRAND FILTER */}
         <div className="accordion-item">
-          <div className="accordion-trigger heading font-medium my-2 bg-quantum text-white p-1 cursor-pointer" onClick={() => setAccordion3Open(!isAccordion3Open)}>
+          <div className="accordion-trigger heading font-medium my-2 bg-quantum text-white p-1 cursor-pointer" onClick={() => setAccordion2Open(!isAccordion2Open)}>
             Brands
           </div>
-          <div className={`accordion-content mb-6 max-h-60 overflow-y-scroll ${isAccordion3Open ? "hidden" : ""}`}>
+          <div className={`accordion-content mb-6 max-h-60 overflow-y-scroll ${isAccordion2Open ? "hidden" : ""}`}>
             <div className="flex flex-col">
               {getUniqueBrands(data).map((brand) => (
                 <label key={brand} className="flex items-center gap-2">
@@ -187,9 +153,6 @@ export default function ProductFilter({
           </div>
         </div>
 
-      </div>
-      <div className="flex justify-center">
-        <button className="heading font-medium my-2 text-dark-quantum hover:text-quantum p-2 rounded-lg" onClick={applyFilters}>Apply Filters</button>
       </div>
 
     </>

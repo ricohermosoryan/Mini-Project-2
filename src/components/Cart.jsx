@@ -53,7 +53,7 @@ export default function Cart() {
                       <div className="w-[400px]">
                         <div className="h-[120px] flex items-center">
                           <p className="mb-4 text-[19px] font-bold">
-                            {item.title}
+                            {item.name}
                           </p>
                         </div>
 
