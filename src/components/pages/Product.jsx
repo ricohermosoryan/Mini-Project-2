@@ -60,76 +60,83 @@ export default function Product() {
     const controller = new AbortController();
     axios
       .get(
-        `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/${id}`
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com//products/${id}`
       )
       .then((res) => {
-        setData(res.data);
-        setSelectedImage(res.data.image[0]);
+        setData(res.data.product);
+        setSelectedImage(res.data.product.image[0]);
         setLoading(false);
       })
       .catch((err) => console.error(err));
     return controller.abort();
   }, []);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      const response = await fetch(
-        `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews/products/${id}`
-      );
-      const data = await response.json();
-      setProductReviews(data);
+  // useEffect(() => {
+  //   const fetchReviews = async () => {
+  //     const response = await fetch(
+  //       `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews/products/${id}`
+  //     );
+  //     const data = await response.json();
+  //     setProductReviews(data);
 
-      const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-      data.forEach((review) => {
-        counts[review.rating]++;
-      });
+  //     const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  //     data.forEach((review) => {
+  //       counts[review.rating]++;
+  //     });
 
-      setStarCounts(counts);
-    };
+  //     setStarCounts(counts);
+  //   };
 
-    fetchReviews();
-  }, [id]);
+  //   fetchReviews();
+  // }, [id]);
 
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
-      );
-      const data = await response.json();
-      setUsers(data);
-    };
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     const response = await fetch(
+  //       "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
+  //     );
+  //     const data = await response.json();
+  //     setUsers(data);
+  //   };
 
-    fetchUsers();
-  }, []);
+  //   fetchUsers();
+  // }, []);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
 
   useEffect(() => {
-
     const fetchRelated = async () => {
-      const response = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
-      const products = await response.json();
+        try {
+            const response = await fetch('https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products');
+            const responseData = await response.json();
 
-      const related = products.filter(product => {
-        return product.id !== id && (
-          product.category.includes(data.category[0]) || 
-          product.subcategory.includes(data.subcategory[0])) &&
-          product.id !== data.id;
-      });
+            // Check if products is an array and not empty
+            const products = responseData.products || [];
+            const related = Array.isArray(products) && products.length > 0 ?
+                products.filter(product => {
+                    return product._id !== id && (
+                        product.category.includes(data.category[0]) ||
+                        product.subcategory.includes(data.subcategory[0])) &&
+                        product._id !== data._id;
+                }) :
+                [];
 
-      const shuffledRelated = shuffle(related);
+            const shuffledRelated = shuffle(related);
 
-      setRelatedProducts(shuffledRelated);
+            setRelatedProducts(shuffledRelated);
+        } catch (error) {
+            console.error('Error fetching or processing related products:', error);
+        }
     }
 
-    if(data.category && data.subcategory) {
-      fetchRelated();
+    if (data.category && data.subcategory) {
+        fetchRelated();
     }
 
-  }, [data.category, data.subcategory, id]);
+}, [data.category, data.subcategory, id]);
 
   return (
     <>
@@ -154,9 +161,9 @@ export default function Product() {
                   <Link to="/products" className="text-gray-700">Products</Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  {data.title && (
+                  {data.name && (
                       <p className="truncate">
-                        {data.title}
+                        {data.name}
                       </p>
                     )}
                 </Breadcrumb.Item>
@@ -187,9 +194,9 @@ export default function Product() {
                   </div>
                   <div className="w-full">
                     {/* PRODUCT NAME */}
-                    {data.title && (
+                    {data.name && (
                       <p className="heading text-xl font-semibold my-2">
-                        {data.title}
+                        {data.name}
                       </p>
                     )}
 
@@ -259,7 +266,7 @@ export default function Product() {
                         className="grow bg-transparent rounded-lg p-3.5 text-quantum border-2 border-quantum heading text-lg hover:text-dark-quantum hover:border-dark-quantum"
                         onClick={() =>
                           addToCart({
-                            title: data.title,
+                            name: data.name,
                             price: data.price,
                             image: selectedImage,
                             quantity: 1,
@@ -572,7 +579,7 @@ export default function Product() {
                           onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
                         >
                           <div className="p-4 min-w-full">
-                            <Link to={`/products/${product.id}`}>
+                            <Link to={`/products/${product._id}`}>
                               <div className="relative w-full">
                                 <img src={product.image[0]} className="absolute inset-0 rounded-lg w-full"
                                   style={{
@@ -582,7 +589,7 @@ export default function Product() {
                                 <img
                                   className="rounded-lg shadow w-full"
                                   src={hoveredItem === i ? product.image[1] : product.image[0]}
-                                  alt={product.title}
+                                  alt={product.name}
                                   style={{
                                     transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
                                     opacity: hoveredItem === i ? 1 : 0.8,
@@ -593,8 +600,8 @@ export default function Product() {
                             </Link>
                           </div>
                           <div className="min-w-full">
-                            <Link to={`/products/${product.id}`}>
-                              <p className="truncate heading font-medium">{product.title}</p>
+                            <Link to={`/products/${product._id}`}>
+                              <p className="truncate heading font-medium">{product.name}</p>
                             </Link>
                             <p className="text-sm text-dark-quantum mb-2">{product.brand}</p>
                             <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
@@ -613,7 +620,7 @@ export default function Product() {
                                 className="flex gap-2 p-3 font-semibold"
                                 onClick={() =>
                                   addToCart({
-                                    title: product.title,
+                                    name: product.name,
                                     price: product.price,
                                     image: product.image[0],
                                     quantity: 1,
