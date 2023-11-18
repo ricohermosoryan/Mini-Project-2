@@ -368,8 +368,8 @@ export default function Navbar() {
     if (isValid) {
       // submit form
       const data = {
-        firstname: registerFirstname,
-        lastname: registerLastname,
+        first_name: registerFirstname,
+        last_name: registerLastname,
         email: registerEmail,
         password: registerPassword,
         terms_accepted: registerTerms,
