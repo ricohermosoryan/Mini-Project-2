@@ -97,7 +97,7 @@ export default function News() {
                 </Link>
                 <p className="mx-3 text-sm italic">
                   on{" "}
-                  {dayjs(news[news.length - 1].publishedAt).format(
+                  {dayjs(news[news.length - 1].published_at).format(
                     "YYYY-MM-DD"
                   )}{" "}
                   by {news[news.length - 1].author}
@@ -156,7 +156,7 @@ export default function News() {
                       </p>
                     </Link>
                     <p className="truncate mx-3 text-sm italic">
-                      on {dayjs(item.publishedAt).format("YYYY-MM-DD")} by{" "}
+                      on {dayjs(item.published_at).format("YYYY-MM-DD")} by{" "}
                       {item.author}
                     </p>
                     <p className="truncate mx-3 text-xs">&nbsp;</p>
