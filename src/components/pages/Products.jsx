@@ -267,7 +267,7 @@ export default function Products() {
                   onMouseLeave={() => setHoveredItem(null)}
                 >
                   <div className="p-4">
-                    <Link to={`${item.id}`}>
+                    <Link to={`${item._id}`}>
                       <div className="relative">
                         <img
                           src={item.image[0]}
@@ -283,7 +283,7 @@ export default function Products() {
                           src={
                             hoveredItem === i ? item.image[1] : item.image[0]
                           }
-                          alt={item.title}
+                          alt={item.name}
                           style={{
                             transform:
                               hoveredItem === i ? "scale(1.1)" : "scale(1)",
@@ -296,9 +296,9 @@ export default function Products() {
                     </Link>
                   </div>
                   <div>
-                    <Link to={`${item.id}`}>
+                    <Link to={`${item._id}`}>
                       <p className="truncate heading font-medium">
-                        {item.title}
+                        {item.name}
                       </p>
                     </Link>
                     <p className="text-sm text-dark-quantum mb-2">
@@ -326,7 +326,7 @@ export default function Products() {
                         className="flex gap-2 p-3 font-semibold"
                         onClick={() =>
                           addToCart({
-                            title: item.title,
+                            name: item.name,
                             price: item.price,
                             image: item.image[0],
                             quantity: 1,
