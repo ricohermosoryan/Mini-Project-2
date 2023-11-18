@@ -10,75 +10,11 @@ import reviewsBanner from "../../assets/reviews_1.svg";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
-  let icons;
-  switch (rating) {
-    case 1:
-      icons = (
-        <>
-          <Rating>
-            <Rating.Star className="text-quantum" />
-            <Rating.Star filled={false} />
-            <Rating.Star filled={false} />
-            <Rating.Star filled={false} />
-            <Rating.Star filled={false} />
-          </Rating>
-        </>
-      );
-      break;
-    case 2:
-      icons = (
-        <>
-          <Rating>
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star filled={false} />
-            <Rating.Star filled={false} />
-            <Rating.Star filled={false} />
-          </Rating>
-        </>
-      );
-      break;
-    case 3:
-      icons = (
-        <>
-          <Rating>
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star filled={false} />
-            <Rating.Star filled={false} />
-          </Rating>
-        </>
-      );
-      break;
-    case 4:
-      icons = (
-        <>
-          <Rating>
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star filled={false} />
-          </Rating>
-        </>
-      );
-      break;
-    case 5:
-      icons = (
-        <>
-          <Rating>
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-            <Rating.Star className="text-quantum" />
-          </Rating>
-        </>
-      );
-      break;
-  }
-  return icons;
+  const stars = Array.from({ length: 5 }, (_, index) => (
+    <Rating.Star key={index} className={`text-quantum ${index < rating ? 'filled' : ''}`} />
+  ));
+
+  return <Rating>{stars}</Rating>;
 };
 
 export default function Reviews() {
@@ -103,22 +39,22 @@ export default function Reviews() {
 
     async function fetchData() {
       const usersRes = await fetch(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users"
       );
       const userData = await usersRes.json();
-      setUsers(userData);
+      setUsers(userData.users);
 
       const productsRes = await fetch(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       );
       const productData = await productsRes.json();
-      setProducts(productData);
+      setProducts(productData.products);
 
       const reviewsRes = await axios.get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews"
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/reviews"
       );
       const reviewsData = reviewsRes.data;
-      setData(shuffle(reviewsData));
+      setData(shuffle(reviewsData.reviews));
     }
 
     fetchData()
@@ -185,14 +121,14 @@ export default function Reviews() {
             <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
               {displayedReviews.map((review) => {
                 // Find user
-                const user = users.find((u) => u.id === review.userId);
+                const user = users.find((u) => u._id === review.user_id);
 
                 // Find product
-                const product = products.find((p) => p.id === review.productId);
+                const product = products.find((p) => p._id === review.product_id);
 
                 return (
                   <motion.div
-                    key={review.id}
+                    key={review._id}
                     className="review flex shadow w-96 h-auto p-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -209,8 +145,8 @@ export default function Reviews() {
                       />
                     </div>
                     <div className="">
-                      <p className="heading font-medium">{user.fullName}</p>
-                      <p className="text-sm">{product.title}</p>
+                      <p className="heading font-medium">{user.first_name}&nbsp;{user.last_name}</p>
+                      <p className="text-sm">{product.name}</p>
                       <div className="text-dark-quantum my-0.5">
                         {getRatingIcons(review.rating)}
                       </div>
