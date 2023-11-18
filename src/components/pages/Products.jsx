@@ -119,8 +119,8 @@ export default function Products() {
           params: {
             ...filters,
             maxPrice: filters.maxPrice,
-            category: selectedCategories.join(","),
-            brands: selectedBrands.join(","),
+            category: selectedCategories.map(encodeURIComponent).join(","),
+            brand: selectedBrands.map(encodeURIComponent).join(","),
           },
         }
       )
