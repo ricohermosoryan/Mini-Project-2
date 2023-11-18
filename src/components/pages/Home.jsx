@@ -186,11 +186,11 @@ export default function Home() {
 
             {/* Carousel Cards */}
             <div className="container">
-              <div className="space-x-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-2">
+              <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-[30px]">
                 {paginatedData.map((item, i) => (
                   <motion.div
                     key={i}
-                    className="aspect-square mx-3 group transition relative bg-white rounded-lg mt-6 p-2 w-[200px]"
+                    className="aspect-square  group transition relative bg-white rounded-lg mt-6 p-2 w-[130px] md:w-[170px] lg:w-[200px]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

@@ -26,6 +26,7 @@ import CartContext from "../context/CartContext";
 import { useContext } from "react";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
+import axios from "axios";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
@@ -280,7 +281,7 @@ export default function Navbar() {
     }
 
     if (!registerTerms) {
-      errors.terms = "You must agree before submitting";
+      errors.terms_accepted = "You must agree before submitting";
     }
 
     // const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
@@ -336,18 +337,23 @@ export default function Navbar() {
 
     if (isValid) {
       // submit form
-
       const data = {
         name: registerName,
         email: registerEmail,
         password: registerPassword,
-        terms: registerTerms,
+        terms_accepted: registerTerms,
       };
-      const localData = localStorage.setItem("data", JSON.stringify(data));
 
-      if (localData !== null) {
-        alert("Registration Suscessful");
-      }
+      axios
+        .post("http://127.0.0.1:8000/api/addUser", data)
+        .then((response) => {
+          console.log(response.data);
+          alert("Registration successful");
+        })
+        .catch((error) => {
+          console.error("Error registering user:", error);
+          alert("Registration failed");
+        });
     }
   };
 
@@ -820,9 +826,9 @@ export default function Navbar() {
                       </span>
                     </label>
                   </div>
-                  {registerErrors.terms && (
+                  {registerErrors.terms_accepted && (
                     <p className="text-sm text-red-500 -mt-3">
-                      {registerErrors.terms}
+                      {registerErrors.terms_accepted}
                     </p>
                   )}
                   <div className="flex my-4">
