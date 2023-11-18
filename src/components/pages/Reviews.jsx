@@ -10,11 +10,75 @@ import reviewsBanner from "../../assets/reviews_1.svg";
 
 // Rating icon
 export const getRatingIcons = (rating) => {
-  const stars = Array.from({ length: 5 }, (_, index) => (
-    <Rating.Star key={index} className={`text-quantum ${index < rating ? 'filled' : ''}`} />
-  ));
-
-  return <Rating>{stars}</Rating>;
+  let icons;
+  switch (rating) {
+    case 1:
+      icons = (
+        <>
+          <Rating>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+          </Rating>
+        </>
+      );
+      break;
+    case 2:
+      icons = (
+        <>
+          <Rating>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+          </Rating>
+        </>
+      );
+      break;
+    case 3:
+      icons = (
+        <>
+          <Rating>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star filled={false} />
+            <Rating.Star filled={false} />
+          </Rating>
+        </>
+      );
+      break;
+    case 4:
+      icons = (
+        <>
+          <Rating>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star filled={false} />
+          </Rating>
+        </>
+      );
+      break;
+    case 5:
+      icons = (
+        <>
+          <Rating>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+          </Rating>
+        </>
+      );
+      break;
+  }
+  return icons;
 };
 
 export default function Reviews() {
