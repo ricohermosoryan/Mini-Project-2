@@ -60,7 +60,7 @@ export default function Product() {
     const controller = new AbortController();
     axios
       .get(
-        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com//products/${id}`
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products/${id}`
       )
       .then((res) => {
         setData(res.data.product);
@@ -71,37 +71,37 @@ export default function Product() {
     return controller.abort();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchReviews = async () => {
-  //     const response = await fetch(
-  //       `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews/products/${id}`
-  //     );
-  //     const data = await response.json();
-  //     setProductReviews(data);
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const response = await fetch(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/reviews/products/${id}`
+      );
+      const data = await response.json();
+      setProductReviews(data.reviews);
 
-  //     const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-  //     data.forEach((review) => {
-  //       counts[review.rating]++;
-  //     });
+      const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      data.reviews.forEach((review) => {
+        counts[review.rating]++;
+      });
 
-  //     setStarCounts(counts);
-  //   };
+      setStarCounts(counts);
+    };
 
-  //   fetchReviews();
-  // }, [id]);
+    fetchReviews();
+  }, [id]);
 
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const response = await fetch(
-  //       "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
-  //     );
-  //     const data = await response.json();
-  //     setUsers(data);
-  //   };
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await fetch(
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users"
+      );
+      const data = await response.json();
+      setUsers(data.users);
+    };
 
-  //   fetchUsers();
-  // }, []);
+    fetchUsers();
+  }, []);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -525,17 +525,17 @@ export default function Product() {
 
                         {productReviews.map((review) => {
                           const user = users.find(
-                            (u) => u.id === review.userId
+                            (u) => u._id === review.user_id
                           );
                           if (!user) {
                             return (
-                              <div key={review.id} className="review flex my-4">
+                              <div key={review._id} className="review flex my-4">
                                 <p className="italic">User not found</p>
                               </div>
                             );
                           }
                           return (
-                            <div key={review.id} className="review flex my-4">
+                            <div key={review._id} className="review flex my-4">
                               <div className="min-w-fit mr-2">
                                 <img
                                   src={user.image}
@@ -544,7 +544,7 @@ export default function Product() {
                               </div>
                               <div className="">
                                 <p className="heading font-medium">
-                                  {user.fullName}
+                                  {user.first_name}&nbsp;{user.last_name}
                                 </p>
                                 <div className="text-dark-quantum my-0.5">
                                   {getRatingIcons(review.rating)}
