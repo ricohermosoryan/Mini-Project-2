@@ -81,8 +81,7 @@ export default function News() {
           {news.length > 0 && (
             <div className="flex flex-wrap w-full my-4">
               <Link
-                to={`${news[news.length - 1].url}`}
-                target="_blank"
+                to={`${news[news.length - 1]._id}`}
                 className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow"
               >
                 <img
@@ -91,7 +90,7 @@ export default function News() {
                 />
               </Link>
               <div className="w-full md:w-3/5 shadow">
-                <Link to={`${news[news.length - 1].url}`} target="_blank">
+                <Link to={`${news[news.length - 1]._id}`}>
                   <p className="mx-3 mt-2 heading text-lg font-medium">
                     {news[news.length - 1].title}
                   </p>
@@ -105,7 +104,7 @@ export default function News() {
                 </p>
                 <p className="mx-3 text-xs">&nbsp;</p>
                 <p className="mx-3 my-2 text-base paragraph-truncate">
-                  {news[news.length - 1].content}
+                  {news[news.length - 1].description}
                 </p>
               </div>
             </div>
@@ -142,8 +141,7 @@ export default function News() {
                   className="flex flex-wrap w-full xl:w-1/2 my-4 px-4"
                 >
                   <Link
-                    to={`${item.url}`}
-                    target="_blank"
+                    to={`${item._id}`}
                     className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow "
                   >
                     <img
@@ -152,7 +150,7 @@ export default function News() {
                     />
                   </Link>
                   <div className="w-full md:w-3/5 shadow ">
-                    <Link to={`${item.url}`} target="_blank">
+                    <Link to={`${item._id}`}>
                       <p className="truncate mx-3 mt-2 heading text-lg font-medium">
                         {item.title}
                       </p>
@@ -163,7 +161,7 @@ export default function News() {
                     </p>
                     <p className="truncate mx-3 text-xs">&nbsp;</p>
                     <p className="mx-3 my-2 text-base paragraph-truncate">
-                      {item.content}
+                      {item.description}
                     </p>
                   </div>
                 </div>

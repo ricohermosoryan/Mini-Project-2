@@ -18,6 +18,7 @@ import Cart from "../components/Cart";
 import SearchPage from "../components/pages/SearchPage";
 import PrivacyPolicy from "../components/pages/PrivacyPolicy";
 import TermsOfService from "../components/pages/TermsOfService";
+import NewsPage from "../components/pages/NewsPage";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -37,6 +38,7 @@ export default function AppRouter() {
               <Route path="/faq" element={<FAQs />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
+              <Route path="/news/:id" element={<NewsPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />

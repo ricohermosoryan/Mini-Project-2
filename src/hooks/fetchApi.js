@@ -4,6 +4,7 @@ import axios from "axios";
 export default function fetchApi(url) {
   const [data, setData] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const [news, setNews] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +28,16 @@ export default function fetchApi(url) {
       console.lgo(err);
     }
 
+    try {
+      axios
+        .get(url)
+        .then((res) => setNews(res))
+        .catch((err) => console.error(err));
+    } catch (err) {
+      console.lgo(err);
+    }
+
     return controller?.abort();
   }, [url]);
-  return { data, loading, blogs };
+  return { data, loading, blogs, news };
 }
