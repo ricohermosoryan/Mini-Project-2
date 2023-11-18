@@ -27,6 +27,7 @@ import { useContext } from "react";
 import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 import axios from "axios";
+import bcrypt from "bcryptjs";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
@@ -195,24 +196,48 @@ export default function Navbar() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginErrors, setLoginErrors] = useState({});
   const [user, setUser] = useState(
-    localStorage.getItem("userLogin") === "true"
+    JSON.parse(localStorage.getItem("userLogin")) || false
   );
+  const [login, setLogin] = useState();
 
-  const validateLogin = () => {
+  useEffect(() => {
+    axios
+      .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users")
+      .then((response) => {
+        setLogin(response.data.users);
+      });
+  }, []);
+
+  const validateLogin = async () => {
     let errors = {};
-
-    const data = JSON.parse(localStorage.getItem("data"));
+    let foundUser;
 
     if (!loginEmail) {
       errors.email = "Please enter your email";
-    } else if (loginEmail !== data.email) {
-      errors.email = "Incorrect Email";
+    } else {
+      foundUser = login.find((user) => user.email === loginEmail);
+      if (!foundUser) {
+        errors.email = "Incorrect Email";
+      }
     }
 
     if (!loginPassword) {
       errors.password = "Please enter your password";
-    } else if (loginPassword !== data.password) {
-      errors.password = "Incorrect Password";
+    } else if (foundUser && foundUser.passwordHash) {
+      try {
+        const passwordMatch = await bcrypt.compare(
+          loginPassword,
+          foundUser.passwordHash
+        );
+        if (!passwordMatch) {
+          errors.password = "Incorrect Password";
+        }
+      } catch (error) {
+        console.error("Error comparing passwords:", error);
+        errors.password = "Error comparing passwords";
+      }
+    } else {
+      errors.password = "Invalid user data";
     }
 
     setLoginErrors(errors);
@@ -232,6 +257,8 @@ export default function Navbar() {
     e.preventDefault();
 
     const isValid = validateLogin();
+
+    console.log(isValid);
 
     if (isValid) {
       // submit form
@@ -262,8 +289,6 @@ export default function Navbar() {
 
   const validateRegister = () => {
     let errors = {};
-
-    console.log(errors);
 
     if (!registerFirstname) {
       errors.firstname = "Please enter your first name";
@@ -503,6 +528,7 @@ export default function Navbar() {
                   {[
                     profile && (
                       <MotionConfig
+                        key="motion-config-key"
                         transition={{
                           type: "spring",
                           bounce: 0.25,
@@ -528,10 +554,16 @@ export default function Navbar() {
                           initial="closed"
                           animate="open"
                           exit="closed"
-                          className="fixed h-[140px] w-[150px] bg-white shadow-lg rounded-lg border"
+                          className="fixed h-[140px] w-[180px] bg-white shadow-lg rounded-lg border"
                         >
                           <ul className=" space-y-1 mx-2 my-2 text-lg font-bold">
-                            <li className=" line-through">Account Profile</li>
+                            {login.role === "regular" ? (
+                              <li>Account Profile</li>
+                            ) : login.role === "admin" ? (
+                              <li>Admin Dashboard</li>
+                            ) : (
+                              <li>Unknown Role</li>
+                            )}
                             <li className=" line-through">Payment</li>
                             <li className=" line-through">Setting</li>
                             <li>
