@@ -13,11 +13,19 @@ export default function Search() {
 
   const handleSearch = async () => {
     localStorage.setItem("searchQuery", searchQuery);
-    const response = await fetch(
-      `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`
-    );
-    const data = await response.json();
-    setSearchResults(data);
+    try {
+      const response = await fetch(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products/search?query=${searchQuery}`
+      );
+      const data = await response.json();
+
+      // Check if 'products' key is present in the response
+      const searchResultsArray = data.results || [];
+
+      setSearchResults(searchResultsArray);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Only show first 3 results
@@ -89,9 +97,9 @@ export default function Search() {
 
               <div className="border bg-white p-4 rounded-b-lg grid grid-cols-2 lg:grid-cols-3 justify-center mx-auto">
                 {displayedResults.map((product) => (
-                  <div key={product.id} className="my-4 lg:px-6 px-4">
+                  <div key={product._id} className="my-4 lg:px-6 px-4">
                     <div>
-                      <Link to={`products/${product.id}`}>
+                      <Link to={`products/${product._id}`}>
                         <p className=" flex justify-center">
                           <img
                             src={product.image[0]}
@@ -101,7 +109,7 @@ export default function Search() {
                         </p>
 
                         <p className="heading hover:text-quantum sentence-truncate">
-                          {product.title}
+                          {product.name}
                         </p>
                       </Link>
                       <p className="text-sm sentence-truncate">
