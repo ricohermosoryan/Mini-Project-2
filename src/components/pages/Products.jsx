@@ -86,6 +86,11 @@ export default function Products() {
     setCurrentPage(page);
   };
 
+  useEffect(() => {
+    // Run applyFilters whenever filters change
+    applyFilters();
+  }, [filters]);
+
   const handleCategoryCheckbox = (category) => {
     setFilters((prevFilters) => {
       const updatedCategories = prevFilters.category.includes(category)
@@ -94,8 +99,6 @@ export default function Products() {
       return { ...prevFilters, category: updatedCategories };
     });
   };
-
-  const maxProductPrice = Math.max(...data.map((item) => item.price));
 
   const handleBrandCheckbox = (brand) => {
     setFilters((prevFilters) => {
@@ -117,7 +120,7 @@ export default function Products() {
             ...filters,
             maxPrice: filters.maxPrice,
             category: selectedCategories.join(","),
-            brand: selectedBrands.join(","),
+            brands: selectedBrands.join(","),
           },
         }
       )
@@ -144,7 +147,6 @@ export default function Products() {
       subcategory: "",
       minRating: "",
     });
-    applyFilters();
   };
 
   // For Page number pagination
@@ -226,7 +228,6 @@ export default function Products() {
               filters={filters}
               setFilters={setFilters}
               handleCategoryCheckbox={handleCategoryCheckbox}
-              maxProductPrice={maxProductPrice}
               handleBrandCheckbox={handleBrandCheckbox}
               applyFilters={applyFilters}
               clearAllFilters={clearAllFilters}
@@ -241,7 +242,6 @@ export default function Products() {
                 filters={filters}
                 setFilters={setFilters}
                 handleCategoryCheckbox={handleCategoryCheckbox}
-                maxProductPrice={maxProductPrice}
                 handleBrandCheckbox={handleBrandCheckbox}
                 applyFilters={applyFilters}
                 clearAllFilters={clearAllFilters}
