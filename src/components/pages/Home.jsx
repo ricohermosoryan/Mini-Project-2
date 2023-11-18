@@ -66,20 +66,18 @@ export default function Home() {
 
     axios
       .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       )
       .then((res) => {
-        const limitedData = res.data.slice(0, 20); // Limit data to 20 items
+        const limitedData = res.data.products.slice(0, 20); // Limit data to 20 items
         setData(limitedData);
       })
       .catch((err) => console.error(err));
 
     axios
-      .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/blogs"
-      )
+      .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs")
       .then((res) => {
-        setBlogs(res.data);
+        setBlogs(res.data.blogs);
       })
       .catch((err) => console.error(err));
 
@@ -574,7 +572,7 @@ export default function Home() {
                   className="flex flex-wrap w-full xl:w-1/2 my-4 px-4"
                 >
                   <Link
-                    to={`${item.id}`}
+                    to={`/blogs/${item._id}`}
                     className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow "
                   >
                     <img
@@ -583,7 +581,7 @@ export default function Home() {
                     />
                   </Link>
                   <div className="w-full md:w-3/5 shadow ">
-                    <Link to={`${item.id}`}>
+                    <Link to={`/blogs/${item._id}`}>
                       <p className="truncate mx-3 mt-2 heading text-lg font-medium">
                         {item.title}
                       </p>

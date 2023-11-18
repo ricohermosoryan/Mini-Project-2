@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
-import { Breadcrumb, Rating, Pagination } from 'flowbite-react';
+import { Breadcrumb, Rating, Pagination } from "flowbite-react";
 import cart from "../../assets/cart.svg";
 import { useContext } from "react";
 import CartContext from "../../context/CartContext";
@@ -63,11 +63,11 @@ export default function Products() {
     const controller = new AbortController();
     axios
       .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       )
       .then((res) => {
-        const shuffledData = shuffle(res.data); // Shuffle the data array
-      setData(shuffledData);
+        const shuffledData = shuffle(res.data.products); // Shuffle the data array
+        setData(shuffledData);
       })
       .catch((err) => console.error(err));
     return controller.abort();
@@ -110,19 +110,24 @@ export default function Products() {
     const selectedCategories = filters.category;
     const selectedBrands = filters.brand;
     axios
-      .get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/filter", {
-        params: {
-          ...filters,
-          maxPrice: filters.maxPrice,
-          category: selectedCategories.join(","),
-          brand: selectedBrands.join(","),
-        },
-      })
+      .get(
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products/filter",
+        {
+          params: {
+            ...filters,
+            maxPrice: filters.maxPrice,
+            category: selectedCategories.join(","),
+            brand: selectedBrands.join(","),
+          },
+        }
+      )
       .then((res) => {
-        const filteredData = shuffle(res.data).filter((product) => {
+        const filteredData = shuffle(res.data.results).filter((product) => {
           return (
             selectedCategories.length === 0 ||
-            selectedCategories.some((category) => product.category.includes(category))
+            selectedCategories.some((category) =>
+              product.category.includes(category)
+            )
           );
         });
         setData(filteredData);
@@ -157,16 +162,11 @@ export default function Products() {
     <>
       <PageTransition>
         <div className="container mx-auto px-4">
-
           {/* BREADCRUMB */}
           <div className="my-6">
             <Breadcrumb>
-              <Breadcrumb.Item href="/home">
-                  Home
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                Products
-              </Breadcrumb.Item>
+              <Breadcrumb.Item href="/home">Home</Breadcrumb.Item>
+              <Breadcrumb.Item>Products</Breadcrumb.Item>
             </Breadcrumb>
           </div>
 
@@ -178,17 +178,33 @@ export default function Products() {
                 value={sortType}
                 onChange={(e) => setSortType(e.target.value)}
               >
-                <option className="text-sm" value="none">Sort by</option>
-                <option className="text-sm" value="priceAsc">Price - Low to High</option>
-                <option className="text-sm" value="priceDesc">Price - High to Low</option>
-                <option className="text-sm" value="ratingAsc">Rating - Low to High</option>
-                <option className="text-sm" value="ratingDesc">Rating - High to Low</option>
+                <option className="text-sm" value="none">
+                  Sort by
+                </option>
+                <option className="text-sm" value="priceAsc">
+                  Price - Low to High
+                </option>
+                <option className="text-sm" value="priceDesc">
+                  Price - High to Low
+                </option>
+                <option className="text-sm" value="ratingAsc">
+                  Rating - Low to High
+                </option>
+                <option className="text-sm" value="ratingDesc">
+                  Rating - High to Low
+                </option>
               </select>
             </div>
 
             {/* Filter button */}
             <div className="flex">
-              <div className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum" onClick={() => setShowFilter(!showFilter)}>Filter <img src={filterImage} className="w-4 h-4 aspect-square"/></div>
+              <div
+                className="lg:hidden cursor-pointer text-sm flex gap-x-2 items-center text-dark-quantum hover:text-quantum"
+                onClick={() => setShowFilter(!showFilter)}
+              >
+                Filter{" "}
+                <img src={filterImage} className="w-4 h-4 aspect-square" />
+              </div>
             </div>
           </div>
 
@@ -199,7 +215,11 @@ export default function Products() {
             } transition-transform ease-in-out duration-300`}
           >
             <div className="flex justify-end">
-              <img src={closeButtonImage} className="w-4 h-4 aspect-square cursor-pointer" onClick={() => setShowFilter(!showFilter)}/>
+              <img
+                src={closeButtonImage}
+                className="w-4 h-4 aspect-square cursor-pointer"
+                onClick={() => setShowFilter(!showFilter)}
+              />
             </div>
             <ProductFilter
               data={data}
@@ -233,7 +253,6 @@ export default function Products() {
               {/* PRODUCT ITEMS */}
 
               {paginatedData.map((item, i) => (
-              
                 <motion.div
                   key={i}
                   className="aspect-square m-3 group transition relative"
@@ -244,24 +263,33 @@ export default function Products() {
                     ease: "easeInOut",
                     duration: 1,
                   }}
-                  onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
+                  onMouseEnter={() => setHoveredItem(i)}
+                  onMouseLeave={() => setHoveredItem(null)}
                 >
                   <div className="p-4">
                     <Link to={`${item.id}`}>
                       <div className="relative">
-                        <img src={item.image[0]} className="absolute inset-0 rounded-lg"
+                        <img
+                          src={item.image[0]}
+                          className="absolute inset-0 rounded-lg"
                           style={{
-                            transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
-                            transition: 'transform 0.5s ease-in',
-                          }}/>
+                            transform:
+                              hoveredItem === i ? "scale(1.1)" : "scale(1)",
+                            transition: "transform 0.5s ease-in",
+                          }}
+                        />
                         <img
                           className="rounded-lg shadow"
-                          src={hoveredItem === i ? item.image[1] : item.image[0]}
+                          src={
+                            hoveredItem === i ? item.image[1] : item.image[0]
+                          }
                           alt={item.title}
                           style={{
-                            transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                            transform:
+                              hoveredItem === i ? "scale(1.1)" : "scale(1)",
                             opacity: hoveredItem === i ? 1 : 0.8,
-                            transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                            transition:
+                              "transform 0.5s ease-in, opacity 0.3s ease-in",
                           }}
                         />
                       </div>
@@ -269,15 +297,25 @@ export default function Products() {
                   </div>
                   <div>
                     <Link to={`${item.id}`}>
-                      <p className="truncate heading font-medium">{item.title}</p>
+                      <p className="truncate heading font-medium">
+                        {item.title}
+                      </p>
                     </Link>
-                    <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
+                    <p className="text-sm text-dark-quantum mb-2">
+                      {item.brand}
+                    </p>
                     <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
-                      <p className="font-semibold">{formatter.format(item.price)}</p>
+                      <p className="font-semibold">
+                        {formatter.format(item.price)}
+                      </p>
                       <div className="flex gap-x-4 my-2">
                         <Rating className="my-auto">
-                          <Rating.Star className="text-quantum"/>
-                          {item.rating && <p className="text-sm ml-0.5 font-bold ">{item.rating.rate.toFixed(2)}</p>}
+                          <Rating.Star className="text-quantum" />
+                          {item.rating && (
+                            <p className="text-sm ml-0.5 font-bold ">
+                              {item.rating.rate.toFixed(2)}
+                            </p>
+                          )}
                         </Rating>
                       </div>
                     </div>
@@ -305,15 +343,24 @@ export default function Products() {
           </div>
 
           <div className="overflow-x-auto justify-center hidden sm:flex mt-10">
-            <Pagination currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={pageNumbers.length}
+              onPageChange={onPageChange}
+              showIcons
+            />
           </div>
 
           <div className="flex overflow-x-auto justify-center sm:hidden mt-10">
-            <Pagination layout="navigation" currentPage={currentPage} totalPages={pageNumbers.length} onPageChange={onPageChange} showIcons />
+            <Pagination
+              layout="navigation"
+              currentPage={currentPage}
+              totalPages={pageNumbers.length}
+              onPageChange={onPageChange}
+              showIcons
+            />
           </div>
-
         </div>
-
       </PageTransition>
     </>
   );

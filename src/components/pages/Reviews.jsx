@@ -16,7 +16,7 @@ export const getRatingIcons = (rating) => {
       icons = (
         <>
           <Rating>
-            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum" />
             <Rating.Star filled={false} />
             <Rating.Star filled={false} />
             <Rating.Star filled={false} />
@@ -29,8 +29,8 @@ export const getRatingIcons = (rating) => {
       icons = (
         <>
           <Rating>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
             <Rating.Star filled={false} />
             <Rating.Star filled={false} />
             <Rating.Star filled={false} />
@@ -42,9 +42,9 @@ export const getRatingIcons = (rating) => {
       icons = (
         <>
           <Rating>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
             <Rating.Star filled={false} />
             <Rating.Star filled={false} />
           </Rating>
@@ -55,10 +55,10 @@ export const getRatingIcons = (rating) => {
       icons = (
         <>
           <Rating>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
             <Rating.Star filled={false} />
           </Rating>
         </>
@@ -68,11 +68,11 @@ export const getRatingIcons = (rating) => {
       icons = (
         <>
           <Rating>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
-            <Rating.Star className="text-quantum"/>
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
+            <Rating.Star className="text-quantum" />
           </Rating>
         </>
       );
@@ -82,9 +82,8 @@ export const getRatingIcons = (rating) => {
 };
 
 export default function Reviews() {
-
   const [data, setData] = useState([]);
-  const [displayedReviews, setDisplayedReviews] = useState([]); 
+  const [displayedReviews, setDisplayedReviews] = useState([]);
   const initialReviewsToShow = 21;
   const [reviewsToShow, setReviewsToShow] = useState(initialReviewsToShow);
   const [users, setUsers] = useState([]);
@@ -103,15 +102,21 @@ export default function Reviews() {
     setLoading(true);
 
     async function fetchData() {
-      const usersRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users');
+      const usersRes = await fetch(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/users"
+      );
       const userData = await usersRes.json();
       setUsers(userData);
 
-      const productsRes = await fetch('https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products');
-      const productData = await productsRes.json(); 
+      const productsRes = await fetch(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+      );
+      const productData = await productsRes.json();
       setProducts(productData);
 
-      const reviewsRes = await axios.get("https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews");
+      const reviewsRes = await axios.get(
+        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/reviews"
+      );
       const reviewsData = reviewsRes.data;
       setData(shuffle(reviewsData));
     }
@@ -127,37 +132,38 @@ export default function Reviews() {
 
   // INFINITE SCROLLING
   useEffect(() => {
-  setDisplayedReviews(data.slice(0, reviewsToShow));
+    setDisplayedReviews(data.slice(0, reviewsToShow));
 
-  function handleScroll() {
-    const distanceToBottom = document.documentElement.scrollHeight - (window.innerHeight + window.scrollY);
-    const scrollThreshold = 200;
-    if (distanceToBottom < scrollThreshold) {
-      setReviewsToShow((prev) => prev + 21);
+    function handleScroll() {
+      const distanceToBottom =
+        document.documentElement.scrollHeight -
+        (window.innerHeight + window.scrollY);
+      const scrollThreshold = 200;
+      if (distanceToBottom < scrollThreshold) {
+        setReviewsToShow((prev) => prev + 21);
+      }
     }
-  }
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, [data, reviewsToShow]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [data, reviewsToShow]);
 
   return (
     <>
       <PageTransition>
-
         <div className="container mx-auto px-4">
           {/* BREADCRUMB */}
           <div className="my-6">
             <Breadcrumb className="truncate">
               <Breadcrumb.Item>
-                  <Link to="/home" className="text-gray-700">Home</Link>
+                <Link to="/home" className="text-gray-700">
+                  Home
+                </Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                Reviews
-              </Breadcrumb.Item>
+              <Breadcrumb.Item>Reviews</Breadcrumb.Item>
             </Breadcrumb>
           </div>
         </div>
@@ -166,13 +172,14 @@ export default function Reviews() {
         <div className="w-full relative">
           <img src={reviewsBanner} className="w-full object-cover" />
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <h1 className="heading text-2xl lg:text-3xl xl:text-4xl text-white text-center whitespace-nowrap">CUSTOMER REVIEWS</h1>
+            <h1 className="heading text-2xl lg:text-3xl xl:text-4xl text-white text-center whitespace-nowrap">
+              CUSTOMER REVIEWS
+            </h1>
             <div className="h-1 w-12 lg:w-14 xl:w-16 bg-white mx-auto my-1"></div>
           </div>
         </div>
 
-
-          {/* User Reviews */}
+        {/* User Reviews */}
         <AnimatePresence>
           <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16 my-8">
             <div className="flex flex-wrap flex-row justify-center my-10 gap-4">
@@ -181,9 +188,7 @@ export default function Reviews() {
                 const user = users.find((u) => u.id === review.userId);
 
                 // Find product
-                const product = products.find(
-                  (p) => p.id === review.productId
-                );
+                const product = products.find((p) => p.id === review.productId);
 
                 return (
                   <motion.div

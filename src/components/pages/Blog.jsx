@@ -28,10 +28,10 @@ export default function Blog() {
     const controller = new AbortController();
     axios
       .get(
-        `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/blogs/${id}`
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs/${id}`
       )
       .then((res) => {
-        setBlogs(res.data);
+        setBlogs(res.data.blog);
         setLoading(false);
       })
       .catch((err) => console.error(err));
@@ -42,23 +42,23 @@ export default function Blog() {
     <>
       <PageTransition>
         <div className="container mx-auto px-4">
-            {/* BREADCRUMB */}
-            <div className="my-6">
-              <Breadcrumb className="truncate">
-                <Breadcrumb.Item>
-                    <Link to="/home" className="text-gray-700">Home</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  <Link to="/blogs" className="text-gray-700">Blogs</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                  {blogs.title && (
-                      <p className="truncate">
-                        {blogs.title}
-                      </p>
-                    )}
-                </Breadcrumb.Item>
-              </Breadcrumb>
+          {/* BREADCRUMB */}
+          <div className="my-6">
+            <Breadcrumb className="truncate">
+              <Breadcrumb.Item>
+                <Link to="/home" className="text-gray-700">
+                  Home
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/blogs" className="text-gray-700">
+                  Blogs
+                </Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                {blogs.title && <p className="truncate">{blogs.title}</p>}
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </div>
         </div>
         <AnimatePresence>
@@ -88,9 +88,7 @@ export default function Blog() {
                         {" "}
                         by{" "}
                         {blogs.author && (
-                          <span className="font-semibold">
-                            {blogs.author}
-                          </span>
+                          <span className="font-semibold">{blogs.author}</span>
                         )}
                       </p>
                       {blogs.date_published && (
@@ -99,7 +97,9 @@ export default function Blog() {
                         </span>
                       )}
                       {blogs.category && (
-                        <p className="text-sm my-1 text-quantum">{blogs.category}</p>
+                        <p className="text-sm my-1 text-quantum">
+                          {blogs.category}
+                        </p>
                       )}
                       <ReactMarkdown
                         className="text-justify my-4"
@@ -108,10 +108,12 @@ export default function Blog() {
                         {blogs.content}
                       </ReactMarkdown>
                       <p className="my-10 italic">
-                        For gadgets and electronics, get it at&nbsp;<Link to="/home">
-                        <span className="text-quantum hover:text-dark-quantum cursor-pointer">
-                          QuantumGalaxy
-                        </span></Link>
+                        For gadgets and electronics, get it at&nbsp;
+                        <Link to="/home">
+                          <span className="text-quantum hover:text-dark-quantum cursor-pointer">
+                            QuantumGalaxy
+                          </span>
+                        </Link>
                         !
                       </p>
                       <div className="flex align-center opacity-70">
