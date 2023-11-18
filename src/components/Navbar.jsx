@@ -253,7 +253,8 @@ export default function Navbar() {
 
   // Register form
 
-  const [registerName, setRegisterName] = useState("");
+  const [registerFirstname, setRegisterFirstName] = useState("");
+  const [registerLastname, setRegisterLastName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerTerms, setRegisterTerms] = useState(false);
@@ -264,8 +265,12 @@ export default function Navbar() {
 
     console.log(errors);
 
-    if (!registerName) {
-      errors.name = "Please enter your full name";
+    if (!registerFirstname) {
+      errors.firstname = "Please enter your first name";
+    }
+
+    if (!registerLastname) {
+      errors.lastname = "Please enter your last name";
     }
 
     if (!registerEmail) {
@@ -338,14 +343,18 @@ export default function Navbar() {
     if (isValid) {
       // submit form
       const data = {
-        name: registerName,
+        firstname: registerFirstname,
+        lastname: registerLastname,
         email: registerEmail,
         password: registerPassword,
         terms_accepted: registerTerms,
       };
 
       axios
-        .post("http://127.0.0.1:8000/api/addUser", data)
+        .post(
+          "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/register",
+          data
+        )
         .then((response) => {
           console.log(response.data);
           alert("Registration successful");
@@ -726,28 +735,54 @@ export default function Navbar() {
                 <form onSubmit={handleRegisterSubmit}>
                   <div className="my-4">
                     <label
-                      htmlFor="register-fullname"
+                      htmlFor="register-firstname"
                       className="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      Full Name
+                      First Name
                     </label>
                     <div className="flex border rounded-lg px-3 py-3">
                       <img src={userImage} className="w-6 mr-1 aspect-square" />
                       <input
                         type="text"
-                        placeholder="Full Name"
-                        name="register-fullname"
-                        id="register-fullname"
+                        placeholder="First Name"
+                        name="register-firstname"
+                        id="register-firstname"
                         className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        onInput={(e) => setRegisterName(e.target.value)}
+                        onInput={(e) => setRegisterFirstName(e.target.value)}
                       />
                     </div>
                   </div>
-                  {registerErrors.name && (
+                  {registerErrors.firstname && (
                     <p className="text-sm text-red-500 -mt-3">
-                      {registerErrors.name}
+                      {registerErrors.firstname}
                     </p>
                   )}
+
+                  <div className="my-4">
+                    <label
+                      htmlFor="register-lastname"
+                      className="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Last Name
+                    </label>
+                    <div className="flex border rounded-lg px-3 py-3">
+                      <img src={userImage} className="w-6 mr-1 aspect-square" />
+                      <input
+                        type="text"
+                        placeholder="Last Name"
+                        name="register-lastname"
+                        id="register-lastname"
+                        className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
+                        onInput={(e) => setRegisterLastName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  {registerErrors.lastname && (
+                    <p className="text-sm text-red-500 -mt-3">
+                      {registerErrors.lastname}
+                    </p>
+                  )}
+
                   <div className="my-4">
                     <label
                       htmlFor="register-email"
