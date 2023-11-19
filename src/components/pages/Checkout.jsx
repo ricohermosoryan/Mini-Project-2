@@ -20,7 +20,7 @@ const Checkout = () => {
         const body = {
           data: {
             attributes: {
-              amount: Number(totalAmount)*100,
+              amount: Number(totalAmount),
               currency: 'PHP',
               description: 'Payment for your order',
             },
@@ -47,9 +47,11 @@ const Checkout = () => {
             // Redirect to Paymongo Link URL
             window.location.href = checkout_url;
           } else {
+            // This indicates an issue with creating the Paymongo link
             setError('Error creating Paymongo Link');
           }
         } else {
+          // This indicates an issue with the Paymongo API request
           console.error('Error from Paymongo API:', responseData);
           setError('Error from Paymongo API');
         }
@@ -64,8 +66,7 @@ const Checkout = () => {
 
   return (
     <div>
-      {error && <p>{error}</p>}
-      {!error && <div>Redirecting to payment...</div>}
+      <div>Redirecting to payment...</div>
     </div>
   );
 };
