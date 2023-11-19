@@ -19,6 +19,7 @@ import SearchPage from "../components/pages/SearchPage";
 import PrivacyPolicy from "../components/pages/PrivacyPolicy";
 import TermsOfService from "../components/pages/TermsOfService";
 import NewsPage from "../components/pages/NewsPage";
+import Checkout from "../components/pages/Checkout";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -43,6 +44,7 @@ export default function AppRouter() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Route>
           </Routes>
         </AnimatePresence>

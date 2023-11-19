@@ -1,9 +1,11 @@
 import React from "react";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import CartContext from "../context/CartContext";
 import trash from "../assets/trash.svg";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import PageTransition from "./PageTransition";
+
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -26,6 +28,7 @@ export default function Cart() {
       return total + item.price * item.quantity;
     }, 0);
   };
+
   return (
     <>
       <PageTransition>
@@ -90,9 +93,11 @@ export default function Cart() {
                 <p className=" text-[22px] font-semibold">
                   Grand Total: <br /> {formatter.format(calculateTotal())}
                 </p>
-                <button className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3">
+                <Link to={`/checkout?total=${calculateTotal()}`}>
+                  <button className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3">
                   Checkout
-                </button>
+                  </button>
+                </Link>
                 <button
                   className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3"
                   onClick={() => removeAllFromCart()}
@@ -100,6 +105,7 @@ export default function Cart() {
                   Delete All Items
                 </button>
               </div>
+
             </div>
           </div>
         </div>
