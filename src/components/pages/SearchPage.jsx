@@ -32,12 +32,12 @@ export default function SearchPage() {
 
   const handleSearch = async () => {
     const response = await fetch(
-      `https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products/search?query=${searchQuery}`
+      `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products/search?query=${searchQuery}`
     );
 
     const data = await response.json();
 
-    setSearchResults(data);
+    setSearchResults(data.results);
   };
 
   useEffect(() => {
@@ -77,9 +77,9 @@ export default function SearchPage() {
           </div>
           <div className="p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4">
             {searchResults.map((product) => (
-              <div key={product.id} className="my-2 lg:my-3 shadow-lg rounded-lg">
+              <div key={product._id} className="my-2 lg:my-3 shadow-lg rounded-lg">
                 <div className=" aspect-square my-2">
-                  <Link to={`../products/${product.id}`}>
+                  <Link to={`../products/${product._id}`}>
                     <img
                       src={product.image[0]}
                       className="h-full object-cover"
@@ -87,9 +87,9 @@ export default function SearchPage() {
                   </Link>
                 </div>
                 <div className="my-2">
-                  <Link to={`../products/${product.id}`}>
+                  <Link to={`../products/${product._id}`}>
                     <p className="heading hover:text-quantum mb-2 px-2 lg:px-4 sentence-truncate">
-                      {product.title}
+                      {product.name}
                     </p>
                   </Link>
                   <p className="text-sm px-2 lg:px-4 truncate my-1">
