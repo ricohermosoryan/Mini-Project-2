@@ -199,6 +199,7 @@ export default function Navbar() {
     JSON.parse(localStorage.getItem("userLogin")) || false
   );
   const [login, setLogin] = useState();
+  const [foundUser, setFoundUser] = useState(null);
 
   useEffect(() => {
     axios
@@ -210,25 +211,26 @@ export default function Navbar() {
 
   const validateLogin = async () => {
     let errors = {};
-    let foundUser;
+    let details;
 
     if (!loginEmail) {
       errors.email = "Please enter your email";
     } else {
-      foundUser = login.find((user) => user.email === loginEmail);
-      if (!foundUser) {
+      details = login.find((user) => user.email === loginEmail);
+      if (!details) {
         errors.email = "Incorrect Email";
       }
     }
 
     if (!loginPassword) {
       errors.password = "Please enter your password";
-    } else if (foundUser && foundUser.passwordHash) {
+    } else if (details && details.password) {
       try {
         const passwordMatch = await bcrypt.compare(
           loginPassword,
-          foundUser.passwordHash
+          details.password
         );
+
         if (!passwordMatch) {
           errors.password = "Incorrect Password";
         }
@@ -241,35 +243,39 @@ export default function Navbar() {
     }
 
     setLoginErrors(errors);
+    setFoundUser(details);
 
-    return Object.keys(errors).length === 0;
+    return { isValid: Object.keys(errors).length === 0, errors, details };
   };
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     validateLogin();
-  //   }, 100);
-
-  //   return () => clearTimeout(timeout);
-  // }, [loginEmail, loginPassword]);
-
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
-    const isValid = validateLogin();
-
+    const isValidData = await validateLogin(foundUser);
+    const { isValid, errors, details } = isValidData;
     console.log(isValid);
 
     if (isValid) {
+      const data = details;
+      console.log(data);
       // submit form
 
+      // axios
+      //   .post(
+      //     "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/login",
+      //     foundUser
+      //   )
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     alert("Login Sucessfull");
+      //   });
       localStorage.setItem("userLogin", "true");
 
       toggleModal();
 
       setUser(true);
-
-      alert("Login Sucessfull");
+    } else {
+      setLoginErrors(errors);
     }
   };
 
@@ -557,13 +563,11 @@ export default function Navbar() {
                           className="fixed h-[140px] w-[180px] bg-white shadow-lg rounded-lg border"
                         >
                           <ul className=" space-y-1 mx-2 my-2 text-lg font-bold">
-                            {login.role === "regular" ? (
+                            {/* {foundUser.role !== "admin" ? (
                               <li>Account Profile</li>
-                            ) : login.role === "admin" ? (
-                              <li>Admin Dashboard</li>
                             ) : (
-                              <li>Unknown Role</li>
-                            )}
+                              <li>Admin Dashboard</li>
+                            )} */}
                             <li className=" line-through">Payment</li>
                             <li className=" line-through">Setting</li>
                             <li>
