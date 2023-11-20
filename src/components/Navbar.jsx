@@ -198,6 +198,12 @@ export default function Navbar() {
   const [user, setUser] = useState(userToken ? true : false);
   const [foundUser, setFoundUser] = useState([]);
 
+  const clearLoginFields = () => {
+    setLoginEmail('');
+    setLoginPassword('');
+    setLoginErrors({});
+  };
+
   useEffect(() => {
     axios
       .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users")
@@ -269,6 +275,10 @@ export default function Navbar() {
 
         // Set user state and save session token in a cookie
         Cookies.set('userLogin', response.data);
+
+        // Clear login fields
+        clearLoginFields();
+        
         alert('Login Successful');
       } catch (error) {
         console.error('Login error:', error.response.data);
@@ -287,6 +297,10 @@ export default function Navbar() {
       // Clear the session token cookie and user state
       Cookies.remove('userLogin');
       setUser(false);
+
+      // Clear login fields
+      clearLoginFields();
+      
       alert('Logout Successful');
     } catch (error) {
       console.error('Logout error:', error.response.data);
@@ -302,6 +316,15 @@ export default function Navbar() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerTerms, setRegisterTerms] = useState(false);
   const [registerErrors, setRegisterErrors] = useState({});
+
+  const clearRegisterFields = () => {
+    setRegisterFirstName('');
+    setRegisterLastName('');
+    setRegisterEmail('');
+    setRegisterPassword('');
+    setRegisterTerms(false);
+    setRegisterErrors({});
+  };
 
   const validateRegister = () => {
     let errors = {};
@@ -330,50 +353,10 @@ export default function Navbar() {
       errors.terms_accepted = "You must agree before submitting";
     }
 
-    // const name_reg = /^(?!.*[#?\-\\])[a-zA-Z]+$/;
-    // if (!registerName) {
-    //   errors.name = "Please enter your full name";
-    // } else if (!name_reg.test(registerName)) {
-    //   errors.name = "Invalid name format";
-    // } else {
-    //   errors.name = "";
-    // }
-
-    // const email_reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    // if (!registerEmail) {
-    //   errors.email = "Please enter a valid email address";
-    // } else if (!email_reg.test(registerEmail)) {
-    //   errors.email = "Invalid email address format";
-    // } else {
-    //   errors.email = "";
-    // }
-
-    // if (!registerPassword) {
-    //   errors.password = "Create a unique password (min. 8 characters)";
-    // } else if (registerPassword.length < 8) {
-    //   errors.password = "Passwords must be at least 8 characters long";
-    // } else {
-    //   errors.password = "";
-    // }
-
-    // if (!registerTerms) {
-    //   errors.terms = "You must agree before submitting";
-    // } else {
-    //   errors.terms = "";
-    // }
-
     setRegisterErrors(errors);
 
     return Object.keys(errors).length === 0;
   };
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     validateRegister();
-  //   }, 100);
-
-  //   return () => clearTimeout(timeout);
-  // }, [registerName, registerEmail, registerPassword, registerTerms]);
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -396,9 +379,16 @@ export default function Navbar() {
           "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/register",
           data
         )
-        .then((response) => {
+        .then(async (response) => {
           console.log(response.data);
           alert("Registration successful");
+
+          // Clear register fields
+          clearRegisterFields();
+
+          // Refetch the user data after successful registration
+          const userResponse = await axios.get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users");
+          setFoundUser(userResponse.data.users);
         })
         .catch((error) => {
           console.error("Error registering user:", error);
