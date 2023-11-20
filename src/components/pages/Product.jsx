@@ -275,9 +275,11 @@ export default function Product() {
                       >
                         Add to Cart
                       </button>
-                      <button className="grow bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">
+                      <Link className="grow" to={`/checkout?total=${data.price*100}`}>
+                        <button className="w-full bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">
                         Buy Now
-                      </button>
+                        </button>
+                      </Link>
                     </div>
 
                     {/* COMMITMENTS */}
