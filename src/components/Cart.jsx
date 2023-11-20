@@ -93,7 +93,7 @@ export default function Cart() {
                 <p className=" text-[22px] font-semibold">
                   Grand Total: <br /> {formatter.format(calculateTotal())}
                 </p>
-                <Link to={`/checkout?total=${calculateTotal()*100}`}>
+                <Link to={`/checkout?total=${btoa(calculateTotal()*100)}`}>
                   <button className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3">
                   Checkout
                   </button>
