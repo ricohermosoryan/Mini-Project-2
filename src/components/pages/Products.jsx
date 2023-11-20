@@ -13,6 +13,7 @@ import ProductFilter from "../ProductFilter";
 import filterImage from "../../assets/filter.svg";
 import closeButtonImage from "../../assets/xmark.svg";
 import { shuffle } from "lodash";
+import Cookies from "js-cookie";
 
 export const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -20,6 +21,7 @@ export const formatter = new Intl.NumberFormat("en-US", {
 });
 
 export default function Products() {
+  const role = Cookies.get("role");
   // Cart Items
   const { addToCart } = useContext(CartContext);
 

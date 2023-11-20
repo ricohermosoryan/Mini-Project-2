@@ -196,10 +196,10 @@ export default function Navbar() {
   const [loginErrors, setLoginErrors] = useState({});
   // Use the userToken to check if the user is logged in
   const userToken = Cookies.get("userLogin");
-  const role = Cookies.get("role");
+  const userRole = Cookies.get("role");
+  const userImage = Cookies.get("image");
   const [user, setUser] = useState(userToken ? true : false);
   const [foundUser, setFoundUser] = useState([]);
-  // const [role, setRole] = useState();
 
   const clearLoginFields = () => {
     setLoginEmail("");
@@ -273,9 +273,15 @@ export default function Navbar() {
         console.log("Login response:", response.data);
 
         const user = foundUser.find((user) => user.email === loginEmail);
-        const id = user ? user.role : null;
+        const id = user ? user._id : null;
+        const userFirstName = user ? user.first_name : null;
+        const userLastName = user ? user.last_name : null;
+        const userEmail = user ? user.email : null;
+        const userImage = user ? user.image : null;
+        const userRole = user ? user.role : null;
 
-        Cookies.set("role", id);
+        Cookies.set("role", userRole);
+        Cookies.set("image", userImage);
 
         toggleModal();
         setUser(details ? true : false);
@@ -305,6 +311,8 @@ export default function Navbar() {
 
       // Clear the session token cookie and user state
       Cookies.remove("userLogin");
+      Cookies.remove("role");
+      Cookies.remove("image");
       setUser(false);
 
       // Clear login fields
@@ -537,9 +545,9 @@ export default function Navbar() {
             {user ? (
               <div>
                 <img
-                  src={navbarIcons[2].icon}
-                  className="w-10 aspect-square cursor-pointer "
-                  alt={navbarIcons[2].name}
+                  src={userImage}
+                  className="w-10 aspect-square rounded-full cursor-pointer "
+                  alt={userImage}
                   animate={profile ? "open" : "closed"}
                   onClick={() => toggleProfile()}
                 />
@@ -576,7 +584,7 @@ export default function Navbar() {
                           className="fixed h-[140px] w-[180px] bg-white shadow-lg rounded-lg border"
                         >
                           <ul className=" space-y-1 mx-2 my-2 text-lg font-bold">
-                            {role === "admin" ? (
+                            {userRole === "admin" ? (
                               <Link to={"/admin"}>
                                 <li>Admin Dashboard</li>
                               </Link>
