@@ -14,6 +14,14 @@ export default function NewsPage() {
   const [news, setNews] = useState({ content: "" });
 
   useEffect(() => {
+    const scrollPosition = window.scrollY;
+
+    // Set the scroll position based on the condition
+    if (scrollPosition === 0) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, 48);
+    }
     const controller = new AbortController();
 
     axios

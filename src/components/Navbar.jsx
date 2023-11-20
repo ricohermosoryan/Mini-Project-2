@@ -28,6 +28,7 @@ import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+import { FaRegImage } from "react-icons/fa6";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
@@ -885,6 +886,7 @@ export default function Navbar() {
                       Image
                     </label>
                     <div className="flex border rounded-lg px-3 py-3">
+                      <FaRegImage className="w-6 h-6 mr-1 aspect-square text-[#bcbcbc]" />
                       <input
                         type="text"
                         placeholder="Image"
