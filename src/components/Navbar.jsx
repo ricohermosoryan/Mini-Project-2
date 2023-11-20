@@ -318,6 +318,8 @@ export default function Navbar() {
       // Clear login fields
       clearLoginFields();
 
+      toggleProfile();
+
       alert("Logout Successful");
     } catch (error) {
       console.error("Logout error:", error.response.data);
