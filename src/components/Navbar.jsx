@@ -196,8 +196,10 @@ export default function Navbar() {
   const [loginErrors, setLoginErrors] = useState({});
   // Use the userToken to check if the user is logged in
   const userToken = Cookies.get("userLogin");
+  const role = Cookies.get("role");
   const [user, setUser] = useState(userToken ? true : false);
   const [foundUser, setFoundUser] = useState([]);
+  // const [role, setRole] = useState();
 
   const clearLoginFields = () => {
     setLoginEmail("");
@@ -255,12 +257,8 @@ export default function Navbar() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login details:", loginEmail, loginPassword);
-
     const isValidData = await validateLogin(foundUser);
     const { isValid, errors, details } = isValidData;
-
-    console.log("Validation result:", isValid);
 
     if (isValid) {
       try {
@@ -273,6 +271,11 @@ export default function Navbar() {
         );
 
         console.log("Login response:", response.data);
+
+        const user = foundUser.find((user) => user.email === loginEmail);
+        const id = user ? user.role : null;
+
+        Cookies.set("role", id);
 
         toggleModal();
         setUser(details ? true : false);
@@ -573,11 +576,15 @@ export default function Navbar() {
                           className="fixed h-[140px] w-[180px] bg-white shadow-lg rounded-lg border"
                         >
                           <ul className=" space-y-1 mx-2 my-2 text-lg font-bold">
-                            {/* {foundUser.role !== "admin" ? (
-                              <li>Account Profile</li>
+                            {role === "admin" ? (
+                              <Link to={"/admin"}>
+                                <li>Admin Dashboard</li>
+                              </Link>
                             ) : (
-                              <li>Admin Dashboard</li>
-                            )} */}
+                              <Link to={"/regular"}>
+                                <li>Account Profile</li>
+                              </Link>
+                            )}
                             <li className=" line-through">Payment</li>
                             <li className=" line-through">Setting</li>
                             <li>
