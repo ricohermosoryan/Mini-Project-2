@@ -28,6 +28,7 @@ import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 import axios from "axios";
 import bcrypt from "bcryptjs";
+import Cookies from "js-cookie";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
@@ -189,61 +190,57 @@ export default function Navbar() {
     });
   };
 
-  // FORM VALIDATION
-  // Login form
-
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loginErrors, setLoginErrors] = useState({});
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("userLogin")) || false
-  );
-  const [login, setLogin] = useState();
-  const [foundUser, setFoundUser] = useState(null);
+  // Use the userToken to check if the user is logged in
+  const userToken = Cookies.get('userLogin');
+  const [user, setUser] = useState(userToken ? true : false);
+  const [foundUser, setFoundUser] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users")
       .then((response) => {
-        setLogin(response.data.users);
+        setFoundUser(response.data.users);
       });
   }, []);
 
   const validateLogin = async () => {
     let errors = {};
-    let details;
+    let details = null;
 
-    if (!loginEmail) {
+    if (!loginEmail || !loginPassword) {
       errors.email = "Please enter your email";
-    } else {
-      details = login.find((user) => user.email === loginEmail);
-      if (!details) {
-        errors.email = "Incorrect Email";
-      }
-    }
-
-    if (!loginPassword) {
       errors.password = "Please enter your password";
-    } else if (details && details.password) {
-      try {
-        const passwordMatch = await bcrypt.compare(
-          loginPassword,
-          details.password
-        );
-
-        if (!passwordMatch) {
-          errors.password = "Incorrect Password";
-        }
-      } catch (error) {
-        console.error("Error comparing passwords:", error);
-        errors.password = "Error comparing passwords";
-      }
     } else {
-      errors.password = "Invalid user data";
+      const userWithEmail = foundUser.find((user) => user.email === loginEmail);
+
+      if (!userWithEmail) {
+        errors.email = "Invalid email or password";
+        errors.password = "Invalid email or password";
+      } else {
+        try {
+          const passwordMatch = await bcrypt.compare(
+            loginPassword,
+            userWithEmail.password
+          );
+
+          if (!passwordMatch) {
+            errors.email = "Invalid email or password";
+            errors.password = "Invalid email or password";
+          } else {
+            details = userWithEmail; 
+          }
+        } catch (error) {
+          console.error("Error comparing passwords:", error);
+          errors.password = "Error comparing passwords";
+        }
+      }
     }
 
     setLoginErrors(errors);
-    setFoundUser(details);
+    setUser(details ? true : false);
 
     return { isValid: Object.keys(errors).length === 0, errors, details };
   };
@@ -251,37 +248,50 @@ export default function Navbar() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('Login details:', loginEmail, loginPassword);
+
     const isValidData = await validateLogin(foundUser);
     const { isValid, errors, details } = isValidData;
-    console.log(isValid);
+
+    console.log('Validation result:', isValid);
 
     if (isValid) {
-      const data = details;
-      console.log(data);
-      // submit form
+      try {
+        const response = await axios.post("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/login", {
+          email: loginEmail,
+          password: loginPassword,
+        });
 
-      // axios
-      //   .post(
-      //     "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/login",
-      //     foundUser
-      //   )
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     alert("Login Sucessfull");
-      //   });
-      localStorage.setItem("userLogin", "true");
+        console.log('Login response:', response.data);
 
-      toggleModal();
+        toggleModal();
+        setUser(details ? true : false);
 
-      setUser(true);
+        // Set user state and save session token in a cookie
+        Cookies.set('userLogin', response.data);
+        alert('Login Successful');
+      } catch (error) {
+        console.error('Login error:', error.response.data);
+        // Handle login error, display an error message, etc.
+      }
     } else {
       setLoginErrors(errors);
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("userLogin");
-    setUser(false);
+  const handleLogout = async () => {
+    try {
+      // Make a request to your logout API endpoint
+      await axios.post("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/logout");
+
+      // Clear the session token cookie and user state
+      Cookies.remove('userLogin');
+      setUser(false);
+      alert('Logout Successful');
+    } catch (error) {
+      console.error('Logout error:', error.response.data);
+      // Handle logout error, display an error message, etc.
+    }
   };
 
   // Register form
@@ -374,8 +384,8 @@ export default function Navbar() {
     if (isValid) {
       // submit form
       const data = {
-        first_name: registerFirstname,
-        last_name: registerLastname,
+        firstname: registerFirstname,
+        lastname: registerLastname,
         email: registerEmail,
         password: registerPassword,
         terms_accepted: registerTerms,
