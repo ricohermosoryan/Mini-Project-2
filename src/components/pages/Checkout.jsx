@@ -10,9 +10,10 @@ const encodedSecretKey = btoa(`${config.secretKey}`);
 
 const Checkout = () => {
   const location = useLocation();
-  const totalAmount = new URLSearchParams(location.search).get('total');
+  const totalAmount = atob(new URLSearchParams(location.search).get('total'));
 
   const [error, setError] = useState(null);
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
 
   useEffect(() => {
     const createPaymentLink = async () => {
@@ -44,8 +45,8 @@ const Checkout = () => {
           if (data) {
             const { attributes: { checkout_url } } = data;
 
-            // Redirect to Paymongo Link URL
-            window.location.href = checkout_url;
+            // Set the checkout URL in state
+            setCheckoutUrl(checkout_url);
           } else {
             // This indicates an issue with creating the Paymongo link
             setError('Error creating Paymongo Link');
@@ -62,11 +63,22 @@ const Checkout = () => {
     };
 
     createPaymentLink();
-  }, []);
+  }, [totalAmount]);
 
   return (
     <div>
-      <div>Redirecting to payment...</div>
+      {checkoutUrl ? (
+        // Render the Paymongo Link within a div
+        <div className="h-screen" dangerouslySetInnerHTML={{ __html: `<iframe src="${checkoutUrl}" width="100%" height="100%" title="Paymongo Checkout"></iframe>` }} />
+      ) : (
+        // Show a loading message or handle errors
+        <div className="flex justify-center mt-40 h-screen">
+          <div className="text-center">
+            Redirecting to payment...
+          </div>
+        </div>
+      )}
+      {error && <div>Error: {error}</div>}
     </div>
   );
 };
