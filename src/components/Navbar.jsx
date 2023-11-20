@@ -28,7 +28,6 @@ import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 import axios from "axios";
 import bcrypt from "bcryptjs";
-import Cookies from "js-cookie";
 import { FaRegImage } from "react-icons/fa6";
 
 export const socialLinks = [
@@ -195,9 +194,9 @@ export default function Navbar() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginErrors, setLoginErrors] = useState({});
   // Use the userToken to check if the user is logged in
-  const userToken = Cookies.get("userLogin");
-  const userRole = Cookies.get("role");
-  const userImage = Cookies.get("image");
+  const userToken = localStorage.getItem("userLogin");
+  const userRole = localStorage.getItem("role");
+  const userImage = localStorage.getItem("image");
   const [user, setUser] = useState(userToken ? true : false);
   const [foundUser, setFoundUser] = useState([]);
 
@@ -280,14 +279,14 @@ export default function Navbar() {
         const userImage = user ? user.image : null;
         const userRole = user ? user.role : null;
 
-        Cookies.set("role", userRole);
-        Cookies.set("image", userImage);
+        localStorage.setItem("role", userRole);
+        localStorage.setItem("image", userImage);
 
         toggleModal();
         setUser(details ? true : false);
 
         // Set user state and save session token in a cookie
-        Cookies.set("userLogin", response.data);
+        localStorage.setItem("userLogin", response.data);
 
         // Clear login fields
         clearLoginFields();
@@ -310,9 +309,9 @@ export default function Navbar() {
       );
 
       // Clear the session token cookie and user state
-      Cookies.remove("userLogin");
-      Cookies.remove("role");
-      Cookies.remove("image");
+      localStorage.removeItem("userLogin");
+      localStorage.removeItem("role");
+      localStorage.removeItem("image");
       setUser(false);
 
       // Clear login fields
