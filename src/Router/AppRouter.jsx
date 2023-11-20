@@ -20,6 +20,8 @@ import PrivacyPolicy from "../components/pages/PrivacyPolicy";
 import TermsOfService from "../components/pages/TermsOfService";
 import NewsPage from "../components/pages/NewsPage";
 import Checkout from "../components/pages/Checkout";
+import Admin from "../components/pages/Admin";
+import Regular from "../components/pages/Regular";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -37,6 +39,8 @@ export default function AppRouter() {
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/faq" element={<FAQs />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/regular" element={<Regular />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
               <Route path="/news/:id" element={<NewsPage />} />

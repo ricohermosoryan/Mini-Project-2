@@ -290,6 +290,7 @@ export default function Navbar() {
   const [registerLastname, setRegisterLastName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [registerImage, setRegisterImage] = useState("");
   const [registerTerms, setRegisterTerms] = useState(false);
   const [registerErrors, setRegisterErrors] = useState({});
 
@@ -373,12 +374,13 @@ export default function Navbar() {
 
     if (isValid) {
       // submit form
+
       const data = {
         first_name: registerFirstname,
         last_name: registerLastname,
         email: registerEmail,
         password: registerPassword,
-        terms_accepted: registerTerms,
+        image: registerImage,
       };
 
       axios
@@ -874,6 +876,26 @@ export default function Navbar() {
                       {registerErrors.password}
                     </p>
                   )}
+
+                  <div className="my-4">
+                    <label
+                      htmlFor="register-lastname"
+                      className="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Image
+                    </label>
+                    <div className="flex border rounded-lg px-3 py-3">
+                      <input
+                        type="text"
+                        placeholder="Image"
+                        name="image"
+                        id="image"
+                        className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
+                        onInput={(e) => setRegisterImage(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
                   <div className="my-4 px-3 flex items-center">
                     <input
                       type="checkbox"
