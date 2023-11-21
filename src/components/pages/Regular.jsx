@@ -7,6 +7,7 @@ export default function Regular() {
   const [editUser, setEditUser] = useState({
     first_name: "",
     last_name: "",
+    password: "",
     email: "",
   });
 
@@ -65,7 +66,7 @@ export default function Regular() {
               <p className="text-dark-quantum">{user.email}</p>
             </div>
           </div>
-          <div className="border h-[1px] border-gray-400 mt-3"></div>
+          <div className="border h-[1px] border-dark-quantum mt-3"></div>
           <div className="mx-[50px] mt-5">
             <p className="text-[25px] font-semibold">Profile Information</p>
             <p className="text-[15px] font-medium">
@@ -87,6 +88,7 @@ export default function Regular() {
                 onChange={handleInputChange}
               ></input>
             </div>
+
             <div className="m-5 w-[350px]">
               <label
                 for="first_name"
@@ -100,6 +102,23 @@ export default function Regular() {
                 name="last_name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 value={editUser.last_name || user.last_name}
+                onChange={handleInputChange}
+              ></input>
+            </div>
+
+            <div className="m-5 w-[350px]">
+              <label
+                for="first_name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={editUser.password}
                 onChange={handleInputChange}
               ></input>
             </div>
