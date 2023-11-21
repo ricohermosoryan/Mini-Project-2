@@ -266,9 +266,10 @@ export default function Product() {
                         className="grow bg-transparent rounded-lg p-3.5 text-quantum border-2 border-quantum heading text-lg hover:text-dark-quantum hover:border-dark-quantum"
                         onClick={() =>
                           addToCart({
-                            name: data.name,
-                            price: data.price,
-                            image: selectedImage,
+                            product: data._id,
+                            // name: data.name,
+                            // price: data.price,
+                            // image: selectedImage,
                             quantity: 1,
                           })
                         }
@@ -622,9 +623,10 @@ export default function Product() {
                                 className="flex gap-2 p-3 font-semibold"
                                 onClick={() =>
                                   addToCart({
-                                    name: product.name,
-                                    price: product.price,
-                                    image: product.image[0],
+                                    product: product._id,
+                                    // name: product.name,
+                                    // price: product.price,
+                                    // image: product.image[0],
                                     quantity: 1,
                                   })
                                 }
