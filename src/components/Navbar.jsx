@@ -193,12 +193,17 @@ export default function Navbar() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginErrors, setLoginErrors] = useState({});
-  // Use the userToken to check if the user is logged in
-  const userToken = localStorage.getItem("userLogin");
   const userRole = localStorage.getItem("role");
   const userImage = localStorage.getItem("image");
-  const [user, setUser] = useState(userToken ? true : false);
+  const [user, setUser] = useState(false);
   const [foundUser, setFoundUser] = useState([]);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("token");
+    if (userToken) {
+      setUser(true);
+    }
+  }, []);
 
   const clearLoginFields = () => {
     setLoginEmail("");
@@ -272,21 +277,21 @@ export default function Navbar() {
         console.log("Login response:", response.data);
 
         const user = foundUser.find((user) => user.email === loginEmail);
-        const id = user ? user._id : null;
-        const userFirstName = user ? user.first_name : null;
-        const userLastName = user ? user.last_name : null;
-        const userEmail = user ? user.email : null;
-        const userImage = user ? user.image : null;
-        const userRole = user ? user.role : null;
+        const userCart = user ? user.cart : [];
 
-        localStorage.setItem("role", userRole);
-        localStorage.setItem("image", userImage);
+        localStorage.setItem("_id", user._id || '');
+        localStorage.setItem("first_name", user.first_name || '');
+        localStorage.setItem("last_name", user.last_name || '');
+        localStorage.setItem("email", user.email || '');
+        localStorage.setItem("role", user.role || '');
+        localStorage.setItem("image", user.image || '');
+        localStorage.setItem("cart", JSON.stringify(userCart));
 
         toggleModal();
         setUser(details ? true : false);
 
         // Set user state and save session token in a cookie
-        localStorage.setItem("userLogin", response.data);
+        localStorage.setItem("token", response.data.token);
 
         // Clear login fields
         clearLoginFields();
@@ -309,9 +314,14 @@ export default function Navbar() {
       );
 
       // Clear the session token cookie and user state
-      localStorage.removeItem("userLogin");
+      localStorage.removeItem("token");
+      localStorage.removeItem("_id");
+      localStorage.removeItem("first_name");
+      localStorage.removeItem("last_name");
+      localStorage.removeItem("email");
       localStorage.removeItem("role");
       localStorage.removeItem("image");
+      localStorage.removeItem("cart");
       setUser(false);
 
       // Clear login fields
