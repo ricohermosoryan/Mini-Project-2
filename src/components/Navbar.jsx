@@ -323,6 +323,7 @@ export default function Navbar() {
       localStorage.removeItem("email");
       localStorage.removeItem("role");
       localStorage.removeItem("image");
+      localStorage.removeItem("cart");
       setUser(false);
 
       history("/home");
