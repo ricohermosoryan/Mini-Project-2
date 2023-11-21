@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useDebugValue } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import quantumLogoImage from "../assets/logo.svg";
 import newletterImage from "../assets/newsletter.svg";
 import facebookImage from "../assets/facebook.svg";
@@ -29,6 +29,7 @@ import { useCycle, motion, AnimatePresence, MotionConfig } from "framer-motion";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { FaRegImage } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 export const socialLinks = [
   { name: "Newsletter", icon: newletterImage, href: "#newsletter" },
@@ -199,6 +200,7 @@ export default function Navbar() {
   const userImage = localStorage.getItem("image");
   const [user, setUser] = useState(userToken ? true : false);
   const [foundUser, setFoundUser] = useState([]);
+  const history = useNavigate();
 
   const clearLoginFields = () => {
     setLoginEmail("");
@@ -279,6 +281,7 @@ export default function Navbar() {
         const userImage = user ? user.image : null;
         const userRole = user ? user.role : null;
 
+        localStorage.setItem("id", id);
         localStorage.setItem("role", userRole);
         localStorage.setItem("image", userImage);
 
@@ -312,7 +315,10 @@ export default function Navbar() {
       localStorage.removeItem("userLogin");
       localStorage.removeItem("role");
       localStorage.removeItem("image");
+      localStorage.removeItem("id");
       setUser(false);
+
+      history("/home");
 
       // Clear login fields
       clearLoginFields();
@@ -582,7 +588,7 @@ export default function Navbar() {
                           initial="closed"
                           animate="open"
                           exit="closed"
-                          className="fixed h-[140px] w-[180px] bg-white shadow-lg rounded-lg border"
+                          className="fixed h-[80px] w-[180px] bg-white shadow-lg rounded-lg border"
                         >
                           <ul className=" space-y-1 mx-2 my-2 text-lg font-bold">
                             {userRole === "admin" ? (
@@ -594,8 +600,6 @@ export default function Navbar() {
                                 <li>Account Profile</li>
                               </Link>
                             )}
-                            <li className=" line-through">Payment</li>
-                            <li className=" line-through">Setting</li>
                             <li>
                               <button
                                 onClick={handleLogout}
