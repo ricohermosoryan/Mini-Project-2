@@ -11,6 +11,10 @@ export const formatter = new Intl.NumberFormat("en-US", {
   currency: "PHP",
 });
 
+export const resetProductDetails = (setter) => {
+  setter([]);
+};
+
 export default function Cart() {
   const [shouldReload, setShouldReload] = useState(false);
 
@@ -58,6 +62,11 @@ export default function Cart() {
 
     fetchProductDetails();
   }, [items]);
+
+  const handleRemoveAllFromCart = () => {
+    removeAllFromCart();
+    setProductDetails([]); // Reset productDetails state to an empty array when all items are removed
+  };
 
   // Total
   const calculateTotal = () => {
@@ -130,7 +139,7 @@ export default function Cart() {
                 </Link>
                 <button
                   className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3"
-                  onClick={() => removeAllFromCart()}
+                  onClick={() => handleRemoveAllFromCart()}
                 >
                   Delete All Items
                 </button>

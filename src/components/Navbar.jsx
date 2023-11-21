@@ -68,7 +68,7 @@ export default function Navbar() {
     }
   };
   // Cart Items
-  const { items } = useContext(CartContext);
+  const { items, fetchCartData } = useContext(CartContext);
 
   const navbarList = [
     { name: "Home", href: "/home" },
@@ -295,6 +295,9 @@ export default function Navbar() {
         // Set user state and save session token in a cookie
         localStorage.setItem("token", response.data.token);
 
+        // Fetch and update cart data after successful login
+        fetchCartData(); // Call the fetchCartData function from CartContext
+
         // Clear login fields
         clearLoginFields();
 
@@ -335,8 +338,13 @@ export default function Navbar() {
 
       alert("Logout Successful");
     } catch (error) {
-      console.error("Logout error:", error.response.data);
-      // Handle logout error, display an error message, etc.
+      if (error.response) {
+        console.error("Logout error:", error.response.data);
+        // Handle logout error with a response, display an error message, etc.
+      } else {
+        console.error("Logout error:", error);
+        // Handle other types of errors, display a general error message, etc.
+      }
     }
   };
 
