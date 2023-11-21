@@ -17,7 +17,7 @@ export default function Regular() {
   } else {
     window.scrollTo(0, 48);
   }
-  const id = localStorage.getItem("id");
+  const id = localStorage.getItem("_id");
 
   useEffect(() => {
     axios
