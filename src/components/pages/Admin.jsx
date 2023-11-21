@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PageTransition from "../PageTransition";
 import axios from "axios";
 import AddProducts from "../AddProducts";
+import EditProducts from "../EditProducts";
 
 export default function Admin() {
   const scrollPosition = window.scrollY;
@@ -43,7 +44,7 @@ export default function Admin() {
           </div>
           <div className="border h-[1px] border-dark-quantum mt-3"></div>
           <div className="flex justify-between gap-3">
-            <div className=" p-5 border mt-10">
+            <div className=" p-5 border mt-10 rounded-lg shadow-lg">
               <h1 className="text-[25px]  font-semibold">Products</h1>
               <p className="text-[20px] font-medium">
                 Total Products: {products.length}
@@ -53,11 +54,18 @@ export default function Admin() {
               </div>
               <h1 className="text-[25px]  font-semibold">Product Preview</h1>
               <div className=" overflow-y-auto h-[400px] w-[600px]">
-                <ul>
+                <ul className="space-y-2">
                   {products.map((item, i) => {
                     return (
-                      <li key={i} className=" truncate">
-                        {item.name}
+                      <li key={i} className=" truncate border rounded-lg">
+                        <p className="text-[20px] font-semibold">{item.name}</p>
+                        <div
+                          onClick={() =>
+                            localStorage.setItem("product_id", item._id)
+                          }
+                        >
+                          <EditProducts />
+                        </div>
                       </li>
                     );
                   })}
