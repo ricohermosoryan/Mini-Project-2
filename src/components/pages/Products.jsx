@@ -328,9 +328,10 @@ export default function Products() {
                         className="flex gap-2 p-3 font-semibold"
                         onClick={() =>
                           addToCart({
-                            name: item.name,
-                            price: item.price,
-                            image: item.image[0],
+                            product: item._id,
+                            // name: item.name,
+                            // price: item.price,
+                            // image: item.image[0],
                             quantity: 1,
                           })
                         }
