@@ -12,6 +12,15 @@ export const formatter = new Intl.NumberFormat("en-US", {
 });
 
 export default function Cart() {
+
+  const scrollPosition = window.scrollY;
+  // Set the scroll position based on the condition
+  if (scrollPosition === 0) {
+    window.scrollTo(0, 0);
+  } else {
+    window.scrollTo(0, 48);
+  }
+  
   //Cart Items
   const {
     items,

@@ -6,13 +6,6 @@ export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart"));
-    if (storedCart) {
-      setItems(storedCart);
-    }
-  }, []);
-
-  useEffect(() => {
     const handleStorageChange = () => {
       const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
       setItems(storedCart);
@@ -23,6 +16,36 @@ export function CartProvider({ children }) {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const user_id = localStorage.getItem("_id");
+        if (!user_id) {
+          throw new Error("User ID not found in localStorage. Please log in.");
+        }
+
+        const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch cart data.");
+        }
+
+        const { cart } = await response.json();
+
+        // Transform the fetched API cart data to match the localStorage structure
+        const transformedCart = cart.map(item => ({
+          product: item.product.id,
+          quantity: item.quantity
+        }));
+
+        setItems(transformedCart);
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
+    };
+
+    fetchCartData();
   }, []);
 
   const updateCartOnServer = async (updatedCart) => {
