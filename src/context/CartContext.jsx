@@ -18,34 +18,33 @@ export function CartProvider({ children }) {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        const user_id = localStorage.getItem("_id");
-        if (user_id) { // Check if user is logged in
-          const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`);
-          if (!response.ok) {
-            throw new Error("Failed to fetch cart data.");
-          }
-    
-          const { cart } = await response.json();
-    
-          // Transform the fetched API cart data to match the localStorage structure
-          const transformedCart = cart.map(item => ({
-            product: item.product.id,
-            quantity: item.quantity
-          }));
-    
-          setItems(transformedCart);
+  const fetchCartData = async () => {
+    try {
+      const user_id = localStorage.getItem("_id");
+      if (user_id) { // Check if user is logged in
+        const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch cart data.");
         }
-      } catch (error) {
-        console.error("Error fetching cart data:", error);
+  
+        const { cart } = await response.json();
+  
+        // Transform the fetched API cart data to match the localStorage structure
+        const transformedCart = cart.map(item => ({
+          product: item.product.id,
+          quantity: item.quantity
+        }));
+  
+        setItems(transformedCart);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  };
 
-    fetchCartData();
+  useEffect(() => {
+    fetchCartData(); // Initial fetch of cart data when the component mounts
   }, []);
-
 
   const updateCartOnServer = async (updatedCart) => {
     try {
@@ -159,6 +158,7 @@ export function CartProvider({ children }) {
         removeAllFromCart,
         incrementQuantity,
         decrementQuantity,
+        fetchCartData,
       }}
     >
       {children}
