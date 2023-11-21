@@ -22,24 +22,22 @@ export function CartProvider({ children }) {
     const fetchCartData = async () => {
       try {
         const user_id = localStorage.getItem("_id");
-        if (!user_id) {
-          throw new Error("User ID not found in localStorage. Please log in.");
+        if (user_id) { // Check if user is logged in
+          const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch cart data.");
+          }
+    
+          const { cart } = await response.json();
+    
+          // Transform the fetched API cart data to match the localStorage structure
+          const transformedCart = cart.map(item => ({
+            product: item.product.id,
+            quantity: item.quantity
+          }));
+    
+          setItems(transformedCart);
         }
-
-        const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch cart data.");
-        }
-
-        const { cart } = await response.json();
-
-        // Transform the fetched API cart data to match the localStorage structure
-        const transformedCart = cart.map(item => ({
-          product: item.product.id,
-          quantity: item.quantity
-        }));
-
-        setItems(transformedCart);
       } catch (error) {
         console.error("Error fetching cart data:", error);
       }
@@ -48,6 +46,7 @@ export function CartProvider({ children }) {
     fetchCartData();
   }, []);
 
+
   const updateCartOnServer = async (updatedCart) => {
     try {
       const user_id = localStorage.getItem("_id");
@@ -55,11 +54,17 @@ export function CartProvider({ children }) {
         throw new Error("User ID not found. Please log in.");
       }
 
-      const response = await axios.patch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/${user_id}`, {
-        cart: updatedCart
-      });
+      const requestOptions = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cart: updatedCart }),
+      };
 
-      if (!response.data.success) {
+      const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/${user_id}`, requestOptions);
+
+      if (!response.ok) {
         throw new Error("Failed to update cart on the server.");
       }
 
@@ -142,7 +147,7 @@ export function CartProvider({ children }) {
     } catch (error) {
       console.error("Error decrementing quantity:", error);
       // Handle error - Display an error message or perform necessary actions
-    }
+    }    
   };
 
   return (

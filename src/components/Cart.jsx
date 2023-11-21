@@ -12,6 +12,7 @@ export const formatter = new Intl.NumberFormat("en-US", {
 });
 
 export default function Cart() {
+  const [shouldReload, setShouldReload] = useState(false);
 
   const scrollPosition = window.scrollY;
   // Set the scroll position based on the condition
@@ -31,12 +32,10 @@ export default function Cart() {
   } = useContext(CartContext);
 
   const [productDetails, setProductDetails] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
       // Only proceed if items are available
-      setLoading(true);
       if (items.length > 0) {
         try {
           const response = await fetch(
@@ -51,10 +50,8 @@ export default function Cart() {
           });
 
           setProductDetails(cartProductDetails);
-          setLoading(false);
         } catch (error) {
           console.error('Error fetching product details:', error);
-          setLoading(false);
         }
       }
     };
@@ -82,69 +79,63 @@ export default function Cart() {
           </div>
           <div className="border border-gray-500 mx-5"></div>
           <div className=" mt-5">
-            {loading ? (
-              <p>Loading...</p> // Display a loading indicator
-            ) : (
-              <div className=" ">
-                {productDetails.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4">
-                    {productDetails.map((product, index) => (
-                      <div key={index} className="flex gap-2 mb-4 mx-4 w-[359px]">
-                        <div className="w-[250px] h-[140px] flex items-center">
-                          <img src={product.image[0]} alt="image" className="object-cover" />
+            <div className=" ">
+              {productDetails.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4">
+                  {productDetails.map((product, index) => (
+                    <div key={index} className="flex gap-2 mb-4 mx-4 w-[359px]">
+                      <div className="w-[250px] h-[140px] flex items-center">
+                        <img src={product.image[0]} alt="image" className="object-cover" />
+                      </div>
+                      <div className="w-[400px]">
+                        <div className="h-[120px] flex items-center">
+                          <p className="mb-4 text-[19px] font-bold">{product.name}</p>
                         </div>
-                        <div className="w-[400px]">
-                          <div className="h-[120px] flex items-center">
-                            <p className="mb-4 text-[19px] font-bold">{product.name}</p>
-                          </div>
-                          <p className="text-[17px] font-semibold">
-                            {formatter.format(product.price)}
-                          </p>
-
-                          <div className=" flex justify-end gap-3">
-                            <button onClick={() => removeFromCart(index)}>
-                              <img
-                                src={trash}
-                                alt="image"
-                                className="w-[25px] h-[25px]"
-                              />
+                        <p className="text-[17px] font-semibold">
+                          {formatter.format(product.price)}
+                        </p>
+                        <div className=" flex justify-end gap-3">
+                          <button onClick={() => removeFromCart(index)}>
+                            <img
+                              src={trash}
+                              alt="image"
+                              className="w-[25px] h-[25px]"
+                            />
+                          </button>
+                          <div className="flex gap-3 bg-gray-300 rounded-lg p-1">
+                            <button onClick={() => incrementQuantity(index)}>
+                              <FiPlus />
                             </button>
-                            <div className="flex gap-3 bg-gray-300 rounded-lg p-1">
-                              <button onClick={() => incrementQuantity(index)}>
-                                <FiPlus />
-                              </button>
-                              {product.quantity}
-                              <button onClick={() => decrementQuantity(index)}>
-                                <FiMinus />
-                              </button>
-                            </div>
+                            {product.quantity}
+                            <button onClick={() => decrementQuantity(index)}>
+                              <FiMinus />
+                            </button>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center">No items in the cart.</div>
-                )}
-                <div className=" flex justify-around items-center pt-[40px] pb-[30px] md:w-[340px] lg:w-[470px]">
-                  <p className=" text-[22px] font-semibold">
-                    Grand Total: <br /> {formatter.format(calculateTotal())}
-                  </p>
-                  <Link to={`/checkout?total=${btoa(calculateTotal() * 100)}`}>
-                    <button className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3">
-                      Checkout
-                    </button>
-                  </Link>
-                  <button
-                    className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3"
-                    onClick={() => removeAllFromCart()}
-                  >
-                    Delete All Items
-                  </button>
+                    </div>
+                  ))}
                 </div>
-
+              ) : (
+                <div className="text-center">No items in the cart.</div>
+              )}
+              <div className=" flex justify-around items-center pt-[40px] pb-[30px] md:w-[340px] lg:w-[470px]">
+                <p className=" text-[22px] font-semibold">
+                  Grand Total: <br /> {formatter.format(calculateTotal())}
+                </p>
+                <Link to={`/checkout?total=${btoa(calculateTotal() * 100)}`}>
+                  <button className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3">
+                    Checkout
+                  </button>
+                </Link>
+                <button
+                  className="border rounded-lg bg-dark-quantum text-white px-[20px] py-3"
+                  onClick={() => removeAllFromCart()}
+                >
+                  Delete All Items
+                </button>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </PageTransition>
