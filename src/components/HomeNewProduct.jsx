@@ -14,10 +14,10 @@ export default function HomeNewProduct() {
 
     axios
       .get(
-        "https://w266v3hoea.execute-api.ap-southeast-2.amazonaws.com/dev/products"
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       )
       .then((res) => {
-        setData(res.data);
+        setData(res.data.products);
       })
       .catch((err) => console.error(err));
 
@@ -45,7 +45,7 @@ export default function HomeNewProduct() {
             onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
             <div className="p-4">
-              <Link to={`${item.id}`}>
+              <Link to={`/products/${item._id}`}>
                 <div className="relative">
                   <img src={item.image[0]} className="absolute inset-0 rounded-lg"
                     style={{
@@ -55,23 +55,26 @@ export default function HomeNewProduct() {
                   <img
                     className="rounded-lg shadow"
                     src={hoveredItem === i ? item.image[1] : item.image[0]}
-                    alt={item.title}
+                    alt={item.name}
                     style={{
                       transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
                       opacity: hoveredItem === i ? 1 : 0.8,
                       transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
                     }}
                   />
+                  {item.discount > 0 && (
+                    <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-1">{item.discount*100}%<br />OFF</div>
+                  )}
                 </div>
               </Link>
             </div>
             <div>
-              <Link to={`${item.id}`}>
-                <p className="truncate heading font-medium">{item.title}</p>
+              <Link to={`/products/${item._id}`}>
+                <p className="truncate heading font-medium">{item.name}</p>
               </Link>
               <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
               <div className="flex items-center justify-between py-2 transition-all duration-200">
-                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <p className="font-semibold">{formatter.format(item.price-(item.price*item.discount))}</p>
                 <div className="flex gap-x-4 my-2">
                   <Rating className="my-auto">
                     <Rating.Star className="text-quantum"/>
@@ -99,7 +102,7 @@ export default function HomeNewProduct() {
             onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
             <div className="p-4">
-              <Link to={`${item.id}`}>
+              <Link to={`/products/${item._id}`}>
                 <div className="relative">
                   <img src={item.image[0]} className="absolute inset-0 rounded-lg"
                     style={{
@@ -109,23 +112,26 @@ export default function HomeNewProduct() {
                   <img
                     className="rounded-lg shadow"
                     src={hoveredItem === i ? item.image[1] : item.image[0]}
-                    alt={item.title}
+                    alt={item.name}
                     style={{
                       transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
                       opacity: hoveredItem === i ? 1 : 0.8,
                       transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
                     }}
                   />
+                  {item.discount > 0 && (
+                    <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-1">{item.discount*100}%<br />OFF</div>
+                  )}
                 </div>
               </Link>
             </div>
             <div>
-              <Link to={`${item.id}`}>
-                <p className="truncate heading font-medium">{item.title}</p>
+              <Link to={`/products/${item._id}`}>
+                <p className="truncate heading font-medium">{item.name}</p>
               </Link>
               <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
               <div className="flex items-center justify-between py-2 transition-all duration-200">
-                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <p className="font-semibold">{formatter.format(item.price-(item.price*item.discount))}</p>
                 <div className="flex gap-x-4 my-2">
                   <Rating className="my-auto">
                     <Rating.Star className="text-quantum"/>
@@ -153,7 +159,7 @@ export default function HomeNewProduct() {
             onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
             <div className="p-4">
-              <Link to={`${item.id}`}>
+              <Link to={`/products/${item._id}`}>
                 <div className="relative">
                   <img src={item.image[0]} className="absolute inset-0 rounded-lg"
                     style={{
@@ -163,23 +169,26 @@ export default function HomeNewProduct() {
                   <img
                     className="rounded-lg shadow"
                     src={hoveredItem === i ? item.image[1] : item.image[0]}
-                    alt={item.title}
+                    alt={item.name}
                     style={{
                       transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
                       opacity: hoveredItem === i ? 1 : 0.8,
                       transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
                     }}
                   />
+                  {item.discount > 0 && (
+                    <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-1">{item.discount*100}%<br />OFF</div>
+                  )}
                 </div>
               </Link>
             </div>
             <div>
-              <Link to={`${item.id}`}>
-                <p className="truncate heading font-medium">{item.title}</p>
+              <Link to={`/products/${item._id}`}>
+                <p className="truncate heading font-medium">{item.name}</p>
               </Link>
               <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
               <div className="flex items-center justify-between py-2 transition-all duration-200">
-                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <p className="font-semibold">{formatter.format(item.price-(item.price*item.discount))}</p>
                 <div className="flex gap-x-4 my-2">
                   <Rating className="my-auto">
                     <Rating.Star className="text-quantum"/>

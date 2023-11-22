@@ -69,7 +69,13 @@ export default function Home() {
         "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       )
       .then((res) => {
-        const limitedData = res.data.products.slice(0, 20); // Limit data to 20 items
+        // Filter products with a discount greater than 0
+        const filteredData = res.data.products.filter((product) => product.discount > 0);
+        
+        // Limit filtered data to 20 items
+        const limitedData = filteredData.slice(0, 20);
+        
+        // Set the filtered and limited data to the state
         setData(limitedData);
       })
       .catch((err) => console.error(err));
@@ -201,7 +207,7 @@ export default function Home() {
                   >
                     {/* Render your card content here */}
                     <div className="p-4">
-                      <Link to={`${item.id}`}>
+                      <Link to={`/products/${item._id}`}>
                         <div className="relative">
                           <img
                             src={item.image[0]}
@@ -216,7 +222,7 @@ export default function Home() {
                             src={
                               hoveredItem === i ? item.image[1] : item.image[0]
                             }
-                            alt={item.title}
+                            alt={item.name}
                             style={{
                               transform:
                                 hoveredItem === i ? "scale(1.1)" : "scale(1)",
@@ -230,14 +236,14 @@ export default function Home() {
                     </div>
                     <div className="mb-10">
                       <p className=" text-black heading text-[9px] md:text-[13px] lg:text-[14px] text-left truncate">
-                        {item.title}
+                        {item.name}
                       </p>
                       <p className="text-dark-quantum text-[9px] md:text-[13px] lg:text-sm text-left pt-2">
                         {item.brand}
                       </p>
                     </div>
                     <p className=" text-black text-xs text-left md:text-base lg:text-lg absolute bottom-3 left-2">
-                      {formatter.format(item.price)}
+                      {formatter.format(item.price-(item.price*item.discount))}
                     </p>
                   </motion.div>
                 ))}
@@ -278,7 +284,7 @@ export default function Home() {
             <div className="flex items-baseline border-b-2 border-quantum">
               <div className="border border-transparent grow h-px"></div>
               <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
-                New Products
+                New Arrivals
               </h2>
               <div className="border border-transparent grow-[8] h-px"></div>
               <Link to="/products">
@@ -411,7 +417,7 @@ export default function Home() {
               className="mt-[-90px] ms-[150px] lg:mt-[-260px] lg:w-[300px] lg:ms-[190px]"
             />
 
-            <Link to="/products/43">
+            <Link to="/products/6556d68eb47d6ece88210797">
               <motion.button
                 className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
                 whileHover={{ scale: 1.2 }}
@@ -583,7 +589,7 @@ export default function Home() {
                   <div className="w-full md:w-3/5 shadow ">
                     <Link to={`/blogs/${item._id}`}>
                       <p className="truncate mx-3 mt-2 heading text-lg font-medium">
-                        {item.title}
+                        {item.name}
                       </p>
                     </Link>
                     <p className="truncate mx-3 text-sm italic">

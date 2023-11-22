@@ -11,6 +11,7 @@ import speedyTruckImage from "../../assets/speedytruck.svg";
 import shieldImage from "../../assets/shield.svg";
 import alertImage from "../../assets/alert.svg";
 import atomeImage from "../../assets/atome.svg";
+import atomeBaselineImage from "../../assets/atome-baseline.svg";
 import billeaseImage from "../../assets/billease.svg";
 import billeaseBaselineImage from "../../assets/billease-baseline.svg";
 import gcashImage from "../../assets/gcash.svg";
@@ -228,27 +229,57 @@ export default function Product() {
 
                     {/* PRODUCT PRICE */}
                     {data.price && (
-                      <p className="heading text-2xl font-semibold my-2">
-                        {formatter.format(data.price)}
+                      <div className="flex gap-x-2">
+                        <p className="heading text-2xl font-semibold my-2">
+                          {formatter.format(data.price - (data.price * data.discount))}
+                        </p>
+                        {data.price !== data.price - (data.price * data.discount) && (
+                          <p className="heading line-through text-sm font-medium my-2">
+                            {formatter.format(data.price)}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {data.price >= 2000 && data.price <= 40000 && (
+                      <p className="flex flex-wrap items-baseline text-sm my-2">
+                        or pay up to&nbsp;
+                        <span>12 monthly installments&nbsp;</span>for only&nbsp;
+                        
+                          <span className="heading text-base font-semibold">
+                            {formatter.format((data.price-(data.price*data.discount)) / 12)}
+                          </span>
+                        
+                        &nbsp;with&nbsp;
+                        <img src={billeaseBaselineImage} className="h-3.5" />
+                        .&nbsp;
+                        <span className="text-quantum underline">
+                          <a href="https://billease.ph/" target="_blank">
+                            Learn More.
+                          </a>
+                        </span>
                       </p>
                     )}
-                    <p className="flex flex-wrap items-baseline text-sm my-2">
-                      or pay up to&nbsp;
-                      <span>12 monthly installments&nbsp;</span>for only&nbsp;
-                      {data.price && (
-                        <span className="heading text-base font-semibold">
-                          {formatter.format(data.price / 12)}
+
+                    {data.price >= 100 && data.price <= 2000 && (
+                      <p className="flex flex-wrap items-baseline text-sm my-2">
+                        or pay up to&nbsp;
+                        <span>3 monthly installments&nbsp;</span>for only&nbsp;
+                        
+                          <span className="heading text-base font-semibold">
+                            {formatter.format((data.price-(data.price*data.discount)) / 3)}
+                          </span>
+                        
+                        &nbsp;with&nbsp;
+                        <img src={atomeBaselineImage} className="h-3.5" />
+                        .&nbsp;
+                        <span className="text-quantum underline">
+                          <a href="https://www.atome.ph/" target="_blank">
+                            Learn More.
+                          </a>
                         </span>
-                      )}
-                      &nbsp;with&nbsp;
-                      <img src={billeaseBaselineImage} className="w-16" />
-                      .&nbsp;
-                      <span className="text-quantum underline">
-                        <a href="https://billease.ph/" target="_blank">
-                          Learn More.
-                        </a>
-                      </span>
-                    </p>
+                      </p>
+                    )}
 
                     {/* PRODUCT DETAILS */}
                     {data.brand && (
@@ -267,16 +298,13 @@ export default function Product() {
                         onClick={() =>
                           addToCart({
                             product: data._id,
-                            // name: data.name,
-                            // price: data.price,
-                            // image: selectedImage,
                             quantity: 1,
                           })
                         }
                       >
                         Add to Cart
                       </button>
-                      <Link className="grow" to={`/checkout?total=${btoa(data.price*100)}`}>
+                      <Link className="grow" to={`/checkout?total=${btoa((data.price-(data.price*data.discount))*100)}`}>
                         <button className="w-full bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">
                         Buy Now
                         </button>
@@ -413,21 +441,6 @@ export default function Product() {
                           other factors. Refer to your tracking number to see
                           where your package is. For unusual circumstances,
                           please contact customer service.
-                        </p>
-
-                        <p className="heading font-medium my-1">
-                          Tracking Your Item
-                        </p>
-
-                        <p className="mb-2">
-                          As a policy, as soon as we have sent your package for
-                          shipping, the tracking number will immediately be sent
-                          to you via email and SMS within 24-48 hours after
-                          checkout. You may also contact us at
-                          orders@quantumgalaxy.com if you still haven't received
-                          the tracking number. Keep your tracking number secure
-                          and private. You can also track your order thru this
-                          link: https://www.quantumgalaxy.ph/tracking
                         </p>
 
                         <p className="heading font-medium my-1">

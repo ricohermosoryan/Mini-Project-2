@@ -73,7 +73,7 @@ export default function Cart() {
     return items.reduce((total, item) => {
       const product = productDetails.find((p) => p._id === item.product);
       if (product) {
-        return total + product.price * item.quantity;
+        return total + (product.price-(product.price*product.discount)) * item.quantity;
       }
       return total;
     }, 0);
@@ -101,7 +101,7 @@ export default function Cart() {
                           <p className="mb-4 text-[19px] font-bold">{product.name}</p>
                         </div>
                         <p className="text-[17px] font-semibold">
-                          {formatter.format(product.price)}
+                          {formatter.format(product.price-(product.price*product.discount))}
                         </p>
                         <div className=" flex justify-end gap-3">
                           <button onClick={() => removeFromCart(index)}>
