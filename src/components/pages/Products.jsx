@@ -251,7 +251,7 @@ export default function Products() {
             </div>
 
             {/* PRODUCTS */}
-            <div className="w-full lg:w-4/5 xl:w-5/6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:mx-4 mx-1">
+            <div className="w-full lg:w-4/5 xl:w-5/6 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:mx-4 mx-1 mt-2">
               {/* PRODUCT ITEMS */}
 
               {paginatedData.map((item, i) => (
@@ -294,6 +294,9 @@ export default function Products() {
                               "transform 0.5s ease-in, opacity 0.3s ease-in",
                           }}
                         />
+                        {item.discount > 0 && (
+                          <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-2">{item.discount*100}%<br />OFF</div>
+                        )}
                       </div>
                     </Link>
                   </div>

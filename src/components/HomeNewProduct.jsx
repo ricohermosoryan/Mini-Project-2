@@ -62,6 +62,9 @@ export default function HomeNewProduct() {
                       transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
                     }}
                   />
+                  {item.discount > 0 && (
+                    <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-1">{item.discount*100}%<br />OFF</div>
+                  )}
                 </div>
               </Link>
             </div>
@@ -116,6 +119,9 @@ export default function HomeNewProduct() {
                       transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
                     }}
                   />
+                  {item.discount > 0 && (
+                    <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-1">{item.discount*100}%<br />OFF</div>
+                  )}
                 </div>
               </Link>
             </div>
@@ -170,6 +176,9 @@ export default function HomeNewProduct() {
                       transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
                     }}
                   />
+                  {item.discount > 0 && (
+                    <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-1">{item.discount*100}%<br />OFF</div>
+                  )}
                 </div>
               </Link>
             </div>

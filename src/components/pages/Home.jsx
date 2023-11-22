@@ -72,8 +72,8 @@ export default function Home() {
         // Filter products with a discount greater than 0
         const filteredData = res.data.products.filter((product) => product.discount > 0);
         
-        // Limit filtered data to 10 items
-        const limitedData = filteredData.slice(0, 10);
+        // Limit filtered data to 20 items
+        const limitedData = filteredData.slice(0, 20);
         
         // Set the filtered and limited data to the state
         setData(limitedData);
@@ -284,7 +284,7 @@ export default function Home() {
             <div className="flex items-baseline border-b-2 border-quantum">
               <div className="border border-transparent grow h-px"></div>
               <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
-                New Products
+                New Arrivals
               </h2>
               <div className="border border-transparent grow-[8] h-px"></div>
               <Link to="/products">
