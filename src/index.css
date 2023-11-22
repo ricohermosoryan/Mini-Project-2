@@ -77,6 +77,14 @@
       background: rgba(49, 49, 49, 0.8);
   }
 
+  .line-truncate {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
   .sentence-truncate {
       display: -webkit-box;
       -webkit-line-clamp: 2;
