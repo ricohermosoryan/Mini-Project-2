@@ -31,6 +31,8 @@ export default function Product() {
   // Cart Items
   const { addToCart } = useContext(CartContext);
 
+  const user_id = localStorage.getItem("_id");
+
   const { id } = useParams();
   const [data, setData] = useState({ image: [], features: [] });
   const [selectedImage, setSelectedImage] = useState();
@@ -91,7 +93,6 @@ export default function Product() {
     fetchReviews();
   }, [id]);
 
-
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await fetch(
@@ -110,34 +111,38 @@ export default function Product() {
 
   useEffect(() => {
     const fetchRelated = async () => {
-        try {
-            const response = await fetch('https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products');
-            const responseData = await response.json();
+      try {
+        const response = await fetch(
+          "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
+        );
+        const responseData = await response.json();
 
-            // Check if products is an array and not empty
-            const products = responseData.products || [];
-            const related = Array.isArray(products) && products.length > 0 ?
-                products.filter(product => {
-                    return product._id !== id && (
-                        product.category.includes(data.category[0]) ||
-                        product.subcategory.includes(data.subcategory[0])) &&
-                        product._id !== data._id;
-                }) :
-                [];
+        // Check if products is an array and not empty
+        const products = responseData.products || [];
+        const related =
+          Array.isArray(products) && products.length > 0
+            ? products.filter((product) => {
+                return (
+                  product._id !== id &&
+                  (product.category.includes(data.category[0]) ||
+                    product.subcategory.includes(data.subcategory[0])) &&
+                  product._id !== data._id
+                );
+              })
+            : [];
 
-            const shuffledRelated = shuffle(related);
+        const shuffledRelated = shuffle(related);
 
-            setRelatedProducts(shuffledRelated);
-        } catch (error) {
-            console.error('Error fetching or processing related products:', error);
-        }
-    }
+        setRelatedProducts(shuffledRelated);
+      } catch (error) {
+        console.error("Error fetching or processing related products:", error);
+      }
+    };
 
     if (data.category && data.subcategory) {
-        fetchRelated();
+      fetchRelated();
     }
-
-}, [data.category, data.subcategory, id]);
+  }, [data.category, data.subcategory, id]);
 
   return (
     <>
@@ -156,17 +161,17 @@ export default function Product() {
             <div className="my-6">
               <Breadcrumb className="truncate">
                 <Breadcrumb.Item>
-                    <Link to="/home" className="text-gray-700">Home</Link>
+                  <Link to="/home" className="text-gray-700">
+                    Home
+                  </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  <Link to="/products" className="text-gray-700">Products</Link>
+                  <Link to="/products" className="text-gray-700">
+                    Products
+                  </Link>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  {data.name && (
-                      <p className="truncate">
-                        {data.name}
-                      </p>
-                    )}
+                  {data.name && <p className="truncate">{data.name}</p>}
                 </Breadcrumb.Item>
               </Breadcrumb>
             </div>
@@ -204,10 +209,16 @@ export default function Product() {
                     {/* PRODUCT RATING */}
                     <div className="flex gap-x-4 my-2">
                       <Rating className="my-auto">
-                        <Rating.Star className="text-quantum"/>
-                        {data.rating && <p className="text-sm ml-2 font-bold ">{data.rating.rate.toFixed(2)}</p>}
+                        <Rating.Star className="text-quantum" />
+                        {data.rating && (
+                          <p className="text-sm ml-2 font-bold ">
+                            {data.rating.rate.toFixed(2)}
+                          </p>
+                        )}
                         <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
-                        {data.rating && <p className="text-sm">{data.rating.count} reviews</p>}
+                        {data.rating && (
+                          <p className="text-sm">{data.rating.count} reviews</p>
+                        )}
                       </Rating>
                     </div>
 
@@ -231,9 +242,12 @@ export default function Product() {
                     {data.price && (
                       <div className="flex gap-x-2">
                         <p className="heading text-2xl font-semibold my-2">
-                          {formatter.format(data.price - (data.price * data.discount))}
+                          {formatter.format(
+                            data.price - data.price * data.discount
+                          )}
                         </p>
-                        {data.price !== data.price - (data.price * data.discount) && (
+                        {data.price !==
+                          data.price - data.price * data.discount && (
                           <p className="heading line-through text-sm font-medium my-2">
                             {formatter.format(data.price)}
                           </p>
@@ -245,11 +259,11 @@ export default function Product() {
                       <p className="flex flex-wrap items-baseline text-sm my-2">
                         or pay up to&nbsp;
                         <span>12 monthly installments&nbsp;</span>for only&nbsp;
-                        
-                          <span className="heading text-base font-semibold">
-                            {formatter.format((data.price-(data.price*data.discount)) / 12)}
-                          </span>
-                        
+                        <span className="heading text-base font-semibold">
+                          {formatter.format(
+                            (data.price - data.price * data.discount) / 12
+                          )}
+                        </span>
                         &nbsp;with&nbsp;
                         <img src={billeaseBaselineImage} className="h-3.5" />
                         .&nbsp;
@@ -265,11 +279,11 @@ export default function Product() {
                       <p className="flex flex-wrap items-baseline text-sm my-2">
                         or pay up to&nbsp;
                         <span>3 monthly installments&nbsp;</span>for only&nbsp;
-                        
-                          <span className="heading text-base font-semibold">
-                            {formatter.format((data.price-(data.price*data.discount)) / 3)}
-                          </span>
-                        
+                        <span className="heading text-base font-semibold">
+                          {formatter.format(
+                            (data.price - data.price * data.discount) / 3
+                          )}
+                        </span>
                         &nbsp;with&nbsp;
                         <img src={atomeBaselineImage} className="h-3.5" />
                         .&nbsp;
@@ -288,7 +302,9 @@ export default function Product() {
                       </p>
                     )}
                     {data.description && (
-                      <p className="text-base text-justify">{data.description}</p>
+                      <p className="text-base text-justify">
+                        {data.description}
+                      </p>
                     )}
 
                     {/* BUY BUTTONS */}
@@ -304,9 +320,14 @@ export default function Product() {
                       >
                         Add to Cart
                       </button>
-                      <Link className="grow" to={`/checkout?total=${btoa((data.price-(data.price*data.discount))*100)}`}>
+                      <Link
+                        className="grow"
+                        to={`/checkout?total=${btoa(
+                          (data.price - data.price * data.discount) * 100
+                        )}`}
+                      >
                         <button className="w-full bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">
-                        Buy Now
+                          Buy Now
                         </button>
                       </Link>
                     </div>
@@ -415,8 +436,8 @@ export default function Product() {
                           problems with your order.
                         </p>
                         <p className="mb-2">
-                          Send us an email at customercare@quantumgalaxy.ph.
-                          You can also call/text +63 912 345-6789. We can also
+                          Send us an email at customercare@quantumgalaxy.ph. You
+                          can also call/text +63 912 345-6789. We can also
                           attend to your needs via our official social media
                           channels.
                         </p>
@@ -487,65 +508,159 @@ export default function Product() {
                       </div>
                     </Tabs.Item>
                     <Tabs.Item title="Reviews">
-                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2" >
+                      <div className="text-sm text-gray-600 dark:text-gray-400 my-4 px-2">
                         <Rating className="mb-2">
-                          {data.rating && <div>{getRatingIcons(Math.floor(data.rating.rate))}</div>}
-                          {data.rating && <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">{data.rating.rate.toFixed(2)} out of 5</p>}
+                          {data.rating && (
+                            <div>
+                              {getRatingIcons(Math.floor(data.rating.rate))}
+                            </div>
+                          )}
+                          {data.rating && (
+                            <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                              {data.rating.rate.toFixed(2)} out of 5
+                            </p>
+                          )}
                         </Rating>
-                        {data.rating && <p className="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">{data.rating.count} global ratings</p>}
-                        
-                        {data.rating &&
+                        {data.rating && (
+                          <p className="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {data.rating.count} global ratings
+                          </p>
+                        )}
+                        {user_id !== null ? (
+                          <button className="border rounded-lg bg-dark-quantum text-white px-4 py-3 mb-4">
+                            Add Rating
+                          </button>
+                        ) : (
+                          <></>
+                        )}
+                        {data.rating && (
                           <div className="mb-8">
                             <div className="flex items-center mb-2">
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">5 star</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                5 star
+                              </span>
                               <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[5] / data.rating.count) * 100}%` }}></div>
+                                <div
+                                  className="h-5 rounded bg-yellow-400"
+                                  data-testid="flowbite-rating-fill"
+                                  style={{
+                                    width: `${
+                                      (starCounts[5] / data.rating.count) * 100
+                                    }%`,
+                                  }}
+                                ></div>
                               </div>
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[5] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                {Math.round(
+                                  (starCounts[5] / data.rating.count) * 100
+                                )}
+                                %
+                              </span>
                             </div>
 
                             <div className="flex items-center mb-2">
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">4 star</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                4 star
+                              </span>
                               <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[4] / data.rating.count) * 100}%` }}></div>
+                                <div
+                                  className="h-5 rounded bg-yellow-400"
+                                  data-testid="flowbite-rating-fill"
+                                  style={{
+                                    width: `${
+                                      (starCounts[4] / data.rating.count) * 100
+                                    }%`,
+                                  }}
+                                ></div>
                               </div>
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[4] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                {Math.round(
+                                  (starCounts[4] / data.rating.count) * 100
+                                )}
+                                %
+                              </span>
                             </div>
 
                             <div className="flex items-center mb-2">
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">3 star</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                3 star
+                              </span>
                               <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[3] / data.rating.count) * 100}%` }}></div>
+                                <div
+                                  className="h-5 rounded bg-yellow-400"
+                                  data-testid="flowbite-rating-fill"
+                                  style={{
+                                    width: `${
+                                      (starCounts[3] / data.rating.count) * 100
+                                    }%`,
+                                  }}
+                                ></div>
                               </div>
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[3] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                {Math.round(
+                                  (starCounts[3] / data.rating.count) * 100
+                                )}
+                                %
+                              </span>
                             </div>
 
                             <div className="flex items-center mb-2">
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">2 star</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                2 star
+                              </span>
                               <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[2] / data.rating.count) * 100}%` }}></div>
+                                <div
+                                  className="h-5 rounded bg-yellow-400"
+                                  data-testid="flowbite-rating-fill"
+                                  style={{
+                                    width: `${
+                                      (starCounts[2] / data.rating.count) * 100
+                                    }%`,
+                                  }}
+                                ></div>
                               </div>
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[2] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                {Math.round(
+                                  (starCounts[2] / data.rating.count) * 100
+                                )}
+                                %
+                              </span>
                             </div>
 
                             <div className="flex items-center mb-2">
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">1 star</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                1 star
+                              </span>
                               <div className="mx-4 h-5 lg:w-2/4 w-4/6 rounded bg-gray-200 dark:bg-gray-700">
-                                <div className="h-5 rounded bg-yellow-400" data-testid="flowbite-rating-fill" style={{ width: `${(starCounts[1] / data.rating.count) * 100}%` }}></div>
+                                <div
+                                  className="h-5 rounded bg-yellow-400"
+                                  data-testid="flowbite-rating-fill"
+                                  style={{
+                                    width: `${
+                                      (starCounts[1] / data.rating.count) * 100
+                                    }%`,
+                                  }}
+                                ></div>
                               </div>
-                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">{Math.round((starCounts[1] / data.rating.count) * 100)}%</span>
+                              <span className="text-sm font-medium text-quantum dark:text-cyan-500">
+                                {Math.round(
+                                  (starCounts[1] / data.rating.count) * 100
+                                )}
+                                %
+                              </span>
                             </div>
-
                           </div>
-                        }
-
+                        )}
                         {productReviews.map((review) => {
                           const user = users.find(
                             (u) => u._id === review.user_id
                           );
                           if (!user) {
                             return (
-                              <div key={review._id} className="review flex my-4">
+                              <div
+                                key={review._id}
+                                className="review flex my-4"
+                              >
                                 <p className="italic">User not found</p>
                               </div>
                             );
@@ -576,10 +691,11 @@ export default function Product() {
                 </div>
 
                 <div className="my-10">
-                  <h2 className="heading text-lg font-semibold mb-4">Related Products</h2>
-                  
-                  <div className="flex gap-4 overflow-x-scroll scroll-smooth w-full">
+                  <h2 className="heading text-lg font-semibold mb-4">
+                    Related Products
+                  </h2>
 
+                  <div className="flex gap-4 overflow-x-scroll scroll-smooth w-full">
                     <div className="flex w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5">
                       {relatedProducts.slice(0, 10).map((product, i) => (
                         <motion.div
@@ -592,24 +708,39 @@ export default function Product() {
                             ease: "easeInOut",
                             duration: 1,
                           }}
-                          onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
+                          onMouseEnter={() => setHoveredItem(i)}
+                          onMouseLeave={() => setHoveredItem(null)}
                         >
                           <div className="p-4 min-w-full">
                             <Link to={`/products/${product._id}`}>
                               <div className="relative w-full">
-                                <img src={product.image[0]} className="absolute inset-0 rounded-lg w-full"
+                                <img
+                                  src={product.image[0]}
+                                  className="absolute inset-0 rounded-lg w-full"
                                   style={{
-                                    transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
-                                    transition: 'transform 0.5s ease-in',
-                                  }}/>
+                                    transform:
+                                      hoveredItem === i
+                                        ? "scale(1.1)"
+                                        : "scale(1)",
+                                    transition: "transform 0.5s ease-in",
+                                  }}
+                                />
                                 <img
                                   className="rounded-lg shadow w-full"
-                                  src={hoveredItem === i ? product.image[1] : product.image[0]}
+                                  src={
+                                    hoveredItem === i
+                                      ? product.image[1]
+                                      : product.image[0]
+                                  }
                                   alt={product.name}
                                   style={{
-                                    transform: hoveredItem === i ? 'scale(1.1)' : 'scale(1)',
+                                    transform:
+                                      hoveredItem === i
+                                        ? "scale(1.1)"
+                                        : "scale(1)",
                                     opacity: hoveredItem === i ? 1 : 0.8,
-                                    transition: 'transform 0.5s ease-in, opacity 0.3s ease-in',
+                                    transition:
+                                      "transform 0.5s ease-in, opacity 0.3s ease-in",
                                   }}
                                 />
                               </div>
@@ -617,15 +748,25 @@ export default function Product() {
                           </div>
                           <div className="min-w-full">
                             <Link to={`/products/${product._id}`}>
-                              <p className="truncate heading font-medium">{product.name}</p>
+                              <p className="truncate heading font-medium">
+                                {product.name}
+                              </p>
                             </Link>
-                            <p className="text-sm text-dark-quantum mb-2">{product.brand}</p>
+                            <p className="text-sm text-dark-quantum mb-2">
+                              {product.brand}
+                            </p>
                             <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
-                              <p className="font-semibold">{formatter.format(product.price)}</p>
+                              <p className="font-semibold">
+                                {formatter.format(product.price)}
+                              </p>
                               <div className="flex gap-x-4 my-2">
                                 <Rating className="my-auto">
-                                  <Rating.Star className="text-quantum"/>
-                                  {product.rating && <p className="text-sm ml-0.5 font-bold ">{product.rating.rate.toFixed(2)}</p>}
+                                  <Rating.Star className="text-quantum" />
+                                  {product.rating && (
+                                    <p className="text-sm ml-0.5 font-bold ">
+                                      {product.rating.rate.toFixed(2)}
+                                    </p>
+                                  )}
                                 </Rating>
                               </div>
                             </div>
@@ -647,7 +788,7 @@ export default function Product() {
                                 <img src={cart} alt="image" /> Add to Cart
                               </button>
                             </div>
-                            </div>
+                          </div>
                         </motion.div>
                       ))}
                     </div>
