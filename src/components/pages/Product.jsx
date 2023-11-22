@@ -267,9 +267,6 @@ export default function Product() {
                         onClick={() =>
                           addToCart({
                             product: data._id,
-                            // name: data.name,
-                            // price: data.price,
-                            // image: selectedImage,
                             quantity: 1,
                           })
                         }
@@ -413,21 +410,6 @@ export default function Product() {
                           other factors. Refer to your tracking number to see
                           where your package is. For unusual circumstances,
                           please contact customer service.
-                        </p>
-
-                        <p className="heading font-medium my-1">
-                          Tracking Your Item
-                        </p>
-
-                        <p className="mb-2">
-                          As a policy, as soon as we have sent your package for
-                          shipping, the tracking number will immediately be sent
-                          to you via email and SMS within 24-48 hours after
-                          checkout. You may also contact us at
-                          orders@quantumgalaxy.com if you still haven't received
-                          the tracking number. Keep your tracking number secure
-                          and private. You can also track your order thru this
-                          link: https://www.quantumgalaxy.ph/tracking
                         </p>
 
                         <p className="heading font-medium my-1">

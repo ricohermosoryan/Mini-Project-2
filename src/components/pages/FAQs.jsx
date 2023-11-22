@@ -128,7 +128,7 @@ export default function FAQs() {
       question:
         "HOW DO I TRACK MY ORDER?",
       answer:
-        "As a policy, as soon as we have sent your package for shipping, the tracking number will immediately be sent to you via email and SMS within 24-48 hours after checkout. You may also contact us at [orders@quantumgalaxy.ph](mailto:orders@quantumgalaxy.ph) if you still haven't received the tracking number. Keep your tracking number secure and private. \n\nYou can also track your order thru this link: [https://www.quantumgalaxy.ph/tracking](https://www.quantumgalaxy.ph/tracking)",
+        "As a policy, as soon as we have sent your package for shipping, the tracking number will immediately be sent to you via email and SMS within 24-48 hours after checkout. You may also contact us at [orders@quantumgalaxy.ph](mailto:orders@quantumgalaxy.ph) if you still haven't received the tracking number. Keep your tracking number secure and private.",
     },
     {
       id: 17,
