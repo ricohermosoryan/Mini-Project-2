@@ -2,17 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import phone1 from "../../assets/phone1.svg";
 import phone2 from "../../assets/phone2.svg";
 import phone3 from "../../assets/phone3.svg";
-import shape from "../../assets/figma-shape.svg";
 import iphone from "../../assets/iphones.svg";
 import playstation from "../../assets/playstation.svg";
 import accessories from "../../assets/accessories.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
+import HomeSale from "../HomeSale";
 import HomeNewProduct from "../HomeNewProduct";
 import HomeBestSellers from "../HomeBestSellers";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import dayjs from "dayjs";
 import { HiChevronRight } from "react-icons/hi";
 import amazonImage from "../../assets/brands/amazon.png";
@@ -45,39 +44,17 @@ import steelseriesImage from "../../assets/brands/steelseries.png";
 import tplinkImage from "../../assets/brands/tplink.png";
 import ugreenImage from "../../assets/brands/ugreen.png";
 import westerndigitalImage from "../../assets/brands/westerndigital.png";
+import bannerBackground1 from "../../assets/banner-background-1.svg";
 import bannerBackground2 from "../../assets/banner-background-2.svg";
 import bannerBackground3 from "../../assets/banner-background-3.svg";
 
 export default function Home() {
-  const [data, setData] = useState([]);
   const [blogs, setBlogs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [hoveredItem, setHoveredItem] = useState(null);
-
-  const itemsPerPage = 5; // Number of items per page
-  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   useEffect(() => {
     // Scroll to the top of the page when the component is mounted
     window.scrollTo(0, 0);
     const controller = new AbortController();
-
-    axios
-      .get(
-        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
-      )
-      .then((res) => {
-        // Filter products with a discount greater than 0
-        const filteredData = res.data.products.filter((product) => product.discount > 0);
-        
-        // Limit filtered data to 20 items
-        const limitedData = filteredData.slice(0, 20);
-        
-        // Set the filtered and limited data to the state
-        setData(limitedData);
-      })
-      .catch((err) => console.error(err));
 
     axios
       .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs")
@@ -88,23 +65,6 @@ export default function Home() {
 
     return controller.abort();
   }, []);
-
-  const handleChangePage = (page) => {
-    setCurrentPage(page);
-  };
-
-  const paginatedData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
-
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "PHP",
-  });
 
   const ref = useRef(null);
 
@@ -173,105 +133,33 @@ export default function Home() {
           </div>
         </div>
 
-        {/* On Sale Cards */}
-        <div className="bg-gray-900 rounded-lg mx-6 md:mx-20 lg:mx-40 mt-10 mb-20">
-          <div className=" relative text-center text-neutral-100 text-[32px] font-medium font-['Poppins'] lg:flex">
-            <img src={shape} />
-            <span className="absolute top-[40px] left-[80px] md:top-[85px] md:left-[200px] lg:top-[120px] lg:left-[100px]  text-xl md:text-2xl lg:text-3xl">
-              Quantum Products
-              <br /> On Sale
-            </span>
-            <Link to="/products">
-              <button className="absolute top-[120px] left-[150px] text-sm md:top-[200px] lg:top-[270px] md:left-[290px] lg:left-[210px] hover:underline">
-                View all
-              </button>
-            </Link>
-
-            {/* Carousel Cards */}
-            <div className="container">
-              <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-[30px]">
-                {paginatedData.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    className="aspect-square  group transition relative bg-white rounded-lg mt-6 p-2 w-[130px] md:w-[170px] lg:w-[200px]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      ease: "easeInOut",
-                      duration: 1,
-                    }}
-                    onMouseEnter={() => setHoveredItem(i)}
-                    onMouseLeave={() => setHoveredItem(null)}
+        {/* QUANTUM PRODUCTS ON SALE */}
+        <div className="container min-h-fit mx-auto my-20">
+          <div className="min-h-fit" style={{
+            backgroundImage: `url(${bannerBackground1})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}>
+            <div className="container mx-auto px-4 lg:px-8 py-4 lg:py-8 flex flex-wrap items-center justify-center">
+              <div className="w-full xl:w-1/5 grow text-center text-white">
+                <div className="heading text-center text-white text-[22px] font-semibold pb-2 md:font-semibold md:text-[27px] lg:text-[40px]">
+                  SALE! SALE! SALE!
+                </div>
+                <Link to="/products" className="w-full mx-auto">
+                  <motion.button
+                    className="px-12 py-2 bg-transparent rounded-lg justify-center items-center inline-flex"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    {/* Render your card content here */}
-                    <div className="p-4">
-                      <Link to={`/products/${item._id}`}>
-                        <div className="relative">
-                          <img
-                            src={item.image[0]}
-                            className="absolute inset-0 rounded-lg"
-                            style={{
-                              transform:
-                                hoveredItem === i ? "scale(1.1)" : "scale(1)",
-                              transition: "transform 0.5s ease-in",
-                            }}
-                          />
-                          <img
-                            src={
-                              hoveredItem === i ? item.image[1] : item.image[0]
-                            }
-                            alt={item.name}
-                            style={{
-                              transform:
-                                hoveredItem === i ? "scale(1.1)" : "scale(1)",
-                              opacity: hoveredItem === i ? 1 : 0.8,
-                              transition:
-                                "transform 0.5s ease-in, opacity 0.3s ease-in",
-                            }}
-                          />
-                        </div>
-                      </Link>
+                    <div className="text-center heading text-white text-base font-medium md:text-lg">
+                      View All
                     </div>
-                    <div className="mb-10">
-                      <p className=" text-black heading text-[9px] md:text-[13px] lg:text-[14px] text-left truncate">
-                        {item.name}
-                      </p>
-                      <p className="text-dark-quantum text-[9px] md:text-[13px] lg:text-sm text-left pt-2">
-                        {item.brand}
-                      </p>
-                    </div>
-                    <p className=" text-black text-xs text-left md:text-base lg:text-lg absolute bottom-3 left-2">
-                      {formatter.format(item.price-(item.price*item.discount))}
-                    </p>
-                  </motion.div>
-                ))}
+                  </motion.button>
+                </Link>
               </div>
-
-              {/* Arrows */}
-              <div className="mt-4 flex justify-end  items-center space-x-4 mb-5 me-5">
-                <button
-                  onClick={() =>
-                    canGoPrevious && handleChangePage(currentPage - 1)
-                  }
-                  className={`px-3 py-1 ${
-                    !canGoPrevious && "cursor-not-allowed"
-                  } bg-white rounded-full text-black px-1 py-3 hover:bg-black hover:text-white`}
-                >
-                  <span className="text-xl">
-                    <AiOutlineLeft />
-                  </span>
-                </button>
-                <button
-                  onClick={() => canGoNext && handleChangePage(currentPage + 1)}
-                  className={`px-3 py-1 ${
-                    !canGoNext && "cursor-not-allowed"
-                  } bg-white rounded-full text-black px-1 py-3 hover:bg-black hover:text-white`}
-                >
-                  <span className="text-xl">
-                    <AiOutlineRight />
-                  </span>
-                </button>
+              <div className="w-full xl:w-4/5 grow flex items-center justify-center">
+                <HomeSale />
               </div>
             </div>
           </div>
@@ -300,66 +188,36 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Subbanner 1 */}
-        <div className=" mt-10 mx-5 md:flex lg:border-emerald-200 lg:border-b lg:mx-20 ">
-          <div className="bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600 rounded-tl-lg rounded-bl-lg md:w-[60%] lg:w-[70%]">
-            <div className="text-center ms-[190px] pt-2 md:mt-[30px] lg:ms-[790px]">
-              <span className="text-neutral-950 text-[16px] md:text-[30px] lg:text-[40px] font-medium font-['Poppins']">
-                Iphone
-              </span>
-              <span className="text-neutral-100 text-[16px] md:text-[30px] lg:text-[40px] font-medium font-['Poppins']">
-                15 Series
-              </span>
-            </div>
-            <div className="flex items-end p-3 gap-4 md:mt-[8px] lg:ms-[150px]">
-              <img
-                src={iphone}
-                alt="image"
-                className="w-[200px] md:w-[290px] lg:w-[700px]"
-              />
-            </div>
-          </div>
-          <div className="mb-3 md:w-[40%] lg:w-[30%]">
-            <div className="w-[332px] h-[69px] justify-start items-start gap-4 inline-flex mt-3 ms-1 mb-3 md:ms-6 lg:mx-[100px] lg:mb-14 lg:mt-10 md:w-[270px]">
-              <div className="w-[70px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
+        {/* IPHONE 15 */}
+
+        <div className="w-full min-h-fit mx-auto my-20 text-center">
+          <div className="w-full flex flex-wrap items-center justify-center">
+            <div className="grow w-full order-2 md:order-1 md:w-1/2 2xl:w-2/3 px-8 bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600">
+              <div className="w-full py-4 md:py-8 xl:py-12 flex flex-col items-center justify-center">
+                <div className="heading text-center text-[22px] font-semibold mb-2 md:font-semibold md:text-[27px] lg:text-[40px]">
+                  <span className="text-black">iPhone&nbsp;</span><span className="text-white">15 Series</span>
                 </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
-              </div>
-              <div className="w-[71px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
-                </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
-              </div>
-              <div className="w-[67px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
-                </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
-              </div>
-              <div className="w-[65px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
-                </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
+                <img
+                  src={iphone}
+                  alt="image"
+                  className="h-full w-full 2xl:w-[700px] mx-auto"
+                />
               </div>
             </div>
-            <div className="text-center text-neutral-950 text-[32px] md:text-[25px] font-medium mb-3 lg:text-[35px]">
-              It feels good to be the first
-            </div>
-            <div className="text-zinc-800 text-2xl md:text-[20px] font-medium  leading-7 text-center md:text-left md:px-[25px] lg:text-[23px] lg:ps-[90px] lg:pt-[40px]">
-              Get ready for the future of smartphones.Experience innovation like
-              never before. Stay tuned for the big iPhone 15 pre-sale.
+            <div className="grow w-full order-1 md:order-2 md:w-1/2 2xl:w-1/3 px-8 my-4">
+              <div className="flex gap-x-4 items-center justify-center mb-8">
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br />DAYS</div>
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br />DAYS</div>
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br />DAYS</div>
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br/>DAYS</div>
+              </div>
+              <div className="heading text-[20px] text-center font-medium my-2 md:text-[22px] lg:text-[28px]">
+                It Feels Good to be the First
+              </div>
+              <div className="text-[16px] text-center font-base my-2 md:text-[18px] lg:text-[24px] px-4 md:px-12 xl:px-20">
+                Get ready for the future of smartphones. Experience innovation like
+                never before. Stay tuned for the big iPhone 15 pre-sale.
+              </div>
             </div>
           </div>
         </div>
@@ -392,11 +250,11 @@ export default function Home() {
         <div className="w-full min-h-fit mx-auto my-20 text-center">
           <div className="w-full flex flex-wrap items-center justify-center">
             <div className="grow w-full md:w-1/2 2xl:w-3/5 px-8">
-              <div className="heading text-center text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
+              <div className="heading text-center text-[22px] font-semibold my-4 md:font-semibold md:text-[27px] lg:text-[40px]">
                 Unleash the Power of the Quantum Galaxy with <br />
               PlayStation 5
               </div>
-              <div className="heading text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
+              <div className="heading text-[20px] text-center font-medium my-2 md:text-[22px] lg:text-[28px]">
                 Discover the Best Deals
                 to Elevate Your Gaming Experience
               </div>
@@ -414,7 +272,7 @@ export default function Home() {
                 />
                 <Link to="/products/6556d68eb47d6ece88210797" className="w-full ">
                   <motion.button
-                    className="px-12 py-2 bg-sky-500 rounded-lg justify-center items-center inline-flex mx-auto lg:mx-8"
+                    className="px-12 py-2 bg-[#075985] rounded-lg justify-center items-center inline-flex mx-auto lg:mx-8"
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -505,7 +363,7 @@ export default function Home() {
                   ACCESSORIES
                 </div>
                 <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
-                  Explore limitless possibilities
+                  Explore Limitless Possibilities
                 </div>
                 <Link to="/products" className="w-full mx-auto">
                   <motion.button
