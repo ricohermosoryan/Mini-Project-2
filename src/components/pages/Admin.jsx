@@ -58,9 +58,27 @@ export default function Admin() {
           prevProducts.filter((product) => product._id !== productId)
         );
         alert("Product deleted successfully");
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error deleting product", error);
+      });
+  };
+
+  const handleDeleteBlogs = (blogId) => {
+    axios
+      .delete(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs/${blogId}`
+      )
+      .then((res) => {
+        setProducts((prevProducts) =>
+          prevProducts.filter((blog) => blog._id !== blogId)
+        );
+        alert("Blog deleted successfully");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error deleting blog", error);
       });
   };
 
@@ -140,7 +158,7 @@ export default function Admin() {
               </p>
               <div className="mt-5 mb-5">
                 <div>
-                  <Link to={""}>
+                  <Link to={"/add-blogs"}>
                     <button className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium">
                       Add Blogs
                     </button>
@@ -167,7 +185,7 @@ export default function Admin() {
                           </Link>
                           <button
                             className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium"
-                            onClick={() => handleDelete(item._id)}
+                            onClick={() => handleDeleteBlogs(item._id)}
                           >
                             Delete
                           </button>
@@ -186,7 +204,7 @@ export default function Admin() {
               </p>
               <div className="mt-5 mb-5">
                 <div>
-                  <Link to={""}>
+                  <Link to={"/add-news"}>
                     <button className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium">
                       Add News
                     </button>

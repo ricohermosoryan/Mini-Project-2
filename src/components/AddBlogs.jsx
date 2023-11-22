@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useState } from "react";
 import PageTransition from "./PageTransition";
 import { Breadcrumb } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function AddProducts() {
+export default function AddBlogs() {
   const scrollPosition = window.scrollY;
   // Set the scroll position based on the condition
   if (scrollPosition === 0) {
@@ -14,33 +14,31 @@ export default function AddProducts() {
   }
 
   const history = useNavigate();
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    brand: "",
-    price: 0,
-    description: "",
-    features: [],
-    category: [],
-    subcategory: [],
-    image: [],
+  const [newBlogs, setNewBlogs] = useState({
+    title: "",
+    author: "",
+    image: "",
+    category: "",
+    tags: [],
+    summary: "",
+    content: "",
   });
 
-  const handleAddProduct = async () => {
+  const handleAddBlogs = async () => {
     try {
       await axios.post(
-        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products",
-        newProduct
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs",
+        newBlogs
       );
 
-      setNewProduct({
-        name: "",
-        brand: "",
-        price: 0,
-        description: "",
-        features: [],
-        category: [],
-        subcategory: [],
-        image: [],
+      setNewBlogs({
+        title: "",
+        author: "",
+        image: "",
+        category: "",
+        tags: [],
+        summary: "",
+        content: "",
       });
 
       alert("Product added successfully!");
@@ -52,15 +50,15 @@ export default function AddProducts() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct((prevProduct) => ({
+    setNewBlogs((prevProduct) => ({
       ...prevProduct,
       [name]: value,
     }));
   };
 
-  const handleSplitInputChange = (e) => {
+  const handleSplitTagsChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct((prevProduct) => ({
+    setNewBlogs((prevProduct) => ({
       ...prevProduct,
       [name]: value.split(","),
     }));
@@ -82,107 +80,96 @@ export default function AddProducts() {
                   Admin
                 </Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>Add Products</Breadcrumb.Item>
+              <Breadcrumb.Item>Add Blogs</Breadcrumb.Item>
             </Breadcrumb>
           </div>
         </div>
         <div className="flex justify-center">
           <div className="p-[30px] w-[600px] border rounded-lg bg-white">
-            <div className="mb-5 text-[25px] font-semibold">Add Products</div>
+            <div className="mb-5 text-[25px] font-semibold">Add Blogs</div>
             <div className=" space-y-3">
               <input
                 type="text"
-                id="name"
-                name="name"
-                value={newProduct.name}
+                id="title"
+                name="title"
+                value={newBlogs.title}
                 onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Name"
+                placeholder="Title"
                 required
               ></input>
 
               <input
                 type="text"
-                id="brand"
-                name="brand"
-                value={newProduct.brand}
+                id="author"
+                name="author"
+                value={newBlogs.author}
                 onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Brand"
+                placeholder="Author"
                 required
               ></input>
 
               <input
-                type="number"
-                id="price"
-                name="price"
-                value={newProduct.price}
+                type="text"
+                id="image"
+                name="image"
+                value={newBlogs.image}
                 onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Price"
+                placeholder="Image Link"
                 required
               ></input>
-
-              <textarea
-                id="description"
-                name="description"
-                rows="4"
-                value={newProduct.description}
-                onChange={handleInputChange}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Write your description here..."
-                required
-              ></textarea>
-
-              <textarea
-                id="features"
-                name="features"
-                rows="4"
-                value={newProduct.features.join(",")}
-                onChange={handleSplitInputChange}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Write your features here seperated by comma..."
-                required
-              ></textarea>
 
               <input
                 type="text"
                 id="category"
                 name="category"
-                value={newProduct.category}
+                value={newBlogs.category}
                 onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Category"
                 required
               ></input>
 
+              <textarea
+                id="tags"
+                name="tags"
+                rows="4"
+                value={newBlogs.tags.join(",")}
+                onChange={handleSplitTagsChange}
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Write your Tags here seperated by comma..."
+                required
+              ></textarea>
+
               <input
                 type="text"
-                id="subcategory"
-                name="subcategory"
-                value={newProduct.subcategory}
+                id="summary"
+                name="summary"
+                value={newBlogs.summary}
                 onChange={handleInputChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Subcategory"
+                placeholder="Summary"
                 required
               ></input>
 
               <textarea
-                id="image"
-                name="image"
+                id="content"
+                name="content"
                 rows="4"
-                value={newProduct.image.join(",")}
-                onChange={handleSplitInputChange}
+                value={newBlogs.content}
+                onChange={handleInputChange}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Place the 3 Images link separated by comma..."
+                placeholder="Write your content here..."
                 required
               ></textarea>
 
               <button
                 className="border rounded-lg bg-dark-quantum text-white text-[20px] font-medium px-6 py-3"
-                onClick={handleAddProduct}
+                onClick={handleAddBlogs}
               >
-                Add Product
+                Add Blogs
               </button>
             </div>
           </div>

@@ -24,6 +24,9 @@ import Admin from "../components/pages/Admin";
 import Regular from "../components/pages/Regular";
 import EditProducts from "../components/EditProducts";
 import AddProducts from "../components/AddProducts";
+import AddBlogs from "../components/AddBlogs";
+import EditBlogs from "../components/EditBlogs";
+import AddNews from "../components/AddNews";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -42,11 +45,14 @@ export default function AppRouter() {
               <Route path="/about" element={<AboutUs />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/blogs" element={<Blogs />} />
+              <Route path="/add-blogs" element={<AddBlogs />} />
+              <Route path="/edit-blog/:id" element={<EditBlogs />} />
               <Route path="/faq" element={<FAQs />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/regular" element={<Regular />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
+              <Route path="/add-news" element={<AddNews />} />
               <Route path="/news/:id" element={<NewsPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<SearchPage />} />
