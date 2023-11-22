@@ -31,8 +31,6 @@ export default function Product() {
   // Cart Items
   const { addToCart } = useContext(CartContext);
 
-  const user_id = localStorage.getItem("_id");
-
   const { id } = useParams();
   const [data, setData] = useState({ image: [], features: [] });
   const [selectedImage, setSelectedImage] = useState();
