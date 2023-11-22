@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import blogs1 from "../../assets/blogs.svg";
 import PageTransition from "../PageTransition";
 import { motion } from "framer-motion";
 import { Breadcrumb } from "flowbite-react";

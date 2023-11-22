@@ -6,7 +6,6 @@ import shape from "../../assets/figma-shape.svg";
 import iphone from "../../assets/iphones.svg";
 import ellipse from "../../assets/ellipse.svg";
 import ellipse1 from "../../assets/ellipse1.svg";
-import ellipse2 from "../../assets/ellipse2.svg";
 import playstation from "../../assets/playstation.svg";
 import accessories from "../../assets/accessories.svg";
 import axios from "axios";
