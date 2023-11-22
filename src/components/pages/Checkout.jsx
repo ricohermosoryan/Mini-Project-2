@@ -10,7 +10,7 @@ const encodedSecretKey = btoa(`${config.secretKey}`);
 
 const Checkout = () => {
   const location = useLocation();
-  const totalAmount = atob(new URLSearchParams(location.search).get('total'));
+  const totalAmount = atob(new URLSearchParams(location.search).get('order'));
 
   const [error, setError] = useState(null);
   const [checkoutUrl, setCheckoutUrl] = useState(null);

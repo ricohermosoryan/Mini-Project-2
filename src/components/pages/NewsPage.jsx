@@ -46,8 +46,8 @@ export default function NewsPage() {
                 </Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                <Link to="/blogs" className="text-gray-700">
-                  Blogs
+                <Link to="/news" className="text-gray-700">
+                  News
                 </Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
@@ -72,7 +72,7 @@ export default function NewsPage() {
                   <div className="flex flex-wrap md:flex-nowrap gap-x-10 mb-10">
                     <div className="w-full">
                       {news.url_image && (
-                        <img className="mb-8" src={news.url_image} />
+                        <img className="mb-8 mx-auto" src={news.url_image} />
                       )}
                       {news.title && (
                         <h2 className="heading text-xl text-dark-quantum font-semibold my-2">
@@ -91,17 +91,17 @@ export default function NewsPage() {
                           {dayjs(news.published_at).format("YYYY-MM-DD")}
                         </span>
                       )}
-                      {news.source && (
-                        <p className="text-sm my-1 text-quantum">
-                          {news.source}
-                        </p>
-                      )}
                       <ReactMarkdown
                         className="text-justify my-4"
                         rehypePlugins={[rehypeRaw]}
                       >
                         {news.content}
                       </ReactMarkdown>
+                      {news.source && (
+                        <p className="my-1">
+                          For more info, you can visit <Link to={news.url} target="_blank"><span className="text-quantum">{news.source}</span></Link>.
+                        </p>
+                      )}
                       <p className="my-10 italic">
                         For gadgets and electronics, get it at&nbsp;
                         <Link to="/home">
