@@ -87,19 +87,16 @@ export default function Home() {
     <>
       {/* Banner */}
       <PageTransition>
-        <div className="mt-10">
+        <div className="mt-10 mb-16">
           <div className="bg-zinc-800 flex flex-col md:flex-row justify-around items-center">
             <div className="text md:text-left">
               <div className="text-center text-quantum font-semibold heading pt-5">
                 <div className=" text-center mt-5">
-                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium heading">
-                    “Unleash the Future,{" "}
+                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-semibold heading">
+                    Unleash the Future.&nbsp;
                   </span>
-                  <span className="text-quantum text-[20px] md:text-[26px] lg:text-[32px] font-medium heading whitespace-nowrap">
-                    Go Beyond Limits
-                  </span>
-                  <span className="text-blue-200 text-[20px] md:text-[26px] lg:text-[32px] font-medium heading">
-                    ”
+                  <span className="text-quantum text-[20px] md:text-[26px] lg:text-[32px] font-semibold heading whitespace-nowrap">
+                    Go Beyond Limits.
                   </span>
                 </div>
               </div>
@@ -142,7 +139,7 @@ export default function Home() {
         </div>
 
         {/* QUANTUM PRODUCTS ON SALE */}
-        <div className="container min-h-fit mx-auto my-20">
+        <div className="container min-h-fit mx-auto my-16">
           <div className="min-h-fit" style={{
             backgroundImage: `url(${bannerBackground1})`,
             backgroundRepeat: 'no-repeat',
@@ -160,7 +157,7 @@ export default function Home() {
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <div className="text-center heading text-white text-base font-medium md:text-lg">
+                    <div className="text-center opacity-75 heading text-white text-base font-medium md:text-lg">
                       View All
                     </div>
                   </motion.button>
@@ -174,8 +171,8 @@ export default function Home() {
         </div>
 
         {/* New Product */}
-        <div className=" mx-5 lg:mx-24">
-          <div className="container mx-auto px-4 my-2">
+        <div className=" mx-5 lg:mx-24 my-16">
+          <div className="container mx-auto px-4">
             <div className="flex items-baseline border-b-2 border-quantum">
               <div className="border border-transparent grow h-px"></div>
               <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
@@ -198,7 +195,7 @@ export default function Home() {
 
         {/* IPHONE 15 */}
 
-        <div className="w-full min-h-fit mx-auto my-20 text-center">
+        <div className="w-full min-h-fit mx-auto my-16 text-center">
           <div className="w-full flex flex-wrap items-center justify-center">
             <div className="grow w-full order-2 md:order-1 md:w-1/2 2xl:w-2/3 px-8 bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600">
               <div className="w-full py-4 md:py-8 xl:py-12 flex flex-col items-center justify-center">
@@ -231,8 +228,8 @@ export default function Home() {
         </div>
 
         {/* BEST SELLERS */}
-        <div className=" mx-5 lg:mx-24 my-12">
-          <div className="container mx-auto px-4 my-2">
+        <div className=" mx-5 lg:mx-24 my-16">
+          <div className="container mx-auto px-4">
             <div className="flex items-baseline border-b-2 border-quantum">
               <div className="border border-transparent grow h-px"></div>
               <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
@@ -254,8 +251,7 @@ export default function Home() {
         </div>
 
         {/* PLAYSTATION */}
-
-        <div className="w-full min-h-fit mx-auto my-20 text-center">
+        <div className="w-full min-h-fit mx-auto my-16 text-center">
           <div className="w-full flex flex-wrap items-center justify-center">
             <div className="grow w-full md:w-1/2 2xl:w-3/5 px-8">
               <div className="heading text-center text-[22px] font-semibold my-4 md:font-semibold md:text-[27px] lg:text-[40px]">
@@ -296,8 +292,7 @@ export default function Home() {
         </div>
 
         {/* TOP BRANDS */}
-
-        <div className="container mx-auto px-4 mt-8">
+        <div className="container mx-auto px-4 mt-16">
           <div className="flex items-baseline border-b-2 border-quantum">
             <div className="border border-transparent grow h-px"></div>
             <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
@@ -311,7 +306,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="container mx-auto px-8">
+        <div className="container mx-auto px-8 mb-16">
           <div className="my-12 marquee overflow-hidden">
             <div
               className="images-left h-6 lg:h-8 flex lg:gap-x-12 gap-x-6"
@@ -360,8 +355,7 @@ export default function Home() {
         </div>
 
         {/* ACCESSORIES BANNER */}
-
-        <div className="w-full min-h-fit mx-auto my-20">
+        <div className="w-full min-h-fit mx-auto my-16">
           <div className="min-h-fit relative">
             <img src={bannerBackground3} className="min-h-full h-[550px] md:h-[400px] w-full object-cover" />
             <div className="container mx-auto px-2 flex flex-wrap items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -403,8 +397,7 @@ export default function Home() {
         </div>
 
         {/* QUANTUM BLOGS */}
-
-        <div className="container mx-auto px-4 my-2">
+        <div className="container mx-auto px-4 mt-16">
           <div className="flex items-baseline border-b-2 border-quantum">
             <div className="border border-transparent grow h-px"></div>
             <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
@@ -421,7 +414,7 @@ export default function Home() {
         </div>
 
         <motion.div
-          className="container mx-auto"
+          className="container mx-auto mb-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -477,8 +470,7 @@ export default function Home() {
         </motion.div>
 
         {/* TECH NEWS*/}
-
-        <div className="container mx-auto px-4 my-2">
+        <div className="container mx-auto px-4 mt-16">
           <div className="flex items-baseline border-b-2 border-quantum">
             <div className="border border-transparent grow h-px"></div>
             <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
@@ -495,7 +487,7 @@ export default function Home() {
         </div>
 
         <motion.div
-          className="container mx-auto"
+          className="container mx-auto mb-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
