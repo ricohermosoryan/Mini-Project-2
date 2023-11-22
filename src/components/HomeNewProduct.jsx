@@ -18,7 +18,6 @@ export default function HomeNewProduct() {
         "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       )
       .then((res) => {
-        setData(res.data.products);
         const last30Items = res.data.products.slice(-30);
         const shuffledData = shuffle(last30Items);
         setData(shuffledData);

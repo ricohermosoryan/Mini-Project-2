@@ -2,17 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import phone1 from "../../assets/phone1.svg";
 import phone2 from "../../assets/phone2.svg";
 import phone3 from "../../assets/phone3.svg";
-import shape from "../../assets/figma-shape.svg";
 import iphone from "../../assets/iphones.svg";
 import playstation from "../../assets/playstation.svg";
 import accessories from "../../assets/accessories.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
+import HomeSale from "../HomeSale";
 import HomeNewProduct from "../HomeNewProduct";
 import HomeBestSellers from "../HomeBestSellers";
 import PageTransition from "../PageTransition";
 import { Link } from "react-router-dom";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import dayjs from "dayjs";
 import { HiChevronRight } from "react-icons/hi";
 import amazonImage from "../../assets/brands/amazon.png";
@@ -45,39 +44,17 @@ import steelseriesImage from "../../assets/brands/steelseries.png";
 import tplinkImage from "../../assets/brands/tplink.png";
 import ugreenImage from "../../assets/brands/ugreen.png";
 import westerndigitalImage from "../../assets/brands/westerndigital.png";
+import bannerBackground1 from "../../assets/banner-background-1.svg";
 import bannerBackground2 from "../../assets/banner-background-2.svg";
 import bannerBackground3 from "../../assets/banner-background-3.svg";
 
 export default function Home() {
-  const [data, setData] = useState([]);
   const [blogs, setBlogs] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [hoveredItem, setHoveredItem] = useState(null);
-
-  const itemsPerPage = 5; // Number of items per page
-  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   useEffect(() => {
     // Scroll to the top of the page when the component is mounted
     window.scrollTo(0, 0);
     const controller = new AbortController();
-
-    axios
-      .get(
-        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
-      )
-      .then((res) => {
-        // Filter products with a discount greater than 0
-        const filteredData = res.data.products.filter((product) => product.discount > 0);
-        
-        // Limit filtered data to 20 items
-        const limitedData = filteredData.slice(0, 20);
-        
-        // Set the filtered and limited data to the state
-        setData(limitedData);
-      })
-      .catch((err) => console.error(err));
 
     axios
       .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs")
@@ -88,23 +65,6 @@ export default function Home() {
 
     return controller.abort();
   }, []);
-
-  const handleChangePage = (page) => {
-    setCurrentPage(page);
-  };
-
-  const paginatedData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
-
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "PHP",
-  });
 
   const ref = useRef(null);
 
@@ -173,105 +133,33 @@ export default function Home() {
           </div>
         </div>
 
-        {/* On Sale Cards */}
-        <div className="bg-gray-900 rounded-lg mx-6 md:mx-20 lg:mx-40 mt-10 mb-20">
-          <div className=" relative text-center text-neutral-100 text-[32px] font-medium font-['Poppins'] lg:flex">
-            <img src={shape} />
-            <span className="absolute top-[40px] left-[80px] md:top-[85px] md:left-[200px] lg:top-[120px] lg:left-[100px]  text-xl md:text-2xl lg:text-3xl">
-              Quantum Products
-              <br /> On Sale
-            </span>
-            <Link to="/products">
-              <button className="absolute top-[120px] left-[150px] text-sm md:top-[200px] lg:top-[270px] md:left-[290px] lg:left-[210px] hover:underline">
-                View all
-              </button>
-            </Link>
-
-            {/* Carousel Cards */}
-            <div className="container">
-              <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:ms-5 lg:ms-[-10px] mx-[30px]">
-                {paginatedData.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    className="aspect-square  group transition relative bg-white rounded-lg mt-6 p-2 w-[130px] md:w-[170px] lg:w-[200px]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      ease: "easeInOut",
-                      duration: 1,
-                    }}
-                    onMouseEnter={() => setHoveredItem(i)}
-                    onMouseLeave={() => setHoveredItem(null)}
+        {/* QUANTUM PRODUCTS ON SALE */}
+        <div className="container min-h-fit mx-auto my-20">
+          <div className="min-h-fit" style={{
+            backgroundImage: `url(${bannerBackground1})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}>
+            <div className="container mx-auto px-4 lg:px-8 py-4 lg:py-8 flex flex-wrap items-center justify-center">
+              <div className="w-full xl:w-1/5 grow text-center text-white">
+                <div className="heading text-center text-white text-[22px] font-semibold pb-2 md:font-semibold md:text-[27px] lg:text-[40px]">
+                  SALE! SALE! SALE!
+                </div>
+                <Link to="/products" className="w-full mx-auto">
+                  <motion.button
+                    className="px-12 py-2 bg-transparent rounded-lg justify-center items-center inline-flex"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    {/* Render your card content here */}
-                    <div className="p-4">
-                      <Link to={`/products/${item._id}`}>
-                        <div className="relative">
-                          <img
-                            src={item.image[0]}
-                            className="absolute inset-0 rounded-lg"
-                            style={{
-                              transform:
-                                hoveredItem === i ? "scale(1.1)" : "scale(1)",
-                              transition: "transform 0.5s ease-in",
-                            }}
-                          />
-                          <img
-                            src={
-                              hoveredItem === i ? item.image[1] : item.image[0]
-                            }
-                            alt={item.name}
-                            style={{
-                              transform:
-                                hoveredItem === i ? "scale(1.1)" : "scale(1)",
-                              opacity: hoveredItem === i ? 1 : 0.8,
-                              transition:
-                                "transform 0.5s ease-in, opacity 0.3s ease-in",
-                            }}
-                          />
-                        </div>
-                      </Link>
+                    <div className="text-center heading text-white text-base font-medium md:text-lg">
+                      View All
                     </div>
-                    <div className="mb-10">
-                      <p className=" text-black heading text-[9px] md:text-[13px] lg:text-[14px] text-left truncate">
-                        {item.name}
-                      </p>
-                      <p className="text-dark-quantum text-[9px] md:text-[13px] lg:text-sm text-left pt-2">
-                        {item.brand}
-                      </p>
-                    </div>
-                    <p className=" text-black text-xs text-left md:text-base lg:text-lg absolute bottom-3 left-2">
-                      {formatter.format(item.price-(item.price*item.discount))}
-                    </p>
-                  </motion.div>
-                ))}
+                  </motion.button>
+                </Link>
               </div>
-
-              {/* Arrows */}
-              <div className="mt-4 flex justify-end  items-center space-x-4 mb-5 me-5">
-                <button
-                  onClick={() =>
-                    canGoPrevious && handleChangePage(currentPage - 1)
-                  }
-                  className={`px-3 py-1 ${
-                    !canGoPrevious && "cursor-not-allowed"
-                  } bg-white rounded-full text-black px-1 py-3 hover:bg-black hover:text-white`}
-                >
-                  <span className="text-xl">
-                    <AiOutlineLeft />
-                  </span>
-                </button>
-                <button
-                  onClick={() => canGoNext && handleChangePage(currentPage + 1)}
-                  className={`px-3 py-1 ${
-                    !canGoNext && "cursor-not-allowed"
-                  } bg-white rounded-full text-black px-1 py-3 hover:bg-black hover:text-white`}
-                >
-                  <span className="text-xl">
-                    <AiOutlineRight />
-                  </span>
-                </button>
+              <div className="w-full xl:w-4/5 grow flex items-center justify-center">
+                <HomeSale />
               </div>
             </div>
           </div>
