@@ -54,7 +54,7 @@ export default function AppRouter() {
               <Route path="/edit-blog/:id" element={<EditBlogs />} />
               <Route path="/faq" element={<FAQs />} />
               <Route path="/admin" element={<Admin />} />
-              <Route path="/regular" element={<Regular />} />
+              <Route path="/dashboard" element={<Regular />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
               <Route path="/add-news" element={<AddNews />} />
