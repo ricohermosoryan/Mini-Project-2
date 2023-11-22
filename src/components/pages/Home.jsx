@@ -48,6 +48,7 @@ import steelseriesImage from "../../assets/brands/steelseries.png";
 import tplinkImage from "../../assets/brands/tplink.png";
 import ugreenImage from "../../assets/brands/ugreen.png";
 import westerndigitalImage from "../../assets/brands/westerndigital.png";
+import bannerBackground3 from "../../assets/banner-background-3.svg";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -496,45 +497,44 @@ export default function Home() {
           </div>
         </div>
 
-        <div className=" mx-5 lg:mx-24 my-12">
-          {/* Accesorries banner */}
-          <div className=" my-12 lg:my-24 lg:mx-32">
-            <div className="relative bg-slate-800 rounded-lg md:flex">
-              <div className="text md:w-[50%] md:ms-[60px] md:mt-[70px]">
+        {/* ACCESSORIES BANNER */}
+
+        <div className="w-full min-h-fit mx-auto my-20">
+          <div className="min-h-fit relative">
+            <img src={bannerBackground3} className="min-h-full h-[550px] md:h-[400px] w-full object-cover" />
+            <div className="container mx-auto px-2 flex flex-wrap items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full md:w-1/2 grow text-center text-white">
                 <div className="heading text-center text-white text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
                   QUANTUM <br />
                   ACCESSORIES
                 </div>
-                <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px] lg:pt-10">
+                <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
                   Explore limitless possibilities
                 </div>
-                <Link to="/products">
+                <Link to="/products" className="w-full mx-auto">
                   <motion.button
-                    className="w-[110px] h-[30px] px-4 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex ms-[110px] md:ms-[80px] md:h-[34px] md:w-[130px] lg:w-[200px] lg:h-[40px] lg:ms-[250px] lg:mt-[40px]"
+                    className="px-4 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex md:h-[34px] md:w-[130px] lg:w-[200px] lg:h-[40px]"
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <div className="text-center text-slate-800 text-base font-normal md:text-lg">
+                    <div className="text-center heading text-slate-800 text-base font-normal md:text-lg">
                       View All
                     </div>
                   </motion.button>
                 </Link>
               </div>
-              <div className="image h-[370px] md:h-[341px] lg:h-[450px]">
-                <img
-                  src={ellipse2}
-                  alt="ellipse"
-                  className="w-[250px] h-[370px] ms-[85px] md:ms-[87px] md:h-[342px] lg:h-[450px] lg:w-[400px] lg:ms-[276px]"
-                />
-                <motion.img
-                  src={accessories}
-                  alt="image"
-                  className="my-[-260px] md:w-[370px] md:my-[-290px] lg:w-[500px] lg:my-[-390px]"
-                  initial={{ y: 0, opacity: 1 }}
-                  animate={{ y: [0, 10, 0], opacity: [1, 1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
+              <div className="w-full md:w-1/2 grow flex items-center justify-center">
+                <div className="image">
+                  <motion.img
+                    src={accessories}
+                    alt="image"
+                    className="md:w-[370px] lg:w-[500px]"
+                    initial={{ y: 0, opacity: 1 }}
+                    animate={{ y: [0, 10, 0], opacity: [1, 1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </div>
               </div>
             </div>
           </div>
