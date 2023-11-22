@@ -22,6 +22,8 @@ import NewsPage from "../components/pages/NewsPage";
 import Checkout from "../components/pages/Checkout";
 import Admin from "../components/pages/Admin";
 import Regular from "../components/pages/Regular";
+import EditProducts from "../components/EditProducts";
+import AddProducts from "../components/AddProducts";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -34,6 +36,8 @@ export default function AppRouter() {
               <Route path="*" element={<Home />} />
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<Product />} />
+              <Route path="/add-product" element={<AddProducts />} />
+              <Route path="/edit-product/:id" element={<EditProducts />} />
               <Route path="/blogs/:id" element={<Blog />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/reviews" element={<Reviews />} />
