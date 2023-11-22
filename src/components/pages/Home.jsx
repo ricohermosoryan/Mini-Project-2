@@ -300,66 +300,36 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Subbanner 1 */}
-        <div className=" mt-10 mx-5 md:flex lg:border-emerald-200 lg:border-b lg:mx-20 ">
-          <div className="bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600 rounded-tl-lg rounded-bl-lg md:w-[60%] lg:w-[70%]">
-            <div className="text-center ms-[190px] pt-2 md:mt-[30px] lg:ms-[790px]">
-              <span className="text-neutral-950 text-[16px] md:text-[30px] lg:text-[40px] font-medium font-['Poppins']">
-                Iphone
-              </span>
-              <span className="text-neutral-100 text-[16px] md:text-[30px] lg:text-[40px] font-medium font-['Poppins']">
-                15 Series
-              </span>
-            </div>
-            <div className="flex items-end p-3 gap-4 md:mt-[8px] lg:ms-[150px]">
-              <img
-                src={iphone}
-                alt="image"
-                className="w-[200px] md:w-[290px] lg:w-[700px]"
-              />
-            </div>
-          </div>
-          <div className="mb-3 md:w-[40%] lg:w-[30%]">
-            <div className="w-[332px] h-[69px] justify-start items-start gap-4 inline-flex mt-3 ms-1 mb-3 md:ms-6 lg:mx-[100px] lg:mb-14 lg:mt-10 md:w-[270px]">
-              <div className="w-[70px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
+        {/* IPHONE 15 */}
+
+        <div className="w-full min-h-fit mx-auto my-20 text-center">
+          <div className="w-full flex flex-wrap items-center justify-center">
+            <div className="grow w-full order-2 md:order-1 md:w-1/2 2xl:w-2/3 px-8 bg-gradient-to-l from-emerald-200 via-cyan-500 to-sky-600">
+              <div className="w-full py-4 md:py-8 xl:py-12 flex flex-col items-center justify-center">
+                <div className="heading text-center text-[22px] font-semibold mb-2 md:font-semibold md:text-[27px] lg:text-[40px]">
+                  <span className="text-black">iPhone&nbsp;</span><span className="text-white">15 Series</span>
                 </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
-              </div>
-              <div className="w-[71px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
-                </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
-              </div>
-              <div className="w-[67px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
-                </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
-              </div>
-              <div className="w-[65px] h-[69px] md:w-[50px] md:h-[50px] lg:w-[80px] lg:h-[80px] px-2 py-1 rounded-lg border border-neutral-950 flex-col justify-start items-center gap-0.5 inline-flex lg:gap-3 lg:pt-3">
-                <div className="self-stretch text-center text-neutral-950 text-base md:text-[15px] font-medium lg:text-[30px]">
-                  8
-                </div>
-                <div className="self-stretch text-center text-neutral-950 text-sm md:text-[13px] font-light lg:text-[20px]">
-                  Days
-                </div>
+                <img
+                  src={iphone}
+                  alt="image"
+                  className="h-full w-full 2xl:w-[700px] mx-auto"
+                />
               </div>
             </div>
-            <div className="text-center text-neutral-950 text-[32px] md:text-[25px] font-medium mb-3 lg:text-[35px]">
-              It feels good to be the first
-            </div>
-            <div className="text-zinc-800 text-2xl md:text-[20px] font-medium  leading-7 text-center md:text-left md:px-[25px] lg:text-[23px] lg:ps-[90px] lg:pt-[40px]">
-              Get ready for the future of smartphones.Experience innovation like
-              never before. Stay tuned for the big iPhone 15 pre-sale.
+            <div className="grow w-full order-1 md:order-2 md:w-1/2 2xl:w-1/3 px-8 my-4">
+              <div className="flex gap-x-4 items-center justify-center mb-8">
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br />DAYS</div>
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br />DAYS</div>
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br />DAYS</div>
+                <div className="text-center text-md md:text-lg lg:text-xl font-semibold px-2 py-3 border border-black rounded-lg"><span className="font-bold text-lg md:text-xl lg:text-2xl">8</span><br/>DAYS</div>
+              </div>
+              <div className="heading text-[20px] text-center font-medium my-2 md:text-[22px] lg:text-[28px]">
+                It Feels Good to be the First
+              </div>
+              <div className="text-[16px] text-center font-base my-2 md:text-[18px] lg:text-[24px] px-4 md:px-12 xl:px-20">
+                Get ready for the future of smartphones. Experience innovation like
+                never before. Stay tuned for the big iPhone 15 pre-sale.
+              </div>
             </div>
           </div>
         </div>
@@ -392,11 +362,11 @@ export default function Home() {
         <div className="w-full min-h-fit mx-auto my-20 text-center">
           <div className="w-full flex flex-wrap items-center justify-center">
             <div className="grow w-full md:w-1/2 2xl:w-3/5 px-8">
-              <div className="heading text-center text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
+              <div className="heading text-center text-[22px] font-semibold my-4 md:font-semibold md:text-[27px] lg:text-[40px]">
                 Unleash the Power of the Quantum Galaxy with <br />
               PlayStation 5
               </div>
-              <div className="heading text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
+              <div className="heading text-[20px] text-center font-medium my-2 md:text-[22px] lg:text-[28px]">
                 Discover the Best Deals
                 to Elevate Your Gaming Experience
               </div>
@@ -414,7 +384,7 @@ export default function Home() {
                 />
                 <Link to="/products/6556d68eb47d6ece88210797" className="w-full ">
                   <motion.button
-                    className="px-12 py-2 bg-sky-500 rounded-lg justify-center items-center inline-flex mx-auto lg:mx-8"
+                    className="px-12 py-2 bg-[#075985] rounded-lg justify-center items-center inline-flex mx-auto lg:mx-8"
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -505,7 +475,7 @@ export default function Home() {
                   ACCESSORIES
                 </div>
                 <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
-                  Explore limitless possibilities
+                  Explore Limitless Possibilities
                 </div>
                 <Link to="/products" className="w-full mx-auto">
                   <motion.button
