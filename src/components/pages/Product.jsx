@@ -11,6 +11,7 @@ import speedyTruckImage from "../../assets/speedytruck.svg";
 import shieldImage from "../../assets/shield.svg";
 import alertImage from "../../assets/alert.svg";
 import atomeImage from "../../assets/atome.svg";
+import atomeBaselineImage from "../../assets/atome-baseline.svg";
 import billeaseImage from "../../assets/billease.svg";
 import billeaseBaselineImage from "../../assets/billease-baseline.svg";
 import gcashImage from "../../assets/gcash.svg";
@@ -228,27 +229,57 @@ export default function Product() {
 
                     {/* PRODUCT PRICE */}
                     {data.price && (
-                      <p className="heading text-2xl font-semibold my-2">
-                        {formatter.format(data.price-(data.price*data.discount))}
+                      <div className="flex gap-x-2">
+                        <p className="heading text-2xl font-semibold my-2">
+                          {formatter.format(data.price - (data.price * data.discount))}
+                        </p>
+                        {data.price !== data.price - (data.price * data.discount) && (
+                          <p className="heading line-through text-sm font-medium my-2">
+                            {formatter.format(data.price)}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {data.price >= 2000 && data.price <= 40000 && (
+                      <p className="flex flex-wrap items-baseline text-sm my-2">
+                        or pay up to&nbsp;
+                        <span>12 monthly installments&nbsp;</span>for only&nbsp;
+                        
+                          <span className="heading text-base font-semibold">
+                            {formatter.format((data.price-(data.price*data.discount)) / 12)}
+                          </span>
+                        
+                        &nbsp;with&nbsp;
+                        <img src={billeaseBaselineImage} className="h-3.5" />
+                        .&nbsp;
+                        <span className="text-quantum underline">
+                          <a href="https://billease.ph/" target="_blank">
+                            Learn More.
+                          </a>
+                        </span>
                       </p>
                     )}
-                    <p className="flex flex-wrap items-baseline text-sm my-2">
-                      or pay up to&nbsp;
-                      <span>12 monthly installments&nbsp;</span>for only&nbsp;
-                      {data.price && (
-                        <span className="heading text-base font-semibold">
-                          {formatter.format((data.price-(data.price*data.discount)) / 12)}
+
+                    {data.price >= 100 && data.price <= 2000 && (
+                      <p className="flex flex-wrap items-baseline text-sm my-2">
+                        or pay up to&nbsp;
+                        <span>3 monthly installments&nbsp;</span>for only&nbsp;
+                        
+                          <span className="heading text-base font-semibold">
+                            {formatter.format((data.price-(data.price*data.discount)) / 3)}
+                          </span>
+                        
+                        &nbsp;with&nbsp;
+                        <img src={atomeBaselineImage} className="h-3.5" />
+                        .&nbsp;
+                        <span className="text-quantum underline">
+                          <a href="https://www.atome.ph/" target="_blank">
+                            Learn More.
+                          </a>
                         </span>
-                      )}
-                      &nbsp;with&nbsp;
-                      <img src={billeaseBaselineImage} className="w-16" />
-                      .&nbsp;
-                      <span className="text-quantum underline">
-                        <a href="https://billease.ph/" target="_blank">
-                          Learn More.
-                        </a>
-                      </span>
-                    </p>
+                      </p>
+                    )}
 
                     {/* PRODUCT DETAILS */}
                     {data.brand && (

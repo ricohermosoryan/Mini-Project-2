@@ -69,7 +69,13 @@ export default function Home() {
         "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/products"
       )
       .then((res) => {
-        const limitedData = res.data.products.slice(0, 20); // Limit data to 20 items
+        // Filter products with a discount greater than 0
+        const filteredData = res.data.products.filter((product) => product.discount > 0);
+        
+        // Limit filtered data to 10 items
+        const limitedData = filteredData.slice(0, 10);
+        
+        // Set the filtered and limited data to the state
         setData(limitedData);
       })
       .catch((err) => console.error(err));
