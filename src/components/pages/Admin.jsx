@@ -71,14 +71,46 @@ export default function Admin() {
         `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs/${blogId}`
       )
       .then((res) => {
-        setProducts((prevProducts) =>
-          prevProducts.filter((blog) => blog._id !== blogId)
+        setBlogs((prevBlogs) =>
+          prevBlogs.filter((blog) => blog._id !== blogId)
         );
         alert("Blog deleted successfully");
         window.location.reload();
       })
       .catch((error) => {
         console.error("Error deleting blog", error);
+      });
+  };
+
+  const handleDeleteNews = (newsId) => {
+    axios
+      .delete(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/news/${newsId}`
+      )
+      .then((res) => {
+        setNews((prevNews) => prevNews.filter((news) => news._id !== newsId));
+        alert("News deleted successfully");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error deleting news", error);
+      });
+  };
+
+  const handleDeleteUsers = (userId) => {
+    axios
+      .delete(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/${userId}`
+      )
+      .then((res) => {
+        setUsers((prevUsers) =>
+          prevUsers.filter((user) => user._id !== userId)
+        );
+        alert("User deleted successfully");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error deleting user", error);
       });
   };
 
@@ -229,7 +261,7 @@ export default function Admin() {
                           </Link>
                           <button
                             className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium"
-                            onClick={() => handleDelete(item._id)}
+                            onClick={() => handleDeleteNews(item._id)}
                           >
                             Delete
                           </button>
@@ -248,7 +280,7 @@ export default function Admin() {
               </p>
               <div className="mt-5 mb-5">
                 <div>
-                  <Link to={""}>
+                  <Link to={"/add-user"}>
                     <button className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium">
                       Add Users
                     </button>
@@ -266,14 +298,14 @@ export default function Admin() {
                           {item.first_name} {item.last_name}
                         </p>
                         <div>
-                          <Link to={`/edit-users/${item._id}`}>
+                          <Link to={`/edit-user/${item._id}`}>
                             <button className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium">
                               Edit
                             </button>
                           </Link>
                           <button
                             className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium"
-                            onClick={() => handleDelete(item._id)}
+                            onClick={() => handleDeleteUsers(item._id)}
                           >
                             Delete
                           </button>

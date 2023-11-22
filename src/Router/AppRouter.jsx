@@ -27,6 +27,9 @@ import AddProducts from "../components/AddProducts";
 import AddBlogs from "../components/AddBlogs";
 import EditBlogs from "../components/EditBlogs";
 import AddNews from "../components/AddNews";
+import EditNews from "../components/EditNews";
+import AddUser from "../components/AddUser";
+import EditUser from "../components/EditUser";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -37,6 +40,8 @@ export default function AppRouter() {
           <Routes location={location} key={location.pathname}>
             <Route element={<NavbarTemplate />}>
               <Route path="*" element={<Home />} />
+              <Route path="/add-user" element={<AddUser />} />
+              <Route path="/edit-user/:id" element={<EditUser />} />
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<Product />} />
               <Route path="/add-product" element={<AddProducts />} />
@@ -53,6 +58,7 @@ export default function AppRouter() {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/news" element={<News />} />
               <Route path="/add-news" element={<AddNews />} />
+              <Route path="/edit-news/:id" element={<EditNews />} />
               <Route path="/news/:id" element={<NewsPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<SearchPage />} />
