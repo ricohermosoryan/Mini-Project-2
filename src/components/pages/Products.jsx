@@ -308,7 +308,7 @@ export default function Products() {
                     </p>
                     <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
                       <p className="font-semibold">
-                        {formatter.format(item.price)}
+                        {formatter.format(item.price-(item.price*item.discount))}
                       </p>
                       <div className="flex gap-x-4 my-2">
                         <Rating className="my-auto">

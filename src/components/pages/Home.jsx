@@ -201,7 +201,7 @@ export default function Home() {
                   >
                     {/* Render your card content here */}
                     <div className="p-4">
-                      <Link to={`${item._id}`}>
+                      <Link to={`/products/${item._id}`}>
                         <div className="relative">
                           <img
                             src={item.image[0]}
@@ -237,7 +237,7 @@ export default function Home() {
                       </p>
                     </div>
                     <p className=" text-black text-xs text-left md:text-base lg:text-lg absolute bottom-3 left-2">
-                      {formatter.format(item.price)}
+                      {formatter.format(item.price-(item.price*item.discount))}
                     </p>
                   </motion.div>
                 ))}
@@ -411,7 +411,7 @@ export default function Home() {
               className="mt-[-90px] ms-[150px] lg:mt-[-260px] lg:w-[300px] lg:ms-[190px]"
             />
 
-            <Link to="/products/43">
+            <Link to="/products/6556d68eb47d6ece88210797">
               <motion.button
                 className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
                 whileHover={{ scale: 1.2 }}

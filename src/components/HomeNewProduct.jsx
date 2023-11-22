@@ -45,7 +45,7 @@ export default function HomeNewProduct() {
             onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
             <div className="p-4">
-              <Link to={`${item._id}`}>
+              <Link to={`/products/${item._id}`}>
                 <div className="relative">
                   <img src={item.image[0]} className="absolute inset-0 rounded-lg"
                     style={{
@@ -66,12 +66,12 @@ export default function HomeNewProduct() {
               </Link>
             </div>
             <div>
-              <Link to={`${item._id}`}>
+              <Link to={`/products/${item._id}`}>
                 <p className="truncate heading font-medium">{item.name}</p>
               </Link>
               <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
               <div className="flex items-center justify-between py-2 transition-all duration-200">
-                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <p className="font-semibold">{formatter.format(item.price-(item.price*item.discount))}</p>
                 <div className="flex gap-x-4 my-2">
                   <Rating className="my-auto">
                     <Rating.Star className="text-quantum"/>
@@ -99,7 +99,7 @@ export default function HomeNewProduct() {
             onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
             <div className="p-4">
-              <Link to={`${item._id}`}>
+              <Link to={`/products/${item._id}`}>
                 <div className="relative">
                   <img src={item.image[0]} className="absolute inset-0 rounded-lg"
                     style={{
@@ -120,12 +120,12 @@ export default function HomeNewProduct() {
               </Link>
             </div>
             <div>
-              <Link to={`${item._id}`}>
+              <Link to={`/products/${item._id}`}>
                 <p className="truncate heading font-medium">{item.name}</p>
               </Link>
               <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
               <div className="flex items-center justify-between py-2 transition-all duration-200">
-                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <p className="font-semibold">{formatter.format(item.price-(item.price*item.discount))}</p>
                 <div className="flex gap-x-4 my-2">
                   <Rating className="my-auto">
                     <Rating.Star className="text-quantum"/>
@@ -153,7 +153,7 @@ export default function HomeNewProduct() {
             onMouseEnter={() => setHoveredItem(i)} onMouseLeave={() => setHoveredItem(null)}
           >
             <div className="p-4">
-              <Link to={`${item._id}`}>
+              <Link to={`/products/${item._id}`}>
                 <div className="relative">
                   <img src={item.image[0]} className="absolute inset-0 rounded-lg"
                     style={{
@@ -174,12 +174,12 @@ export default function HomeNewProduct() {
               </Link>
             </div>
             <div>
-              <Link to={`${item._id}`}>
+              <Link to={`/products/${item._id}`}>
                 <p className="truncate heading font-medium">{item.name}</p>
               </Link>
               <p className="text-sm text-dark-quantum mb-2">{item.brand}</p>
               <div className="flex items-center justify-between py-2 transition-all duration-200">
-                <p className="font-semibold">{formatter.format(item.price)}</p>
+                <p className="font-semibold">{formatter.format(item.price-(item.price*item.discount))}</p>
                 <div className="flex gap-x-4 my-2">
                   <Rating className="my-auto">
                     <Rating.Star className="text-quantum"/>

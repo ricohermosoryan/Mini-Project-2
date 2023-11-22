@@ -229,7 +229,7 @@ export default function Product() {
                     {/* PRODUCT PRICE */}
                     {data.price && (
                       <p className="heading text-2xl font-semibold my-2">
-                        {formatter.format(data.price)}
+                        {formatter.format(data.price-(data.price*data.discount))}
                       </p>
                     )}
                     <p className="flex flex-wrap items-baseline text-sm my-2">
@@ -237,7 +237,7 @@ export default function Product() {
                       <span>12 monthly installments&nbsp;</span>for only&nbsp;
                       {data.price && (
                         <span className="heading text-base font-semibold">
-                          {formatter.format(data.price / 12)}
+                          {formatter.format((data.price-(data.price*data.discount)) / 12)}
                         </span>
                       )}
                       &nbsp;with&nbsp;
@@ -276,7 +276,7 @@ export default function Product() {
                       >
                         Add to Cart
                       </button>
-                      <Link className="grow" to={`/checkout?total=${btoa(data.price*100)}`}>
+                      <Link className="grow" to={`/checkout?total=${btoa((data.price-(data.price*data.discount))*100)}`}>
                         <button className="w-full bg-quantum rounded-lg p-3.5 text-white border-2 border-transparent heading text-lg hover:bg-dark-quantum">
                         Buy Now
                         </button>
