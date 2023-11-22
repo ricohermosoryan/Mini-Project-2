@@ -50,6 +50,7 @@ import bannerBackground3 from "../../assets/banner-background-3.svg";
 
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     // Scroll to the top of the page when the component is mounted
@@ -60,6 +61,13 @@ export default function Home() {
       .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/blogs")
       .then((res) => {
         setBlogs(res.data.blogs);
+      })
+      .catch((err) => console.error(err));
+    
+    axios
+      .get("https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/news")
+      .then((res) => {
+        setNews(res.data.news);
       })
       .catch((err) => console.error(err));
 
@@ -424,7 +432,7 @@ export default function Home() {
         >
           <div className="mx-auto sm:px-4 md:px-8 lg:px-12 my-4 flex flex-row flex-wrap">
             {blogs
-              .slice(0, 4)
+              .slice(-4)
               .reverse()
               .map((item, i) => (
                 <div
@@ -461,6 +469,72 @@ export default function Home() {
                           .map((tag) => tag.replace(/ /g, "_"))
                           .join(" #")}
                       </span>
+                    </p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </motion.div>
+
+        {/* TECH NEWS*/}
+
+        <div className="container mx-auto px-4 my-2">
+          <div className="flex items-baseline border-b-2 border-quantum">
+            <div className="border border-transparent grow h-px"></div>
+            <h2 className="heading text-xl text-dark-quantum max-w-fit p-2">
+              Tech News
+            </h2>
+            <div className="border border-transparent grow-[8] h-px"></div>
+            <Link to="/news">
+              <p className="text-sm text-dark-quantum max-w-fit p-2 flex items-center gap-x-2 hover:text-quantum">
+                View All <HiChevronRight />
+              </p>
+            </Link>
+            <div className="border border-transparent grow h-px"></div>
+          </div>
+        </div>
+
+        <motion.div
+          className="container mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            ease: "easeInOut",
+            duration: 1,
+          }}
+        >
+          <div className="mx-auto sm:px-4 md:px-8 lg:px-12 my-4 flex flex-row flex-wrap">
+            {news
+              .slice(-4)
+              .reverse()
+              .map((item, i) => (
+                <div
+                  key={i}
+                  className="flex flex-wrap w-full xl:w-1/2 my-4 px-4"
+                >
+                  <Link
+                    to={`/news/${item._id}`}
+                    className="w-full aspect-[2/1] md:w-2/5 lg:h-full shadow "
+                  >
+                    <img
+                      src={item.url_image}
+                      className="h-full object-cover w-full"
+                    />
+                  </Link>
+                  <div className="w-full md:w-3/5 shadow ">
+                    <Link to={`/news/${item._id}`}>
+                      <p className="truncate mx-3 mt-2 heading text-lg font-medium">
+                        {item.title}
+                      </p>
+                    </Link>
+                    <p className="truncate mx-3 text-sm italic">
+                      on {dayjs(item.published_at).format("YYYY-MM-DD")} by{" "}
+                      {item.author}
+                    </p>
+                    <p className="truncate mx-3 text-xs">{item.source}</p>
+                    <p className="mx-3 my-2 text-base paragraph-truncate">
+                      {item.description}
                     </p>
                   </div>
                 </div>
