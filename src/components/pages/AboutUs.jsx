@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import about from "../../assets/about.svg";
 import { motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { Breadcrumb } from "flowbite-react";

@@ -4,9 +4,6 @@ import phone2 from "../../assets/phone2.svg";
 import phone3 from "../../assets/phone3.svg";
 import shape from "../../assets/figma-shape.svg";
 import iphone from "../../assets/iphones.svg";
-import ellipse from "../../assets/ellipse.svg";
-import ellipse1 from "../../assets/ellipse1.svg";
-import ellipse2 from "../../assets/ellipse2.svg";
 import playstation from "../../assets/playstation.svg";
 import accessories from "../../assets/accessories.svg";
 import axios from "axios";
@@ -48,6 +45,8 @@ import steelseriesImage from "../../assets/brands/steelseries.png";
 import tplinkImage from "../../assets/brands/tplink.png";
 import ugreenImage from "../../assets/brands/ugreen.png";
 import westerndigitalImage from "../../assets/brands/westerndigital.png";
+import bannerBackground2 from "../../assets/banner-background-2.svg";
+import bannerBackground3 from "../../assets/banner-background-3.svg";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -388,47 +387,45 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Subbanner2 */}
-        <div className="mb-[90px] md:flex mt-10 lg:mx-20 md:mx-5 lg:border-b lg:border-b-blue-200 lg:h-[425px]">
-          <div className="Text mt-10 mx-[5px] md:w-[50%] lg:w-[70%] md:mt-1 ">
-            <div className=" text-center text-black text-[32px] font-medium lg:mt-[90px]">
-              Unleash the Power of the Quantum Galaxy with <br />
-              PlayStation 5: <br />
-              <div className=" text-black text-2xl font-normal mt-5 lg:mt-[50px]">
-                Discover the Best Deals to Elevate Your Gaming Experience to
-                Stellar Heights!
-              </div>
-            </div>
-          </div>
-          <div className="image mx-[5px] mt-[120px] md:w-[50%] lg:w-[30%]">
-            <div className=" text-blue-200 text-[20px] font-medium ms-[120px] my-[-70px] lg:ms-[180px] lg:text-[26px]">
-              Play Station 5
-            </div>
-            <div className="bg-sky-800 rounded-tl-[1px] rounded-tr-lg rounded-bl-[1px] rounded-br-lg lg:h-[363px]">
-              <img src={ellipse} alt="image" />
-              <img src={ellipse1} alt="image" className="lg:w-[520px]" />
-              <div className=" text-sky-800 text-[16px] font-medium my-[-120px] ms-[20px] lg:my-[-170px] lg:text-[21px] lg:ms-[30px]">
-                Digital Edition + 2TB
-              </div>
-            </div>
-            <img
-              src={playstation}
-              alt="image"
-              className="mt-[-90px] ms-[150px] lg:mt-[-260px] lg:w-[300px] lg:ms-[190px]"
-            />
+        {/* PLAYSTATION */}
 
-            <Link to="/products/6556d68eb47d6ece88210797">
-              <motion.button
-                className="w-[148px] h-[46px] px-4 py-2 bg-sky-500 rounded-lg justify-center items-center gap-2 inline-flex ms-[20px] mt-[-50px]"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <div className="text-center text-neutral-100 text-base font-normal">
-                  Buy Now
+        <div className="w-full min-h-fit mx-auto my-20 text-center">
+          <div className="w-full flex flex-wrap items-center justify-center">
+            <div className="grow w-full md:w-1/2 2xl:w-3/5 px-8">
+              <div className="heading text-center text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
+                Unleash the Power of the Quantum Galaxy with <br />
+              PlayStation 5
+              </div>
+              <div className="heading text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
+                Discover the Best Deals
+                to Elevate Your Gaming Experience
+              </div>
+            </div>
+            <div className="grow w-full md:w-1/2 2xl:w-2/5 relative">
+              <img src={bannerBackground2} className="min-h-full h-[450px] lg:h-[500px] w-full object-cover" />
+              <div className="absolute w-full mx-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="heading text-center text-white text-[22px] font-semibold md:font-semibold md:text-[27px] lg:text-[40px]">
+                  PLAYSTATION 5
                 </div>
-              </motion.button>
-            </Link>
+                <img
+                  src={playstation}
+                  alt="PlayStation 5"
+                  className="w-96 mx-auto my-4 px-2"
+                />
+                <Link to="/products/6556d68eb47d6ece88210797" className="w-full ">
+                  <motion.button
+                    className="px-12 py-2 bg-sky-500 rounded-lg justify-center items-center inline-flex mx-auto lg:mx-8"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <div className="text-center heading text-neutral-100 text-base font-medium md:text-lg">
+                      Buy Now
+                    </div>
+                  </motion.button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -496,45 +493,44 @@ export default function Home() {
           </div>
         </div>
 
-        <div className=" mx-5 lg:mx-24 my-12">
-          {/* Accesorries banner */}
-          <div className=" my-12 lg:my-24 lg:mx-32">
-            <div className="relative bg-slate-800 rounded-lg md:flex">
-              <div className="text md:w-[50%] md:ms-[60px] md:mt-[70px]">
+        {/* ACCESSORIES BANNER */}
+
+        <div className="w-full min-h-fit mx-auto my-20">
+          <div className="min-h-fit relative">
+            <img src={bannerBackground3} className="min-h-full h-[550px] md:h-[400px] w-full object-cover" />
+            <div className="container mx-auto px-2 flex flex-wrap items-center justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div className="w-full md:w-1/2 grow text-center text-white">
                 <div className="heading text-center text-white text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
                   QUANTUM <br />
                   ACCESSORIES
                 </div>
-                <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px] lg:pt-10">
+                <div className="heading text-white text-[20px] text-center font-medium pt-3 pb-5 md:text-[22px] lg:text-[28px]">
                   Explore limitless possibilities
                 </div>
-                <Link to="/products">
+                <Link to="/products" className="w-full mx-auto">
                   <motion.button
-                    className="w-[110px] h-[30px] px-4 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex ms-[110px] md:ms-[80px] md:h-[34px] md:w-[130px] lg:w-[200px] lg:h-[40px] lg:ms-[250px] lg:mt-[40px]"
+                    className="px-12 py-2 bg-emerald-200 rounded-lg justify-center items-center inline-flex"
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <div className="text-center text-slate-800 text-base font-normal md:text-lg">
+                    <div className="text-center heading text-slate-800 text-base font-medium md:text-lg">
                       View All
                     </div>
                   </motion.button>
                 </Link>
               </div>
-              <div className="image h-[370px] md:h-[341px] lg:h-[450px]">
-                <img
-                  src={ellipse2}
-                  alt="ellipse"
-                  className="w-[250px] h-[370px] ms-[85px] md:ms-[87px] md:h-[342px] lg:h-[450px] lg:w-[400px] lg:ms-[276px]"
-                />
-                <motion.img
-                  src={accessories}
-                  alt="image"
-                  className="my-[-260px] md:w-[370px] md:my-[-290px] lg:w-[500px] lg:my-[-390px]"
-                  initial={{ y: 0, opacity: 1 }}
-                  animate={{ y: [0, 10, 0], opacity: [1, 1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
+              <div className="w-full md:w-1/2 grow flex items-center justify-center">
+                <div className="image">
+                  <motion.img
+                    src={accessories}
+                    alt="image"
+                    className="md:w-[370px] lg:w-[500px]"
+                    initial={{ y: 0, opacity: 1 }}
+                    animate={{ y: [0, 10, 0], opacity: [1, 1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </div>
               </div>
             </div>
           </div>

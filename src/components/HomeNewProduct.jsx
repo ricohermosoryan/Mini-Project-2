@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Rating } from "flowbite-react";
+import { shuffle } from "lodash";
 
 export default function HomeNewProduct() {
   const [data, setData] = useState([]);
@@ -18,6 +19,9 @@ export default function HomeNewProduct() {
       )
       .then((res) => {
         setData(res.data.products);
+        const last30Items = res.data.products.slice(-30);
+        const shuffledData = shuffle(last30Items);
+        setData(shuffledData);
       })
       .catch((err) => console.error(err));
 
@@ -28,10 +32,11 @@ export default function HomeNewProduct() {
     style: "currency",
     currency: "PHP",
   });
+  
   return (
     <>
       <div className="w-full hidden lg:grid grid-cols-5 mx-4">
-        {data.slice(0, data.length/2).reverse().slice(0, 5).map((item, i) => (
+        {data.slice(0, 5).map((item, i) => (
           <motion.div
             key={i}
             className="aspect-square mx-3 group transition relative"
@@ -88,7 +93,7 @@ export default function HomeNewProduct() {
       </div>
 
       <div className="w-full hidden md:grid lg:hidden grid-cols-3 mx-2">
-        {data.slice(0, data.length/2).reverse().slice(0, 3).map((item, i) => (
+        {data.slice(0, 3).map((item, i) => (
           <motion.div
             key={i}
             className="aspect-square mx-3 group transition relative"
@@ -145,7 +150,7 @@ export default function HomeNewProduct() {
       </div>
 
       <div className="w-full grid md:hidden grid-cols-2 mx-1">
-        {data.slice(0, data.length/2).reverse().slice(0, 2).map((item, i) => (
+        {data.slice(0, 2).map((item, i) => (
           <motion.div
             key={i}
             className="aspect-square mx-2 group transition relative"

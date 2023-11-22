@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import news from "../../assets/news.svg";
 import PageTransition from "../PageTransition";
 import axios from "axios";
 import dayjs from "dayjs";
-import newsIcon from "../../assets/newsicon.svg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "flowbite-react";

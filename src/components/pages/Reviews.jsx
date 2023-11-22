@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import reviews from "../../assets/reviews.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { Breadcrumb, Rating } from "flowbite-react";

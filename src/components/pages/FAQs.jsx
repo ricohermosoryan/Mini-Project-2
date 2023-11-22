@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect } from "react";
-import banner from "../../assets/FAQs.svg";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { Breadcrumb, Accordion } from "flowbite-react";
