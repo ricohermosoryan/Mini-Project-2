@@ -93,6 +93,8 @@ export default function Product() {
     fetchReviews();
   }, [id]);
 
+  const user_id = localStorage.getItem("_id");
+
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await fetch(
@@ -267,7 +269,7 @@ export default function Product() {
                         &nbsp;with&nbsp;
                         <img src={billeaseBaselineImage} className="h-3.5" />
                         .&nbsp;
-                        <span className="text-quantum underline">
+                        <span className="text-quantum underline hover:text-dark-quantum">
                           <a href="https://billease.ph/" target="_blank">
                             Learn More.
                           </a>
@@ -287,7 +289,7 @@ export default function Product() {
                         &nbsp;with&nbsp;
                         <img src={atomeBaselineImage} className="h-3.5" />
                         .&nbsp;
-                        <span className="text-quantum underline">
+                        <span className="text-quantum underline hover:text-dark-quantum">
                           <a href="https://www.atome.ph/" target="_blank">
                             Learn More.
                           </a>
@@ -298,7 +300,8 @@ export default function Product() {
                     {/* PRODUCT DETAILS */}
                     {data.brand && (
                       <p className="text-base my-1">
-                        Brand: <em>{data.brand}</em>
+                        Brand:{" "}
+                        <em className="text-dark-quantum">{data.brand}</em>
                       </p>
                     )}
                     {data.description && (
