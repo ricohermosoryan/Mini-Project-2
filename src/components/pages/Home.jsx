@@ -391,7 +391,7 @@ export default function Home() {
 
         <div className="w-full min-h-fit mx-auto my-20 text-center">
           <div className="w-full flex flex-wrap items-center justify-center">
-            <div className="grow w-full md:w-1/2 2xl:w-2/3 px-8">
+            <div className="grow w-full md:w-1/2 2xl:w-3/5 px-8">
               <div className="heading text-center text-[22px] font-semibold pt-5 md:font-semibold md:text-[27px] lg:text-[40px]">
                 Unleash the Power of the Quantum Galaxy with <br />
               PlayStation 5
@@ -401,7 +401,7 @@ export default function Home() {
                 to Elevate Your Gaming Experience
               </div>
             </div>
-            <div className="grow w-full md:w-1/2 2xl:w-1/3 relative">
+            <div className="grow w-full md:w-1/2 2xl:w-2/5 relative">
               <img src={bannerBackground2} className="min-h-full h-[450px] lg:h-[500px] w-full object-cover" />
               <div className="absolute w-full mx-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="heading text-center text-white text-[22px] font-semibold md:font-semibold md:text-[27px] lg:text-[40px]">
