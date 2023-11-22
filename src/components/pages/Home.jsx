@@ -201,7 +201,7 @@ export default function Home() {
                   >
                     {/* Render your card content here */}
                     <div className="p-4">
-                      <Link to={`${item.id}`}>
+                      <Link to={`${item._id}`}>
                         <div className="relative">
                           <img
                             src={item.image[0]}
@@ -216,7 +216,7 @@ export default function Home() {
                             src={
                               hoveredItem === i ? item.image[1] : item.image[0]
                             }
-                            alt={item.title}
+                            alt={item.name}
                             style={{
                               transform:
                                 hoveredItem === i ? "scale(1.1)" : "scale(1)",
@@ -230,7 +230,7 @@ export default function Home() {
                     </div>
                     <div className="mb-10">
                       <p className=" text-black heading text-[9px] md:text-[13px] lg:text-[14px] text-left truncate">
-                        {item.title}
+                        {item.name}
                       </p>
                       <p className="text-dark-quantum text-[9px] md:text-[13px] lg:text-sm text-left pt-2">
                         {item.brand}
@@ -583,7 +583,7 @@ export default function Home() {
                   <div className="w-full md:w-3/5 shadow ">
                     <Link to={`/blogs/${item._id}`}>
                       <p className="truncate mx-3 mt-2 heading text-lg font-medium">
-                        {item.title}
+                        {item.name}
                       </p>
                     </Link>
                     <p className="truncate mx-3 text-sm italic">
