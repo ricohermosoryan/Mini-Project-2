@@ -16,8 +16,6 @@ import keyImage from "../assets/key.svg";
 import smsImage from "../assets/sms.svg";
 import eyeSlashImage from "../assets/eye-slash.svg";
 import eyeImage from "../assets/eye.svg";
-import facebookLoginImage from "../assets/facebook-login.svg";
-import googleLoginImage from "../assets/google-login.svg";
 import Hamburger from "./Hamburger";
 import Search from "./Search";
 import Cart from "./Cart";
@@ -612,8 +610,8 @@ export default function Navbar() {
                                 <li>Admin Dashboard</li>
                               </Link>
                             ) : (
-                              <Link to={"/regular"}>
-                                <li>Account Profile</li>
+                              <Link to={"/dashboard"}>
+                                <li>Dashboard</li>
                               </Link>
                             )}
                             <li>
@@ -920,26 +918,6 @@ export default function Navbar() {
                       {registerErrors.password}
                     </p>
                   )}
-
-                  <div className="my-4">
-                    <label
-                      htmlFor="register-lastname"
-                      className="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Image
-                    </label>
-                    <div className="flex border rounded-lg px-3 py-3">
-                      <FaRegImage className="w-6 h-6 mr-1 aspect-square text-[#bcbcbc]" />
-                      <input
-                        type="text"
-                        placeholder="Image"
-                        name="image"
-                        id="image"
-                        className="grow bg-transparent text-sm p-0 m-0 border-none outline-none focus:ring-0 focus:border-none"
-                        onInput={(e) => setRegisterImage(e.target.value)}
-                      />
-                    </div>
-                  </div>
 
                   <div className="my-4 px-3 flex items-center">
                     <input
