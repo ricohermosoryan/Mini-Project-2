@@ -297,6 +297,12 @@ export default function Admin() {
                         <p className="text-[20px] font-semibold truncate">
                           {item.first_name} {item.last_name}
                         </p>
+                        <p className="text-[20px] font-semibold truncate">
+                          {item.email}
+                        </p>
+                        <p className="text-[20px] font-semibold truncate">
+                          {item.role}
+                        </p>
                         <div>
                           <Link to={`/edit-user/${item._id}`}>
                             <button className="border rounded-lg bg-dark-quantum px-6 py-3 text-white text-[20px] font-medium">
