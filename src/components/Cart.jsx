@@ -100,7 +100,7 @@ export default function Cart() {
               </div>
             </div>
 
-            <div className="container mx-auto">
+            <div className="container mx-auto min-h-screen">
               {productDetails.length > 0 ? (
                 <div className="grid grid-cols-1 gap-4 p-2 lg:p-4 mx-auto">
                   {productDetails.map((product, index) => (
