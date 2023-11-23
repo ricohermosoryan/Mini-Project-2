@@ -350,15 +350,10 @@ export default function Product() {
                       <button
                         className="grow bg-transparent rounded-lg p-3.5 text-quantum border-2 border-quantum heading text-lg hover:text-dark-quantum hover:border-dark-quantum"
                         onClick={() =>
-                          user_id !== null
-                            ? addToCart({
-                                product: data._id,
-                                // name: item.name,
-                                // price: item.price,
-                                // image: item.image[0],
-                                quantity: 1,
-                              })
-                            : alert("Please login your account")
+                          addToCart({
+                            product: data._id,
+                            quantity: 1,
+                          })
                         }
                       >
                         Add to Cart

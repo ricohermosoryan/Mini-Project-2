@@ -337,15 +337,13 @@ export default function Products() {
                       <button
                         className="flex gap-2 p-3 font-semibold"
                         onClick={() =>
-                          user_id !== null
-                            ? addToCart({
-                                product: item._id,
-                                // name: item.name,
-                                // price: item.price,
-                                // image: item.image[0],
-                                quantity: 1,
-                              })
-                            : alert("Please login your account")
+                          addToCart({
+                            product: item._id,
+                            // name: item.name,
+                            // price: item.price,
+                            // image: item.image[0],
+                            quantity: 1,
+                          })
                         }
                       >
                         <img src={cart} alt="image" /> Add to Cart
