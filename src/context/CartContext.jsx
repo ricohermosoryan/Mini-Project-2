@@ -82,12 +82,22 @@ export function CartProvider({ children }) {
 
   const addToCart = (product) => {
     try {
-      const newCart = [...items, product];
-      setItems(newCart); // Update cart in local state
+      const existingItemIndex = items.findIndex((item) => item.product === product.product);
+      if (existingItemIndex !== -1) {
+        // If the product already exists in the cart, update its quantity
+        const newCart = [...items];
+        newCart[existingItemIndex].quantity += product.quantity; // Update quantity
 
-      localStorage.setItem("cart", JSON.stringify(newCart)); // Update cart in localStorage
-
-      updateCartOnServer(newCart); // Sync cart with the server
+        setItems(newCart); // Update cart in local state
+        localStorage.setItem("cart", JSON.stringify(newCart)); // Update cart in localStorage
+        updateCartOnServer(newCart); // Sync cart with the server
+      } else {
+        // If the product is not in the cart, add it as a new item
+        const newCart = [...items, product];
+        setItems(newCart); // Update cart in local state
+        localStorage.setItem("cart", JSON.stringify(newCart)); // Update cart in localStorage
+        updateCartOnServer(newCart); // Sync cart with the server
+      }
     } catch (error) {
       console.error("Error adding to cart:", error);
       // Handle error - Display an error message or perform necessary actions
