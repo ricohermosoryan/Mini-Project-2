@@ -21,20 +21,23 @@ export function CartProvider({ children }) {
   const fetchCartData = async () => {
     try {
       const user_id = localStorage.getItem("_id");
-      if (user_id) { // Check if user is logged in
-        const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`);
+      if (user_id) {
+        // Check if user is logged in
+        const response = await fetch(
+          `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/cart/${user_id}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch cart data.");
         }
-  
+
         const { cart } = await response.json();
-  
+
         // Transform the fetched API cart data to match the localStorage structure
-        const transformedCart = cart.map(item => ({
+        const transformedCart = cart.map((item) => ({
           product: item.product.id,
-          quantity: item.quantity
+          quantity: item.quantity,
         }));
-  
+
         setItems(transformedCart);
       }
     } catch (error) {
@@ -54,14 +57,17 @@ export function CartProvider({ children }) {
       }
 
       const requestOptions = {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ cart: updatedCart }),
       };
 
-      const response = await fetch(`https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/${user_id}`, requestOptions);
+      const response = await fetch(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/users/${user_id}`,
+        requestOptions
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update cart on the server.");
@@ -146,7 +152,7 @@ export function CartProvider({ children }) {
     } catch (error) {
       console.error("Error decrementing quantity:", error);
       // Handle error - Display an error message or perform necessary actions
-    }    
+    }
   };
 
   return (

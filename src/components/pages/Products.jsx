@@ -43,6 +43,8 @@ export default function Products() {
 
   const [showFilter, setShowFilter] = useState(false);
 
+  const user_id = localStorage.getItem("_id");
+
   // Sorting state
   const [sortType, setSortType] = useState("none"); // Default is no sorting
   const sortFunctions = {
@@ -295,7 +297,10 @@ export default function Products() {
                           }}
                         />
                         {item.discount > 0 && (
-                          <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-2">{item.discount*100}%<br />OFF</div>
+                          <div className="absolute top-1 left-1 bg-quantum text-white font-bold text-sm text-center leading-none rounded-full p-2">
+                            {item.discount * 100}%<br />
+                            OFF
+                          </div>
                         )}
                       </div>
                     </Link>
@@ -311,7 +316,9 @@ export default function Products() {
                     </p>
                     <div className="flex items-center justify-between py-2 opacity-100 group-hover:opacity-0 transition-all duration-200">
                       <p className="font-semibold">
-                        {formatter.format(item.price-(item.price*item.discount))}
+                        {formatter.format(
+                          item.price - item.price * item.discount
+                        )}
                       </p>
                       <div className="flex gap-x-4 my-2">
                         <Rating className="my-auto">
@@ -330,13 +337,15 @@ export default function Products() {
                       <button
                         className="flex gap-2 p-3 font-semibold"
                         onClick={() =>
-                          addToCart({
-                            product: item._id,
-                            // name: item.name,
-                            // price: item.price,
-                            // image: item.image[0],
-                            quantity: 1,
-                          })
+                          user_id !== null
+                            ? addToCart({
+                                product: item._id,
+                                // name: item.name,
+                                // price: item.price,
+                                // image: item.image[0],
+                                quantity: 1,
+                              })
+                            : alert("Please login your account")
                         }
                       >
                         <img src={cart} alt="image" /> Add to Cart
