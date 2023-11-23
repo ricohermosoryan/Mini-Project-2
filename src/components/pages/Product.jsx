@@ -42,6 +42,7 @@ export default function Product() {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cycle, setCycle] = useCycle(false, true);
+  const [showAddRatingButton, setShowAddRatingButton] = useState(true);
 
   const [starCounts, setStarCounts] = useState({
     1: 0,
@@ -111,6 +112,32 @@ export default function Product() {
     return controller.abort();
   }, []);
 
+  // Fetch transactions based on user and product IDs
+  const fetchTransactions = async () => {
+    try {
+      const response = await fetch(
+        `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/transactions`
+      );
+      const data = await response.json();
+      
+      // Check if there's a transaction with the user ID and current product ID
+      const matchingTransaction = data.transactions.find(
+        (transaction) =>
+          transaction.user_id === user_id &&
+          transaction.products.some((prod) => prod.product_id === data._id)
+      );
+
+      if (matchingTransaction) {
+        console.log('Matching transaction ID:', matchingTransaction.transaction_id);
+      }
+
+      return matchingTransaction; // Returns matching transaction or undefined
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      return undefined;
+    }
+  };
+
   useEffect(() => {
     const fetchReviews = async () => {
       const response = await fetch(
@@ -129,6 +156,41 @@ export default function Product() {
 
     fetchReviews();
   }, [id]);
+
+  useEffect(() => {
+    const fetchUserTransactionsAndReviews = async () => {
+      const transaction = await fetchTransactions();
+
+      const fetchReviews = async () => {
+        const response = await fetch(
+          `https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/reviews/products/${id}`
+        );
+        const data = await response.json();
+        setProductReviews(data.reviews);
+      };
+
+      await fetchReviews(); // Fetch reviews for the current product
+
+      // Check if there's a transaction and existing review by the user
+      const hasTransaction = transaction !== undefined;
+      const userHasReview = productReviews.some((review) => review.user_id === user_id);
+
+      // Use these conditions to determine the display of "Add Rating" or "Edit Review" button
+      if (hasTransaction && !userHasReview) {
+        // Display "Add Rating" button
+        setShowAddRatingButton(true);
+      } else if (hasTransaction && userHasReview) {
+        // Display "Edit Review" button
+        setShowAddRatingButton(false);
+      } else {
+        // Do not display "Add Rating" or "Edit Review" button
+        setShowAddRatingButton(false);
+      }
+    };
+
+    // Trigger the function when the component mounts or user_id changes
+    fetchUserTransactionsAndReviews();
+  }, [user_id, id, fetchTransactions, setProductReviews]); // Include fetchTransactions and setProductReviews in the dependency array
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -360,7 +422,7 @@ export default function Product() {
                       </button>
                       <Link
                         className="grow"
-                        to={`/checkout?total=${btoa(
+                        to={`/checkout?order=${btoa(
                           (data.price - data.price * data.discount) * 100
                         )}`}
                       >
@@ -567,8 +629,10 @@ export default function Product() {
                         {user_id !== null ? (
                           <div>
                             <button
+                              id="addRatingButton"
                               className="border rounded-lg bg-dark-quantum text-white px-4 py-3 mb-4"
-                              animate={cycle ? "open" : "closed"}
+                              // style={{ display: showAddRatingButton ? 'block' : 'none' }}
+                              animate={cycle ? 'open' : 'closed'}
                               onClick={() => setCycle()}
                             >
                               Add Rating
