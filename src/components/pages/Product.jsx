@@ -19,7 +19,7 @@ import mastercardImage from "../../assets/mastercard.svg";
 import mayaImage from "../../assets/maya.svg";
 import visaImage from "../../assets/visa.svg";
 import { Breadcrumb, Rating, Tabs } from "flowbite-react";
-import { motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion, useCycle } from "framer-motion";
 import PageTransition from "../PageTransition";
 import { getRatingIcons } from "./Reviews";
 import { useContext } from "react";
@@ -31,6 +31,8 @@ export default function Product() {
   // Cart Items
   const { addToCart } = useContext(CartContext);
 
+  const user_id = localStorage.getItem("_id");
+
   const { id } = useParams();
   const [data, setData] = useState({ image: [], features: [] });
   const [selectedImage, setSelectedImage] = useState();
@@ -39,6 +41,7 @@ export default function Product() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cycle, setCycle] = useCycle(false, true);
 
   const [starCounts, setStarCounts] = useState({
     1: 0,
@@ -47,6 +50,42 @@ export default function Product() {
     4: 0,
     5: 0,
   });
+
+  const [productRating, setProductRating] = useState({
+    product_id: id,
+    user_id: user_id,
+    rating: 0,
+    comment: "",
+  });
+
+  const addRatings = async () => {
+    try {
+      await axios.post(
+        "https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/reviews",
+        productRating
+      );
+
+      setProductRating({
+        product_id: id,
+        user_id: user_id,
+        rating: 0,
+        comment: "",
+      });
+
+      alert("Rating added successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error("Add rating error:", error.response.data);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProductRating((prevRating) => ({
+      ...prevRating,
+      [name]: value,
+    }));
+  };
 
   useEffect(() => {
     const scrollPosition = window.scrollY;
@@ -90,8 +129,6 @@ export default function Product() {
 
     fetchReviews();
   }, [id]);
-
-  const user_id = localStorage.getItem("_id");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -528,9 +565,79 @@ export default function Product() {
                           </p>
                         )}
                         {user_id !== null ? (
-                          <button className="border rounded-lg bg-dark-quantum text-white px-4 py-3 mb-4">
-                            Add Rating
-                          </button>
+                          <div>
+                            <button
+                              className="border rounded-lg bg-dark-quantum text-white px-4 py-3 mb-4"
+                              animate={cycle ? "open" : "closed"}
+                              onClick={() => setCycle()}
+                            >
+                              Add Rating
+                            </button>
+                            <AnimatePresence>
+                              {cycle && (
+                                <MotionConfig
+                                  transition={{
+                                    type: "spring",
+                                    bounce: 0.25,
+                                  }}
+                                >
+                                  <motion.div
+                                    className="fixed top-[30%] right-[40%] mx-auto"
+                                    variants={{
+                                      open: {
+                                        y: "20%",
+                                        transition: {
+                                          type: "spring",
+                                          bounce: 0.35,
+                                        },
+                                      },
+                                      closed: {
+                                        y: "-1400%",
+                                        transition: {
+                                          type: "spring",
+                                          bounce: 0.25,
+                                        },
+                                      },
+                                    }}
+                                    initial="closed"
+                                    animate="open"
+                                    exit="closed"
+                                  >
+                                    <div className="border px-3 py-2 rounded-lg w-[350px] bg-white space-y-3">
+                                      <div>Rate</div>
+                                      <input
+                                        type="number"
+                                        id="rating"
+                                        name="rating"
+                                        value={productRating.rating}
+                                        onChange={handleInputChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Rate the product from 1 to 5"
+                                        required
+                                      ></input>
+
+                                      <textarea
+                                        id="comment"
+                                        name="comment"
+                                        rows="4"
+                                        value={productRating.comment}
+                                        onChange={handleInputChange}
+                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Write your comment here..."
+                                        required
+                                      ></textarea>
+                                      <button
+                                        className="border rounded-lg bg-dark-quantum text-white px-4 py-3"
+                                        onClick={addRatings}
+                                      >
+                                        Submit
+                                      </button>
+                                    </div>
+                                  </motion.div>
+                                </MotionConfig>
+                              )}
+                            </AnimatePresence>
+                          </div>
                         ) : (
                           <></>
                         )}
