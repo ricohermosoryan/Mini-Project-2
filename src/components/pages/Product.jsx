@@ -352,7 +352,7 @@ export default function Product() {
                         onClick={() =>
                           user_id !== null
                             ? addToCart({
-                                product: item._id,
+                                product: data._id,
                                 // name: item.name,
                                 // price: item.price,
                                 // image: item.image[0],
