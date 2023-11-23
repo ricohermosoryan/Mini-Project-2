@@ -63,6 +63,17 @@ export default function Cart() {
     fetchProductDetails();
   }, [items]);
 
+  const handleRemoveFromCart = (index) => {
+    // Call removeFromCart function
+    removeFromCart(index);
+
+    // Check if it's the last item in the cart
+    if (items.length === 1) {
+      // Reset productDetails state to an empty array when the last item is removed
+      resetProductDetails(setProductDetails);
+    }
+  };
+
   const handleRemoveAllFromCart = () => {
     removeAllFromCart();
     setProductDetails([]); // Reset productDetails state to an empty array when all items are removed
@@ -77,6 +88,78 @@ export default function Cart() {
       }
       return total;
     }, 0);
+  };
+
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    try {
+      setCheckoutLoading(true);
+
+      // Remove any existing transaction from localStorage
+      localStorage.removeItem('transaction');
+
+      const user_id = localStorage.getItem("_id"); // Get user ID from localStorage
+
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || []; // Get cart items from localStorage
+
+      const products = cartItems.map(item => ({
+        product_id: item.product,
+        quantity: item.quantity,
+      }));
+
+      // Get unit price from already fetched product details
+      const transactionDetails = products.map((product) => {
+        const foundProduct = productDetails.find((p) => p._id === product.product_id);
+
+        if (foundProduct) {
+          return {
+            ...product,
+            unit_price: foundProduct.price - (foundProduct.price * foundProduct.discount),
+          };
+        }
+
+        throw new Error('Product details not found.'); // Handle if product details are missing
+      });
+
+      // Calculate total amount
+      const total_amount = transactionDetails.reduce((total, item) => total + (item.unit_price * item.quantity), 0);
+
+      const requestBody = {
+        type: 'purchase',
+        user_id,
+        products: transactionDetails,
+        total_amount,
+      };
+
+      // Save the full request on localStorage as 'transaction'
+      localStorage.setItem('transaction', JSON.stringify(requestBody));
+
+      // Send the request to the backend API
+      const response = await fetch('https://cupmvawskf.execute-api.ap-southeast-2.amazonaws.com/transactions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        // Handle successful transaction creation
+        // For example, you may want to clear the cart or navigate to a thank you page
+        handleRemoveAllFromCart(); // Clear the cart after successful checkout
+        // Optionally perform other actions upon successful checkout
+      } else {
+        // Handle unsuccessful transaction creation
+        // For example, display an error message to the user
+      }
+
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      // Handle error - Display an error message or perform necessary actions
+    } finally {
+      setCheckoutLoading(false);
+    }
   };
 
   return (
@@ -124,7 +207,7 @@ export default function Cart() {
                           <p className="font-semibold">{formatter.format(product.price-(product.price*product.discount))}</p>
                         </div>
                         <div className=" flex justify-start gap-3">
-                          <button onClick={() => removeFromCart(index)}>
+                          <button onClick={() => handleRemoveFromCart(index)}>
                             <img
                               src={trash}
                               alt="image"
@@ -164,8 +247,12 @@ export default function Cart() {
               </div>
               <div className="w-full flex flex-wrap gap-y-2 lg:w-1/2 grow px-8 ">
                 <Link to={`/checkout?order=${btoa(calculateTotal() * 100)}`} className="w-full grow md:w-2/5 mx-2 border rounded-lg hover:bg-dark-quantum text-white px-4 py-3 text-center heading bg-quantum">
-                  <button className="">
-                    Checkout
+                  <button
+                    className=""
+                    onClick={handleCheckout}
+                    disabled={checkoutLoading || productDetails.length === 0}
+                  >
+                    {checkoutLoading ? 'Processing...' : 'Checkout'}
                   </button>
                 </Link>
                 <button
