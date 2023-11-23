@@ -325,6 +325,7 @@ export default function Navbar() {
       localStorage.removeItem("role");
       localStorage.removeItem("image");
       localStorage.removeItem("cart");
+      localStorage.removeItem("transaction");
       setUser(false);
 
       history("/home");
